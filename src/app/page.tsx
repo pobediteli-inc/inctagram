@@ -45,6 +45,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <div>Привет, команда!</div>
       </main>
       <footer className={styles.footer}>
         <a
