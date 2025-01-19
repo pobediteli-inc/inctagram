@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:production": "yarn build",
     "start": "next start",
     "lint": "next lint",
     "stylelint:css": "stylelint '**/*.{css,scss}'",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "echo \"test will be added later\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
