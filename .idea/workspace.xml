@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="392e3990-4ea7-4ccf-98e5-840421915f39" name="Changes" comment="Remove 'build/' directory from .eslintignore">
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    <list default="true" id="392e3990-4ea7-4ccf-98e5-840421915f39" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,31 +15,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;umedjankabiri&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/pobediteli-inc/inctagram.git&quot;,
-    &quot;accountId&quot;: &quot;d50f9857-f119-4c46-b2fa-afbd23cc97a0&quot;
-  }
-}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
   <component name="ProjectId" id="2rg05dcavdw3VSkFroEj1HkL4JQ" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,31 +30,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "ts.external.directory.path": "D:\\it-incubator\\frontend\\inctagram\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "D:\\study\\0-inctagram\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\it-incubator\frontend\inctagram" />
-    </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.222" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -88,108 +48,10 @@
       <option name="presentableId" value="Default" />
       <updated>1736965229483</updated>
       <workItem from="1736965231590" duration="2263000" />
-      <workItem from="1737206424587" duration="2010000" />
-      <workItem from="1737290025398" duration="7199000" />
     </task>
-    <task id="LOCAL-00001" summary="Add .prettierrc configuration file">
-      <option name="closed" value="true" />
-      <created>1737294250826</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294250826</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add Stylelint configuration files, for css/scss">
-      <option name="closed" value="true" />
-      <created>1737294306366</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294306366</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Refactor ESLint configuration to use flat config format, add .eslintignore file">
-      <option name="closed" value="true" />
-      <created>1737294405558</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294405558</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Add initial Storybook configuration for Next.js project">
-      <option name="closed" value="true" />
-      <created>1737294425780</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294425780</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Add Jest configuration file for tests">
-      <option name="closed" value="true" />
-      <created>1737294471952</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294471952</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Add storybook log files to .gitignore">
-      <option name="closed" value="true" />
-      <created>1737294495492</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294495492</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update pnpm-lock.yaml to lockfileVersion 9.0">
-      <option name="closed" value="true" />
-      <created>1737294543077</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294543077</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Add Storybook and stylelint configurations">
-      <option name="closed" value="true" />
-      <created>1737294561392</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294561392</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Add &quot;node&quot; and &quot;jest&quot; to TypeScript types configuration">
-      <option name="closed" value="true" />
-      <created>1737294647216</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294647216</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Remove 'build/' directory from .eslintignore">
-      <option name="closed" value="true" />
-      <created>1737294673912</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1737294673912</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add .prettierrc configuration file" />
-    <MESSAGE value="Add Stylelint configuration files, for css/scss" />
-    <MESSAGE value="Refactor ESLint configuration to use flat config format, add .eslintignore file" />
-    <MESSAGE value="Add initial Storybook configuration for Next.js project" />
-    <MESSAGE value="Add Jest configuration file for tests" />
-    <MESSAGE value="Add storybook log files to .gitignore" />
-    <MESSAGE value="Add Storybook and Stylelint configurations  &#10;" />
-    <MESSAGE value="Update pnpm-lock.yaml to lockfileVersion 9.0" />
-    <MESSAGE value="Add Storybook and stylelint configurations" />
-    <MESSAGE value="Add &quot;node&quot; and &quot;jest&quot; to TypeScript types configuration" />
-    <MESSAGE value="Remove 'build/' directory from .eslintignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove 'build/' directory from .eslintignore" />
   </component>
 </project>
