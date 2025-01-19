@@ -6,7 +6,7 @@ module.exports = {
       "ts-jest",
       {
         babel: true,
-        tsconfig: "tsconfig.app.json",
+        tsconfig: "tsconfig.json",
       },
     ],
   },
@@ -15,5 +15,4 @@ module.exports = {
     "^common/(.*)$": "<rootDir>/src/common/$1",
     "^features/(.*)$": "<rootDir>/src/features/$1",
   },
-  setupFilesAfterEnv: ["./src/setupTests.ts"],
 };
