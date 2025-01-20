@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 .idea
+/.idea/workspace.xml
 
 # testing
 /coverage
