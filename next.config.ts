@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
+      public: path.resolve(__dirname, "public"),
       app: path.resolve(__dirname, "src/app"),
       common: path.resolve(__dirname, "src/common"),
       features: path.resolve(__dirname, "src/features"),
