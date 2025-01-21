@@ -5,7 +5,13 @@
 }
 
 :root {
-  --font-family: Inter, Arial, sans-serif;
+  --font-family: "Inter", sans-serif;
+  --second-family: "Roboto", sans-serif;
+}
+
+html, body {
+  font-family: var(--font-family), Arial, sans-serif;
+  background-color: var(--dark-700);
 }
 
 :root {
