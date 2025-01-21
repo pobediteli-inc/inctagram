@@ -1,0 +1,20 @@
+.favorites {
+
+}
+
+.favoritesWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.favoritesField {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1060px;
+  border: 1px solid #333333;
+  padding-top: 24px;
+  justify-content: center;
+}
