@@ -1,6 +1,7 @@
 .Item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-family: var(--font-family), Arial, sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -20,8 +21,8 @@
     }
     &[data-highlighted] {
         outline: none;
-        background-color: var(--primary-900);
-        color: var(--primary-300);
+        background-color: var(--dark-300);
+        color: var(--primary-500);
         font-size: 18px;
     }
 }
