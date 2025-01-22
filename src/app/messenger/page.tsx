@@ -1,3 +1,4 @@
+import styles from "./page.module.css"
 export default function Messenger() {
-  return <div>Messenger</div>;
+  return <div className={styles.messenger}>Messenger</div>;
 }

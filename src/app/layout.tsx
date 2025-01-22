@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "common/components/Header/Header";
 import { Inter } from "next/font/google";
+import Navbar from "../common/components/Navbar/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-family",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "Inctagram",
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
     <body className={`${inter.variable}`}>
     <Header />
-    <main>{children}</main>
+    <div style={{ display: "flex" }}>
+      <Navbar />
+      <main>{children}</main>
+    </div>
     </body>
     </html>
   );

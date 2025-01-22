@@ -12,7 +12,15 @@
 html, body {
   font-family: var(--font-family), Arial, sans-serif;
   background-color: var(--dark-700);
+  width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
+
+a {
+  text-decoration: none;
+}
+
 
 :root {
   --primary-100: #73a5ff;
