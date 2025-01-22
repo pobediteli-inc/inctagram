@@ -7,15 +7,10 @@
     width: 1280px;
     height: 60px;
     background-color: var(--dark-700);
-    border: 2px solid var(--dark-300);
+    border-bottom: 2px solid var(--dark-300);
     color: var(--light-100);
     padding: 12px 60px;
     margin: 0 auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
 }
 .logo {
     display: flex;

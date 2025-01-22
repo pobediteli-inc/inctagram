@@ -23,7 +23,7 @@ export const RadixSelect: FC<Props> = ({ label, className, disabled, ariaLabel }
           {label}
         </label>
       )}
-      <Select.Root disabled={disabled}>
+      <Select.Root defaultValue={"en"} disabled={disabled}>
         <Select.Trigger className={clsx(stl.Trigger, className)} aria-label={ariaLabel}>
           <Select.Value placeholder="Select language" />
           <Select.Icon>
@@ -40,16 +40,15 @@ export const RadixSelect: FC<Props> = ({ label, className, disabled, ariaLabel }
               <Select.Group>
                 <Select.Label className={stl.selectLabel}>Languages</Select.Label>
                 <Select.Separator className={stl.Separator} />
-                {/* Доступные языки */}
                 <RadixSelectItem value="en">
                   <div className={stl.flags}>
-                    <FlagUnitedKingdom width={20} height={20} color={"red"}/>
+                    <FlagUnitedKingdom width={20} height={20} color={"red"} />
                     English
                   </div>
                 </RadixSelectItem>
                 <RadixSelectItem value="ru">
                   <div className={stl.flags}>
-                    <FlagRussia width={20} height={20} />
+                    <FlagRussia width={20} height={20}/>
                     Russian
                   </div>
                 </RadixSelectItem>
