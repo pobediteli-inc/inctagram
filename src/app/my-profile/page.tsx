@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-
 import Image from "next/image";
 
 type ImageType = {
@@ -16,7 +15,7 @@ type PostType = {
   images: ImageType[];
 };
 
-export default function UserProfile() {
+export default function MyProfile() {
   const posts = Array<PostType>();
 
   return (

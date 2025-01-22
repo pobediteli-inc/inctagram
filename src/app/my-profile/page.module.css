@@ -21,9 +21,11 @@
 }
 
 .main {
-    max-width: 1024px;
+    max-width: 1060px;
+    min-height: 100%;
     margin: 0 auto;
     padding: 1rem;
+    border: 1px solid #333333;
 }
 
 .profileSection {
