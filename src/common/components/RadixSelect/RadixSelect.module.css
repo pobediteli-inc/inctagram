@@ -16,8 +16,9 @@
 
 .selectLabel {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
     width: 170px;
     height: 25px;
     padding: 0 15px;
@@ -43,26 +44,30 @@
 
     font-size: 16px;
     line-height: 150%;
-    background-color: var(--dark-900);
-    border: 1px solid var(--dark-300);
+    background-color: var(--dark-500);
+    border: 1px solid var(--dark-100);
+    cursor: pointer;
 
     &[data-placeholder] {
-        background-color: var(--dark-900);
+        background-color: var(--dark-500);
     }
     &:active {
-        border: 1px solid var(--light-100);
-        background-color: var(--dark-100);
+        border: 1px solid var(--dark-100);
+        background-color: var(--dark-500);
     }
     &:focus {
         background-color: var(--dark-900);
-        border: 2px solid var(--primary-700);
+        border: 2px solid var(--primary-500);
     }
     &:disabled {
-        color: var(--dark-300);
+        color: var(--dark-100);
+        border: 1px solid var(--dark-100);
     }
     &:hover {
         background-color: var(--dark-100);
     }
+
+    --radix-select-trigger-width: 170px;
 }
 
 .Icon {
@@ -77,9 +82,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--dark-900);
+    width: var(--radix-select-trigger-width);
+    background-color: var(--dark-500);
     border: 1px solid var(--dark-100);
     color: var(--light-100);
+    cursor: pointer;
 }
 
 .Viewport {
@@ -88,8 +95,11 @@
 
 .flags {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    margin-right: 35px;
 }
 
 .Label {
