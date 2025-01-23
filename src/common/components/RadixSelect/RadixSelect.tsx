@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ComponentPropsWithoutRef, FC } from "react";
 import stl from "./RadixSelect.module.css";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Select from "@radix-ui/react-select";
@@ -13,7 +13,7 @@ type Props = {
   label?: string;
   disabled?: boolean;
   ariaLabel?: string;
-};
+} & ComponentPropsWithoutRef<typeof Select.Trigger>;
 
 export const RadixSelect: FC<Props> = ({ label, className, disabled, ariaLabel }) => {
   return (

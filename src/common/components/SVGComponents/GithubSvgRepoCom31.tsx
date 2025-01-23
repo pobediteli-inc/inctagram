@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 import { Ref, forwardRef, memo } from "react";
-const SvgGithubSvgrepoCom31 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
+const SvgGithubSvgRepoCom31 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -23,6 +23,6 @@ const SvgGithubSvgrepoCom31 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
     </defs>
   </svg>
 );
-const ForwardRef = forwardRef(SvgGithubSvgrepoCom31);
+const ForwardRef = forwardRef(SvgGithubSvgRepoCom31);
 const Memo = memo(ForwardRef);
 export default Memo;

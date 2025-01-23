@@ -1,19 +1,16 @@
-.page {
-
-}
-
-.main {
+.termsWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     width: 1280px;
-    height: 800px;
+    height: 1350px;
     background-color: var(--dark-700);
-    margin: 0 auto;
+    color: var(--light-100);
 }
-
-.footer {
-
+.header {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
 }
