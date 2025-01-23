@@ -14,7 +14,7 @@ type TypographyVariant =
   | "bold_small"
   | "regular_link"
   | "small_link";
-type TypographyColors = "primary" | "secondary" | "error" | "warning" | "success";
+type TypographyColors = "primary" | "secondary" | "error" | "warning" | "success" | "link";
 type TypographyAlign = "inherit" | "left" | "center" | "right" | "justify" | "initial" | "unset";
 export type TypographyProps = {
   variant?: TypographyVariant;
