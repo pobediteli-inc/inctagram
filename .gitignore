@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 .idea
+/.idea/workspace.xml
 
 # testing
 /coverage
@@ -42,3 +43,5 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+workspace.xml
+pnpm-lock.yaml
