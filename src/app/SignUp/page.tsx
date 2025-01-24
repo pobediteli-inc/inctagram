@@ -15,7 +15,7 @@ export default function SignUpPage() {
   return (
     <div className={stl.signUpWrapper}>
       <Typography variant={"h1"} className={stl.signUpText}>
-        Sing Up
+        Sign Up
       </Typography>
       <div className={stl.social}>
         <Link href={"https://www.google.com"} target={"_blank"}>
@@ -66,7 +66,7 @@ export default function SignUpPage() {
       </div>
       <div className={stl.buttonWrapper}>
         <Button variant={"primary"} className={stl.singInButton}>
-          Sing Up
+          Sign Up
         </Button>
       </div>
       <div className={stl.buttonWrapper}>
