@@ -9,12 +9,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "common/components/Button/Button";
 
-export const SignUp = () => {
+export default function SignUpPage() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className={stl.singUpWrapper}>
-      <Typography variant={"h1"} className={stl.singUpText}>
+    <div className={stl.signUpWrapper}>
+      <Typography variant={"h1"} className={stl.signUpText}>
         Sing Up
       </Typography>
       <div className={stl.social}>
@@ -27,52 +27,54 @@ export const SignUp = () => {
       </div>
       <div className={stl.forms}>
         <TextField
-          containerClassName={stl.textFieldContainer}
           textFieldClassName={stl.username}
           placeholder={"username"}
           label={"Username"}
           labelPosition={"top"}
         />
         <TextField
-          containerClassName={stl.textFieldContainer}
           textFieldClassName={stl.email}
           placeholder={"example@example.com"}
           label={"Email"}
           labelPosition={"top"}
         />
         <TextField
-          containerClassName={stl.textFieldContainer}
           textFieldClassName={stl.password}
           placeholder={"**********"}
           label={"Password"}
           labelPosition={"top"}
         />
         <TextField
-          containerClassName={stl.textFieldContainer}
           textFieldClassName={stl.password}
           placeholder={"**********"}
           label={"Confirm password"}
           labelPosition={"top"}
         />
-        <div className={stl.terms}>
-          <RadixCheckbox checked={checked} setChecked={setChecked} />
-          <Typography variant={"small"}>
-            I agree to the <Link href={"/SignUp/Terms/Service.tsx"}>Terms of Service</Link> and{" "}
-            <Link href={"/SignUp/Terms/Policy"}>Privacy Policy</Link>
-          </Typography>
-        </div>
-        <div className={stl.buttonWrapper}>
-          <Button variant={"primary"} className={stl.singInButton}>
-            Sing Up
-          </Button>
-        </div>
-        <div className={stl.buttonWrapper}>
-          <Typography variant={"regular_16"}>Do you have an account?</Typography>
-          <Button asChild variant={"outlined"} className={stl.singInButton}>
-            <Link href={"/Login"}>Sing In</Link>
-          </Button>
-        </div>
+      </div>
+      <div className={stl.terms}>
+        <RadixCheckbox checked={checked} setChecked={setChecked} />
+        <Typography variant={"small"}>
+          I agree to the{" "}
+          <Link className={stl.link} href={"/SignUp/Terms/Service"}>
+            Terms of Service
+          </Link>{" "}
+          and{" "}
+          <Link className={stl.link} href={"/SignUp/Terms/Policy"}>
+            Privacy Policy
+          </Link>
+        </Typography>
+      </div>
+      <div className={stl.buttonWrapper}>
+        <Button variant={"primary"} className={stl.singInButton}>
+          Sing Up
+        </Button>
+      </div>
+      <div className={stl.buttonWrapper}>
+        <Typography variant={"regular_16"}>Do you have an account?</Typography>
+        <Button asChild variant={"outlined"} className={stl.singInButton}>
+          <Link href={"/Login"}>Sign In</Link>
+        </Button>
       </div>
     </div>
   );
-};
+}

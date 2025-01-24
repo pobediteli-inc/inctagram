@@ -10,6 +10,7 @@
   border: 1px solid var(--dark-300);
   border-radius: 2px;
   user-select: none;
+  margin: 0 auto;
 }
 
 .signUpText {
@@ -26,26 +27,20 @@
 .forms {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-}
-
-.textFieldContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   width: 330px;
-  height: 60px;
+  gap: 25px;
 }
 
 .username,
 .email,
 .password {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--dark-100);
   border-radius: 2px;
-  width: 330px;
+  width: 330px !important;
   height: 36px;
   padding: 0 10px;
   background-color: var(--dark-500);
@@ -60,6 +55,10 @@
   width: 330px;
   height: 36px;
   gap: 10px;
+}
+
+.link {
+  color: var(--primary-300);
 }
 
 .buttonWrapper {
