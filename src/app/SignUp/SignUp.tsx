@@ -1,5 +1,5 @@
 "use client";
-import stl from "./SingUp.module.css";
+import stl from "app/SignUp/SignUp.module.css";
 import { Typography } from "common/components/Typography/Typography";
 import GoogleSvgRepoCom1 from "common/components/SVGComponents/GoogleSvgRepoCom1";
 import GithubSvgRepoCom31 from "common/components/SVGComponents/GithubSvgRepoCom31";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "common/components/Button/Button";
 
-export const SingUp = () => {
+export const SignUp = () => {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -51,8 +51,8 @@ export const SingUp = () => {
         <div className={stl.terms}>
           <RadixCheckbox checked={checked} setChecked={setChecked} />
           <Typography variant={"small"}>
-            I agree to the <Link href={"/SingUp/Terms/Service.tsx"}>Terms of Service
-          </Link> and <Link href={"/SingUp/Terms/Policy"}>Privacy Policy</Link>
+            I agree to the <Link href={"/SignUp/Terms/Service.tsx"}>Terms of Service
+          </Link> and <Link href={"/SignUp/Terms/Policy"}>Privacy Policy</Link>
           </Typography>
         </div>
         <div className={stl.buttonWrapper}>
