@@ -73,11 +73,11 @@
   height: 36px;
 }
 
-.signInButton {
+.signUpButton {
   width: 100% !important;
 }
 
-.singInButton {
+.signInButton {
   border: none !important;
   text-underline-mode: none;
   width: 100% !important;

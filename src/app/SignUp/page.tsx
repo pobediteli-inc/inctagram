@@ -65,13 +65,13 @@ export default function SignUpPage() {
         </Typography>
       </div>
       <div className={stl.buttonWrapper}>
-        <Button variant={"primary"} className={stl.singInButton}>
+        <Button variant={"primary"} className={stl.signUpButton}>
           Sign Up
         </Button>
       </div>
       <div className={stl.buttonWrapper}>
         <Typography variant={"regular_16"}>Do you have an account?</Typography>
-        <Button asChild variant={"outlined"} className={stl.singInButton}>
+        <Button asChild variant={"outlined"} className={stl.signInButton}>
           <Link href={"/Login"}>Sign In</Link>
         </Button>
       </div>
