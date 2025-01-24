@@ -22,6 +22,16 @@
   }
 }
 
+.notAnimation {
+  transition: none;
+  transform: none;
+  box-shadow: none;
+
+  &:active {
+    transform: none;
+  }
+}
+
 .primary {
   background-color: var(--primary-500);
 
