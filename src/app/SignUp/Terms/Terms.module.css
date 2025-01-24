@@ -1,16 +1,15 @@
 .termsWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 1280px;
-  height: 1350px;
+  align-items: center;
+  width: 400px;
+  height: 800px;
   background-color: var(--dark-700);
   color: var(--light-100);
+  margin: 0 auto;
 }
 
-.header {
-  text-align: center;
-  margin-top: 70px;
-  margin-bottom: 30px;
+.title {
+  margin-bottom: 20px;
 }
