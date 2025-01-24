@@ -1,121 +1,121 @@
 .typography {
-    font-family: var(--font-family), sans-serif, Arial;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 171%;
-    color: var(--light-100);
+  font-family: var(--font-family), sans-serif, Arial;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  color: var(--light-100);
 }
 .typography-variant--large {
-    font-weight: 600;
-    font-size: 26px;
-    line-height: 138%;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 138%;
 }
 .typography-variant--h1 {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 180%;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 180%;
 }
 .typography-variant--h2 {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 133%;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 133%;
 }
 .typography-variant--h3 {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 150%;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
 }
 .typography-variant--regular_16 {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 150%;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
 }
 .typography-variant--bold_16 {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 150%;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
 }
 .typography-variant--regular_14 {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 171%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
 }
 .typography-variant--medium_14 {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 171%;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 171%;
 }
 .typography-variant--bold_14 {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 171%;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 171%;
 }
 .typography-variant--small {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 133%;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
 }
 .typography-variant--bold_small {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 133%;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 133%;
 }
 .typography-variant--regular_link {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 171%;
-    text-decoration: underline;
-    text-decoration-skip-ink: none;
-    color: var(--primary-500) !important;
-    cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500) !important;
+  cursor: pointer;
 }
 .typography-variant--small_link {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 133%;
-    text-decoration: underline;
-    text-decoration-skip-ink: none;
-    color: var(--primary-500) !important;
-    cursor: pointer;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500) !important;
+  cursor: pointer;
 }
 
 .typography-color--primary {
-    color: var(--light-100);
+  color: var(--light-100);
 }
 .typography-color--secondary {
-    color:  var(--dark-900);
+  color: var(--dark-900);
 }
 .typography-color--link {
-    color:  var(--primary-500);
+  color: var(--primary-500);
 }
 .typography-color--success {
-    color:  var(--success-500);
+  color: var(--success-500);
 }
 .typography-color--warning {
-    color:  var(--warning-100);
+  color: var(--warning-100);
 }
 .typography-color--error {
-    color:  var(--danger-300);
+  color: var(--danger-300);
 }
 
 .typography-align--inherit {
-    text-align: inherit;
+  text-align: inherit;
 }
 .typography-align--left {
-    text-align: left;
+  text-align: left;
 }
 .typography-align--center {
-    text-align: center;
+  text-align: center;
 }
 .typography-align--right {
-    text-align: right;
+  text-align: right;
 }
 .typography-align--justify {
-    text-align: justify;
+  text-align: justify;
 }
 .typography-align--initial {
-    text-align: initial;
+  text-align: initial;
 }
 .typography-align--unset {
-    text-align: unset;
+  text-align: unset;
 }

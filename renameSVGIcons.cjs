@@ -1,5 +1,5 @@
-const fs = require('fs');
-const { join } = require('path');
+const fs = require("fs");
+const { join } = require("path");
 const fsp = fs.promises;
 
 const dirIcons = "public/icons/svg";

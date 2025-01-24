@@ -8,7 +8,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-family",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "Inctagram",
@@ -16,16 +16,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: ReactNode;
 }>) {
   return (
     <html lang="en">
-    <body className={`${inter.variable}`}>
-    <Header />
-    <main>{children}</main>
-    </body>
+      <body className={`${inter.variable}`}>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -9,7 +11,8 @@
   --second-family: "Roboto", sans-serif;
 }
 
-html, body {
+html,
+body {
   font-family: var(--font-family), Arial, sans-serif;
   background-color: var(--dark-700);
 }

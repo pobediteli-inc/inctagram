@@ -14,7 +14,9 @@ export const SignUp = () => {
 
   return (
     <div className={stl.singUpWrapper}>
-      <Typography variant={"h1"} className={stl.singUpText}>Sing Up</Typography>
+      <Typography variant={"h1"} className={stl.singUpText}>
+        Sing Up
+      </Typography>
       <div className={stl.social}>
         <Link href={"https://www.google.com"} target={"_blank"}>
           <GoogleSvgRepoCom1 width={36} height={36} />
@@ -24,44 +26,48 @@ export const SignUp = () => {
         </Link>
       </div>
       <div className={stl.forms}>
-        <TextField containerClassName={stl.textFieldContainer}
-                   textFieldClassName={stl.username}
-                   placeholder={"username"}
-                   label={"Username"}
-                   labelPosition={"top"}
+        <TextField
+          containerClassName={stl.textFieldContainer}
+          textFieldClassName={stl.username}
+          placeholder={"username"}
+          label={"Username"}
+          labelPosition={"top"}
         />
-        <TextField containerClassName={stl.textFieldContainer}
-                   textFieldClassName={stl.email}
-                   placeholder={"example@example.com"}
-                   label={"Email"}
-                   labelPosition={"top"}
+        <TextField
+          containerClassName={stl.textFieldContainer}
+          textFieldClassName={stl.email}
+          placeholder={"example@example.com"}
+          label={"Email"}
+          labelPosition={"top"}
         />
-        <TextField containerClassName={stl.textFieldContainer}
-                   textFieldClassName={stl.password}
-                   placeholder={"**********"}
-                   label={"Password"}
-                   labelPosition={"top"}
+        <TextField
+          containerClassName={stl.textFieldContainer}
+          textFieldClassName={stl.password}
+          placeholder={"**********"}
+          label={"Password"}
+          labelPosition={"top"}
         />
-        <TextField containerClassName={stl.textFieldContainer}
-                   textFieldClassName={stl.password}
-                   placeholder={"**********"}
-                   label={"Confirm password"}
-                   labelPosition={"top"}
+        <TextField
+          containerClassName={stl.textFieldContainer}
+          textFieldClassName={stl.password}
+          placeholder={"**********"}
+          label={"Confirm password"}
+          labelPosition={"top"}
         />
         <div className={stl.terms}>
           <RadixCheckbox checked={checked} setChecked={setChecked} />
           <Typography variant={"small"}>
-            I agree to the <Link href={"/SignUp/Terms/Service.tsx"}>Terms of Service
-          </Link> and <Link href={"/SignUp/Terms/Policy"}>Privacy Policy</Link>
+            I agree to the <Link href={"/SignUp/Terms/Service.tsx"}>Terms of Service</Link> and{" "}
+            <Link href={"/SignUp/Terms/Policy"}>Privacy Policy</Link>
           </Typography>
         </div>
         <div className={stl.buttonWrapper}>
-          <Button variant={"primary"} className={stl.singInButton}>Sing Up</Button>
+          <Button variant={"primary"} className={stl.singInButton}>
+            Sing Up
+          </Button>
         </div>
         <div className={stl.buttonWrapper}>
-          <Typography variant={"regular_16"}>
-            Do you have an account?
-          </Typography>
+          <Typography variant={"regular_16"}>Do you have an account?</Typography>
           <Button asChild variant={"outlined"} className={stl.singInButton}>
             <Link href={"/Login"}>Sing In</Link>
           </Button>

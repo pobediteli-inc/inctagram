@@ -28,4 +28,3 @@ const SvgFlagUnitedKingdom = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEle
 const ForwardRef = forwardRef(SvgFlagUnitedKingdom);
 const Memo = memo(ForwardRef);
 export default Memo;
-

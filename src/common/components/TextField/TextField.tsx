@@ -28,24 +28,36 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div
-        className={clsx(stl.textFieldWrapper, stl[`label-${labelPosition}`], stl[`error-${errorPosition}`], containerClassName)}>
-        { label && (<label htmlFor={rest.name} className={clsx(stl.label, { [stl.labelDisabled]: disabled }, labelClassName)} aria-disabled={disabled}>{label}</label>) }
+        className={clsx(
+          stl.textFieldWrapper,
+          stl[`label-${labelPosition}`],
+          stl[`error-${errorPosition}`],
+          containerClassName
+        )}
+      >
+        {label && (
+          <label
+            htmlFor={rest.name}
+            className={clsx(stl.label, { [stl.labelDisabled]: disabled }, labelClassName)}
+            aria-disabled={disabled}
+          >
+            {label}
+          </label>
+        )}
 
         <Component
           ref={ref}
           className={clsx(
-            stl.input, variant &&
-            stl[variant],
-            { [stl.errorInput]: isError,
-              [stl.errorDisabled]: disabled
-            },
-            textFieldClassName,
-            )}
+            stl.input,
+            variant && stl[variant],
+            { [stl.errorInput]: isError, [stl.errorDisabled]: disabled },
+            textFieldClassName
+          )}
           disabled={disabled}
           {...rest}
         />
 
-        { isError && (<span className={clsx(stl.errorMessage, errorMessageClassName)}>{errorMessage}</span>) }
+        {isError && <span className={clsx(stl.errorMessage, errorMessageClassName)}>{errorMessage}</span>}
       </div>
     );
   }
