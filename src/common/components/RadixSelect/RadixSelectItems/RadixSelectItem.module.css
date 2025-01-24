@@ -19,6 +19,7 @@
     color: var(--dark-300);
     pointer-events: none;
   }
+
   &[data-highlighted] {
     outline: none;
     background-color: var(--dark-300);

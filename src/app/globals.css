@@ -1,14 +1,7 @@
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-:root {
-  --font-family: "Inter", sans-serif;
-  --second-family: "Roboto", sans-serif;
 }
 
 html,
@@ -18,6 +11,8 @@ body {
 }
 
 :root {
+  --font-family: "Inter", sans-serif;
+  --second-family: "Roboto", sans-serif;
   --primary-100: #73a5ff;
   --primary-300: #4c8dff;
   --primary-500: #397df6;

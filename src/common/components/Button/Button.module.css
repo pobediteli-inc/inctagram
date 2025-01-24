@@ -7,7 +7,6 @@
   font-size: 16px;
   line-height: 150%;
   text-align: center;
-
   border-radius: 2px;
   padding: 6px 24px;
   width: 182px;
@@ -19,7 +18,7 @@
 
   &:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
   }
 }
 
@@ -29,12 +28,15 @@
   &:active {
     background-color: var(--primary-700);
   }
+
   &:hover {
     background-color: var(--primary-100);
   }
+
   &:focus {
     border: 2px solid var(--primary-700);
   }
+
   &:disabled {
     background-color: var(--primary-900);
     color: var(--light-900);
@@ -47,12 +49,15 @@
   &:active {
     background-color: var(--dark-500);
   }
+
   &:hover {
     background-color: var(--dark-100);
   }
+
   &:focus {
     border: 1px solid var(--primary-300);
   }
+
   &:disabled {
     background-color: var(--dark-500);
     color: var(--light-900);
@@ -68,14 +73,17 @@
     border: 1px solid var(--primary-700);
     color: var(--primary-700);
   }
+
   &:hover {
     border: 1px solid var(--primary-100);
     color: var(--primary-100);
   }
+
   &:focus {
     border: 2px solid var(--primary-700);
     color: var(--primary-700);
   }
+
   &:disabled {
     border: 1px solid var(--primary-900);
     color: var(--primary-900);

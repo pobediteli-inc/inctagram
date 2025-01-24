@@ -16,9 +16,11 @@
   &:hover {
     background-color: var(--dark-100);
   }
+
   &:active {
     background-color: var(--dark-100);
   }
+
   &:focus {
     background-color: var(--dark-100);
     outline: unset;
@@ -42,16 +44,20 @@
     border: 2px solid var(--light-500);
     background-color: var(--dark-100);
   }
+
   &:active {
     background-color: var(--dark-100);
   }
+
   &:focus {
     border: 2px solid var(--light-500);
     background-color: var(--dark-500);
   }
+
   &:disabled {
     border: 1px solid var(--light-900);
   }
+
   &[data-state="checked"] {
     border: 2px solid var(--light-100);
     background-color: var(--light-100);

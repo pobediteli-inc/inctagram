@@ -3,7 +3,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   width: 1280px;
   height: 60px;
   background-color: var(--dark-700);
@@ -12,6 +11,7 @@
   padding: 12px 60px;
   margin: 0 auto;
 }
+
 .logo {
   display: flex;
   flex-direction: row;
@@ -23,12 +23,14 @@
   line-height: 138%;
   margin-left: 60px;
 }
+
 .language {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
 .bell {
   display: flex;
   flex-direction: row;
@@ -36,6 +38,7 @@
   align-items: center;
   margin-right: 50px;
 }
+
 .selectLanguage {
   margin-right: 60px;
 }
