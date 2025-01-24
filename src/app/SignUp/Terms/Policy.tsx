@@ -1,5 +1,5 @@
 import React from "react";
-import stl from "app/SingUp/Terms/Terms.module.css";
+import stl from "app/SignUp/Terms/Terms.module.css";
 
 
 const Policy = () => {

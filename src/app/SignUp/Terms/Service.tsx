@@ -1,5 +1,5 @@
 import React from "react";
-import stl from "app/SingUp/Terms/Terms.module.css";
+import stl from "app/SignUp/Terms/Terms.module.css";
 import { Typography } from "common/components/Typography/Typography";
 
 export const Service = () => {
@@ -25,7 +25,7 @@ export const Service = () => {
         notice, for any reason.
 
         5. Disclaimer of Warranties
-        Our services are provided "as is" without any guarantees or warranties. We do not ensure the accuracy,
+        Our services are provided as\is without any guarantees or warranties. We do not ensure the accuracy,
         completeness, or reliability of any content.
       </Typography>
     </div>
