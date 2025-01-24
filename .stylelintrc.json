@@ -1,8 +1,32 @@
 {
-  "extends": ["stylelint-config-recommended-scss", "stylelint-config-standard"],
-  "rules": {
-    "indentation": [2],
-    "string-quotes": "single",
-    "no-empty-source": null
-  }
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-scss"
+  ],
+  "overrides": [
+    {
+      "files": ["*.module.css", "*.css"],
+      "rules": {
+        "block-no-empty": null,
+        "selector-class-pattern": [
+          "^[a-zA-Z0-9]+([-_]{1,2}[a-zA-Z0-9]+)*$", {}
+        ],
+        "selector-pseudo-element-no-unknown": [
+          true,
+          {
+            "ignorePseudoElements": ["before", "after"]
+          }
+        ],
+        "no-duplicate-selectors": true,
+        "declaration-block-no-duplicate-properties": true
+      }
+    },
+    {
+      "files": ["*.module.scss"],
+      "rules": {
+        "block-no-empty": true
+      }
+    }
+  ]
 }
