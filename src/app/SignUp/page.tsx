@@ -28,24 +28,32 @@ export default function SignUpPage() {
       <div className={stl.forms}>
         <TextField
           textFieldClassName={stl.username}
+          variant={"standard"}
+          type={"text"}
           placeholder={"username"}
           label={"Username"}
           labelPosition={"top"}
         />
         <TextField
           textFieldClassName={stl.email}
+          variant={"standard"}
+          type={"email"}
           placeholder={"example@example.com"}
           label={"Email"}
           labelPosition={"top"}
         />
         <TextField
           textFieldClassName={stl.password}
+          variant={"standard"}
+          type={"password"}
           placeholder={"**********"}
           label={"Password"}
           labelPosition={"top"}
         />
         <TextField
           textFieldClassName={stl.password}
+          variant={"standard"}
+          type={"password"}
           placeholder={"**********"}
           label={"Confirm password"}
           labelPosition={"top"}

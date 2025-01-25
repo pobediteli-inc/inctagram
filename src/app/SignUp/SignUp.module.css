@@ -54,7 +54,8 @@
   justify-content: center;
   width: 330px;
   height: 36px;
-  gap: 10px;
+  gap: 5px;
+  margin-right: 10px;
 }
 
 .link {
