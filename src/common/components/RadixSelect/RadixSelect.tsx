@@ -48,7 +48,7 @@ export const RadixSelect: FC<Props> = ({ label, className, disabled, ariaLabel }
                 </RadixSelectItem>
                 <RadixSelectItem value="ru">
                   <div className={stl.flags}>
-                    <FlagRussia width={20} height={20}/>
+                    <FlagRussia width={20} height={20} />
                     Russian
                   </div>
                 </RadixSelectItem>

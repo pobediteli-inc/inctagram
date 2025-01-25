@@ -4,12 +4,8 @@
   margin: 0;
 }
 
-:root {
-  --font-family: "Inter", sans-serif;
-  --second-family: "Roboto", sans-serif;
-}
-
-html, body {
+html,
+body {
   font-family: var(--font-family), Arial, sans-serif;
   background-color: var(--dark-700);
   width: 1280px;
@@ -23,6 +19,8 @@ a {
 
 
 :root {
+  --font-family: "Inter", sans-serif;
+  --second-family: "Roboto", sans-serif;
   --primary-100: #73a5ff;
   --primary-300: #4c8dff;
   --primary-500: #397df6;

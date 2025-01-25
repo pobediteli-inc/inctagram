@@ -1,4 +1,4 @@
-import { NextConfig } from 'next';
+import { NextConfig } from "next";
 import path from "node:path";
 
 // Define your Next.js configuration

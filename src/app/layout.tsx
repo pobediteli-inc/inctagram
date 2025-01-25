@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "common/components/Header/Header";
 import { Inter } from "next/font/google";
-import Navbar from "../common/components/Navbar/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,19 +16,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: ReactNode;
 }>) {
   return (
     <html lang="en">
-    <body className={`${inter.variable}`}>
-    <Header />
-    <div style={{ display: "flex" }}>
-      <Navbar />
-      <main>{children}</main>
-    </div>
-    </body>
+      <body className={`${inter.variable}`}>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

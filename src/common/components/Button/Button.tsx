@@ -11,5 +11,7 @@ export type ButtonProps = {
 
 export const Button: FC<ButtonProps> = ({ variant = "primary", className, asChild, ...restProps }) => {
   const Component = asChild ? Slot : "button";
-  return <Component className={clsx(stl.button, stl[variant], className)} {...restProps} />;
+  return (
+    <Component className={clsx(stl.button, stl[variant], { [stl.notAnimation]: asChild }, className)} {...restProps} />
+  );
 };

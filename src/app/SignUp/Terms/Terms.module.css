@@ -1,16 +1,61 @@
 .termsWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1280px;
+  height: auto;
+  background-color: var(--dark-700);
+  color: var(--light-100);
+  margin: 0 auto;
+}
 
-    width: 1280px;
-    height: 1350px;
-    background-color: var(--dark-700);
-    color: var(--light-100);
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 1080px;
+  height: auto;
+  margin-top: 25px;
+  margin-left: 25px;
 }
-.header {
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 30px;
+
+.svgArrow svg {
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: -10px;
+  padding: 0;
 }
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: inherit;
+  height: 500px;
+}
+
+.backButton {
+  cursor: pointer;
+  border: none !important;
+  width: auto !important;
+  margin-left: 10px;
+}
+
+.termText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: 400px;
+  height: 500px;
+  margin-top: 70px;
+}
+
+.title {
+  margin-bottom: 20px;
+} 
