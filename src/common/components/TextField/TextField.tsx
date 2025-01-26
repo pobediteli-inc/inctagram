@@ -1,3 +1,4 @@
+"use client";
 import type { ComponentPropsWithRef } from "react";
 import { forwardRef, memo, useState } from "react";
 import { clsx } from "clsx";
