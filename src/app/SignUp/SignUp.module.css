@@ -13,11 +13,11 @@
   margin: 0 auto;
 }
 
-.signUpText {
+.signUpHeader {
   margin-top: 25px;
 }
 
-.social {
+.socialIcons {
   display: flex;
   flex-direction: row;
   justify-content: center;
