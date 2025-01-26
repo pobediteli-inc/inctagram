@@ -9,7 +9,7 @@ export type ButtonProps = {
   asChild?: boolean;
 } & ComponentPropsWithoutRef<"button">;
 
-export const Button: FC<ButtonProps> = ({ variant = "primary", className, asChild, ...restProps }) => {
+export const Button: FC<ButtonProps> = ({ variant = "primary", className, asChild = false, ...restProps }) => {
   const Component = asChild ? Slot : "button";
   return (
     <Component className={clsx(stl.button, stl[variant], { [stl.notAnimation]: asChild }, className)} {...restProps} />

@@ -11,10 +11,7 @@
   padding: 6px 24px;
   width: 182px;
   height: 36px;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
-  pointer-events: auto;
+  transition: transform 0.1s, box-shadow 0.1s;
 
   &:active {
     transform: scale(0.95);
