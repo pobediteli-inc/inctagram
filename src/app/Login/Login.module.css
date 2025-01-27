@@ -1,0 +1,96 @@
+.loginWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 380px;
+    height: 550px;
+    background-color: var(--dark-500);
+    color: var(--light-900);
+    border: 1px solid var(--dark-300);
+    border-radius: 2px;
+    user-select: none;
+    margin: 70px auto;
+}
+
+.signInHeader {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.socialIcons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 60px;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+    gap: 25px;
+}
+
+.fieldWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 35px;
+    margin-top: 25px;
+}
+
+.email,
+.password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--dark-100);
+    border-radius: 2px;
+    width: 330px !important;
+    height: 36px;
+    padding: 0 10px;
+    background-color: var(--dark-500);
+    color: var(--light-900);
+}
+
+.buttonsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 330px;
+    padding-top: 35px;
+}
+
+.forgotPassword {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.forgotLink {
+    color: var(--light-900);
+    text-decoration: none;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.signInButton {
+    border: none !important;
+    text-underline-mode: none;
+    width: 100% !important;
+}

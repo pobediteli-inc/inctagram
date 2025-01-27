@@ -14,10 +14,10 @@ export default function SignUpPage() {
 
   return (
     <div className={stl.signUpWrapper}>
-      <Typography variant={"h1"} className={stl.signUpText}>
+      <Typography variant={"h1"} className={stl.signUpHeader}>
         Sign Up
       </Typography>
-      <div className={stl.social}>
+      <div className={stl.socialIcons}>
         <Link href={"https://www.google.com"} target={"_blank"}>
           <GoogleSvgRepoCom1 width={36} height={36} />
         </Link>
@@ -80,7 +80,7 @@ export default function SignUpPage() {
       <div className={stl.buttonWrapper}>
         <Typography variant={"regular_16"}>Do you have an account?</Typography>
         <Button asChild variant={"outlined"} className={stl.signInButton}>
-          <Link href={"/Login"}>Sign In</Link>
+          <Link href={"../Login"}>Sign In</Link>
         </Button>
       </div>
     </div>
