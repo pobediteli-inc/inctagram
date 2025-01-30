@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
   width: 1148px;
   height: 767px;
   background-color: var(--dark-700);
@@ -19,11 +20,22 @@
 
   &:focus {
     background-color: var(--dark-300);
+    outline: 1px solid var(--primary-700);
+  }
+
+  &:active {
+    background-color: var(--dark-300);
+    outline: none;
+  }
+
+  &:hover {
+    background-color: var(--dark-300);
   }
 
   &:focus.active {
     background-color: var(--light-100);
     color: var(--dark-900);
+    outline: none;
   }
 }
 
