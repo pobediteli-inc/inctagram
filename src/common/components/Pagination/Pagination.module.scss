@@ -1,0 +1,53 @@
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1148px;
+  height: 767px;
+  background-color: var(--dark-700);
+}
+
+.basicButton {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: none;
+  color: var(--light-100);
+  background-color: var(--dark-700);
+  cursor: pointer;
+  outline: none;
+
+  &:focus {
+    background-color: var(--dark-300);
+  }
+
+  &:focus.active {
+    background-color: var(--light-100);
+    color: var(--dark-900);
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+  background-color: var(--dark-300);
+}
+
+.navigationButton {
+  width: 16px;
+  height: 16px;
+  background-color: var(--dark-700);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--light-100);
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: var(--light-100);
+  color: var(--dark-900);
+  outline: none;
+}
+
