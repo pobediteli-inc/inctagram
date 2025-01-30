@@ -17,7 +17,7 @@ export const Typography: FC<TypographyProps> = ({
   return (
     <Component
       className={clsx(
-        stl.baseStyles,
+        stl.TypographyBaseStyles,
         stl[`variant-${variant}`],
         stl[`color-${color}`],
         stl[`align-${textAlign}`],

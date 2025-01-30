@@ -1,6 +1,6 @@
 /* base styles */
 
-.baseStyles {
+.TypographyBaseStyles {
   font-family: var(--font-family), sans-serif, Arial;
   font-weight: 400;
   font-size: 14px;
