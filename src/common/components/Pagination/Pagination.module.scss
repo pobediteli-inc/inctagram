@@ -63,3 +63,11 @@
   outline: none;
 }
 
+.selectContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 15px;
+  color: var(--light-100);
+}
+

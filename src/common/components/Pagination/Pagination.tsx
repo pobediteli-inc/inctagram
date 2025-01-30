@@ -4,19 +4,32 @@ import styles from "./Pagination.module.scss";
 import { clsx } from "clsx";
 import SvgArrowIosBack from "common/components/SVGComponents/ArrowIosBack";
 import SvgArrowIosForward from "common/components/SVGComponents/ArrowIosForward";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { RadixSelectItem } from "../RadixSelect/RadixSelectItems/RadixSelectItems";
+import { RadixSelect } from "../RadixSelect/RadixSelect";
 
 export type PaginationProps = {
   totalPages: number;
   currentPage: number;
 };
 
-const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
+const Pagination = ({ totalPages }: PaginationProps) => {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const pageSize = Number(searchParams.get("size")) || 10;
 
   const handlePageChange = (page: number) => {
     if (page === 1 || page === totalPages) return;
     router.push(`?page=${page}`);
+  };
+
+  const onPageChange = (page: number, size: number = pageSize) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    params.set("size", size.toString());
+    router.push(`?${params.toString()}`);
   };
 
   return (
@@ -54,6 +67,20 @@ const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           color={currentPage === totalPages ? "var(--dark-100)" : "var(--light-100)"}
         />
       </button>
+
+      <div className={clsx(styles.selectContainer, "typography-variant--regular_14")}>
+        <span>Show</span>
+        <select
+          className={styles.selectBox}
+          value={pageSize}
+          onChange={(e) => onPageChange(1, Number(e.target.value))}
+        >
+          {[10, 20, 30, 50, 100].map((size) => (
+            <option key={size} value={size}>{size}</option>
+          ))}
+        </select>
+        <span>on page</span>
+      </div>
     </div>
   );
 };
