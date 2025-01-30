@@ -8,15 +8,15 @@ import SvgArrowIosForward from "common/components/SVGComponents/ArrowIosForward"
 import { useRouter } from "next/navigation";
 
 export type PaginationProps = {
-  totalPages?: number;
+  totalPages: number;
+  currentPage: number;
 };
 
-const Pagination = ({ totalPages = 10 }: PaginationProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    if (page < 1 || page > totalPages) return;
     router.push(`?page=${page}`);
   };
 
@@ -34,7 +34,11 @@ const Pagination = ({ totalPages = 10 }: PaginationProps) => {
         <button
           key={page}
           onClick={() => handlePageChange(page)}
-          className={`${styles.basicButton} ${page === currentPage ? styles.active : ""} typography-variant--regular_14`}
+          className={clsx(
+            styles.basicButton,
+            { [styles.active]: page === currentPage },
+            "typography-variant--regular_14"
+          )}
         >
           {page}
         </button>
