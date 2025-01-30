@@ -1,12 +1,13 @@
 import { ComponentPropsWithoutRef, FC } from "react";
 import stl from "common/components/Typography/Typography.module.css";
+import "app/globals.css";
 import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 
 export const Typography: FC<TypographyProps> = ({
   className,
   variant = "small",
-  color = "primary",
+  color = "light",
   textAlign = "left",
   children,
   asChild,
