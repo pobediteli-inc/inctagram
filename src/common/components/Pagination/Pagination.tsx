@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 
 import styles from "./Pagination.module.scss";
 import { clsx } from "clsx";
@@ -16,7 +15,7 @@ const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
+    if (page === 1 || page === totalPages) return;
     router.push(`?page=${page}`);
   };
 
