@@ -1,4 +1,4 @@
-.button {
+.buttonBaseStyles {
   all: unset;
   cursor: pointer;
   color: var(--light-100);
@@ -93,6 +93,33 @@
 
   &:disabled {
     border: 1px solid var(--primary-900);
+    color: var(--primary-900);
+  }
+}
+
+.link {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-500);
+  outline: none;
+  transition: none;
+  transform: none;
+  box-shadow: none;
+  padding: 0;
+
+  &:active {
+    color: var(--primary-700);
+  }
+
+  &:hover {
+    color: var(--primary-100);
+  }
+
+  &:focus {
+    color: var(--primary-300)
+  }
+
+  &:disabled {
     color: var(--primary-900);
   }
 }
