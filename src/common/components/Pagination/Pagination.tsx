@@ -5,6 +5,8 @@ import { clsx } from "clsx";
 import SvgArrowIosBack from "common/components/SVGComponents/ArrowIosBack";
 import SvgArrowIosForward from "common/components/SVGComponents/ArrowIosForward";
 import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import { generatePageNumbers } from "./methods/generatePageNumbers";
 
 export type PaginationProps = {
   totalPages: number;
@@ -16,9 +18,11 @@ const Pagination = ({ totalPages }: PaginationProps) => {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
   const pageSize = Number(searchParams.get("size")) || 10;
+  const lastPage = Math.ceil(totalPages / pageSize);
+
+  const pageNumbers = generatePageNumbers({ currentPage, pageSize, totalPages });
 
   const handlePageChange = (page: number) => {
-    // if (page === 1 || page === totalPages) return;
     router.push(`?page=${page}&size=${pageSize}`);
   };
 
@@ -39,35 +43,45 @@ const Pagination = ({ totalPages }: PaginationProps) => {
         <SvgArrowIosBack width={16} height={16} color={currentPage === 1 ? "var(--dark-100)" : "var(--light-100)"} />
       </button>
 
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        <button
-          key={page}
-          onClick={() => handlePageChange(page)}
-          className={clsx(
-            styles.basicButton,
-            { [styles.active]: page === currentPage },
-            "typography-variant--regular_14"
+      {pageNumbers.map((page, index) => (
+        <React.Fragment key={index}>
+          {typeof page === "number" ? (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={clsx(
+                styles.basicButton,
+                { [styles.active]: page === currentPage },
+                "typography-variant--regular_14"
+              )}
+            >
+              {page}
+            </button>
+          ) : (
+            <span className={styles.spanContainer}>{page}</span>
           )}
-        >
-          {page}
-        </button>
+        </React.Fragment>
       ))}
 
       <button
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        disabled={currentPage === lastPage}
         className={clsx(styles.navigationButton, { [styles.disabled]: currentPage === totalPages })}
       >
         <SvgArrowIosForward
           width={16}
           height={16}
-          color={currentPage === totalPages ? "var(--dark-100)" : "var(--light-100)"}
+          color={currentPage === lastPage ? "var(--dark-100)" : "var(--light-100)"}
         />
       </button>
 
       <div className={clsx(styles.selectContainer, "typography-variant--regular_14")}>
         <span>Show</span>
-        <select className={styles.selectBox} value={pageSize} onChange={(e) => onPageSizeChange(Number(e.target.value))}>
+        <select
+          className={styles.selectBox}
+          value={pageSize}
+          onChange={(e) => onPageSizeChange(Number(e.target.value))}
+        >
           {[10, 20, 30, 50, 100].map((size) => (
             <option key={size} value={size}>
               {size}
