@@ -20,7 +20,7 @@
 
   &:focus {
     background-color: var(--dark-300);
-    outline: 2px solid var(--primary-700);
+    outline: none;
   }
 
   &:active {
@@ -36,6 +36,10 @@
     background-color: var(--light-100);
     color: var(--dark-900);
     outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-700);
   }
 }
 
