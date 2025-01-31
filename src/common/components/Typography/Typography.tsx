@@ -1,13 +1,14 @@
 import { ComponentPropsWithoutRef, FC } from "react";
 import stl from "common/components/Typography/Typography.module.css";
+import "app/globals.css";
 import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 
 export const Typography: FC<TypographyProps> = ({
   className,
   variant = "small",
-  color = "primary",
-  align = "center",
+  color = "light",
+  textAlign = "left",
   children,
   asChild,
   ...restProps
@@ -16,10 +17,10 @@ export const Typography: FC<TypographyProps> = ({
   return (
     <Component
       className={clsx(
-        stl.typography,
-        stl[`typography-variant--${variant}`],
-        stl[`typography-color--${color}`],
-        stl[`typography-align--${align}`],
+        stl.TypographyBaseStyles,
+        stl[`variant-${variant}`],
+        stl[`color-${color}`],
+        stl[`align-${textAlign}`],
         className
       )}
       {...restProps}
@@ -43,11 +44,11 @@ type TypographyVariant =
   | "bold_small"
   | "regular_link"
   | "small_link";
-type TypographyColors = "primary" | "secondary" | "error" | "warning" | "success" | "link";
+type TypographyColors = "light" | "dark" | "blue" | "lightBlue" | "deepBlue" | "error" | "disabled";
 type TypographyAlign = "inherit" | "left" | "center" | "right" | "justify" | "initial" | "unset";
 export type TypographyProps = {
   variant?: TypographyVariant;
   color?: TypographyColors;
-  align?: TypographyAlign;
+  textAlign?: TypographyAlign;
   asChild?: boolean;
 } & ComponentPropsWithoutRef<"div">;

@@ -23,7 +23,7 @@ export default function Policy() {
       <div className={stl.textWrapper}>
         <div className={stl.termText}>
           <Typography variant={"small"}>
-            <Typography variant={"h3"} align={"center"} className={stl.title}>
+            <Typography variant={"h3"} textAlign={"center"} className={stl.title}>
               Privacy Policy
             </Typography>
             1. Introduction We value your privacy and are committed to protecting your personal information. This

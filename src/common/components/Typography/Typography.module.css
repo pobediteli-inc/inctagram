@@ -1,4 +1,6 @@
-.typography {
+/* base styles */
+
+.TypographyBaseStyles {
   font-family: var(--font-family), sans-serif, Arial;
   font-weight: 400;
   font-size: 14px;
@@ -6,73 +8,75 @@
   color: var(--light-100);
 }
 
-.typography-variant--large {
+/* font styles */
+
+.variant-large {
   font-weight: 600;
   font-size: 26px;
   line-height: 138%;
 }
 
-.typography-variant--h1 {
+.variant-h1 {
   font-weight: 700;
   font-size: 20px;
   line-height: 180%;
 }
 
-.typography-variant--h2 {
+.variant-h2 {
   font-weight: 700;
   font-size: 18px;
   line-height: 133%;
 }
 
-.typography-variant--h3 {
+.variant-h3 {
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
 }
 
-.typography-variant--regular_16 {
+.variant-regular_16 {
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
 }
 
-.typography-variant--bold_16 {
+.variant-bold_16 {
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
 }
 
-.typography-variant--regular_14 {
+.variant-regular_14 {
   font-weight: 400;
   font-size: 14px;
   line-height: 171%;
 }
 
-.typography-variant--medium_14 {
+.variant-medium_14 {
   font-weight: 500;
   font-size: 14px;
   line-height: 171%;
 }
 
-.typography-variant--bold_14 {
+.variant-bold_14 {
   font-weight: 700;
   font-size: 14px;
   line-height: 171%;
 }
 
-.typography-variant--small {
+.variant-small {
   font-weight: 400;
   font-size: 12px;
   line-height: 133%;
 }
 
-.typography-variant--bold_small {
+.variant-bold_small {
   font-weight: 600;
   font-size: 12px;
   line-height: 133%;
 }
 
-.typography-variant--regular_link {
+.variant-regular_link {
   font-weight: 400;
   font-size: 14px;
   line-height: 171%;
@@ -82,7 +86,7 @@
   cursor: pointer;
 }
 
-.typography-variant--small_link {
+.variant-small_link {
   font-weight: 400;
   font-size: 12px;
   line-height: 133%;
@@ -92,54 +96,62 @@
   cursor: pointer;
 }
 
-.typography-color--primary {
+/* color styles */
+
+.color-light {
   color: var(--light-100);
 }
 
-.typography-color--secondary {
-  color: var(--dark-900);
+.color-dark {
+  color: var(--light-900);
 }
 
-.typography-color--link {
+.color-blue {
   color: var(--primary-500);
 }
 
-.typography-color--success {
-  color: var(--success-500);
+.color-lightBlue {
+  color: var(--primary-300);
 }
 
-.typography-color--warning {
-  color: var(--warning-100);
+.color-deepBlue {
+  color: var(--primary-900);
 }
 
-.typography-color--error {
-  color: var(--danger-300);
+.color-error {
+  color: var(--danger-500);
 }
 
-.typography-align--inherit {
+.color-disabled {
+  color: var(--dark-100);
+}
+
+/* text position */
+
+.align-inherit {
   text-align: inherit;
 }
 
-.typography-align--left {
+.align-left {
   text-align: left;
 }
 
-.typography-align--center {
+.align-center {
   text-align: center;
 }
 
-.typography-align--right {
+.align-right {
   text-align: right;
 }
 
-.typography-align--justify {
+.align-justify {
   text-align: justify;
 }
 
-.typography-align--initial {
+.align-initial {
   text-align: initial;
 }
 
-.typography-align--unset {
+.align-unset {
   text-align: unset;
 }

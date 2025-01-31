@@ -23,7 +23,7 @@ export default function Service() {
       <div className={stl.textWrapper}>
         <div className={stl.termText}>
           <Typography variant={"small"}>
-            <Typography variant={"h3"} align={"center"} className={stl.title}>
+            <Typography variant={"h3"} textAlign={"center"} className={stl.title}>
               Terms of Service
             </Typography>
             1. Introduction Welcome to our website! By accessing or using our services, you agree to be bound by these
