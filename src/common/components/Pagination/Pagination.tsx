@@ -5,8 +5,6 @@ import { clsx } from "clsx";
 import SvgArrowIosBack from "common/components/SVGComponents/ArrowIosBack";
 import SvgArrowIosForward from "common/components/SVGComponents/ArrowIosForward";
 import { useRouter, useSearchParams } from "next/navigation";
-import { RadixSelectItem } from "../RadixSelect/RadixSelectItems/RadixSelectItems";
-import { RadixSelect } from "../RadixSelect/RadixSelect";
 
 export type PaginationProps = {
   totalPages: number;
@@ -70,13 +68,11 @@ const Pagination = ({ totalPages }: PaginationProps) => {
 
       <div className={clsx(styles.selectContainer, "typography-variant--regular_14")}>
         <span>Show</span>
-        <select
-          className={styles.selectBox}
-          value={pageSize}
-          onChange={(e) => onPageChange(1, Number(e.target.value))}
-        >
+        <select className={styles.selectBox} value={pageSize} onChange={(e) => onPageChange(1, Number(e.target.value))}>
           {[10, 20, 30, 50, 100].map((size) => (
-            <option key={size} value={size}>{size}</option>
+            <option key={size} value={size}>
+              {size}
+            </option>
           ))}
         </select>
         <span>on page</span>

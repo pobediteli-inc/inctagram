@@ -20,7 +20,7 @@
 
   &:focus {
     background-color: var(--dark-300);
-    outline: 1px solid var(--primary-700);
+    outline: 2px solid var(--primary-700);
   }
 
   &:active {
@@ -69,5 +69,20 @@
   gap: 8px;
   margin-left: 15px;
   color: var(--light-100);
+}
+
+.selectBox {
+  background-color: var(--dark-500);
+  color: var(--light-100);
+  width: 52px;
+  height: 24px;
+  border-radius: 2px;
+  padding-left: 2px;
+  border: 1px solid var(--dark-300);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 }
 
