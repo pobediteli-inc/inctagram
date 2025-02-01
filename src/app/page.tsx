@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import SignUpPage from "app/SignUp/page";
+import SignUpPage from "app/signUp/page";
 
 export default function Home() {
   return (
