@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, FC } from "react";
-import stl from "common/components/Typography/Typography.module.css";
+import s from "./Typography.module.css";
 import "app/globals.css";
 import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
@@ -7,8 +7,8 @@ import { Slot } from "@radix-ui/react-slot";
 export const Typography: FC<TypographyProps> = ({
   className,
   variant = "small",
-  color = "light",
-  textAlign = "left",
+  color,
+  textAlign,
   children,
   asChild,
   ...restProps
@@ -17,10 +17,10 @@ export const Typography: FC<TypographyProps> = ({
   return (
     <Component
       className={clsx(
-        stl.TypographyBaseStyles,
-        stl[`variant-${variant}`],
-        stl[`color-${color}`],
-        stl[`align-${textAlign}`],
+        s.TypographyBaseStyles,
+        s[`variant-${variant}`],
+        color && s[`color-${color}`],
+        textAlign && s[`align-${textAlign}`],
         className
       )}
       {...restProps}
