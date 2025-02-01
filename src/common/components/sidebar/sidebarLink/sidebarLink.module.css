@@ -10,7 +10,7 @@
   color: var(--primary-100);
 }
 
-.navbarLink:active {
+.navbarLink.active {
   color: var(--primary-500);
 }
 
