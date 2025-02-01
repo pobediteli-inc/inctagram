@@ -4,7 +4,7 @@ import { Typography } from "common/components/typography/typography";
 import GoogleSvgRepoCom1 from "assets/icons/GoogleSvgRepoCom1";
 import GithubSvgRepoCom31 from "assets/icons/GithubSvgRepoCom31";
 import { TextField } from "common/components/textField/textField";
-import { RadixCheckbox } from "common/components/checkbox/checkbox";
+import { Checkbox } from "common/components/checkbox/checkbox";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "common/components/button/button";
@@ -60,7 +60,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className={stl.terms}>
-        <RadixCheckbox checked={checked} setChecked={setChecked} />
+        <Checkbox checked={checked} setChecked={setChecked} />
         <Typography variant={"small"}>
           I agree to the{" "}
           <Link className={stl.link} href={"/signUp/terms/service"}>

@@ -7,7 +7,7 @@ import SearchOutline from "../../../assets/icons/SearchOutline";
 import TrendingUpOutline from "../../../assets/icons/TrendingUpOutline";
 import BookmarkOutline from "../../../assets/icons/BookmarkOutline";
 import LogOutOutline from "../../../assets/icons/LogOutOutline";
-import { SidebarItem, SidebarLink } from "./sidebarLink/SidebarLink";
+import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
 
 const sidebarItems: SidebarItem[] = [
   {
