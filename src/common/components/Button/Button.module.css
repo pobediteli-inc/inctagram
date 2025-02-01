@@ -9,8 +9,6 @@
   text-align: center;
   border-radius: 2px;
   padding: 6px 24px;
-  width: 182px;
-  height: 36px;
   transition: transform 0.1s, box-shadow 0.1s;
 
   &:active {

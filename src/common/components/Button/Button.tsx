@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, FC } from "react";
-import stl from "common/components/Button/Button.module.css";
+import s from "./Button.module.css";
 import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 
@@ -13,7 +13,7 @@ export const Button: FC<Props> = ({ variant = "primary", asChild = false, classN
   const Component = asChild ? Slot : "button";
   return (
     <Component
-      className={clsx(stl.buttonBaseStyles, stl[variant], { [stl.notAnimation]: asChild }, className)}
+      className={clsx(s.buttonBaseStyles, s[variant], { [s.notAnimation]: asChild }, className)}
       {...restProps}
     />
   );
