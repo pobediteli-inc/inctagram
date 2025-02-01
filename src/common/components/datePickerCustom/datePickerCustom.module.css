@@ -1,0 +1,18 @@
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--light-900);
+}
+
+.datePickerCustom {
+  min-width: 88px;
+  min-height: 24px;
+  padding: 6px 12px;
+  font-family: Inter, serif;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid var(--dark-300);
+  background-color: var(--dark-500);
+  color: var(--light-100);
+}
