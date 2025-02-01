@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import stl from "./header.module.css";
 import { Select } from "common/components/select/select";
-import FillBell from "assets/icons/FillBell";
+import { FillBell } from "assets/icons";
 
 type Props = {
   children?: ReactNode;
