@@ -1,12 +1,14 @@
 import s from "./sidebar.module.css";
-import Home from "../../../assets/icons/Home";
-import PlusSquareOutline from "../../../assets/icons/PlusSquareOutline";
-import Person from "../../../assets/icons/Person";
-import MessageCircleOutline from "../../../assets/icons/MessageCircleOutline";
-import SearchOutline from "../../../assets/icons/SearchOutline";
-import TrendingUpOutline from "../../../assets/icons/TrendingUpOutline";
-import BookmarkOutline from "../../../assets/icons/BookmarkOutline";
-import LogOutOutline from "../../../assets/icons/LogOutOutline";
+import {
+  Home,
+  PlusSquareOutline,
+  Person,
+  MessageCircleOutline,
+  SearchOutline,
+  TrendingUpOutline,
+  BookmarkOutline,
+  LogOutOutline,
+} from "assets/icons";
 import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
 
 const sidebarItems: SidebarItem[] = [
@@ -52,7 +54,7 @@ const sidebarItems: SidebarItem[] = [
   },
 ];
 
-export default function Sidebar() {
+export const Sidebar = () => {
   return (
     <nav className={s.navbar}>
       {sidebarItems.map((i, index) => (
@@ -60,4 +62,4 @@ export default function Sidebar() {
       ))}
     </nav>
   );
-}
+};

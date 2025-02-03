@@ -1,10 +1,7 @@
 import stl from "./login.module.css";
-import { Typography } from "common/components/typography/typography";
 import Link from "next/link";
-import GoogleSvgRepoCom1 from "assets/icons/GoogleSvgRepoCom1";
-import GithubSvgRepoCom31 from "assets/icons/GithubSvgRepoCom31";
-import { TextField } from "common/components/textField/textField";
-import { Button } from "common/components/button/button";
+import { Github, Google } from "assets/icons";
+import { TextField, Button, Typography } from "common/components";
 
 export default function Login() {
   return (
@@ -14,10 +11,10 @@ export default function Login() {
       </Typography>
       <div className={stl.socialIcons}>
         <Link href={"https://www.google.com"} target={"_blank"}>
-          <GoogleSvgRepoCom1 width={36} height={36} />
+          <Google width={36} height={36} />
         </Link>
         <Link href={"https://www.github.com"} target={"_blank"}>
-          <GithubSvgRepoCom31 width={36} height={36} color={"white"} />
+          <Github width={36} height={36} color={"white"} />
         </Link>
       </div>
       <div className={stl.forms}>

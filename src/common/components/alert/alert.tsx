@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Close from "../../../assets/icons/Close";
+import { Close } from "assets/icons";
 import s from "./alert.module.css";
 import { clsx } from "clsx";
 import { Typography } from "../typography/typography";

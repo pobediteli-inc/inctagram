@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "common/components/header/header";
+import { Header } from "common/components";
 import { Inter } from "next/font/google";
 
 const inter = Inter({

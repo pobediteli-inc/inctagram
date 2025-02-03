@@ -2,11 +2,10 @@ import { ComponentPropsWithoutRef, FC } from "react";
 import stl from "./select.module.css";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import * as RadixSelect from "@radix-ui/react-select";
-import { SelectItem } from "common/components/select/selectItems/selectItems";
+import { SelectItem } from "./selectItems/selectItems";
 import { ChevronUpIcon } from "@radix-ui/react-icons";
 import { clsx } from "clsx";
-import FlagUnitedKingdom from "assets/icons/FlagUnitedKingdom";
-import FlagRussia from "assets/icons/FlagRussia";
+import { FlagUnitedKingdom, FlagRussia } from "assets/icons";
 
 type Props = {
   className?: string;
