@@ -1,0 +1,67 @@
+.tabsBaseStyle {
+    width: 85px;
+    height: 36px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.primary {
+    color: var(--primary-500);
+    border-bottom: 2px solid var(--primary-500);
+
+    &:active {
+        background-color: rgba(115, 165, 255, 0.15);
+        border-bottom: 2px solid var(--primary-500);
+    }
+    
+    &:hover {
+        background-color: rgba(35, 78, 153, 0.15);
+    }
+    
+    &:focus {
+        outline: 2px solid var(--primary-700);
+        border-radius: 2px;
+    }
+
+    &:focus:not(:focus-visible), input:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:disabled {
+        color: var(--primary-900);
+        border-bottom: 2px solid var(--primary-900);;
+    }
+}
+
+.secondary {
+    color: var(--dark-100);
+    border-bottom: 2px solid var(--dark-100);
+
+    &:active {
+        background-color: rgba(115, 165, 255, 0.15);
+    }
+    
+    &:hover {
+        background-color: rgba(35, 78, 153, 0.15);
+    }
+    
+    &:focus {
+        outline: 2px solid var(--primary-700);
+        border-radius: 2px;
+    }
+
+    &:focus:not(:focus-visible), input:focus:not(:focus-visible) {
+        outline: none;
+    }
+    
+    &:disabled {
+        color: var(--dark-300);
+        border-bottom: 2px solid var(--dark-300);
+    }
+}
