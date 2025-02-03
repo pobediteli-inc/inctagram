@@ -6,9 +6,6 @@ const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
   tags: ["autodocs"],
   argTypes: {
-    containerClassName: {
-      table: { disable: true },
-    },
     labelClassName: {
       table: { disable: true },
     },

@@ -7,14 +7,12 @@ import { PositionProps } from "common/types/PositionProps/PositionProps";
 import { Typography } from "common/components/typography/typography";
 
 export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Props>(
-  (
-    { containerClassName, labelClassName, label, labelPosition, checked, onCheckedChange, disabled = false, ...rest },
-    ref
-  ) => {
-    const id = useId();
+  ({ className, labelClassName, label, labelPosition, checked, onCheckedChange, disabled = false, ...rest }, ref) => {
+    const generatedId = useId();
+    const id = rest.id || generatedId;
 
     return (
-      <div className={clsx(s.checkboxContainer, labelPosition && s[`label-${labelPosition}`], containerClassName)}>
+      <div className={clsx(s.checkboxContainer, labelPosition && s[`label-${labelPosition}`], className)}>
         <div className={s.circle}>
           <RadixCheckbox.Root
             id={id}
@@ -43,7 +41,6 @@ export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Prop
 );
 
 export type Props = {
-  containerClassName?: string;
   labelClassName?: string;
   label?: string;
   labelPosition?: PositionProps;
