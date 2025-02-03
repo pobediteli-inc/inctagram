@@ -14,17 +14,15 @@ const meta: Meta<typeof Scroll> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const dataToRender = Array.from({ length: 50 }).map((_, i, a) => `some data to render ... ${a.length - i}`);
+
 export const Default: Story = {
   args: {
     children: (
-      <div style={{ width: "400px", height: "400px", padding: "10px", color: "var(--light-100)"}}>
-        <p>Scrollable content</p>
-        <p>More content...</p>
-        <p>Even more content...</p>
-        <p>Keep scrolling...</p>
-        <p>Still more content...</p>
-        <p>Almost there...</p>
-        <p>End of content</p>
+      <div style={{ width: "250px", height: "250px", padding: "10px", color: "var(--light-100)" }}>
+        {dataToRender.map((el, i) => (
+          <div key={i}>{el}</div>
+        ))}
       </div>
     ),
   },
