@@ -1,12 +1,13 @@
 import "app/globals.css";
 import { Meta, StoryObj } from "@storybook/react";
-import { DatePickerCustom } from "./datePickerCustom";
+import { DatePickerRange } from "./datePickerRange";
+
 
 const meta = {
-  title: "Components/DatePickerCustom",
-  component: DatePickerCustom,
+  title: "Components/DatePickerRange",
+  component: DatePickerRange,
   tags: ["autodocs"],
-} satisfies Meta<typeof DatePickerCustom>;
+} satisfies Meta<typeof DatePickerRange>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
