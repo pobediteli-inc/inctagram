@@ -1,4 +1,4 @@
-.checkContainer {
+.checkboxContainer {
   display: flex;
   align-items: center;
 }
@@ -27,7 +27,7 @@
   }
 }
 
-.Root {
+.checkboxBaseStyles {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,36 +71,37 @@
   color: var(--dark-900);
 }
 
-.label {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 171%;
-  color: var(--light-100);
+.checkboxLabel {
   user-select: none;
+  cursor: pointer;
   margin: 5px;
   flex-shrink: 0;
 }
 
 .labelDisabled {
-  color: var(--light-900);
+  color: var(--light-900) !important;
 }
 
-/* Позиционирование label */
+/* label position */
 .label-top {
-  flex-direction: column; /* Label сверху */
-  text-align: left;
+  flex-direction: column;
 }
 
 .label-bottom {
-  flex-direction: column-reverse; /* Label снизу */
+  flex-direction: column-reverse;
 }
 
 .label-left {
-  flex-direction: row; /* Label слева */
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .label-right {
-  flex-direction: row-reverse; /* Label справа */
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.label-center {
+  flex-direction: row;
+  justify-content: center;
 }

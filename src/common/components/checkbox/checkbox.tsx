@@ -1,54 +1,49 @@
-import React, { type ComponentPropsWithRef, FC } from "react";
+import React, { ComponentPropsWithoutRef, ComponentRef, forwardRef, useId } from "react";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
-import stl from "./checkbox.module.css";
+import s from "./checkbox.module.css";
 import { clsx } from "clsx";
+import { PositionProps } from "common/types/PositionProps/PositionProps";
+import { Typography } from "common/components/typography/typography";
 
-export const Checkbox: FC<RadixCheckboxProps> = ({
-  containerClassName,
-  labelClassName,
-  label,
-  labelPosition = "right",
-  checked = false,
-  setChecked,
-  disabled = false,
-  ...rest
-}) => {
-  const handleChecked = (checked: boolean) => setChecked(checked);
+export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Props>(
+  ({ className, labelClassName, label, labelPosition, checked, onCheckedChange, disabled = false, ...rest }, ref) => {
+    const generatedId = useId();
+    const id = rest.id || generatedId;
 
-  return (
-    <div className={clsx(stl.checkContainer, stl[`label-${labelPosition}`], containerClassName)}>
-      {label && (
-        <label
-          htmlFor={rest.name}
-          className={clsx(stl.label, { [stl.labelDisabled]: disabled }, labelClassName)}
-          aria-disabled={disabled}
-        >
-          {label}
-        </label>
-      )}
-      <div className={stl.circle}>
-        <RadixCheckbox.Root
-          disabled={disabled}
-          className={clsx(stl.Root)}
-          checked={checked}
-          onCheckedChange={handleChecked}
-        >
-          <RadixCheckbox.Indicator className={stl.Indicator}>
-            <CheckIcon />
-          </RadixCheckbox.Indicator>
-        </RadixCheckbox.Root>
+    return (
+      <div className={clsx(s.checkboxContainer, labelPosition && s[`label-${labelPosition}`], className)}>
+        <div className={s.circle}>
+          <RadixCheckbox.Root
+            id={id}
+            ref={ref}
+            disabled={disabled}
+            className={clsx(s.checkboxBaseStyles)}
+            checked={checked}
+            onCheckedChange={onCheckedChange}
+            {...rest}
+          >
+            <RadixCheckbox.Indicator className={s.Indicator}>
+              <CheckIcon />
+            </RadixCheckbox.Indicator>
+          </RadixCheckbox.Root>
+        </div>
+        {label && (
+          <Typography variant="regular_14" color={"light"} asChild>
+            <label htmlFor={id} className={clsx(s.checkboxLabel, { [s.labelDisabled]: disabled }, labelClassName)}>
+              {label}
+            </label>
+          </Typography>
+        )}
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
-export type RadixCheckboxProps = {
-  containerClassName?: string;
+export type Props = {
   labelClassName?: string;
   label?: string;
-  labelPosition?: "top" | "bottom" | "left" | "right";
-  disabled?: boolean;
-  checked: boolean;
-  setChecked: (checked: boolean) => void;
-} & ComponentPropsWithRef<"input">;
+  labelPosition?: PositionProps;
+} & ComponentPropsWithoutRef<typeof RadixCheckbox.Root>;
+
+Checkbox.displayName = "Checkbox";

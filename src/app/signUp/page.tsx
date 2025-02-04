@@ -6,7 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function SignUpPage() {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<"indeterminate" | boolean>(false);
 
   return (
     <div className={stl.signUpWrapper}>
@@ -56,7 +56,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className={stl.terms}>
-        <Checkbox checked={checked} setChecked={setChecked} />
+        <Checkbox checked={checked} onCheckedChange={setChecked} />
         <Typography variant={"small"}>
           I agree to the{" "}
           <Link className={stl.link} href={"/signUp/terms/service"}>
