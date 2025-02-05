@@ -8,6 +8,9 @@
   line-height: 150%;
   text-align: center;
   border-radius: 2px;
+  border: 2px solid transparent;
+  outline: 2px solid transparent;
+  box-sizing: border-box;
   padding: 6px 24px;
   transition: transform 0.1s, box-shadow 0.1s;
 
@@ -60,7 +63,7 @@
   }
 
   &:focus {
-    border: 1px solid var(--primary-300);
+    border-color: var(--primary-300);
   }
 
   &:disabled {
@@ -72,33 +75,33 @@
 .outlined {
   background-color: transparent;
   color: var(--primary-500);
-  border: 1px solid var(--primary-500);
+  border-color: var(--primary-500);
 
   &:active {
-    border: 1px solid var(--primary-700);
+    border-color: var(--primary-700);
     color: var(--primary-700);
   }
 
   &:hover {
-    border: 1px solid var(--primary-100);
+    border-color: var(--primary-100);
     color: var(--primary-100);
   }
 
   &:focus {
-    border: 2px solid var(--primary-700);
+    border-color: var(--primary-700);
     color: var(--primary-700);
   }
 
   &:disabled {
-    border: 1px solid var(--primary-900);
+    border-color: var(--primary-900);
     color: var(--primary-900);
   }
 }
 
 .link {
   background-color: transparent;
-  border: none;
   color: var(--primary-500);
+  border: none;
   outline: none;
   transition: none;
   transform: none;
@@ -114,7 +117,7 @@
   }
 
   &:focus {
-    color: var(--primary-300)
+    color: var(--primary-700)
   }
 
   &:disabled {
