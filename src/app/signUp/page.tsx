@@ -1,16 +1,12 @@
 "use client";
 import stl from "app/signUp/signUp.module.css";
-import { Typography } from "common/components/typography/typography";
-import GoogleSvgRepoCom1 from "assets/icons/GoogleSvgRepoCom1";
-import GithubSvgRepoCom31 from "assets/icons/GithubSvgRepoCom31";
-import { TextField } from "common/components/textField/textField";
-import { Checkbox } from "common/components/checkbox/checkbox";
+import { Typography, TextField, Checkbox, Button } from "common/components";
+import { Google, Github } from "assets/icons";
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "common/components/button/button";
 
 export default function SignUpPage() {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<"indeterminate" | boolean>(false);
 
   return (
     <div className={stl.signUpWrapper}>
@@ -19,10 +15,10 @@ export default function SignUpPage() {
       </Typography>
       <div className={stl.socialIcons}>
         <Link href={"https://www.google.com"} target={"_blank"}>
-          <GoogleSvgRepoCom1 width={36} height={36} />
+          <Google width={36} height={36} />
         </Link>
         <Link href={"https://www.github.com"} target={"_blank"}>
-          <GithubSvgRepoCom31 width={36} height={36} color={"white"} />
+          <Github width={36} height={36} color={"white"} />
         </Link>
       </div>
       <div className={stl.forms}>
@@ -60,7 +56,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className={stl.terms}>
-        <Checkbox checked={checked} setChecked={setChecked} />
+        <Checkbox checked={checked} onCheckedChange={setChecked} />
         <Typography variant={"small"}>
           I agree to the{" "}
           <Link className={stl.link} href={"/signUp/terms/service"}>

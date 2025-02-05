@@ -5,8 +5,7 @@ import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 import { NullableProps } from "common/types/NullableProps/NullableProps";
 import stl from "common/components/textField/textField.module.css";
-import EyeOffOutline from "assets/icons/EyeOffOutline";
-import EyeOutline from "assets/icons/EyeOutline";
+import { EyeOffOutline, EyeOutline } from "assets/icons";
 
 export const TextField = memo(
   forwardRef<HTMLInputElement, TextFieldProps>(
