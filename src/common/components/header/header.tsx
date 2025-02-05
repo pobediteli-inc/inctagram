@@ -1,25 +1,39 @@
-import { FC, ReactNode } from "react";
-import stl from "./header.module.css";
+import { FC } from "react";
+import s from "./header.module.css";
 import { Select } from "common/components/select/select";
-import FillBell from "assets/icons/FillBell";
+import { Typography } from "common/components/typography/typography";
+import { Button } from "common/components/button/button";
+import Link from "next/link";
 
 type Props = {
-  children?: ReactNode;
+  isAuth: boolean;
 };
 
-export const Header: FC<Props> = ({ children }) => {
+export const Header: FC<Props> = ({ isAuth = false }) => {
   return (
-    <header className={stl.headerWrapper}>
-      <div className={stl.logo}>Inctagram</div>
-      <div className={stl.language}>
-        <div className={stl.bell}>
-          <FillBell width={24} height={24} />
-        </div>
-        <div className={stl.selectLanguage}>
+    <header className={s.headerWrapper}>
+      <div className={s.mainWrapper}>
+        <Typography variant={"large"} color={"light"} textAlign={"center"}>
+          Inctagram
+        </Typography>
+        <div className={s.selectButtonsWrapper}>
           <Select ariaLabel={"select language"} />
+          <div className={s.buttonsWrapper}>
+            {isAuth && (
+              <Button variant={"link"} asChild>
+                <Link href={"/login"}>
+                  <Typography variant={"h3"}>Log in</Typography>
+                </Link>
+              </Button>
+            )}
+            {!isAuth && (
+              <Button variant={"primary"}>
+                <Typography variant={"h3"}>Sign Up</Typography>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-      {children}
     </header>
   );
 };
