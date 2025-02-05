@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./Pagination.module.scss";
+import s from "./pagination.module.scss";
 import { clsx } from "clsx";
 import SvgArrowIosBack from "common/components/SVGComponents/ArrowIosBack";
 import SvgArrowIosForward from "common/components/SVGComponents/ArrowIosForward";
