@@ -1,10 +1,7 @@
-.tabsBaseStyle {
-    width: 85px;
-    height: 36px;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+.tabs {
+    padding: 6px 24px 6px 23px;
+    min-width: 85px;
+    min-height: 36px;
     text-align: center;
     cursor: pointer;
     border: none;
