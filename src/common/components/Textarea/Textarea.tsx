@@ -1,6 +1,7 @@
 import { TextareaHTMLAttributes } from "react"
 import clsx from "clsx"
 import s from "./Textarea.module.css"
+import { Typography } from "../Typography/Typography"
 
 type Props = {
     title: string
@@ -11,13 +12,19 @@ type Props = {
 export const Textarea = ({ title, error, disabled, className, ...props }: Props) => {
   return (
     <div className={s.container}>
-      <label className={disabled ? s.disabledLabel : s.label} >{title}</label>
-      <textarea
-        disabled={disabled}
-        className={clsx(s.textarea, error && s.error, className)}
-        {...props}
-      />
-      {error && <p className={s.errorText}>{error}</p>}
+      <Typography variant={'regular_14'}>
+        <label className={disabled ? s.disabledLabel : s.label} >{title}</label>
+      </Typography>
+      <Typography asChild variant={'regular_16'} color={error ? 'light' : 'dark'}>
+        <textarea
+          disabled={disabled}
+          className={clsx(s.textarea, error && s.error, className)}
+          {...props}
+        />
+      </Typography>
+      
+      <Typography variant={'regular_14'} color={'error'}>{error && <p>{error}</p>}</Typography>
     </div>
   )
 }
+

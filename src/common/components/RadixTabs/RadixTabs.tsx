@@ -1,6 +1,7 @@
 import * as Tabs from "@radix-ui/react-tabs"
 import s from "./RadixTabs.module.css"
 import clsx from "clsx"
+import { Typography } from "../Typography/Typography"
 
 export type Props = {
     variant: "primary" | "secondary"
@@ -11,6 +12,8 @@ export type Props = {
 
 export const RadixTabs = ({ variant, value, title, disabled = false }: Props) => {
   return (
-      <Tabs.Trigger value={value} className={clsx(s.tabsBaseStyle, s[variant])} disabled={disabled}>{title}</Tabs.Trigger>
+      <Typography variant={'h3'} asChild color={variant === 'primary' ? 'lightBlue' : 'disabled'} textAlign={'center'}>
+        <Tabs.Trigger value={value} className={clsx(s.tabs, s[variant])} disabled={disabled}>{title}</Tabs.Trigger>
+      </Typography>
   )
 }
