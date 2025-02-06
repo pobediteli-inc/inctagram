@@ -97,13 +97,7 @@
 
 .link {
   background-color: transparent;
-  border: none;
   color: var(--primary-500);
-  outline: none;
-  transition: none;
-  transform: none;
-  box-shadow: none;
-  padding: 0;
 
   &:active {
     color: var(--primary-700);
@@ -113,8 +107,9 @@
     color: var(--primary-100);
   }
 
-  &:focus {
-    color: var(--primary-300)
+  &:focus-visible {
+    outline: 2px solid var(--primary-700);
+    color: var(--primary-500)
   }
 
   &:disabled {
