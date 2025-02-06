@@ -9,7 +9,7 @@ type Props = {
   isAuth: boolean;
 };
 
-export const Header: FC<Props> = ({ isAuth = false }) => {
+export const Header: FC<Props> = ({ isAuth = true }) => {
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
@@ -19,17 +19,19 @@ export const Header: FC<Props> = ({ isAuth = false }) => {
         <div className={s.selectButtonsWrapper}>
           <Select ariaLabel={"select language"} />
           <div className={s.buttonsWrapper}>
-            {isAuth && (
-              <Button variant={"link"} asChild>
-                <Link href={"/login"}>
-                  <Typography variant={"h3"}>Log in</Typography>
-                </Link>
-              </Button>
-            )}
-            {!isAuth && (
-              <Button variant={"primary"}>
-                <Typography variant={"h3"}>Sign Up</Typography>
-              </Button>
+            {isAuth ? (
+              <Button variant={"primary"}>Log out</Button>
+            ) : (
+              <>
+                <Button variant={"link"} asChild>
+                  <Link href={"/login"}>
+                    <Typography variant={"h3"}>Log in</Typography>
+                  </Link>
+                </Button>
+                <Button variant={"primary"}>
+                  <Typography variant={"h3"}>Sign Up</Typography>
+                </Button>
+              </>
             )}
           </div>
         </div>
