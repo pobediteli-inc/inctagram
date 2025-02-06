@@ -116,7 +116,7 @@
     color: var(--primary-100);
   }
 
-  &:focus {
+  &:focus-visible {
     color: var(--primary-700)
   }
 
