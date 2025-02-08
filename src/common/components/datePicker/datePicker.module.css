@@ -6,13 +6,22 @@
 }
 
 .datePicker {
-  min-width: 88px;
-  min-height: 24px;
+  min-width: 158px;
+  max-width: 262px;
+  min-height: 36px;
   padding: 6px 12px;
-  font-family: Inter, serif;
-  font-size: 16px;
-  line-height: 24px;
+  display: inline-flex;
+  justify-content: space-between;
   border: 1px solid var(--dark-300);
+  border-radius: 2px;
   background-color: var(--dark-500);
   color: var(--light-100);
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  position: relative;
+}
+
+.datePicker:focus {
+  outline: 2px solid var(--primary-700);
 }
