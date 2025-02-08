@@ -1,7 +1,9 @@
-import styles from "./cards.module.css"
+import s from "./cards.module.css"
 export const Cards = () => {
   return (
-    <div className={styles.card}>
+    <div className={s.wrapper}>
+      <div className={s.card}>
+      </div>
     </div>
   );
 }
