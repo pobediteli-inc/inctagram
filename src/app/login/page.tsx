@@ -39,7 +39,7 @@ export default function Login() {
       </div>
       <div className={stl.buttonsWrapper}>
         <Typography variant={"regular_14"} className={stl.forgotPassword}>
-          <Link href={"#"} className={stl.forgotLink}>
+          <Link href={"/login/password-restore"} className={stl.forgotLink}>
             Forgot password?
           </Link>
         </Typography>
