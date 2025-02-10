@@ -6,8 +6,7 @@
 }
 
 .datePicker {
-  min-width: 158px;
-  max-width: 262px;
+  width: 262px;
   min-height: 36px;
   padding: 6px 12px;
   display: inline-flex;
@@ -24,4 +23,11 @@
 
 .datePicker:focus {
   outline: 2px solid var(--primary-700);
+}
+
+.wrapperCalendar {
+  position: absolute;
+  left: -131px;
+  top: -5px;
+  max-width: 300px;
 }

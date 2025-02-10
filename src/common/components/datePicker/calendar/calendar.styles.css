@@ -17,7 +17,7 @@
   --rdp-outside-opacity: 0.75; /* The opacity of the days outside the current month. */
   --rdp-today-color: var(--rdp-accent-color); /* The color of the today's date. */
 
-  --rdp-dropdown-gap: 0.5rem;/* The gap between the dropdowns used in the month captons. */
+  --rdp-dropdown-gap: 0.5rem; /* The gap between the dropdowns used in the month captons. */
 
   --rdp-months-gap: 2rem; /* The gap between the months in the multi-month view. */
 
@@ -26,15 +26,15 @@
   --rdp-nav_button-width: 2.25rem; /* The width of the navigation buttons. */
   --rdp-nav-height: 2.75rem; /* The height of the navigation bar. */
 
-  --rdp-range_middle-background-color: var(--rdp-accent-background-color); /* The color of the background for days in the middle of a range. */
-  --rdp-range_middle-color: inherit;/* The color of the range text. */
+  --rdp-range_middle-background-color: var(--primary-900); /* The color of the background for days in the middle of a range. */
+  --rdp-range_middle-color: inherit; /* The color of the range text. */
 
   --rdp-range_start-color: white; /* The color of the range text. */
   --rdp-range_start-background: linear-gradient(var(--rdp-gradient-direction), transparent 50%, var(--rdp-range_middle-background-color) 50%); /* Used for the background of the start of the selected range. */
   --rdp-range_start-date-background-color: var(--rdp-accent-color); /* The background color of the date when at the start of the selected range. */
 
   --rdp-range_end-background: linear-gradient(var(--rdp-gradient-direction), var(--rdp-range_middle-background-color) 50%, transparent 50%); /* Used for the background of the end of the selected range. */
-  --rdp-range_end-color: white;/* The color of the range text. */
+  --rdp-range_end-color: white; /* The color of the range text. */
   --rdp-range_end-date-background-color: var(--rdp-accent-color); /* The background color of the date when at the end of the selected range. */
 
   --rdp-week_number-border-radius: 100%; /* The border radius of the week number. */
@@ -71,7 +71,7 @@
   padding: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;;
+  justify-content: center;
 }
 
 .rdp-root * {
@@ -196,6 +196,7 @@
   align-items: center;
   gap: var(--rdp-dropdown-gap);
 }
+
 .rdp-dropdown {
   z-index: 2;
 
@@ -327,32 +328,41 @@
 
 .rdp-range_start {
   background: var(--rdp-range_start-background);
+  border: unset;
+  border-radius: 100px 0 0 100px;
+
 }
 
 .rdp-range_start .rdp-day_button {
   background-color: var(--rdp-range_start-date-background-color);
   color: var(--rdp-range_start-color);
+  /*border-radius: 100px 0 0 100px;*/
+  border: unset;
 }
 
 .rdp-range_middle {
   background-color: var(--rdp-range_middle-background-color);
+  border-radius: unset;
 }
 
 .rdp-range_middle .rdp-day_button {
   border-color: transparent;
   border: unset;
-  border-radius: unset;
+  border-radius: 100%;
   color: var(--rdp-range_middle-color);
 }
 
 .rdp-range_end {
   background: var(--rdp-range_end-background);
   color: var(--rdp-range_end-color);
+  border-radius: 0 100px 100px 0;
+  border: unset;
 }
 
 .rdp-range_end .rdp-day_button {
   color: var(--rdp-range_start-color);
   background-color: var(--rdp-range_end-date-background-color);
+  border: unset;
 }
 
 .rdp-range_start.rdp-range_end {
