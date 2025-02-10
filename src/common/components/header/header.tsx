@@ -9,7 +9,7 @@ type Props = {
   isAuth: boolean;
 };
 
-export const Header: FC<Props> = ({ isAuth = true }) => {
+export const Header: FC<Props> = ({ isAuth }) => {
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
