@@ -19,6 +19,7 @@
   font-size: 16px;
   font-weight: 400;
   position: relative;
+  cursor: default;
 }
 
 .datePicker:focus {
