@@ -18,7 +18,9 @@ export const LogOutModal = ({ open, onClose, onLogout, email }: LogOutModalProps
           <Typography variant={"regular_16"} color={"light"}>
             Are you really want to log out of your account “
             <Typography variant={"bold_14"} asChild={true}>
-              <span>{email}</span>
+              <span tabIndex={0} autoFocus className={s.autoFocus}>
+                {email}
+              </span>
             </Typography>
             ”?
           </Typography>
@@ -27,7 +29,7 @@ export const LogOutModal = ({ open, onClose, onLogout, email }: LogOutModalProps
           <Button variant={"outlined"} className={s.button} onClick={onLogout}>
             <Typography variant={"h3"}>Yes</Typography>
           </Button>
-          <Button variant={"primary"} className={s.button} autoFocus onClick={onClose}>
+          <Button variant={"primary"} className={s.button} onClick={onClose}>
             <Typography variant={"h3"}>No</Typography>
           </Button>
         </div>
