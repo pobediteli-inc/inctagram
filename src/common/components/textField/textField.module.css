@@ -1,61 +1,55 @@
 .textFieldWrapper {
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: column;
   position: relative;
-  width: 280px;
-  height: 60px;
+  min-width: 280px;
+  width: 100%;
+  min-height: 60px;
   gap: 5px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 171%;
   user-select: none;
 }
 
-.standard {
+.textFieldBaseStyles {
   box-sizing: border-box;
-  width: 280px;
-  height: 36px;
-  border: 1px solid var(--dark-100);
-  color: var(--light-900);
+  width: 100%;
+  min-height: 36px;
   border-radius: 2px;
+  border: 1px solid transparent;
+  color: var(--light-900);
   padding: 5px 10px;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   transition: border-color 0.2s ease;
+}
+
+.standard {
+  background-color: var(--dark-700);
+  border-color: var(--dark-100);
 
   &:hover {
-    border: 1px solid var(--light-900);
+    border-color: var(--light-900);
   }
 
   &:focus {
     outline: none;
-    border: 1px solid var(--primary-500);
+    border-color: var(--primary-500);
   }
 
   &:active {
-    border: 1px solid var(--light-100);
+    border-color: var(--light-100);
     color: var(--light-100);
   }
 
   &:disabled {
-    border: 1px solid var(--dark-100);
+    border-color: var(--dark-100);
     color: var(--dark-100);
   }
 }
 
 .filled {
-  box-sizing: border-box;
-  width: 280px;
-  height: 36px;
   border: none;
   background-color: var(--dark-300);
-  color: var(--light-900);
-  border-radius: 2px;
-  padding: 5px 10px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -80,17 +74,9 @@
 }
 
 .outlined {
-  box-sizing: border-box;
-  width: 280px;
-  height: 36px;
   border: 2px solid var(--dark-300);
   background-color: transparent;
-  color: var(--light-900);
   border-radius: 6px;
-  padding: 5px 10px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -109,76 +95,40 @@
   }
 
   &:disabled {
-    border-color: var(--dark-500);
+    border-color: var(--dark-300);
     color: var(--dark-500);
     cursor: not-allowed;
     opacity: 0.6;
   }
 }
 
+/* label styles */
+
 .label {
+  display: block;
+  text-align: left;
   flex-shrink: 0;
 }
 
 .labelDisabled {
-  color: var(--dark-100);
+  color: var(--dark-100) !important;
+}
+
+/* error styles */
+
+.errorTextField {
+  border-color: var(--danger-500);
 }
 
 .errorMessage {
-  .input {
-    outline: var(--danger-500);
-    border: 1px solid var(--danger-500);
-  }
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 171%;
   color: var(--danger-500);
-  flex-shrink: 0;
-}
-
-/* Позиционирование label */
-.label-top {
-  flex-direction: column; /* Label сверху */
   text-align: left;
-}
-
-.label-bottom {
-  flex-direction: column-reverse; /* Label снизу */
-}
-
-.label-left {
-  flex-direction: row; /* Label слева */
-  align-items: center;
-}
-
-.label-right {
-  flex-direction: row-reverse; /* Label справа */
-  align-items: center;
-}
-
-/* Позиционирование error */
-.error-top {
-  flex-direction: column-reverse; /* Ошибка сверху */
-}
-
-.error-bottom {
-  flex-direction: column; /* Ошибка снизу */
-}
-
-.error-left {
-  flex-direction: row; /* Ошибка слева */
-  align-items: center;
-}
-
-.error-right {
-  flex-direction: row-reverse; /* Ошибка справа */
-  align-items: center;
+  flex-shrink: 0;
 }
 
 .passwordVisible {
   position: absolute;
-  right: -38px;
+  left: 295px;
   top: 33px;
   cursor: pointer;
 }

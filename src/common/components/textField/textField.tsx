@@ -1,61 +1,51 @@
 "use client";
-import type { ComponentPropsWithRef } from "react";
-import { forwardRef, memo, useState } from "react";
+import { ComponentPropsWithRef, forwardRef, memo, useId, useState } from "react";
 import { clsx } from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 import { NullableProps } from "common/types/NullableProps/NullableProps";
-import stl from "common/components/textField/textField.module.css";
+import s from "./textField.module.css";
 import { EyeOffOutline, EyeOutline } from "assets/icons";
+import { Typography } from "common/components/typography/typography";
 
 export const TextField = memo(
-  forwardRef<HTMLInputElement, TextFieldProps>(
+  forwardRef<HTMLInputElement, Props>(
     (
       {
-        containerClassName,
+        className,
         textFieldClassName,
         labelClassName,
-        errorMessageClassName,
+        errorClassName,
         variant = "standard",
         asChild = false,
         type = "text",
         label,
         disabled = false,
-        labelPosition = "top",
-        errorPosition = "bottom",
-        errorMessage,
+        error = null,
         ...rest
       },
       ref
     ) => {
       const [passwordVisible, setPasswordVisible] = useState(false);
+      const generatedId = useId();
+
+      const id = rest.id || generatedId;
       const Component = asChild ? Slot : "input";
-      const isError = !!errorMessage;
+      const isError = !!error;
 
       const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
+
       return (
-        <div
-          className={clsx(
-            stl.textFieldWrapper,
-            stl[`label-${labelPosition}`],
-            stl[`error-${errorPosition}`],
-            containerClassName
-          )}
-        >
+        <div className={clsx(s.textFieldWrapper, className)}>
           {label && (
-            <label
-              htmlFor={rest.name}
-              className={clsx(stl.label, { [stl.labelDisabled]: disabled }, labelClassName)}
-              aria-disabled={disabled}
-            >
-              {label}
-            </label>
+            <Typography variant={"regular_14"} color={"dark"} asChild>
+              <label htmlFor={id} className={clsx(s.label, { [s.labelDisabled]: disabled }, labelClassName)}>
+                {label}
+              </label>
+            </Typography>
           )}
           <Component
-            className={clsx(
-              variant && stl[variant],
-              { [stl.errorInput]: isError, [stl.errorDisabled]: disabled },
-              textFieldClassName
-            )}
+            id={id}
+            className={clsx(s.textFieldBaseStyles, s[variant], { [s.errorTextField]: isError }, textFieldClassName)}
             disabled={disabled}
             type={type === "password" && passwordVisible ? "text" : type}
             ref={ref}
@@ -64,12 +54,28 @@ export const TextField = memo(
 
           {type === "password" &&
             (passwordVisible ? (
-              <EyeOutline className={stl.passwordVisible} width={24} height={24} onClick={handlePasswordVisible} />
+              <EyeOutline
+                className={s.passwordVisible}
+                width={24}
+                height={24}
+                onClick={handlePasswordVisible}
+                color={"white"}
+              />
             ) : (
-              <EyeOffOutline className={stl.passwordVisible} width={24} height={24} onClick={handlePasswordVisible} />
+              <EyeOffOutline
+                className={s.passwordVisible}
+                width={24}
+                height={24}
+                onClick={handlePasswordVisible}
+                color={"white"}
+              />
             ))}
 
-          {isError && <span className={clsx(stl.errorMessage, errorMessageClassName)}>{errorMessage}</span>}
+          {isError && (
+            <Typography variant={"regular_14"} asChild>
+              <span className={clsx(s.errorMessage, errorClassName)}>{error}</span>
+            </Typography>
+          )}
         </div>
       );
     }
@@ -78,17 +84,13 @@ export const TextField = memo(
 
 TextField.displayName = "TextField";
 
-type TextFieldProps = {
-  containerClassName?: string;
+type Props = {
   textFieldClassName?: string;
   labelClassName?: string;
-  errorMessageClassName?: string;
+  errorClassName?: string;
   variant?: "standard" | "filled" | "outlined";
-  type?: "text" | "password" | "email" | "number" | "search";
+  type?: "text" | "password" | "email" | "number" | "search" | "date";
   asChild?: boolean;
   label?: string;
-  disabled?: boolean;
-  errorMessage?: NullableProps<string>;
-  labelPosition?: "top" | "bottom" | "left" | "right";
-  errorPosition?: "top" | "bottom" | "left" | "right";
+  error?: NullableProps<string>;
 } & ComponentPropsWithRef<"input">;
