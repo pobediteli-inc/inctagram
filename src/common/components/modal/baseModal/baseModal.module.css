@@ -1,11 +1,11 @@
-.Overlay {
+.overlay {
     background-color: rgb(0 0 0 / 50%);
     position: fixed;
     inset: 0;
     animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.Content {
+.content {
     background-color: var(--dark-300);
     border-radius: 2px;
     position: fixed;
@@ -25,12 +25,12 @@
 
 }
 
-.Title {
+.title {
     padding: 0 24px 10px;
 
 }
 
-.IconButton {
+.iconButton {
     all: unset;
     font-family: inherit;
     border-radius: 100%;

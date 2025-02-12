@@ -14,9 +14,9 @@ type Props = {
 export const BaseModal = ({ modalTitle, onClose, open, children, className, ...rest }: Props) => (
   <Dialog.Root open={open} onOpenChange={onClose} {...rest}>
     <Dialog.Portal>
-      <Dialog.Overlay className={s.Overlay} />
-      <Dialog.Content className={clsx(s.Content, className)}>
-        <Dialog.Title className={s.Title}>
+      <Dialog.Overlay className={s.overlay} />
+      <Dialog.Content className={clsx(s.content, className)}>
+        <Dialog.Title className={s.title}>
           <Typography variant={"h1"} color={"light"}>
             {modalTitle}
           </Typography>
@@ -24,7 +24,7 @@ export const BaseModal = ({ modalTitle, onClose, open, children, className, ...r
         <hr className={s.separator} />
         {children}
         <Dialog.Close asChild>
-          <button className={s.IconButton} aria-label="Close">
+          <button className={s.iconButton} aria-label="Close">
             <SvgClose width={"24px"} height={"24px"} />
           </button>
         </Dialog.Close>
