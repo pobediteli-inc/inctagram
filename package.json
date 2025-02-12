@@ -24,10 +24,12 @@
     "@radix-ui/react-slot": "^1.1.1",
     "@reduxjs/toolkit": "^2.5.0",
     "@storybook/theming": "^8.5.2",
+    "@types/react-google-recaptcha": "^2.1.9",
     "clsx": "^2.1.1",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0"
   },
