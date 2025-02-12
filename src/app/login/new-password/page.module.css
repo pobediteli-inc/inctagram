@@ -1,25 +1,9 @@
-.newPasswordWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 378px;
-    min-height: 408px;
-    height: auto;
-    background-color: var(--dark-500);
-    color: var(--light-900);
-    border: 1px solid var(--dark-300);
-    border-radius: 2px;
-    user-select: none;
-    margin: 132px auto;
-}
-
 .buttonsWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 41px 24px 36px 24px;
+    padding: 41px 24px 12px 24px;
 }
 
 .button {
@@ -35,10 +19,6 @@
     padding: 0 10px;
     background-color: var(--dark-500);
     color: var(--light-900);
-}
-
-.formTitle {
-    margin-top: 23px;
 }
 
 .form {

@@ -1,30 +1,29 @@
 import { Button, TextField, Typography } from "common/components";
 import s from "./page.module.css"
+import { Cards } from "common/components/cards/cards";
 
 export default function NewPassword() {
     return (
-        <div className={s.newPasswordWrapper}>
-            <Typography variant={'h1'} color={'light'} className={s.formTitle}>
+        <Cards>
+            <Typography variant={'h1'} color={'light'} textAlign={'center'}>
                 Create New Password
             </Typography>
-            <div className={s.form}>
+            <form className={s.form}>
                 <div className={s.inputWrapper}>
                     <TextField
                         textFieldClassName={s.password}
                         variant={"standard"}
                         type={"password"}
                         label={"New password"}
-                        labelPosition={"top"}
                     />
                     <TextField
                         textFieldClassName={s.password}
                         variant={"standard"}
                         type={"password"}
                         label={"Password confirmation"}
-                        labelPosition={"top"}
                     />    
                 </div>
-                <Typography variant={'regular_14'} className={s.text}>
+                <Typography variant={'regular_14'} color={'dark'} className={s.text}>
                     Your password must be between 6 and 20 characters 
                 </Typography>
                 <div className={s.buttonsWrapper}>
@@ -32,7 +31,7 @@ export default function NewPassword() {
                         Create new password
                     </Button>
                 </div>
-            </div>
-        </div>
+            </form>
+        </Cards>
     )
 }

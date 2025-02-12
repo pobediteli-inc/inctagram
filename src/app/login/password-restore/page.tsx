@@ -4,24 +4,24 @@ import { Button, TextField, Typography } from "common/components";
 import s from "./page.module.css"
 import Link from "next/link";
 import { useState } from "react";
+import { Cards } from "common/components/cards/cards";
 
 export default function ForgotPassword() {
     const [linkSent, setLinkSent] = useState(false)
 
     return (
-        <div className={s.forgotPasswordWrapper}>
-            <Typography variant={'h1'} color={'light'} className={s.formTitle}>
+        <Cards>
+            <Typography variant={'h1'} color={'light'} textAlign={'center'}>
                 Forgot Password
             </Typography>
-            <div className={s.form}>
+            <form className={s.form}>
                 <TextField
                     textFieldClassName={s.email}
                     variant={"standard"}
                     type={"email"}
                     label={"Email"}
-                    labelPosition={"top"}
                 />
-                <Typography variant={'regular_14'} className={s.text}>
+                <Typography variant={'regular_14'} className={s.text} color={'dark'}>
                     Enter your email address and we will send you further instructions 
                 </Typography>
 
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
                 </div>
                 }
 
-            </div>
-        </div>
+            </form>
+        </Cards>
     )
 }
