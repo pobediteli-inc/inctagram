@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
-import s from "./baseModal.module.css";
+import s from "./baseModal.module.scss";
 import { ComponentPropsWithoutRef } from "react";
 import SvgClose from "assets/icons/Close";
 import { Typography } from "../../typography/typography";
