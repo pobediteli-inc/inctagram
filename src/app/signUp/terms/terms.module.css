@@ -1,61 +1,32 @@
 .termsWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 1280px;
-  height: auto;
+  align-items: center;
+  gap: 25px;
+  max-width: 1280px;
+  width: 100%;
   background-color: var(--dark-700);
-  color: var(--light-100);
-  margin: 0 auto;
+  margin: 110px auto;
 }
 
 .buttonWrapper {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 1080px;
-  height: auto;
-  margin-top: 25px;
-  margin-left: 25px;
-}
-
-.svgArrow svg {
-  cursor: pointer;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  margin-right: -10px;
-  padding: 0;
+  max-width: 1080px;
+  width: 100%;
+  margin-right: 110px;
 }
 
 .textWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 50px;
-  width: inherit;
-  height: 500px;
+  align-items: center;
+  width: 100%;
 }
 
 .backButton {
-  cursor: pointer;
-  border: none !important;
-  width: auto !important;
-  margin-left: 10px;
-}
-
-.termText {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  width: 400px;
-  height: 500px;
-  margin-top: 70px;
+  gap: 10px;
+  cursor: pointer;
 }
-
-.title {
-  margin-bottom: 20px;
-} 
