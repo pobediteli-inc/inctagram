@@ -4,12 +4,19 @@ import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
 import { Button } from "common/components/button/button";
 import Link from "next/link";
+import { FlagRussia, FlagUnitedKingdom } from "assets/icons";
+import { SelectItemsProps } from "common/types/SelectItemsProps/SelectItemsProps";
 
 type Props = {
   isAuth: boolean;
 };
 
 export const Header: FC<Props> = ({ isAuth }) => {
+  const selectLanguages: SelectItemsProps[] = [
+    { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
+    { value: "ru", label: "Russian", icon: <FlagRussia width={20} height={20} /> },
+  ];
+
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
@@ -17,7 +24,7 @@ export const Header: FC<Props> = ({ isAuth }) => {
           Inctagram
         </Typography>
         <div className={s.selectButtonsWrapper}>
-          <Select ariaLabel={"select language"} />
+          <Select defaultValue={"en"} items={selectLanguages} />
           <div className={s.buttonsWrapper}>
             {isAuth ? (
               <Button variant={"primary"}>Log out</Button>
