@@ -24,6 +24,10 @@
   outline: 1px solid transparent;
   cursor: pointer;
 
+  &[data-state="open"] .iconDown {
+    transform: rotate(180deg);
+  }
+
   &[data-placeholder] {
     background-color: var(--dark-500);
   }
@@ -48,12 +52,6 @@
   }
 
   --radix-select-trigger-width: 170px;
-}
-
-.Icon {
-  &:disabled {
-    color: var(--dark-300);
-  }
 }
 
 .Content {
