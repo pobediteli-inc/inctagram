@@ -9,6 +9,7 @@ const meta: Meta<typeof Select> = {
     items: {
       control: { type: "object" },
     },
+    disabled: { control: "boolean" },
   },
   parameters: {
     layout: "centered",
@@ -28,5 +29,19 @@ export const SelectLanguages: Story = {
       { value: "french", label: "French" },
       { value: "turkish", label: "Turkish" },
     ],
+    disabled: false,
+  },
+};
+
+export const SelectDisabled: Story = {
+  args: {
+    label: "select languages",
+    items: [
+      { value: "english", label: "English" },
+      { value: "russian", label: "Russian" },
+      { value: "spanish", label: "Spanish" },
+      { value: "french", label: "French" },
+    ],
+    disabled: true,
   },
 };
