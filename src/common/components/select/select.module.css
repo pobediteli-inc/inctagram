@@ -9,7 +9,7 @@
   position: relative;
 }
 
-.Trigger {
+.trigger {
   all: unset;
   display: inline-flex;
   align-items: center;

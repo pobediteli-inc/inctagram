@@ -23,7 +23,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Props
         )}
         <Typography variant={"regular_14"} color={"light"}>
           <RadixSelect.Root defaultValue={defaultValue} disabled={disabled}>
-            <RadixSelect.Trigger id={id} className={clsx(s.Trigger, className)} ref={ref} {...rest}>
+            <RadixSelect.Trigger id={id} className={clsx(s.trigger, className)} ref={ref} {...rest}>
               <RadixSelect.Value placeholder="Select language" />
               <RadixSelect.Icon>
                 <ChevronDownIcon />
