@@ -3,32 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 170px;
-  height: 60px;
+  max-width: 170px;
+  width: 100%;
   gap: 10px;
-  font-family: var(--font-family), Arial, sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: var(--light-100);
   position: relative;
-}
-
-.selectLabel {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 170px;
-  height: 25px;
-  padding: 0 15px;
-  gap: 5px;
-  line-height: 171%;
-  color: var(--dark-100);
-  background-color: transparent;
-
-  &[aria-disabled="true"] {
-    color: var(--dark-300);
-  }
 }
 
 .Trigger {
@@ -36,14 +14,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 170px;
-  height: 40px;
+  width: 100%;
+  min-height: 40px;
+  height: 100%;
   padding: 0 15px;
   gap: 5px;
-  font-size: 16px;
-  line-height: 150%;
   background-color: var(--dark-500);
   border: 1px solid var(--dark-100);
+  outline: 1px solid transparent;
   cursor: pointer;
 
   &[data-placeholder] {
@@ -51,13 +29,13 @@
   }
 
   &:active {
-    border: 1px solid var(--dark-100);
+    outline-color: var(--dark-100);
     background-color: var(--dark-500);
   }
 
   &:focus {
     background-color: var(--dark-900);
-    border: 2px solid var(--primary-500);
+    outline: 2px solid var(--primary-500);
   }
 
   &:disabled {
@@ -88,29 +66,22 @@
   border: 1px solid var(--dark-100);
   color: var(--light-100);
   cursor: pointer;
+  margin-top: 20px;
+  position: absolute;
+  top: -15px;
+  z-index: 101;
 }
 
 .Viewport {
   padding: 5px;
 }
 
-.flags {
+.selectItems {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-right: 35px;
-}
-
-.Label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 25px;
-  color: var(--dark-300);
+  margin-right: 25px;
 }
 
 .Separator {
@@ -127,7 +98,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 25px;
+  min-height: 25px;
+  height: 100%;
   border: solid 1px var(--dark-100);
   background-color: var(--dark-500);
   color: var(--light-100);
