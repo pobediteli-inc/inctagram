@@ -1,7 +1,7 @@
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import s from "./radioGroup.module.css";
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef, useId } from "react";
-import { PositionProps } from "common/types";
+import { NullableProps, PositionProps } from "common/types";
 import { clsx } from "clsx";
 import { Typography } from "common/components/typography/typography";
 import { RadioOptionProps } from "common/types/RadioOptionProps/RadioOptionProps";
@@ -12,7 +12,7 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
       className,
       labelClassName,
       label,
-      labelPosition,
+      labelPosition = "bottom",
       defaultValue,
       value,
       onValueChange,
@@ -26,7 +26,7 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
     const id = rest.id || generateId;
 
     return (
-      <div className={clsx(s.radioGroupWrapper, labelPosition && s[`label-${labelPosition}`], className)}>
+      <div className={clsx(s.radioGroupWrapper, s[`label-${labelPosition}`], className)}>
         <RadixRadioGroup.Root
           key={id}
           className={s.radioBaseStyles}
@@ -68,7 +68,7 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
 
 type Props = {
   labelClassName?: string;
-  label?: string;
+  label?: NullableProps<string>;
   labelPosition?: PositionProps;
   options: RadioOptionProps[];
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>;
