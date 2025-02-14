@@ -47,7 +47,7 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
                 <RadixRadioGroup.Indicator className={clsx(s.Indicator)} aria-disabled={disabled} />
                 <Typography variant={"regular_14"} color={"light"} textAlign={"right"} asChild>
                   <label htmlFor={`${id}-${index}`} className={s.optionLabel} aria-disabled={disabled}>
-                    {option.label}
+                    {option.optionLabel}
                   </label>
                 </Typography>
               </RadixRadioGroup.Item>
