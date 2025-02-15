@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       ...(config.resolve.alias || {}),
       public: path.resolve(__dirname, "public"),
       app: path.resolve(__dirname, "src/app"),
+      assets: path.resolve(__dirname, "src/assets"),
       common: path.resolve(__dirname, "src/common"),
       features: path.resolve(__dirname, "src/features"),
     };
