@@ -40,3 +40,15 @@
 .otherText {
     margin-top: 23px;
 }
+
+.modalContainer {
+    padding: 30px 24px 36px 24px;
+}
+
+.modalButton {
+    padding: 6px 36px;
+    border: none !important;
+    display: block;
+    margin-top: 18px;
+    margin-left: auto;
+}

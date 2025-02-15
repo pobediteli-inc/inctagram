@@ -5,12 +5,25 @@ import s from "./page.module.css"
 import Link from "next/link";
 import { useState } from "react";
 import { Cards } from "common/components/cards/cards";
+import ReCaptcha from "common/components/recaptcha/recaptcha";
+import { BaseModal } from "common/components/modal/baseModal/baseModal";
 
 export default function ForgotPassword() {
     const [linkSent, setLinkSent] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
         <Cards>
+            <BaseModal open={isModalOpen} onClose={() => setIsModalOpen(false)} modalTitle="Email sent">
+                <div className={s.modalContainer}>
+                    <Typography variant={'regular_16'} color={'light'}>
+                        We have sent a link to confirm your email to epam@epam.com
+                    </Typography>
+                    <Button variant={'primary'} onClick={() => setIsModalOpen(false)} className={s.modalButton}>
+                        OK
+                    </Button>    
+                </div>     
+            </BaseModal>
             <Typography variant={'h1'} color={'light'} textAlign={'center'}>
                 Forgot Password
             </Typography>
@@ -34,7 +47,7 @@ export default function ForgotPassword() {
                         If you don’t receive an email send link again 
                     </Typography>
                     <div className={s.buttonsWrapper}>
-                        <Button variant={"primary"} className={s.button} onClick={() => setLinkSent(false)}>
+                        <Button variant={"primary"} className={s.button} type={'button'}>
                             Send Link Again
                         </Button>
                         <Button variant={"link"} className={s.button} asChild>
@@ -45,19 +58,17 @@ export default function ForgotPassword() {
                 
                 : 
                 <div className={s.buttonsWrapper}>
-                    <Button variant={"primary"} className={s.button} onClick={() => setLinkSent(true)}>
+                    <Button variant={"primary"} className={s.button} onClick={() => {setLinkSent(true); setIsModalOpen(true)}}>
                         Send Link
                     </Button>
                     <Button variant={"link"} className={s.button} asChild>
                         <Link href={'/login'}>Back to Sign In</Link>
                     </Button>
-                    <Button variant={"secondary"}>
-                        Recaptcha
-                    </Button>
+                    <ReCaptcha sitekey="qwe123" onVerify={() => null} error={false}/>
                 </div>
                 }
 
-            </form>
+            </form>      
         </Cards>
     )
 }
