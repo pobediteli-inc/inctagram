@@ -24,7 +24,7 @@ export default function Login() {
         </div>
         <div className={s.buttonsWrapper}>
           <Typography variant={"regular_14"} textAlign={"right"} style={{ marginBottom: 25 }}>
-            <Link href={"#"} className={s.forgotLink}>
+            <Link href={"/login/password-restore"} className={s.forgotLink}>
               Forgot password?
             </Link>
           </Typography>
