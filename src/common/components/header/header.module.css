@@ -1,0 +1,36 @@
+.headerWrapper {
+  display: flex;
+  max-width: 1280px;
+  min-height: 60px;
+  background-color: var(--dark-700);
+  border-bottom: 2px solid var(--dark-300);
+  padding: 12px 60px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  margin: 0 auto;
+}
+
+.mainWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.selectButtonsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 25px;
+}

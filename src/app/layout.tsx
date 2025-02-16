@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "common/components/Header/Header";
+import { Header } from "common/components";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
-        <Header />
+        <Header isAuth={false} />
         <main>{children}</main>
       </body>
     </html>

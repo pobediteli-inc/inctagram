@@ -1,0 +1,79 @@
+.signUpWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 380px;
+  width: 100%;
+  background-color: var(--dark-500);
+  color: var(--light-900);
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  user-select: none;
+}
+
+.signUpHeader {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 25px;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  max-width: 330px;
+  width: 100%;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+}
+
+.username,
+.email,
+.password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: var(--dark-100);
+  width: 100%;
+  background-color: var(--dark-500);
+  color: var(--light-900);
+}
+
+.terms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-right: 5px;
+}
+
+.link {
+  color: var(--primary-300);
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.isAccount {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}

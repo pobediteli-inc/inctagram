@@ -1,0 +1,10 @@
+.navbar {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-left: 60px;
+  padding-top: 72px;
+  padding-bottom: 36px;
+  border-right: 1px solid var(--dark-300);
+}

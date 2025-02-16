@@ -1,0 +1,43 @@
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--light-900);
+}
+
+.datePicker {
+  width: 262px;
+  min-height: 36px;
+  padding: 6px 12px;
+  display: inline-flex;
+  justify-content: space-between;
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background-color: var(--dark-500);
+  color: var(--light-100);
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  position: relative;
+  cursor: default;
+}
+
+.datePicker:focus {
+  outline: 2px solid var(--primary-700);
+}
+
+.wrapperCalendar {
+  position: absolute;
+  left: -131px;
+  top: -5px;
+  min-width: 300px;
+  max-width: 300px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-500);
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  box-sizing: border-box;
+}

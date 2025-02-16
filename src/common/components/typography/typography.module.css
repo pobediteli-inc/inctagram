@@ -1,0 +1,156 @@
+/* base styles */
+
+.TypographyBaseStyles {
+  font-family: var(--font-family), sans-serif, Arial;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+}
+
+/* font styles */
+
+.variant-large {
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 138%;
+}
+
+.variant-h1 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 180%;
+}
+
+.variant-h2 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 133%;
+}
+
+.variant-h3 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.variant-regular_16 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.variant-bold_16 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.variant-regular_14 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+}
+
+.variant-medium_14 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 171%;
+}
+
+.variant-bold_14 {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 171%;
+}
+
+.variant-small {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+}
+
+.variant-bold_small {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 133%;
+}
+
+.variant-regular_link {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500) !important;
+  cursor: pointer;
+}
+
+.variant-small_link {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500) !important;
+  cursor: pointer;
+}
+
+/* color styles */
+
+.color-light {
+  color: var(--light-100);
+}
+
+.color-dark {
+  color: var(--light-900);
+}
+
+.color-blue {
+  color: var(--primary-500);
+}
+
+.color-lightBlue {
+  color: var(--primary-300);
+}
+
+.color-deepBlue {
+  color: var(--primary-900);
+}
+
+.color-error {
+  color: var(--danger-500);
+}
+
+.color-disabled {
+  color: var(--dark-100);
+}
+
+/* text position */
+
+.align-inherit {
+  text-align: inherit;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+.align-initial {
+  text-align: initial;
+}
+
+.align-unset {
+  text-align: unset;
+}
