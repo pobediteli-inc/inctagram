@@ -18,12 +18,12 @@ export const LogOut = () => {
   return (
     <div>
       <div className={s.container} onClick={toggleModal} aria-label="Log out">
-        <LogOutOutline width={24} height={24} color={"var(--light-100)"} className={s.Icon} />
+        <LogOutOutline width={24} height={24} color={"var(--light-100)"} className={s.icon} />
         <Typography variant={"medium_14"} color={"light"}>
           Log Out
         </Typography>
       </div>
-      <LogOutModal open={showModal} onClose={toggleModal} email={account} onLogout={logOutHandler} />
+      <LogOutModal isOpen={showModal} onClose={toggleModal} email={account} onLogout={logOutHandler} />
     </div>
   );
 };

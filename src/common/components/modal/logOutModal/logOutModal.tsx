@@ -4,19 +4,19 @@ import { Button } from "../../button/button";
 import s from "./logOutModal.module.scss";
 
 type LogOutModalProps = {
-  open: boolean;
+  isOpen: boolean;
   onClose: () => void;
   email: string;
   onLogout: () => void;
 };
 
-export const LogOutModal = ({ open, onClose, onLogout, email }: LogOutModalProps) => {
+export const LogOutModal = ({ isOpen, onClose, onLogout, email }: LogOutModalProps) => {
   return (
-    <BaseModal open={open} onClose={onClose} modalTitle={"Log Out"} className={s.contentContainer}>
+    <BaseModal open={isOpen} onClose={onClose} modalTitle={"Log Out"} className={s.contentContainer}>
       <div className={s.container}>
         <div className={s.message}>
           <Typography variant={"regular_16"} color={"light"}>
-            Are you really want to log out of your account “
+            Do you really want to log out of your account “
             <Typography variant={"bold_14"} asChild={true}>
               <span tabIndex={0} autoFocus className={s.autoFocus}>
                 {email}
