@@ -31,6 +31,7 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "formik": "^2.4.6",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-day-picker": "8.10.1",

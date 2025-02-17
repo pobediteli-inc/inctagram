@@ -77,3 +77,8 @@
   margin-top: 15px;
   margin-bottom: 5px;
 }
+
+.errorMessage {
+  color: var(--danger-500);
+  border : 1px solid var(--danger-500);
+}
