@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  padding: 30px 24px 6px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+  align-self: flex-end;
+  margin: 24px;
+}
+
+.button {
+  width: 36px;
+  max-height: 96px;
+}
+
+.contentContainer {
+  height: 240px;
+}
+
+.autoFocus {
+  outline: none;
+}
+
+.button:focus {
+  border: none;
+  outline: 2px solid var(--primary-500);
+}
