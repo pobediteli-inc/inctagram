@@ -7,7 +7,6 @@
 .card {
   min-width: 100px;
   min-height: 100px;
-  padding: 24px;
   background-color: var(--dark-500);
   border: 1px solid var(--dark-300);
   border-radius: 2px;
