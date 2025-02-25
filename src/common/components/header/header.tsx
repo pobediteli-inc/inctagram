@@ -24,7 +24,7 @@ export const Header: FC<Props> = ({ isAuth }) => {
           Inctagram
         </Typography>
         <div className={s.selectButtonsWrapper}>
-          <Select defaultValue={"en"} items={selectLanguages} />
+          <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
             {isAuth ? (
               <Button variant={"primary"}>Log out</Button>
