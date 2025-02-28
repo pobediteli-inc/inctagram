@@ -11,6 +11,10 @@ const meta: Meta<typeof Select> = {
     },
     disabled: { control: "boolean" },
   },
+  args: {
+    defaultValue: "english",
+    groupLabel: "Languages",
+  },
   parameters: {
     layout: "centered",
   },
