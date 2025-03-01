@@ -8,7 +8,7 @@ import { EyeOffOutline, EyeOutline } from "assets/icons";
 import { Typography } from "common/components/typography/typography";
 
 export const TextField = memo(
-  forwardRef<HTMLInputElement, Props>(
+  forwardRef<HTMLInputElement, TextFieldProps>(
     (
       {
         className,
@@ -84,7 +84,7 @@ export const TextField = memo(
 
 TextField.displayName = "TextField";
 
-type Props = {
+export type TextFieldProps = {
   textFieldClassName?: string;
   labelClassName?: string;
   errorClassName?: string;
