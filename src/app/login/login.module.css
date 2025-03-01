@@ -10,7 +10,7 @@
   border: 1px solid var(--dark-300);
   border-radius: 2px;
   user-select: none;
-  margin: 120px auto;
+  margin: 0 auto;
 }
 
 .signInHeader {

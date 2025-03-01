@@ -27,7 +27,7 @@ export default function Login() {
     try {
       await mockLoginApi(data);
     } catch (error: unknown) {
-      if (error instanceof Error) setError("email", { message: error.message });
+      if (error instanceof Error) setError("password", { message: error.message });
       else console.log("Unknown error: ", error);
     }
   };
