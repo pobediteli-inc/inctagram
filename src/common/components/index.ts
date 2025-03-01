@@ -8,4 +8,4 @@ export { TextField } from "./textField/textField";
 export { Typography } from "./typography/typography";
 export { ControlledCheckbox } from "./controlled/controlledCheckbox";
 export { ControlledTextField } from "./controlled/controlledTextField";
-export { Cards } from "./cards/cards";
+export { Card } from "./card/card";

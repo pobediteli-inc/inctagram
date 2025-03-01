@@ -1,9 +1,3 @@
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .card {
   min-width: 100px;
   min-height: 100px;

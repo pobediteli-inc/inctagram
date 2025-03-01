@@ -34,54 +34,6 @@
   width: 100%;
 }
 
-.forms {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.form {
-  min-height: 84px;
-  box-sizing: border-box;
-}
-
-.form:last-child {
-  min-height: 0;
-  box-sizing: border-box;
-}
-
-.username,
-.email,
-.password {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-color: var(--dark-100);
-  width: 100%;
-  background-color: var(--dark-500);
-  color: var(--light-900);
-}
-
-.terms {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  margin: 12px 5px 12px 0;
-}
-
-.link {
-  color: var(--primary-300);
-}
-
-.buttonWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 25px;
-}
-
 .isAccount {
   margin-top: 15px;
   margin-bottom: 5px;
@@ -101,9 +53,6 @@
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
-  user-select: none;
-  user-select: none;
-  user-select: none;
   user-select: none;
 }
 
