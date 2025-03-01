@@ -1,98 +1,78 @@
 "use client";
 
 import s from "app/signUp/signUp.module.css";
-import { Button, TextField, Typography } from "common/components";
-import { Github, Google } from "assets/icons";
+import { Button, ControlledCheckbox, ControlledTextField, Typography, Cards } from "common/components";
 import Link from "next/link";
-import { useFormik } from "formik";
 import { useState } from "react";
-import { Cards } from "../../common/components/cards/cards";
+import { z } from "zod";
+import validator from "validator";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type FormValuesType = {
-  username: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  isAgree: boolean;
-};
+const signInSchema = z
+  .object({
+    username: z
+      .string({
+        required_error: "Username is required.",
+      })
+      .min(6)
+      .max(30)
+      .regex(/^[a-z\d\-_]+$/i, {
+        message: "Usernames may only include letters, numbers, underscores (_), and hyphens (-).",
+      }),
+    email: z
+      .string({
+        required_error: "Email is required.",
+      })
+      .email("Please enter a valid email address, like example@example.com."),
+    password: z
+      .string({
+        required_error: "Password is required.",
+      })
+      .min(6)
+      .max(20)
+      .refine(
+        (password) =>
+          validator.isStrongPassword(password, {
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1,
+            returnScore: false,
+          }),
+        {
+          message:
+            "Your password must include at least one letter (A-Z, a-z), one number (0-9), and one special character (!, @, #, $, etc.).",
+        }
+      ),
+    confirmPassword: z.string(),
+    termsAgreement: z
+      .boolean()
+      .default(false)
+      .refine((isAgreed) => isAgreed, {
+        message: "Please read and accept the Terms of Service and Privacy Policy to continue.",
+      }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type FormValues = z.infer<typeof signInSchema>;
 
 export default function SignUp() {
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
-      isAgree: false,
-    },
-    onSubmit: (values: FormValuesType, { resetForm }) => {
-      alert(JSON.stringify(values, null, 2));
-      setEmail(values.email);
-      resetForm();
-      setIsOpen(true);
-    },
-    validate: (values) => {
-      if (!values.username) {
-        return {
-          username: "Username is required",
-        };
-      } else if (values.username.length < 6) {
-        return {
-          username: "Minimum number of characters 6",
-        };
-      } else if (values.username.length > 30) {
-        return {
-          username: "Maximum number of characters 30",
-        };
-      } else if (!/^[a-z\d]+$/i.test(values.username)) {
-        return {
-          username: "Invalid username (0-9; A-Z; a-z; _; -)",
-        };
-      }
-
-      if (!values.email) {
-        return {
-          email: "Email is required",
-        };
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        return {
-          email: "The email must match the format example@example.com",
-        };
-      }
-
-      if (!values.password) {
-        return {
-          password: "Password is required",
-        };
-      } else if (values.password.length < 6) {
-        return {
-          password: "Minimum number of characters 6",
-        };
-      } else if (values.password.length > 20) {
-        return {
-          password: "Maximum number of characters 20",
-        };
-      }
-
-      if (values.password.toString() !== values.passwordConfirm.toString()) {
-        return {
-          passwordConfirm: "The passwords must match",
-        };
-      }
-
-      if (!values.isAgree) {
-        return {
-          isAgree: "Agreement is required",
-        };
-      }
-    },
+  const { control, handleSubmit, formState } = useForm<FormValues>({
+    resolver: zodResolver(signInSchema),
+    mode: "onTouched",
+  });
+  const submitHandler = handleSubmit((data) => {
+    alert(JSON.stringify(data, null, 2));
+    setEmail(data.email);
+    setIsOpen(true);
   });
 
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const openPopup = () => {
-    setIsOpen(true);
-  };
   const closePopup = () => {
     setIsOpen(false);
   };
@@ -102,87 +82,53 @@ export default function SignUp() {
       <Typography variant={"h1"} className={s.signUpHeader}>
         Sign Up
       </Typography>
-      <div className={s.socialIcons}>
-        <Link href={"https://www.google.com"} target={"_blank"}>
-          <Google width={36} height={36} />
-        </Link>
-        <Link href={"https://www.github.com"} target={"_blank"}>
-          <Github width={36} height={36} color={"white"} />
-        </Link>
-      </div>
 
       <div className={s.mainContent}>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={submitHandler}>
           <div className={s.forms}>
-            <div className={s.form}>
-              <TextField
-                textFieldClassName={s.username}
-                variant={"standard"}
-                type={"text"}
-                placeholder={"username"}
-                label={"Username"}
-                {...formik.getFieldProps("username")}
-              />
-              {formik.errors.username && formik.touched.username ? (
-                <div className={s.errorMessage}>{formik.errors.username}</div>
-              ) : null}
-            </div>
-
-            <div className={s.form}>
-              <TextField
-                textFieldClassName={s.email}
-                variant={"standard"}
-                type={"email"}
-                placeholder={"example@example.com"}
-                label={"Email"}
-                {...formik.getFieldProps("email")}
-              />
-              {formik.errors.email && formik.touched.email ? (
-                <div className={s.errorMessage}>{formik.errors.email}</div>
-              ) : null}
-            </div>
-
-            <div className={s.form}>
-              <TextField
-                textFieldClassName={s.password}
-                variant={"standard"}
-                type={"password"}
-                placeholder={"**********"}
-                label={"Password"}
-                {...formik.getFieldProps("password")}
-              />
-              {formik.errors.password && formik.touched.password ? (
-                <div className={s.errorMessage}>{formik.errors.password}</div>
-              ) : null}
-            </div>
-
-            <div className={s.form}>
-              <TextField
-                textFieldClassName={s.password}
-                variant={"standard"}
-                type={"password"}
-                placeholder={"**********"}
-                label={"Confirm password"}
-                {...formik.getFieldProps("passwordConfirm")}
-              />
-              {formik.errors.passwordConfirm && formik.touched.passwordConfirm ? (
-                <div className={s.errorMessage}>{formik.errors.passwordConfirm}</div>
-              ) : null}
-            </div>
+            <ControlledTextField
+              textFieldClassName={s.username}
+              type={"text"}
+              placeholder={"User123"}
+              label={"Username"}
+              control={control}
+              name={"username"}
+            />
+            <ControlledTextField
+              textFieldClassName={s.email}
+              type={"email"}
+              placeholder={"example@example.com"}
+              label={"Email"}
+              control={control}
+              name={"email"}
+            />
+            <ControlledTextField
+              textFieldClassName={s.password}
+              type={"password"}
+              placeholder={"**********"}
+              label={"Password"}
+              control={control}
+              name={"password"}
+            />
+            <ControlledTextField
+              textFieldClassName={s.password}
+              type={"password"}
+              placeholder={"**********"}
+              label={"Confirm password"}
+              control={control}
+              name={"confirmPassword"}
+            />
           </div>
 
           <div className={s.terms}>
-            <label className={s.container}>
-              <input name="isAgree" type="checkbox" checked={formik.values.isAgree} onChange={formik.handleChange} />
-              <span className={s.checkmark}></span>
-            </label>
+            <ControlledCheckbox control={control} name={"termsAgreement"} />
 
             <Typography variant={"small"}>
-              I agree to the{" "}
+              I agree to the&nbsp;
               <Link className={s.link} href={"/signUp/terms/service"}>
                 Terms of Service
-              </Link>{" "}
-              and{" "}
+              </Link>
+              &nbsp; and&nbsp;
               <Link className={s.link} href={"/signUp/terms/policy"}>
                 Privacy Policy
               </Link>
@@ -190,7 +136,7 @@ export default function SignUp() {
           </div>
 
           <div className={s.buttonWrapper}>
-            <Button variant={"primary"} type="submit" disabled={!formik.dirty || !formik.isValid}>
+            <Button type="submit" disabled={!formState.isDirty || !formState.isValid}>
               Sign Up
             </Button>
             <Typography className={s.isAccount} variant={"regular_16"} textAlign={"center"}>
