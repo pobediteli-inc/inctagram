@@ -1,80 +1,59 @@
 "use client";
+
 import s from "app/signUp/signUp.module.css";
-import { Typography, TextField, Checkbox, Button } from "common/components";
-import { Google, Github } from "assets/icons";
-import { useState } from "react";
+import { Button, Card, Typography } from "common/components";
 import Link from "next/link";
+import { useState } from "react";
+import { SignUpForm, SignUpFormValues } from "common/components/forms";
+import { Close } from "assets/icons";
 
 export default function SignUp() {
-  const [checked, setChecked] = useState<"indeterminate" | boolean>(false);
+  const submitHandler = (data: SignUpFormValues) => {
+    alert(JSON.stringify(data, null, 2));
+    setEmail(data.email);
+    setIsOpen(true);
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const closePopup = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <div className={s.signUpWrapper}>
+    <Card className={s.signUpWrapper}>
       <Typography variant={"h1"} className={s.signUpHeader}>
         Sign Up
       </Typography>
-      <div className={s.socialIcons}>
-        <Link href={"https://www.google.com"} target={"_blank"}>
-          <Google width={36} height={36} />
-        </Link>
-        <Link href={"https://www.github.com"} target={"_blank"}>
-          <Github width={36} height={36} color={"white"} />
-        </Link>
-      </div>
-      <div className={s.mainContent}>
-        <div className={s.forms}>
-          <TextField
-            textFieldClassName={s.username}
-            variant={"standard"}
-            type={"text"}
-            placeholder={"username"}
-            label={"Username"}
-          />
-          <TextField
-            textFieldClassName={s.email}
-            variant={"standard"}
-            type={"email"}
-            placeholder={"example@example.com"}
-            label={"Email"}
-          />
-          <TextField
-            textFieldClassName={s.password}
-            variant={"standard"}
-            type={"password"}
-            placeholder={"**********"}
-            label={"Password"}
-          />
-          <TextField
-            textFieldClassName={s.password}
-            variant={"standard"}
-            type={"password"}
-            placeholder={"**********"}
-            label={"Confirm password"}
-          />
+
+      <SignUpForm onSubmit={submitHandler} />
+
+      <Typography className={s.isAccount} variant={"regular_16"}>
+        Do you have an account?
+      </Typography>
+      <Button asChild variant={"link"}>
+        <Link href={"../login"}>Sign In</Link>
+      </Button>
+      {isOpen && (
+        <div className={s.popUp}>
+          <Card className={s.card}>
+            <div className={s.popUpHeader}>
+              <Typography variant={"h1"} color={"light"}>
+                Email sent
+              </Typography>
+              <button className={s.closeBtn} onClick={closePopup}>
+                <Close width={24} height={24} />
+              </button>
+            </div>
+            <div className={s.popUpMessage}>
+              <Typography variant={"regular_16"} color={"light"}>
+                We have sent a link to confirm your email to {email}
+              </Typography>
+              <Button onClick={closePopup}>OK</Button>
+            </div>
+          </Card>
         </div>
-        <div className={s.terms}>
-          <Checkbox checked={checked} onCheckedChange={setChecked} />
-          <Typography variant={"small"}>
-            I agree to the{" "}
-            <Link className={s.link} href={"/signUp/terms/service"}>
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link className={s.link} href={"/signUp/terms/policy"}>
-              Privacy Policy
-            </Link>
-          </Typography>
-        </div>
-        <div className={s.buttonWrapper}>
-          <Button variant={"primary"}>Sign Up</Button>
-          <Typography className={s.isAccount} variant={"regular_16"} textAlign={"center"}>
-            Do you have an account?
-          </Typography>
-          <Button asChild variant={"link"}>
-            <Link href={"../login"}>Sign In</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
+      )}
+    </Card>
   );
 }

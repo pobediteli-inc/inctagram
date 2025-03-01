@@ -31,12 +31,10 @@ export const Header: FC<Props> = ({ isAuth }) => {
             ) : (
               <>
                 <Button variant={"link"} asChild>
-                  <Link href={"/login"}>
-                    <Typography variant={"h3"}>Log in</Typography>
-                  </Link>
+                  <Link href={"/login"}>Log in</Link>
                 </Button>
-                <Button variant={"primary"}>
-                  <Typography variant={"h3"}>Sign Up</Typography>
+                <Button variant={"primary"} asChild>
+                  <Link href={"/signUp"}>Sign up</Link>
                 </Button>
               </>
             )}

@@ -1,12 +1,12 @@
 import "app/globals.css";
-import { Cards } from "./cards";
+import { Card } from "./card";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "Components/Cards",
-  component: Cards,
+  component: Card,
   tags: ["autodocs"],
-} satisfies Meta<typeof Cards>;
+} satisfies Meta<typeof Card>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
