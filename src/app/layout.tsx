@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "common/components";
 import { Inter } from "next/font/google";
+import s from "./page.module.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <Header isAuth={false} />
-        <main>{children}</main>
+        <main className={s.main}>{children}</main>
       </body>
     </html>
   );
