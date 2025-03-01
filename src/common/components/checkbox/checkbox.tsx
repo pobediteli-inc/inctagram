@@ -6,7 +6,7 @@ import { clsx } from "clsx";
 import { PositionProps } from "common/types/PositionProps/PositionProps";
 import { Typography } from "common/components/typography/typography";
 
-export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Props>(
+export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, CheckboxProps>(
   ({ className, labelClassName, label, labelPosition, checked, onCheckedChange, disabled = false, ...rest }, ref) => {
     const generatedId = useId();
     const id = rest.id || generatedId;
@@ -40,7 +40,7 @@ export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Prop
   }
 );
 
-export type Props = {
+export type CheckboxProps = {
   labelClassName?: string;
   label?: string;
   labelPosition?: PositionProps;

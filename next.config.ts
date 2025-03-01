@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/signUp", // Replace with your custom route
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
