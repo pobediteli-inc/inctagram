@@ -5,6 +5,7 @@ import { Button, Card, Typography } from "common/components";
 import Link from "next/link";
 import { useState } from "react";
 import { SignUpForm, SignUpFormValues } from "common/components/forms";
+import { Close } from "assets/icons";
 
 export default function SignUp() {
   const submitHandler = (data: SignUpFormValues) => {
@@ -24,36 +25,35 @@ export default function SignUp() {
       <Typography variant={"h1"} className={s.signUpHeader}>
         Sign Up
       </Typography>
-      <div className={s.mainContent}>
-        <SignUpForm onSubmit={submitHandler} />
 
-        <Typography className={s.isAccount} variant={"regular_16"} textAlign={"center"}>
-          Do you have an account?
-        </Typography>
-        <Button asChild variant={"link"}>
-          <Link href={"../login"}>Sign In</Link>
-        </Button>
-        {isOpen && (
-          <div className={s.popupStyles}>
-            <Card>
-              <div className={s.popUpHeader}>
-                <Typography variant={"h1"} color={"light"}>
-                  Email sent
-                </Typography>
-                <span className={s.closeBtn} onClick={closePopup}>
-                  &times;
-                </span>
-              </div>
-              <div className={s.messageAndButton}>
-                <Typography variant={"regular_16"} color={"light"}>
-                  We have sent a link to confirm your email to {email}
-                </Typography>
-                <Button onClick={closePopup}>OK</Button>
-              </div>
-            </Card>
-          </div>
-        )}
-      </div>
+      <SignUpForm onSubmit={submitHandler} />
+
+      <Typography className={s.isAccount} variant={"regular_16"}>
+        Do you have an account?
+      </Typography>
+      <Button asChild variant={"link"}>
+        <Link href={"../login"}>Sign In</Link>
+      </Button>
+      {isOpen && (
+        <div className={s.popUp}>
+          <Card className={s.card}>
+            <div className={s.popUpHeader}>
+              <Typography variant={"h1"} color={"light"}>
+                Email sent
+              </Typography>
+              <button className={s.closeBtn} onClick={closePopup}>
+                <Close width={24} height={24} />
+              </button>
+            </div>
+            <div className={s.popUpMessage}>
+              <Typography variant={"regular_16"} color={"light"}>
+                We have sent a link to confirm your email to {email}
+              </Typography>
+              <Button onClick={closePopup}>OK</Button>
+            </div>
+          </Card>
+        </div>
+      )}
     </Card>
   );
 }

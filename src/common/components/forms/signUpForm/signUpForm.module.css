@@ -1,29 +1,31 @@
+.form {
+    width: 100%;
+}
 
 .forms {
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 24px;
+    margin-bottom: 12px;
 }
 
 
 .terms {
     display: flex;
-    justify-content: center;
+    gap: 8px;
     align-items: center;
-    gap: 5px;
-    margin: 12px 5px 12px 0;
+    margin-bottom: 12px;
 }
 
 
 .link {
     color: var(--primary-300);
+    text-decoration: underline;
 }
 
-.buttonWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.submitButton {
+    display: inline-block;
     width: 100%;
-    margin-bottom: 25px;
 }
 

@@ -3,115 +3,20 @@
   flex-direction: column;
   align-items: center;
   max-width: 380px;
-  width: 100%;
-  background-color: var(--dark-500);
-  color: var(--light-900);
-  border: 1px solid var(--dark-300);
-  border-radius: 2px;
-  user-select: none;
+  color: var(--light-100);
+  padding: 24px;
 }
 
 .signUpHeader {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-bottom: 25px;
-}
-
-.mainContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  box-sizing: border-box;
-  max-width: 330px;
-  width: 100%;
+  margin-bottom: 24px;
 }
 
 .isAccount {
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 12px;
+  margin-bottom: 6px;
 }
 
-.errorMessage {
-  color: var(--danger-500);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-}
-
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: -8px;
-  left: 2px;
-  background-color: var(--dark-300);
-  border: 1px solid var(--dark-100);
-  border-radius: 2px;
-  min-width: 18px;
-  min-height: 18px;
-  margin: 6px;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: var(--light-100);
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: var(--light-100);
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark::after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark::after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark::after {
-  left: 6px;
-  top: 1px;
-  width: 5px;
-  height: 12px;
-  border: solid var(--dark-500);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.popupStyles {
+.popUp {
   position: fixed;
   top: 0;
   left: 0;
@@ -124,44 +29,33 @@
   z-index: 99999;
 }
 
-.popupContentStyles {
-  background-color: yellow;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
+.card {
+  max-width: 378px;
 }
 
 .popUpHeader {
   position: relative;
-  min-width: 378px;
-  min-height: 60px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 12px 24px;
-  line-height: 36px;
   border-bottom: 1px solid var(--dark-100);
 }
 
 .closeBtn {
-  position: absolute;
-  top: 10px;
-  right: 24px;
-  font-size: 24px;
-  cursor: pointer;
+  all: unset;
+  width: 24px;
+  height: 24px;
   color: var(--light-100);
 }
 
-.closeBtn:hover {
-  cursor: pointer;
-}
-
-.messageAndButton {
+.popUpMessage {
   padding: 30px 24px 36px;
   display: flex;
   flex-direction: column;
-  max-width: 378px;
 
   & button {
-    min-width: 96px;
+    width: 96px;
     align-self: end;
     margin-top: 18px;
   }

@@ -73,7 +73,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
   });
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={s.form}>
       <div className={s.forms}>
         <ControlledTextField
           type={"text"}
@@ -120,11 +120,9 @@ export const SignUpForm = ({ onSubmit }: Props) => {
         </Typography>
       </div>
 
-      <div className={s.buttonWrapper}>
-        <Button type="submit" disabled={!formState.isDirty || !formState.isValid}>
-          Sign Up
-        </Button>
-      </div>
+      <Button type="submit" disabled={!formState.isDirty || !formState.isValid} className={s.submitButton}>
+        Sign Up
+      </Button>
     </form>
   );
 };
