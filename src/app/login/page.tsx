@@ -114,7 +114,10 @@ const mockLoginApi = async ({ email, password }: { email: string; password: stri
 };
 
 const LoginScheme = z.object({
-  email: z.string().min(1, { message: "Email is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Please enter a valid email address, like example@example.com." }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
