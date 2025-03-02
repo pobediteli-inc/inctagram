@@ -24,19 +24,17 @@ export const Header: FC<Props> = ({ isAuth }) => {
           Inctagram
         </Typography>
         <div className={s.selectButtonsWrapper}>
-          <Select defaultValue={"en"} items={selectLanguages} />
+          <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
             {isAuth ? (
               <Button variant={"primary"}>Log out</Button>
             ) : (
               <>
                 <Button variant={"link"} asChild>
-                  <Link href={"/login"}>
-                    <Typography variant={"h3"}>Log in</Typography>
-                  </Link>
+                  <Link href={"/login"}>Log in</Link>
                 </Button>
-                <Button variant={"primary"}>
-                  <Typography variant={"h3"}>Sign Up</Typography>
+                <Button variant={"primary"} asChild>
+                  <Link href={"/signUp"}>Sign up</Link>
                 </Button>
               </>
             )}

@@ -2,7 +2,7 @@
 
 import { Button, TextField, Typography } from "common/components";
 import s from "./page.module.css"
-import { Cards } from "common/components/cards/cards";
+import { Card } from "common/components/card/card";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +23,7 @@ export default function NewPassword() {
     }
 
     return (
-        <Cards>
+        <Card>
             <Typography variant={'h1'} color={'light'} textAlign={'center'}>
                 Create New Password
             </Typography>
@@ -60,6 +60,6 @@ export default function NewPassword() {
                     </Button>
                 </div>
             </form>
-        </Cards>
+        </Card>
     )
 }

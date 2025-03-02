@@ -20,6 +20,7 @@
   padding: 0 15px;
   gap: 5px;
   background-color: var(--dark-500);
+  border-radius: 2px;
   border: 1px solid var(--dark-100);
   outline: 1px solid transparent;
   cursor: pointer;
@@ -61,12 +62,13 @@
   justify-content: center;
   width: var(--radix-select-trigger-width);
   background-color: var(--dark-500);
+  border-radius: 2px;
   border: 1px solid var(--dark-100);
   color: var(--light-100);
   cursor: pointer;
   margin-top: 20px;
   position: absolute;
-  top: -15px;
+  top: -20px;
   z-index: 101;
 }
 

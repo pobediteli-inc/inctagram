@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import { Button, TextField, Typography } from "common/components";
-import s from "./page.module.css"
+import s from "./page.module.css";
 import Link from "next/link";
 import { useState } from "react";
-import { Cards } from "common/components/cards/cards";
+import { Card } from "common/components/card/card";
 import ReCaptcha from "common/components/recaptcha/recaptcha";
 import { BaseModal } from "common/components/modal/baseModal/baseModal";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
     }
 
     return (
-        <Cards>
+        <Card>
             <BaseModal open={isModalOpen} onClose={() => setIsModalOpen(false)} modalTitle="Email sent">
                 <div className={s.modalContainer}>
                     <Typography variant={'regular_16'} color={'light'}>
@@ -108,6 +108,6 @@ export default function ForgotPassword() {
                 }
 
             </form>      
-        </Cards>
+        </Card>
     )
 }
