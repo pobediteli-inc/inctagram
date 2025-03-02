@@ -13,10 +13,6 @@
 }
 
 .email {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     border: 1px solid var(--dark-100);
     border-radius: 2px;
     width: 330px !important;
@@ -24,6 +20,16 @@
     padding: 0 10px;
     background-color: var(--dark-500);
     color: var(--light-900);
+}
+
+.errorEmail {
+    border: 1px solid var(--danger-500) !important;
+    border-radius: 2px;
+    width: 330px !important;
+    height: 36px;
+    padding: 0 10px;
+    background-color: var(--dark-500);
+    color: var(--light-100);
 }
 
 .form {

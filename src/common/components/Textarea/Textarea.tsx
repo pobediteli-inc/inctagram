@@ -1,7 +1,8 @@
 import { TextareaHTMLAttributes } from "react"
 import clsx from "clsx"
 import s from "./Textarea.module.css"
-import { Typography } from "../Typography/Typography"
+import { Typography } from "../typography/typography"
+
 
 type Props = {
     title: string
