@@ -17,15 +17,17 @@ type Inputs = {
 export default function ForgotPassword() {
     const [linkSent, setLinkSent] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [captchaError, setCaptchaError] = useState(false)
+    const [captchaError, setCaptchaError] = useState(true)
     const { register, handleSubmit, formState: { errors, isSubmitted }, watch } = useForm<Inputs>()
     const email = watch('email')
 
     const onSubmit = (data: any) => {
-        if (!captchaError) {
-            setLinkSent(true)
-            setIsModalOpen(true)
+        if (captchaError) {
+            setCaptchaError(true)
+            return
         }
+        setLinkSent(true)
+        setIsModalOpen(true)
     }
 
     const handleCaptcha = (value: any) => {
@@ -37,7 +39,7 @@ export default function ForgotPassword() {
     }
 
     return (
-        <Card>
+        <Card className={s.card}>
             <BaseModal open={isModalOpen} onClose={() => setIsModalOpen(false)} modalTitle="Email sent">
                 <div className={s.modalContainer}>
                     <Typography variant={'regular_16'} color={'light'}>
@@ -103,7 +105,7 @@ export default function ForgotPassword() {
                     <Button variant={"link"} className={s.button} asChild>
                         <Link href={'/login'}>Back to Sign In</Link>
                     </Button>
-                    <ReCaptcha sitekey="qwe123" onVerify={handleCaptcha} error={!!errors.recaptcha}/>
+                    <ReCaptcha sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM" onVerify={handleCaptcha} error={isSubmitted && captchaError}/>
                 </div>
                 }
 

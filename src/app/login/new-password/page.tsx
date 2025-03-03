@@ -23,7 +23,7 @@ export default function NewPassword() {
     }
 
     return (
-        <Card>
+        <Card className={s.card}>
             <Typography variant={'h1'} color={'light'} textAlign={'center'}>
                 Create New Password
             </Typography>
@@ -42,7 +42,7 @@ export default function NewPassword() {
                             variant={"standard"}
                             type={"password"}
                             label={"Password confirmation"}
-                            {...register("confirmPassword", {required: true, minLength: 6, maxLength: 20})}
+                            {...register("confirmPassword", {required: true})}
                         />
                         {isSubmitted && errors.confirmPassword && (
                         <Typography variant={'regular_14'} color={'error'}>

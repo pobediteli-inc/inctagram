@@ -1,9 +1,14 @@
+.card {
+    margin-top: 60px;
+    padding: 23px 24px 36px 24px;
+}
+
 .buttonsWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 41px 24px 12px 24px;
+    padding-top: 41px;
 }
 
 .button {
