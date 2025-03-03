@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ControlledTextField, Typography } from "common/components";
+import { Button, ControlledTextField, Typography, ProgressBar } from "common/components";
 import rafiki from "assets/img/rafiki.svg";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { EmailSentPopup } from "../emailSentPopup/emailSentPopup";
 import { redirect } from "next/navigation";
+import { useResendRegistrationEmailMutation } from "store/services/auth/authApi";
 
 const resendLinkSchema = z.object({
   email: z
@@ -27,17 +28,22 @@ export default function EmailExpired() {
     mode: "onTouched",
   });
 
+  const [resendRegistrationEmail, { isLoading, isSuccess }] = useResendRegistrationEmailMutation();
+
   const [popUpIsOpen, setPopUpIsOpen] = useState(false);
   const [email, setEmail] = useState("");
 
-  const submitHandler = handleSubmit((data: ResendLinkFormValues) => {
-    alert(JSON.stringify(data));
-    setEmail(data.email);
-    setPopUpIsOpen(true);
+  const submitHandler = handleSubmit(async (data: ResendLinkFormValues) => {
+    await resendRegistrationEmail({ email: data.email });
+    if (isSuccess) {
+      setEmail(data.email);
+      setPopUpIsOpen(true);
+    }
   });
 
   return (
     <>
+      {isLoading && <ProgressBar />}
       <div className={s.contentWrapper}>
         <Typography variant={"h1"}>Email verification link expired</Typography>
         <Typography variant={"regular_16"}>
