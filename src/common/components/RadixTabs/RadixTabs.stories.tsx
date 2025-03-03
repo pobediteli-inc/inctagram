@@ -1,6 +1,6 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { RadixTabs } from "./RadixTabs";
 import { Meta, StoryObj } from "@storybook/react";
+import { RadixTabs } from "./radixTabs";
 
 const meta: Meta<typeof RadixTabs> = {
   title: "Components/RadixTabs",

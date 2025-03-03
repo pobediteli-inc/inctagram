@@ -1,6 +1,6 @@
 import { TextareaHTMLAttributes } from "react"
 import clsx from "clsx"
-import s from "./Textarea.module.css"
+import s from "./textarea.module.css"
 import { Typography } from "../typography/typography"
 
 
