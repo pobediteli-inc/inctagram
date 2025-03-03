@@ -4,11 +4,38 @@ import { Button, ControlledTextField, Typography } from "common/components";
 import rafiki from "assets/img/rafiki.svg";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-
 import s from "./emailExpired.module.css";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { EmailSentPopup } from "../emailSentPopup/emailSentPopup";
+import { redirect } from "next/navigation";
+
+const resendLinkSchema = z.object({
+  email: z
+    .string({
+      required_error: "Email is required.",
+    })
+    .email("Please enter a valid email address, like example@example.com."),
+});
+
+type ResendLinkFormValues = z.infer<typeof resendLinkSchema>;
 
 export default function EmailExpired() {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm<ResendLinkFormValues>({
+    resolver: zodResolver(resendLinkSchema),
+    mode: "onTouched",
+  });
+
+  const [popUpIsOpen, setPopUpIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const submitHandler = handleSubmit((data: ResendLinkFormValues) => {
+    alert(JSON.stringify(data));
+    setEmail(data.email);
+    setPopUpIsOpen(true);
+  });
+
   return (
     <>
       <div className={s.contentWrapper}>
@@ -18,7 +45,7 @@ export default function EmailExpired() {
         </Typography>
       </div>
 
-      <form className={s.form}>
+      <form onSubmit={submitHandler} className={s.form}>
         <ControlledTextField
           name={"email"}
           control={control}
@@ -32,6 +59,8 @@ export default function EmailExpired() {
       </form>
 
       <Image src={rafiki} alt={""} />
+
+      {popUpIsOpen && <EmailSentPopup close={() => redirect("/signUp")} email={email} />}
     </>
   );
 }
