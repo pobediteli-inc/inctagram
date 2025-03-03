@@ -7,7 +7,7 @@ import Image from "next/image";
 import s from "./emailExpired.module.css";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmailSentPopup } from "../emailSentPopup/emailSentPopup";
 import { redirect } from "next/navigation";
 import { useResendRegistrationEmailMutation } from "store/services/auth/authApi";
@@ -35,15 +35,18 @@ export default function EmailExpired() {
 
   const submitHandler = handleSubmit(async (data: ResendLinkFormValues) => {
     await resendRegistrationEmail({ email: data.email });
+    setEmail(email);
+  });
+
+  useEffect(() => {
     if (isSuccess) {
-      setEmail(data.email);
       setPopUpIsOpen(true);
     }
-  });
+  }, [isSuccess]);
 
   return (
     <>
-      {isLoading && <ProgressBar />}
+      {isLoading && !isSuccess && <ProgressBar />}
       <div className={s.contentWrapper}>
         <Typography variant={"h1"}>Email verification link expired</Typography>
         <Typography variant={"regular_16"}>
