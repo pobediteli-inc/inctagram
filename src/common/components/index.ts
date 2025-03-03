@@ -9,3 +9,4 @@ export { Typography } from "./typography/typography";
 export { ControlledCheckbox } from "./controlled/controlledCheckbox";
 export { ControlledTextField } from "./controlled/controlledTextField";
 export { Card } from "./card/card";
+export { ProgressBar } from "./progressBar/progressBar";
