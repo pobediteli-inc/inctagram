@@ -27,7 +27,6 @@ export const ControlledTextField = <T extends FieldValues>({
       error={error?.message}
       inputChangeHandler={onChange}
       label={label}
-      placeholder={label}
       type={type}
       value={value}
       {...field}
