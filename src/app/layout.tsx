@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "common/components";
 import { Inter } from "next/font/google";
 import s from "./page.module.css";
+import { StoreWrapper } from "../store/storeWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
-        <Header isAuth={false} />
-        <main className={s.main}>{children}</main>
+        <StoreWrapper>
+          <Header isAuth={false} />
+          <main className={s.main}>{children}</main>
+        </StoreWrapper>
       </body>
     </html>
   );

@@ -4,12 +4,15 @@ import s from "app/signUp/signUp.module.css";
 import { Button, Card, Typography } from "common/components";
 import Link from "next/link";
 import { useState } from "react";
-import { SignUpForm, SignUpFormValues } from "common/components/forms";
+import { SignUpForm } from "common/components/forms";
 import { Close } from "assets/icons";
+import { RegistrationArgs } from "../../store/services/auth/authApi.types";
+import { useRegisterUserMutation } from "../../store/services/auth/authApi";
 
 export default function SignUp() {
-  const submitHandler = (data: SignUpFormValues) => {
-    alert(JSON.stringify(data, null, 2));
+  const [signUp] = useRegisterUserMutation();
+  const submitHandler = (data: RegistrationArgs) => {
+    signUp(data);
     setEmail(data.email);
     setIsOpen(true);
   };

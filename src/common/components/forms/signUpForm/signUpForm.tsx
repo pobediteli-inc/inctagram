@@ -5,6 +5,7 @@ import { z } from "zod";
 import validator from "validator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RegistrationArgs } from "../../../../store/services/auth/authApi.types";
 
 const signUpSchema = z
   .object({
@@ -58,7 +59,7 @@ const signUpSchema = z
 export type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 type Props = {
-  onSubmit: (data: SignUpFormValues) => void;
+  onSubmit: (data: RegistrationArgs) => void;
 };
 
 export const SignUpForm = ({ onSubmit }: Props) => {
@@ -68,7 +69,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
   });
 
   const submitHandler = handleSubmit((data) => {
-    onSubmit(data);
+    onSubmit({ userName: data.username, email: data.email, password: data.password });
     reset();
   });
 
