@@ -1,6 +1,6 @@
 "use client";
 
-import s from "app/signUp/signUp.module.css";
+import s from "app/auth/auth.module.css";
 import { Button, Card, Typography } from "common/components";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,7 +14,7 @@ export type SignUpApiError = {
   field: string;
 };
 
-export default function SignUp() {
+export default function Auth() {
   const [signUp] = useRegisterUserMutation();
   const [apiError, setApiError] = useState<NullableProps<SignUpApiError>>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -36,8 +36,8 @@ export default function SignUp() {
   };
 
   return (
-    <Card className={s.signUpWrapper}>
-      <Typography variant={"h1"} className={s.signUpHeader}>
+    <Card className={s.authWrapper}>
+      <Typography variant={"h1"} className={s.authHeader}>
         Sign Up
       </Typography>
 

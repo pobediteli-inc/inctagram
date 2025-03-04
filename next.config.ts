@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/signUp", // Replace with your custom route
+        destination: "/auth", // Replace with your custom route
         permanent: true,
       },
     ];

@@ -10,7 +10,7 @@ export default function Policy() {
     <div className={stl.termsWrapper}>
       <div className={stl.buttonWrapper}>
         <Button variant={"link"} className={stl.backButton} asChild>
-          <Link href={"/"}>
+          <Link href={"/public"}>
             <ArrowBackOutline width={24} height={24} color={"var(--light-100)"} />
             <Typography variant={"regular_14"} color={"light"}>
               Back to Sign Up

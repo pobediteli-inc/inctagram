@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import SignUp from "app/signUp/page";
+import Auth from "app/auth/page";
 import Success from "./page";
 
-const meta: Meta<typeof SignUp> = {
-  title: "Components/SignUp/Success",
+const meta: Meta<typeof Auth> = {
+  title: "Components/Auth/Success",
   component: Success,
   tags: ["autodocs"],
   argTypes: {},

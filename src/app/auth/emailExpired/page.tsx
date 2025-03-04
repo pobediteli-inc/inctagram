@@ -69,7 +69,7 @@ export default function EmailExpired() {
 
       <Image src={rafiki} alt={""} />
 
-      {popUpIsOpen && <EmailSentPopup close={() => redirect("/signUp")} email={email} />}
+      {popUpIsOpen && <EmailSentPopup close={() => redirect("/auth")} email={email} />}
     </>
   );
 }
