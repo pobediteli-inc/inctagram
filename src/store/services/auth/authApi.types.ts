@@ -4,3 +4,8 @@ export type RegistrationArgs = {
   password: string;
   baseUrl?: string;
 };
+
+export type ResendRegistrationEmailArgs = {
+  email: string;
+  baseUrl?: string;
+};
