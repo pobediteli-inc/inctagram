@@ -6,7 +6,7 @@ import validator from "validator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegistrationArgs } from "store/services/auth";
-import { SignUpApiError } from "app/signUp/page";
+import { SignUpApiError } from "app/auth/page";
 import { NullableProps } from "common/types";
 import { useEffect } from "react";
 
@@ -118,11 +118,11 @@ export const SignUpForm = ({ onSubmit, apiError }: Props) => {
 
         <Typography variant={"small"}>
           I agree to the&nbsp;
-          <Link className={s.link} href={"/signUp/terms/service"}>
+          <Link className={s.link} href={"/auth/terms/service"}>
             Terms of Service
           </Link>
           &nbsp; and&nbsp;
-          <Link className={s.link} href={"/signUp/terms/policy"}>
+          <Link className={s.link} href={"/auth/terms/policy"}>
             Privacy Policy
           </Link>
         </Typography>

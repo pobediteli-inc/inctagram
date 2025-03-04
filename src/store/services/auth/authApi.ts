@@ -19,7 +19,14 @@ export const authApi = createApi({
         url: `/registration-email-resending`,
       }),
     }),
+    confirmRegistration: build.mutation({
+      query: (args) => ({
+        body: args,
+        method: "POST",
+        url: `/registration-confirmation`,
+      }),
+    }),
   }),
 });
 
-export const { useRegisterUserMutation, useResendRegistrationEmailMutation } = authApi;
+export const { useRegisterUserMutation, useResendRegistrationEmailMutation, useConfirmRegistrationMutation } = authApi;

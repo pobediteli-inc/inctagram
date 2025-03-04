@@ -4,7 +4,7 @@ import { Button, Typography } from "common/components";
 import Link from "next/link";
 import Image from "next/image";
 import bro from "../../../assets/bro.png";
-import s from "../success/success.module.css";
+import s from "./success.module.css";
 
 export default function Success() {
   return (

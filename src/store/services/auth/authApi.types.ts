@@ -23,3 +23,14 @@ export type ResendRegistrationEmailArgs = {
   email: string;
   baseUrl?: string;
 };
+
+export type ConfirmRegistrationResponse = {
+  statusCode: number;
+  messages: ConfirmRegistrationMessage[];
+  error: string;
+};
+
+export type ConfirmRegistrationMessage = {
+  message: string;
+  field: string;
+};
