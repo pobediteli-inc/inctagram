@@ -9,13 +9,14 @@ import { BaseModal } from "common/components/modal/baseModal/baseModal";
 
 export default function LinkExpired() {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const email = "epam@epam.com"
 
     return (
         <div className={s.linkExpiredWrapper}>
             <BaseModal open={isModalOpen} onClose={() => setIsModalOpen(false)} modalTitle="Email sent">
                 <div className={s.modalContainer}>
                     <Typography variant={'regular_16'} color={'light'}>
-                        We have sent a link to confirm your email to epam@epam.com
+                        We have sent a link to confirm your email to {email}
                     </Typography>
                     <Button variant={'primary'} onClick={() => setIsModalOpen(false)} className={s.modalButton}>
                         OK
@@ -23,7 +24,7 @@ export default function LinkExpired() {
                 </div>    
             </BaseModal>
             <div className={s.container}>
-                <Typography variant={'h1'} color={'light'} className={''}>
+                <Typography variant={'h1'} color={'light'}>
                     Email verification link expired
                 </Typography>
                 <Typography variant={'regular_16'} color={'light'} className={s.text}>

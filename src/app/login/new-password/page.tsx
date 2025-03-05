@@ -14,6 +14,7 @@ type Inputs = {
 export default function NewPassword() {
     const router = useRouter()
     const { register, handleSubmit, setError, formState: { errors, isSubmitted } } = useForm<Inputs>()
+    
     const onSubmit = (data: Inputs) => {
         if (data.password !== data.confirmPassword) {
             setError("confirmPassword", { type: "manual", message: "The passwords must match" })

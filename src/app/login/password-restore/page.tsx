@@ -15,26 +15,22 @@ type Inputs = {
 }
 
 export default function ForgotPassword() {
-    const [linkSent, setLinkSent] = useState(false)
+    const [isLinkSent, setIsLinkSent] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [captchaError, setCaptchaError] = useState(true)
     const { register, handleSubmit, formState: { errors, isSubmitted }, watch } = useForm<Inputs>()
     const email = watch('email')
 
-    const onSubmit = (data: any) => {
-        if (captchaError) {
-            setCaptchaError(true)
-            return
+    const onSubmit = () => {
+        if (!captchaError) {
+            setIsLinkSent(true)
+            setIsModalOpen(true)
         }
-        setLinkSent(true)
-        setIsModalOpen(true)
     }
 
-    const handleCaptcha = (value: any) => {
+    const handleCaptcha = (value: string | null) => {
         if (value) {
             setCaptchaError(false)
-        } else {
-            setCaptchaError(true)
         }
     }
 
@@ -79,7 +75,7 @@ export default function ForgotPassword() {
                     Enter your email address and we will send you further instructions 
                 </Typography>
 
-                {linkSent 
+                {isLinkSent 
                 ? 
                 <>
                     <Typography variant={'regular_14'} color={'light'} className={s.otherText}>
