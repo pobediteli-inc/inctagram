@@ -35,14 +35,14 @@ export default function EmailExpired() {
 
   const submitHandler = handleSubmit(async (data: ResendLinkFormValues) => {
     await resendRegistrationEmail({ email: data.email });
-    setEmail(email);
+    setEmail(data.email);
   });
 
   useEffect(() => {
     if (isSuccess) {
       setPopUpIsOpen(true);
     }
-  }, [isSuccess]);
+  }, [isSuccess, email]);
 
   return (
     <>

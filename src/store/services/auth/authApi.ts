@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RegistrationArgs, ResendRegistrationEmailArgs } from "./authApi.types";
+import { ConfirmRegistrationArgs, RegistrationArgs, ResendRegistrationEmailArgs } from "./authApi.types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -19,7 +19,7 @@ export const authApi = createApi({
         url: `/registration-email-resending`,
       }),
     }),
-    confirmRegistration: build.mutation({
+    confirmRegistration: build.mutation<void, ConfirmRegistrationArgs>({
       query: (args) => ({
         body: args,
         method: "POST",

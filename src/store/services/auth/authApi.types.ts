@@ -34,3 +34,7 @@ export type ConfirmRegistrationMessage = {
   message: string;
   field: string;
 };
+
+export type ConfirmRegistrationArgs = {
+  confirmationCode: string;
+};

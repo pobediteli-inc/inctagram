@@ -2,35 +2,34 @@
 
 import s from "./registration-confirmation.module.css";
 import { useSearchParams } from "next/navigation";
-import { useConfirmRegistrationMutation } from "../../../store/services/auth";
-import { useEffect, useState, useCallback } from "react";
+import { useConfirmRegistrationMutation } from "store/services/auth";
+import { useCallback, useEffect, useState } from "react";
 import Success from "../success/page";
 import EmailExpired from "../emailExpired/page";
 
 export default function RegistrationConfirmation() {
   const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+  const confirmationCode = searchParams.get("code");
   const email = searchParams.get("email");
 
   const [confirmRegistration, { isLoading, isSuccess }] = useConfirmRegistrationMutation();
   const [isError, setIsError] = useState(false);
 
   const handleConfirm = useCallback(async () => {
-    if (code) {
+    if (confirmationCode) {
       try {
-        await confirmRegistration({ code }).unwrap();
+        await confirmRegistration({ confirmationCode }).unwrap();
       } catch (error) {
-        // console.error("Error confirming registration:", error);
         setIsError(true);
       }
     }
-  }, [code, confirmRegistration]);
+  }, [confirmationCode, confirmRegistration]);
 
   useEffect(() => {
     handleConfirm();
   }, [handleConfirm]);
 
-  if (!code || !email) {
+  if (!confirmationCode || !email) {
     return <p>Error: Invalid or missing confirmation parameters!</p>;
   }
 
@@ -46,8 +45,5 @@ export default function RegistrationConfirmation() {
     return <EmailExpired />;
   }
 
-  return (
-    <div className={s.wrapper}>
-    </div>
-  );
+  return <div className={s.wrapper}></div>;
 }
