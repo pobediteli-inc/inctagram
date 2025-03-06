@@ -1,11 +1,11 @@
 "use client";
-import { ComponentPropsWithRef, forwardRef, memo, useId, useState } from "react";
+import { ChangeEvent, ComponentPropsWithRef, forwardRef, memo, useId, useState } from "react";
 import { clsx } from "clsx";
-import { Slot } from "@radix-ui/react-slot";
 import { NullableProps } from "common/types/NullableProps/NullableProps";
 import s from "./textField.module.css";
 import { EyeOffOutline, EyeOutline } from "assets/icons";
 import { Typography } from "common/components/typography/typography";
+import { Slot } from "@radix-ui/react-slot";
 
 export const TextField = memo(
   forwardRef<HTMLInputElement, TextFieldProps>(
@@ -16,21 +16,27 @@ export const TextField = memo(
         labelClassName,
         errorClassName,
         variant = "standard",
-        asChild = false,
         type = "text",
         label,
         disabled = false,
         error = null,
+        inputChangeHandler,
+        value,
+        asChild,
         ...rest
       },
       ref
     ) => {
       const [passwordVisible, setPasswordVisible] = useState(false);
       const generatedId = useId();
+      const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        inputChangeHandler?.(e.target.value);
+      };
 
       const id = rest.id || generatedId;
-      const Component = asChild ? Slot : "input";
       const isError = !!error;
+
+      const Component = asChild ? Slot : "input";
 
       const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
 
@@ -48,7 +54,9 @@ export const TextField = memo(
             className={clsx(s.textFieldBaseStyles, s[variant], { [s.errorTextField]: isError }, textFieldClassName)}
             disabled={disabled}
             type={type === "password" && passwordVisible ? "text" : type}
+            onChange={changeHandler}
             ref={ref}
+            value={value}
             {...rest}
           />
 
@@ -93,4 +101,5 @@ export type TextFieldProps = {
   asChild?: boolean;
   label?: string;
   error?: NullableProps<string>;
+  inputChangeHandler?: (value: string) => void;
 } & ComponentPropsWithRef<"input">;

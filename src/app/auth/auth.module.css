@@ -1,0 +1,17 @@
+.authWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 380px;
+  color: var(--light-100);
+  padding: 24px;
+}
+
+.authHeader {
+  margin-bottom: 24px;
+}
+
+.isAccount {
+  margin-top: 12px;
+  margin-bottom: 6px;
+}

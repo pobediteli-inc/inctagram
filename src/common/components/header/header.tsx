@@ -34,7 +34,7 @@ export const Header: FC<Props> = ({ isAuth }) => {
                   <Link href={"/login"}>Log in</Link>
                 </Button>
                 <Button variant={"primary"} asChild>
-                  <Link href={"/signUp"}>Sign up</Link>
+                  <Link href={"/auth"}>Sign up</Link>
                 </Button>
               </>
             )}

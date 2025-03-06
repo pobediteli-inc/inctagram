@@ -5,10 +5,14 @@ import { z } from "zod";
 import validator from "validator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RegistrationArgs } from "store/services/auth";
+import { SignUpApiError } from "app/auth/page";
+import { NullableProps } from "common/types";
+import { useEffect } from "react";
 
 const signUpSchema = z
   .object({
-    username: z
+    userName: z
       .string({
         required_error: "Username is required.",
       })
@@ -58,19 +62,23 @@ const signUpSchema = z
 export type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 type Props = {
-  onSubmit: (data: SignUpFormValues) => void;
+  onSubmit: (data: RegistrationArgs, resetForm: () => void) => void;
+  apiError: NullableProps<SignUpApiError>;
 };
 
-export const SignUpForm = ({ onSubmit }: Props) => {
-  const { control, handleSubmit, formState, reset } = useForm<SignUpFormValues>({
+export const SignUpForm = ({ onSubmit, apiError }: Props) => {
+  const { control, handleSubmit, formState, reset, setError } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     mode: "onTouched",
   });
 
   const submitHandler = handleSubmit((data) => {
-    onSubmit(data);
-    reset();
+    onSubmit({ userName: data.userName, email: data.email, password: data.password }, reset);
   });
+
+  useEffect(() => {
+    setError(apiError?.field as keyof SignUpFormValues, { type: "server", message: apiError?.message });
+  }, [apiError, setError]);
 
   return (
     <form onSubmit={submitHandler} className={s.form}>
@@ -80,7 +88,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
           placeholder={"User123"}
           label={"Username"}
           control={control}
-          name={"username"}
+          name={"userName"}
         />
         <ControlledTextField
           type={"email"}
@@ -110,11 +118,11 @@ export const SignUpForm = ({ onSubmit }: Props) => {
 
         <Typography variant={"small"}>
           I agree to the&nbsp;
-          <Link className={s.link} href={"/signUp/terms/service"}>
+          <Link className={s.link} href={"/auth/terms/service"}>
             Terms of Service
           </Link>
           &nbsp; and&nbsp;
-          <Link className={s.link} href={"/signUp/terms/policy"}>
+          <Link className={s.link} href={"/auth/terms/policy"}>
             Privacy Policy
           </Link>
         </Typography>
