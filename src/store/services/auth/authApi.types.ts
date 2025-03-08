@@ -34,3 +34,20 @@ export type ConfirmRegistrationMessage = {
   message: string;
   field: string;
 };
+
+export type LoginArgs = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  accessToken: string;
+};
+
+export type LoginServerError = {
+  data: {
+    statusCode: number;
+    messages: string;
+    error: string;
+  };
+};
