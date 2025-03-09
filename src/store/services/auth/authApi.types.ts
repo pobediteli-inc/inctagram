@@ -35,6 +35,10 @@ export type ConfirmRegistrationMessage = {
   field: string;
 };
 
+export type ConfirmRegistrationArgs = {
+  confirmationCode: string;
+};
+
 export type LoginArgs = {
   email: string;
   password: string;
