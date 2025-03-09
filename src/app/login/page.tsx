@@ -6,8 +6,14 @@ import { TextField, Button, Typography } from "common/components";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/auth";
+import router from "next/router";
+import { handleClientError } from "common/utils/handleClientError";
+import { handleServerError } from "common/utils/handleServerError";
 
 export default function Login() {
+  const [login] = useLoginMutation();
+
   const {
     handleSubmit,
     control,
@@ -15,20 +21,23 @@ export default function Login() {
     setError,
   } = useForm<Props>({
     resolver: zodResolver(LoginScheme),
-    mode: "onSubmit",
+    mode: "onTouched",
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const handleFormSubmit = async (data: Props) => {
-    console.log("Attempting form submit with data:", data);
+  const handleFormSubmit = async (data: LoginArgs) => {
     try {
-      await mockLoginApi(data);
+      const response = await login(data).unwrap();
+      if (response.accessToken) {
+        localStorage.setItem("accessToken", response.accessToken);
+      }
+      await router.push("/home");
     } catch (error: unknown) {
-      if (error instanceof Error) setError("password", { message: error.message });
-      else console.log("Unknown error: ", error);
+      handleClientError(error, setError);
+      handleServerError(error as LoginServerError, setError);
     }
   };
 
@@ -100,18 +109,6 @@ export default function Login() {
     </div>
   );
 }
-
-const mockLoginApi = async ({ email, password }: { email: string; password: string }) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const validEmail = "test@example.com";
-  const validPassword = "123456";
-  if (email === validEmail && password === validPassword) {
-    return "You are logged in";
-  } else {
-    throw new Error("The email or password are incorrect. Please try again");
-  }
-};
 
 const LoginScheme = z.object({
   email: z

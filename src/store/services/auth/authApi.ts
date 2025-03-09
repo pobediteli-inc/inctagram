@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CheckRecoveryCodeArgs, NewPasswordArgs, PasswordRecoveryArgs, RegistrationArgs, ResendPasswordRecoveryArgs, ResendRegistrationEmailArgs } from "./authApi.types";
+import { LoginArgs, LoginResponse, ConfirmRegistrationArgs, CheckRecoveryCodeArgs, NewPasswordArgs, PasswordRecoveryArgs, RegistrationArgs, ResendPasswordRecoveryArgs, ResendRegistrationEmailArgs } from "./authApi.types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -19,7 +19,7 @@ export const authApi = createApi({
         url: `/registration-email-resending`,
       }),
     }),
-    confirmRegistration: build.mutation({
+    confirmRegistration: build.mutation<void, ConfirmRegistrationArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
@@ -54,8 +54,16 @@ export const authApi = createApi({
         url: `/check-recovery-code`,
       }),
     }),
+    login: build.mutation<LoginResponse, LoginArgs>({
+      query: (args) => ({
+        url: "/login",
+        method: "POST",
+        body: args,
+      }),
+    }),
   }),
 });
+  
 
 export const { 
   useRegisterUserMutation,
@@ -65,4 +73,5 @@ export const {
   useResendPasswordRecoveryMutation,
   useNewPasswordMutation,
   useCheckRecoveryCodeMutation,
+  useLoginMutation,
 } = authApi;

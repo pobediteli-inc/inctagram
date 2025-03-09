@@ -54,3 +54,24 @@ export type NewPasswordArgs = {
 export type CheckRecoveryCodeArgs = {
   recoveryCode: string
 };
+
+export type ConfirmRegistrationArgs = {
+  confirmationCode: string;
+};
+
+export type LoginArgs = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  accessToken: string;
+};
+
+export type LoginServerError = {
+  data: {
+    statusCode: number;
+    messages: string;
+    error: string;
+  };
+};
