@@ -2,17 +2,18 @@
 import s from "./login.module.css";
 import Link from "next/link";
 import { Github, Google } from "assets/icons";
-import { TextField, Button, Typography } from "common/components";
+import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/auth";
-import router from "next/router";
 import { handleClientError } from "common/utils/handleClientError";
 import { handleServerError } from "common/utils/handleServerError";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [login] = useLoginMutation();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -33,8 +34,8 @@ export default function Login() {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
+        router.push("/home");
       }
-      await router.push("/home");
     } catch (error: unknown) {
       handleClientError(error, setError);
       handleServerError(error as LoginServerError, setError);
