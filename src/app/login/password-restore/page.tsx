@@ -8,23 +8,44 @@ import { Card } from "common/components/card/card";
 import ReCaptcha from "common/components/recaptcha/recaptcha";
 import { BaseModal } from "common/components/modal/baseModal/baseModal";
 import { useForm } from "react-hook-form";
+import { PasswordRecoveryArgs, usePasswordRecoveryMutation, useResendPasswordRecoveryMutation } from "store/services/auth";
 
 type Inputs = {
     email: string
-    recaptcha: boolean
+    recaptcha: string
 }
 
 export default function ForgotPassword() {
+    const [passwordRecovery, {isLoading}] = usePasswordRecoveryMutation()
+    const [resendPasswordRecovery, {isLoading: isResending}] = useResendPasswordRecoveryMutation()
     const [isLinkSent, setIsLinkSent] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [captchaError, setCaptchaError] = useState(true)
-    const { register, handleSubmit, formState: { errors, isSubmitted }, watch } = useForm<Inputs>()
+    const { register, handleSubmit, formState: { errors, isSubmitted }, watch, setError } = useForm<Inputs>()
     const email = watch('email')
 
-    const onSubmit = () => {
+    const onSubmit = async (data: PasswordRecoveryArgs) => {
         if (!captchaError) {
-            setIsLinkSent(true)
-            setIsModalOpen(true)
+            try {
+                await passwordRecovery({
+                    email: data.email, 
+                    recaptcha: data.recaptcha,
+                }).unwrap()
+                setIsLinkSent(true)
+                setIsModalOpen(true)
+            } catch (error) {
+                console.log(error)
+                setError("email", { type: "manual", message: "User with this email doesn't exist" })
+            }
+        }
+    }
+
+    const handleResend = async () => {
+        try {
+            await resendPasswordRecovery({email}).unwrap()
+        } catch (error) {
+            console.log(error)
+            setError("email", { type: "manual", message: "User with this email doesn't exist" })
         }
     }
 
@@ -84,10 +105,10 @@ export default function ForgotPassword() {
                         If you don’t receive an email send link again 
                     </Typography>
                     <div className={s.buttonsWrapper}>
-                        <Button variant={"primary"} className={s.button}>
+                        <Button variant={"primary"} className={s.button} onClick={handleResend} disabled={isResending}>
                             Send Link Again
                         </Button>
-                        <Button variant={"link"} className={s.button} asChild>
+                        <Button variant={"link"} className={s.button} asChild disabled={isResending}>
                             <Link href={'/login'}>Back to Sign In</Link>
                         </Button>
                     </div>
@@ -95,10 +116,10 @@ export default function ForgotPassword() {
                 
                 : 
                 <div className={s.buttonsWrapper}>
-                    <Button variant={"primary"} className={s.button}>
+                    <Button variant={"primary"} className={s.button} disabled={isLoading}>
                         Send Link
                     </Button>
-                    <Button variant={"link"} className={s.button} asChild>
+                    <Button variant={"link"} className={s.button} asChild disabled={isLoading}>
                         <Link href={'/login'}>Back to Sign In</Link>
                     </Button>
                     <ReCaptcha sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM" onVerify={handleCaptcha} error={isSubmitted && captchaError}/>

@@ -4,7 +4,9 @@ import { Button, TextField, Typography } from "common/components";
 import s from "./page.module.css"
 import { Card } from "common/components/card/card";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCheckRecoveryCodeMutation, useNewPasswordMutation } from "store/services/auth";
+import { useEffect } from "react";
 
 type Inputs = {
     password: string
@@ -12,16 +14,43 @@ type Inputs = {
 }
 
 export default function NewPassword() {
+    const [newPassword, {isLoading}] = useNewPasswordMutation()
+    const [checkRecoveryCode] = useCheckRecoveryCodeMutation()
+    const searchParams = useSearchParams()
+    const recoveryCode = searchParams.get("code")
     const router = useRouter()
     const { register, handleSubmit, setError, formState: { errors, isSubmitted } } = useForm<Inputs>()
     
-    const onSubmit = (data: Inputs) => {
+    const onSubmit = async (data: Inputs) => {
         if (data.password !== data.confirmPassword) {
             setError("confirmPassword", { type: "manual", message: "The passwords must match" })
-            return
+        } else if (recoveryCode) {
+            try {
+                await newPassword({
+                    newPassword: data.confirmPassword, 
+                    recoveryCode
+                }).unwrap()
+                router.push("/login")
+            } catch (error) {
+                console.log(error)
+            }
         }
-        router.push("/login")
     }
+
+    useEffect(() => {
+        const isRecoveryCodeValid = async () => {
+            if (recoveryCode) {
+                try {
+                    await checkRecoveryCode({ recoveryCode }).unwrap()
+                } catch (error) {
+                    router.push("/login/verification-link-expired")
+                }
+            } else {
+                router.push("/login/verification-link-expired")
+            }
+        }
+        isRecoveryCodeValid()
+    }, [recoveryCode, checkRecoveryCode, router])
 
     return (
         <Card className={s.card}>
@@ -56,7 +85,7 @@ export default function NewPassword() {
                     Your password must be between 6 and 20 characters 
                 </Typography>
                 <div className={s.buttonsWrapper}>
-                    <Button variant={"primary"} className={s.button}>
+                    <Button variant={"primary"} className={s.button} disabled={isLoading}>
                         Create new password
                     </Button>
                 </div>

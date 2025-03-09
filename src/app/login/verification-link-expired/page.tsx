@@ -6,10 +6,25 @@ import s from './page.module.css'
 import picture from './../../../../public/icons/svg/linkExpired.svg'
 import { useState } from "react";
 import { BaseModal } from "common/components/modal/baseModal/baseModal";
+import { useSearchParams } from "next/navigation";
+import { useResendPasswordRecoveryMutation } from "store/services/auth";
 
 export default function LinkExpired() {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const email = "epam@epam.com"
+    const [resendPasswordRecovery, {isLoading: isResending}] = useResendPasswordRecoveryMutation()
+    const searchParams = useSearchParams()
+    const email = searchParams.get("email")
+
+    const handleResend = async () => {
+            try {
+                if (email) {
+                    await resendPasswordRecovery({email}).unwrap()
+                    setIsModalOpen(true)    
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
     return (
         <div className={s.linkExpiredWrapper}>
@@ -31,7 +46,7 @@ export default function LinkExpired() {
                     Looks like the verification link has expired. Not to worry, we can send the link again   
                 </Typography>
                 <div className={s.buttonWrapper}>
-                    <Button variant={"primary"} className={s.button} onClick={() => setIsModalOpen(true)}>
+                    <Button variant={"primary"} className={s.button} onClick={handleResend} disabled={isResending}>
                         Resend link
                     </Button>  
                 </div>
