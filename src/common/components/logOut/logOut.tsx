@@ -1,18 +1,25 @@
 "use client";
+
 import { LogOutOutline } from "../../../assets/icons";
 import { useState } from "react";
 import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
 import { Typography } from "../typography/typography";
+import { useLogoutMutation } from "../../../store/services/auth";
+import { useRouter } from "next/navigation";
 
 export const LogOut = () => {
   const [showModal, setShowModal] = useState(false);
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
+
   const account = "Epam@epam.com";
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  const logOutHandler = () => {
-    // logout().then(res => {})
+  const logOutHandler = async () => {
+    await logout();
+    router.push("/login");
   };
 
   return (
