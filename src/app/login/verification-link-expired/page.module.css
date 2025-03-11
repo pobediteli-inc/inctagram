@@ -1,8 +1,8 @@
 .linkExpiredWrapper {
-    max-width: 473px;
+    max-width: 472px;
     height: auto;
     user-select: none;
-    margin: 35px auto;
+    margin: 34px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
 
 .text {
     text-align: center;
-    margin-top: 19px;
+    margin-top: 20px;
 }
 
 .buttonWrapper {
@@ -26,12 +26,11 @@
     align-items: center;
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 31px;
+    margin-bottom: 32px;
 }
 
 .button {
-    border: none !important;
-    width: 100% !important;
+    width: 100%;
 }
 
 .image {
@@ -45,7 +44,6 @@
 
 .modalButton {
     padding: 6px 36px;
-    border: none !important;
     display: block;
     margin-top: 18px;
     margin-left: auto;
