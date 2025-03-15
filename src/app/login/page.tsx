@@ -6,10 +6,9 @@ import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/auth";
-import { handleClientError } from "common/utils/handleClientError";
-import { handleServerError } from "common/utils/handleServerError";
+import { LoginRequest, useLoginMutation } from "store/services/auth";
 import { useRouter } from "next/navigation";
+import { handleAuthError } from "common/utils/handleAuthError";
 
 export default function Login() {
   const [login] = useLoginMutation();
@@ -29,16 +28,16 @@ export default function Login() {
     },
   });
 
-  const handleFormSubmit = async (data: LoginArgs) => {
+  const handleFormSubmit = async (data: LoginRequest) => {
     try {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
+        window.dispatchEvent(new Event("storage"));
         router.push("/home");
       }
     } catch (error: unknown) {
-      handleClientError(error, setError);
-      handleServerError(error as LoginServerError, setError);
+      handleAuthError(error, setError);
     }
   };
 
