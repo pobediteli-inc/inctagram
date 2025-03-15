@@ -1,0 +1,86 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 2px;
+  padding: 16px;
+  gap: 8px;
+  max-width: 400px;
+  font-family: var(--font-family), sans-serif;
+  background-color: var(--dark-300);
+}
+
+.color-success {
+  border: 1px solid var(--success-500);
+}
+
+.color-error {
+  border: 1px solid var(--danger-500);
+}
+
+.color-warning {
+  border: 1px solid var(--warning-500);
+}
+
+.color-info {
+  border: 1px solid var(--primary-500);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.title-success {
+  color: var(--success-900);
+}
+
+.title-error {
+  color: var(--danger-500);
+}
+
+.title-warning {
+  color: var(--warning-500);
+}
+
+.title-info {
+  color: var(--primary-900);
+}
+
+.description {
+
+}
+
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--light-900);
+  }
+}
+
+.Viewport {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  overflow: auto;
+}
+
+.position-left {
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+.position-right {
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
