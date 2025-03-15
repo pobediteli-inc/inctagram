@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import { FC, useEffect, useState } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
@@ -6,16 +7,43 @@ import { Button } from "common/components/button/button";
 import Link from "next/link";
 import { FlagRussia, FlagUnitedKingdom } from "assets/icons";
 import { SelectItemsProps } from "common/types/SelectItemsProps/SelectItemsProps";
+import { LogOut } from "common/components/logOut/logOut";
+import { useMeQuery } from "store/services/auth";
+import { NullableProps } from "common/types";
 
-type Props = {
-  isAuth: boolean;
-};
+export const Header: FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState<NullableProps<boolean>>(!!localStorage.getItem("accessToken"));
+  const [accessToken, setAccessToken] = useState<NullableProps<string>>(localStorage.getItem("accessToken"));
+  useEffect(() => {
+    const handleStorage = () => {
+      setIsAuthenticated(!!localStorage.getItem("accessToken"));
+      setAccessToken(localStorage.getItem("accessToken"));
+    };
+    window.addEventListener("storage", handleStorage);
 
-export const Header: FC<Props> = ({ isAuth }) => {
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
+
+  const skipMeRequest: boolean = !accessToken || !!isAuthenticated;
+
+  const { data, refetch } = useMeQuery(undefined, { skip: skipMeRequest });
+
   const selectLanguages: SelectItemsProps[] = [
     { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
     { value: "ru", label: "Russian", icon: <FlagRussia width={20} height={20} /> },
   ];
+
+  const handleLogOut = () => {
+    localStorage.removeItem("accessToken");
+    window.dispatchEvent(new Event("storage"));
+    setIsAuthenticated(false);
+    setAccessToken(null);
+    if (localStorage.getItem("accessToken")) {
+      refetch();
+    }
+  };
 
   return (
     <header className={s.headerWrapper}>
@@ -26,8 +54,8 @@ export const Header: FC<Props> = ({ isAuth }) => {
         <div className={s.selectButtonsWrapper}>
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
-            {isAuth ? (
-              <Button variant={"primary"}>Log out</Button>
+            {isAuthenticated ? (
+              <LogOut onLogOutSuccess={handleLogOut} email={data?.email} />
             ) : (
               <>
                 <Button variant={"link"} asChild>
