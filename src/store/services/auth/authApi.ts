@@ -1,9 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginArgs, LoginResponse, ConfirmRegistrationArgs, RegistrationArgs, ResendRegistrationEmailArgs } from "./authApi.types";
+import {
+  LoginRequest,
+  LoginResponse,
+  ConfirmRegistrationArgs,
+  RegistrationArgs,
+  ResendRegistrationEmailArgs,
+} from "./authApi.types";
+import { MeResponse } from "store/services/auth/authApi.types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://inctagram.work/api/v1/auth" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://inctagram.work/api/v1/auth",
+    credentials: "include",
+    prepareHeaders: (headers) => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        headers.set("Authorization", `Bearer ${accessToken}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (build) => ({
     registerUser: build.mutation<void, RegistrationArgs>({
       query: (args) => ({
@@ -26,11 +43,23 @@ export const authApi = createApi({
         url: `/registration-confirmation`,
       }),
     }),
-    login: build.mutation<LoginResponse, LoginArgs>({
+    login: build.mutation<LoginResponse, LoginRequest>({
       query: (args) => ({
         url: "/login",
         method: "POST",
         body: args,
+      }),
+    }),
+    me: build.query<MeResponse, void>({
+      query: () => ({
+        url: "/me",
+        method: "GET",
+      }),
+    }),
+    logOut: build.mutation<void, void>({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
       }),
     }),
   }),
@@ -41,4 +70,6 @@ export const {
   useResendRegistrationEmailMutation,
   useConfirmRegistrationMutation,
   useLoginMutation,
+  useMeQuery,
+  useLogOutMutation,
 } = authApi;
