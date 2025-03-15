@@ -62,3 +62,16 @@ export type MeResponse = {
   email: string;
   isBlocked: boolean;
 };
+
+export type MeServerError = {
+  data: {
+    statusCode: number;
+    messages: [
+      {
+        message: string;
+        field: string;
+      },
+    ];
+    error: string;
+  };
+};
