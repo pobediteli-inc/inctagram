@@ -1,29 +1,53 @@
 "use client";
 import { LogOutOutline } from "../../../assets/icons";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
 import { Typography } from "../typography/typography";
+import { NullableProps } from "common/types";
+import { authApi, useLogOutMutation } from "store/services/auth";
+import { useRouter } from "next/navigation";
+import { Button } from "common/components/button/button";
 
-export const LogOut = () => {
+export const LogOut: FC<LogOutProps> = ({ onLogOutSuccess, email }) => {
   const [showModal, setShowModal] = useState(false);
-  const account = "Epam@epam.com";
+  const [logOut] = useLogOutMutation();
+  const router = useRouter();
 
-  const toggleModal = () => setShowModal((prev) => !prev);
+  const toggleModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
-  const logOutHandler = () => {
-    // logout().then(res => {})
+  const handleLogout = async () => {
+    try {
+      await logOut().unwrap();
+      onLogOutSuccess();
+      toggleModal();
+      authApi.util.resetApiState();
+      router.push("/login");
+    } catch (error: unknown) {
+      const serverError = error as NullableProps<string>;
+      console.log(serverError || "An error occurred. Token is either missing or expired.");
+    }
   };
 
   return (
     <div>
-      <div className={s.container} onClick={toggleModal} aria-label="Log out">
+      <Button className={s.container} onClick={toggleModal}>
         <LogOutOutline width={24} height={24} color={"var(--light-100)"} className={s.icon} />
         <Typography variant={"medium_14"} color={"light"}>
           Log Out
         </Typography>
-      </div>
-      <LogOutModal isOpen={showModal} onClose={toggleModal} email={account} onLogout={logOutHandler} />
+      </Button>
+
+      {showModal && (
+        <LogOutModal isOpen={showModal} onClose={toggleModal} email={email ?? null} onLogout={handleLogout} />
+      )}
     </div>
   );
+};
+
+type LogOutProps = {
+  onLogOutSuccess: () => void;
+  email?: NullableProps<string>;
 };
