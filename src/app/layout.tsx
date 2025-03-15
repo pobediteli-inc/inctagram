@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <StoreWrapper>
-          <Header isAuth={false} />
+          <Header />
           <main className={s.main}>{children}</main>
         </StoreWrapper>
       </body>
