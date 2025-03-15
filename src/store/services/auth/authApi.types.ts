@@ -39,7 +39,7 @@ export type ConfirmRegistrationArgs = {
   confirmationCode: string;
 };
 
-export type LoginArgs = {
+export type LoginRequest = {
   email: string;
   password: string;
 };
@@ -54,4 +54,11 @@ export type LoginServerError = {
     messages: string;
     error: string;
   };
+};
+
+export type MeResponse = {
+  userId: number;
+  userName: string;
+  email: string;
+  isBlocked: boolean;
 };
