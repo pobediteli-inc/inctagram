@@ -12,12 +12,14 @@ import { useMeQuery } from "store/services/auth";
 import { NullableProps } from "common/types";
 
 export const Header: FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<NullableProps<boolean>>(!!localStorage.getItem("accessToken"));
-  const [accessToken, setAccessToken] = useState<NullableProps<string>>(localStorage.getItem("accessToken"));
+  const token = localStorage.getItem("accessToken");
+  const [isAuthenticated, setIsAuthenticated] = useState<NullableProps<boolean>>(!!token);
+  const [accessToken, setAccessToken] = useState<NullableProps<string>>(token);
   useEffect(() => {
     const handleStorage = () => {
-      setIsAuthenticated(!!localStorage.getItem("accessToken"));
-      setAccessToken(localStorage.getItem("accessToken"));
+      const token = localStorage.getItem("accessToken");
+      setIsAuthenticated(!!token);
+      setAccessToken(token);
     };
     window.addEventListener("storage", handleStorage);
 
@@ -37,7 +39,6 @@ export const Header: FC = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
-    window.dispatchEvent(new Event("storage"));
     setIsAuthenticated(false);
     setAccessToken(null);
     if (localStorage.getItem("accessToken")) {
