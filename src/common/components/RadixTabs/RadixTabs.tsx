@@ -1,7 +1,8 @@
 import * as Tabs from "@radix-ui/react-tabs"
-import s from "./RadixTabs.module.css"
+import s from "./radixTabs.module.css"
 import clsx from "clsx"
-import { Typography } from "../Typography/Typography"
+import { Typography } from "../typography/typography"
+
 
 export type Props = {
     variant: "primary" | "secondary"
