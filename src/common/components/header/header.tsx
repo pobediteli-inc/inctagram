@@ -15,22 +15,21 @@ export const Header: FC = () => {
   const token = localStorage.getItem("accessToken");
   const [isAuthenticated, setIsAuthenticated] = useState<NullableProps<boolean>>(!!token);
   const [accessToken, setAccessToken] = useState<NullableProps<string>>(token);
+  const { data, refetch } = useMeQuery(undefined, { skip: !accessToken });
   useEffect(() => {
     const handleStorage = () => {
       const token = localStorage.getItem("accessToken");
       setIsAuthenticated(!!token);
       setAccessToken(token);
+      if (accessToken) refetch();
     };
+    handleStorage();
     window.addEventListener("storage", handleStorage);
 
     return () => {
       window.removeEventListener("storage", handleStorage);
     };
-  }, []);
-
-  const skipMeRequest: boolean = !accessToken || !!isAuthenticated;
-
-  const { data, refetch } = useMeQuery(undefined, { skip: skipMeRequest });
+  }, [refetch]);
 
   const selectLanguages: SelectItemsProps[] = [
     { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
@@ -41,9 +40,6 @@ export const Header: FC = () => {
     localStorage.removeItem("accessToken");
     setIsAuthenticated(false);
     setAccessToken(null);
-    if (localStorage.getItem("accessToken")) {
-      refetch();
-    }
   };
 
   return (
@@ -56,7 +52,7 @@ export const Header: FC = () => {
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
             {isAuthenticated ? (
-              <LogOut onLogOutSuccess={handleLogOut} email={data?.email} />
+              <LogOut onLogOutAction={handleLogOut} email={data?.email ?? null} />
             ) : (
               <>
                 <Button variant={"link"} asChild>
