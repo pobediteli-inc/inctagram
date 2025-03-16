@@ -21,7 +21,7 @@ export const LogOutModal: FC<LogOutModalProps> = ({ isOpen, onClose, onLogout, e
             Do you really want to log out of your account “
             <Typography variant={"bold_14"} asChild>
               <span tabIndex={0} autoFocus className={s.autoFocus}>
-                {email ?? null}
+                {email}
               </span>
             </Typography>
             ”?

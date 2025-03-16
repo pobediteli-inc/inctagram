@@ -5,22 +5,24 @@
 
 .message {
   padding: 30px 24px 6px;
+  margin-bottom: 30px;
 }
 
 .buttons {
   display: flex;
-  gap: 1.5rem;
+  gap: 24px;
   align-self: flex-end;
-  margin: 24px;
+  margin-right: 24px;
 }
 
 .button {
-  width: 36px;
-  max-height: 96px;
+  max-width: 96px;
+  width: 100%;
 }
 
 .contentContainer {
-  height: 240px;
+  max-height: 240px;
+  height: 100%;
 }
 
 .autoFocus {
