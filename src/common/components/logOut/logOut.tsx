@@ -9,7 +9,7 @@ import { authApi, useLogOutMutation } from "store/services/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "common/components/button/button";
 
-export const LogOut: FC<LogOutProps> = ({ onLogOutSuccess, email }) => {
+export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
   const [showModal, setShowModal] = useState(false);
   const [logOut] = useLogOutMutation();
   const router = useRouter();
@@ -21,7 +21,7 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutSuccess, email }) => {
   const handleLogout = async () => {
     try {
       await logOut().unwrap();
-      onLogOutSuccess();
+      onLogOutAction();
       toggleModal();
       authApi.util.resetApiState();
       router.push("/login");
@@ -40,14 +40,12 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutSuccess, email }) => {
         </Typography>
       </Button>
 
-      {showModal && (
-        <LogOutModal isOpen={showModal} onClose={toggleModal} email={email ?? null} onLogout={handleLogout} />
-      )}
+      {showModal && <LogOutModal isOpen={showModal} onClose={toggleModal} email={email} onLogout={handleLogout} />}
     </div>
   );
 };
 
 type LogOutProps = {
-  onLogOutSuccess: () => void;
-  email?: NullableProps<string>;
+  onLogOutAction: () => void;
+  email: NullableProps<string>;
 };
