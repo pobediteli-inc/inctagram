@@ -5,7 +5,7 @@ import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
 import { Typography } from "../typography/typography";
 import { NullableProps } from "common/types";
-import { authApi, useLogOutMutation } from "store/services/auth";
+import { useLogOutMutation } from "store/services/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "common/components/button/button";
 
@@ -23,7 +23,6 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
       await logOut().unwrap();
       onLogOutAction();
       toggleModal();
-      authApi.util.resetApiState();
       router.push("/login");
     } catch (error: unknown) {
       const serverError = error as NullableProps<string>;
