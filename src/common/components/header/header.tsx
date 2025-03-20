@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
@@ -8,28 +8,17 @@ import Link from "next/link";
 import { FlagRussia, FlagUnitedKingdom } from "assets/icons";
 import { SelectItemsProps } from "common/types/SelectItemsProps/SelectItemsProps";
 import { LogOut } from "common/components/logOut/logOut";
-import { useMeQuery } from "store/services/auth";
-import { NullableProps } from "common/types";
+import { authApi, useMeQuery } from "store/services/auth";
+import { useAppSelector } from "common/hooks/useAppSelector";
+import { selectIsLoggedIn, setLoggedIn } from "features/auth/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export const Header: FC = () => {
-  const token = localStorage.getItem("accessToken");
-  const [isAuthenticated, setIsAuthenticated] = useState<NullableProps<boolean>>(!!token);
-  const [accessToken, setAccessToken] = useState<NullableProps<string>>(token);
-  const { data, refetch } = useMeQuery(undefined, { skip: !accessToken });
-  useEffect(() => {
-    const handleStorage = () => {
-      const token = localStorage.getItem("accessToken");
-      setIsAuthenticated(!!token);
-      setAccessToken(token);
-      if (accessToken) refetch();
-    };
-    handleStorage();
-    window.addEventListener("storage", handleStorage);
+  const { data, isError } = useMeQuery();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
 
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-    };
-  }, [refetch]);
+  const { email } = data ?? {};
 
   const selectLanguages: SelectItemsProps[] = [
     { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
@@ -38,9 +27,14 @@ export const Header: FC = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
-    setIsAuthenticated(false);
-    setAccessToken(null);
+    dispatch(authApi.util.resetApiState());
+    dispatch(setLoggedIn({ isLoggedIn: false }));
   };
+
+  useEffect(() => {
+    if (data) dispatch(setLoggedIn({ isLoggedIn: true }));
+    else if (isError) dispatch(setLoggedIn({ isLoggedIn: false }));
+  }, [data, isError, dispatch]);
 
   return (
     <header className={s.headerWrapper}>
@@ -51,8 +45,8 @@ export const Header: FC = () => {
         <div className={s.selectButtonsWrapper}>
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
-            {isAuthenticated ? (
-              <LogOut onLogOutAction={handleLogOut} email={data?.email ?? null} />
+            {isLoggedIn ? (
+              <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
             ) : (
               <>
                 <Button variant={"link"} asChild>
