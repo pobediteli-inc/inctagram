@@ -6,13 +6,17 @@ import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginRequest, useLoginMutation } from "store/services/auth";
+import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
 import { handleAuthError } from "common/utils/handleAuthError";
+import { setLoggedIn } from "features/auth/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export default function Login() {
   const [login] = useLoginMutation();
+  const { refetch } = useMeQuery();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -33,10 +37,12 @@ export default function Login() {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
-        window.dispatchEvent(new Event("storage"));
+        dispatch(setLoggedIn({ isLoggedIn: true }));
+        await refetch();
         router.push("/home");
       }
     } catch (error: unknown) {
+      dispatch(setLoggedIn({ isLoggedIn: false }));
       handleAuthError(error, setError);
     }
   };
