@@ -10,7 +10,7 @@ import { SelectItemsProps } from "common/types/SelectItemsProps/SelectItemsProps
 import { LogOut } from "common/components/logOut/logOut";
 import { authApi, useMeQuery } from "store/services/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
-import { selectIsLoggedIn, setLoggedIn } from "features/auth/authSlice";
+import { selectIsLoggedIn, setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { ProgressBar } from "common/components/progressBar/progressBar";
 

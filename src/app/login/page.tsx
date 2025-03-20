@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
 import { handleAuthFieldError } from "common/utils/handleAuthFieldError";
-import { setLoggedIn } from "features/auth/authSlice";
+import { setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export default function Login() {
