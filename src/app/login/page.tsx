@@ -8,7 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
-import { handleAuthError } from "common/utils/handleAuthError";
+import { handleAuthFieldError } from "common/utils/handleAuthFieldError";
 import { setLoggedIn } from "features/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 
@@ -43,7 +43,7 @@ export default function Login() {
       }
     } catch (error: unknown) {
       dispatch(setLoggedIn({ isLoggedIn: false }));
-      handleAuthError(error, setError);
+      handleAuthFieldError(error, setError);
     }
   };
 

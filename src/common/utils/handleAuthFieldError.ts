@@ -1,7 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 import { LoginRequest, LoginServerError } from "store/services/auth";
 
-export const handleAuthError = (error: unknown, setError: UseFormSetError<LoginRequest>) => {
+export const handleAuthFieldError = (error: unknown, setError: UseFormSetError<LoginRequest>) => {
   if (!error) {
     setError("password", { message: "Something went wrong. Please try again." });
     return;
