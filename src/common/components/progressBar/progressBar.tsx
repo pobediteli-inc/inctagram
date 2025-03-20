@@ -1,11 +1,11 @@
-import clsx from 'clsx'
+import clsx from "clsx";
 
-import s from './progressBar.module.scss'
+import s from "./progressBar.module.scss";
 
 type Props = {
-  className?: string
-}
+  className?: string;
+};
 
 export const ProgressBar = ({ className }: Props) => {
-  return <span className={clsx(className, s.loader)}></span>
-}
+  return <span className={clsx(s.loader, className)}></span>;
+};
