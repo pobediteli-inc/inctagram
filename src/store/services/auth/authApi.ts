@@ -61,6 +61,14 @@ export const authApi = createApi({
         body: args,
       }),
     }),
+    updateProviders: build.mutation<void, { email: string, provider: string }>({
+      query: ({ email, provider }) => ({
+        method: "PUT",
+        // url: `/users/${email}/update-providers`, // Adjust URL based on your backend route
+        url: `/users/${email}/profile`, // Adjust URL based on your backend route
+        body: { provider },
+      }),
+    }),
   }),
 });
   
@@ -74,4 +82,5 @@ export const {
   useNewPasswordMutation,
   useCheckRecoveryCodeMutation,
   useLoginMutation,
+  useUpdateProvidersMutation
 } = authApi;

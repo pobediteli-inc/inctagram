@@ -1,7 +1,7 @@
 "use client";
 import s from "./login.module.css";
 import Link from "next/link";
-import { Github, Google } from "assets/icons";
+import { Github } from "assets/icons";
 import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/au
 import { handleClientError } from "common/utils/handleClientError";
 import { handleServerError } from "common/utils/handleServerError";
 import { useRouter } from "next/navigation";
+import GoogleAuth from "../../common/components/googleAuth/googleAuth";
 
 export default function Login() {
   const [login] = useLoginMutation();
@@ -48,9 +49,10 @@ export default function Login() {
         Sign In
       </Typography>
       <div className={s.socialIcons}>
-        <Link href={"https://www.google.com"} target={"_blank"}>
-          <Google width={36} height={36} />
-        </Link>
+        <GoogleAuth />
+        {/*<Link href={"https://www.google.com"} target={"_blank"}>*/}
+        {/*  <Google width={36} height={36} />*/}
+        {/*</Link>*/}
         <Link href={"https://www.github.com"} target={"_blank"}>
           <Github width={36} height={36} color={"white"} />
         </Link>

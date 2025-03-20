@@ -3,6 +3,7 @@ export type RegistrationArgs = {
   email: string;
   password: string;
   baseUrl?: string;
+  providers?: string[];
 };
 
 export type RegistrationServerError = {
