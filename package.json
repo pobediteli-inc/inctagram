@@ -28,7 +28,7 @@
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-toast": "^1.2.6",
-    "@reduxjs/toolkit": "^2.5.0",
+    "@reduxjs/toolkit": "^2.6.1",
     "@storybook/theming": "^8.6.4",
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/validator": "^13.12.2",
