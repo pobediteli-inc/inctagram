@@ -12,9 +12,10 @@ import { authApi, useMeQuery } from "store/services/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "features/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { ProgressBar } from "common/components/progressBar/progressBar";
 
 export const Header: FC = () => {
-  const { data, isError } = useMeQuery();
+  const { data, isError, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
@@ -45,7 +46,12 @@ export const Header: FC = () => {
         <div className={s.selectButtonsWrapper}>
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
-            {isLoggedIn ? (
+            {isLoading ? (
+              <>
+                <Typography variant={"regular_14"}>Loading...</Typography>
+                <ProgressBar className={s.progressBar} />
+              </>
+            ) : isLoggedIn ? (
               <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
             ) : (
               <>
