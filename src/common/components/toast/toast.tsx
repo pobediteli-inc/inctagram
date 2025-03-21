@@ -10,7 +10,7 @@ import { CloseOutline } from "assets/icons";
 export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
   ({ type, message, toastPosition, ...rest }, ref) => {
     const [open, setOpen] = React.useState<boolean>(false);
-    const getDuration = (status: MessageStatus) => {
+    const getDuration = (status: NullableProps<MessageStatus>) => {
       switch (status) {
         case "success":
         case "info":
@@ -60,7 +60,7 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
 );
 
 type Props = {
-  type: MessageStatus;
+  type: NullableProps<MessageStatus>;
   message: NullableProps<string>;
   open?: boolean;
   setOpen?: (open: boolean) => void;
