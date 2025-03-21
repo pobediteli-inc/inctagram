@@ -1,1 +1,1 @@
-export type MessageStatus = "success" | "error" | "info" | "warning";
+export type MessageStatus = "loading" | "success" | "error" | "failed" | "info" | "warning";
