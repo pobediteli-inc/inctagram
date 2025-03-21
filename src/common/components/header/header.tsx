@@ -12,7 +12,7 @@ import { authApi, useMeQuery } from "store/services/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { ProgressBar } from "common/components/progressBar/progressBar";
+import { selectStatus } from "features/slices/status/statusSlice";
 
 export const Header: FC = () => {
   const { data, isError, isLoading } = useMeQuery();
@@ -49,7 +49,6 @@ export const Header: FC = () => {
             {isLoading ? (
               <>
                 <Typography variant={"regular_14"}>Loading...</Typography>
-                <ProgressBar className={s.progressBar} />
               </>
             ) : isLoggedIn ? (
               <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
