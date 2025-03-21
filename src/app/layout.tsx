@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "common/components";
 import { Inter } from "next/font/google";
-import s from "./page.module.css";
+import ClientLayout from "app/ClientLayout";
 import { StoreWrapper } from "store/storeWrapper";
 
 const inter = Inter({
@@ -26,8 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <StoreWrapper>
-          <Header />
-          <main className={s.main}>{children}</main>
+          <ClientLayout>{children}</ClientLayout>
         </StoreWrapper>
       </body>
     </html>
