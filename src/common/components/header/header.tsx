@@ -12,7 +12,6 @@ import { authApi, useMeQuery } from "store/services/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { selectStatus } from "features/slices/status/statusSlice";
 
 export const Header: FC = () => {
   const { data, isError, isLoading } = useMeQuery();
