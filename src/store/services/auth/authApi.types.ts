@@ -8,12 +8,7 @@ export type RegistrationArgs = {
 export type RegistrationServerError = {
   data: {
     statusCode: number;
-    messages: [
-      {
-        message: string;
-        field: string;
-      },
-    ];
+    messages: MessageField[];
     error: string;
   };
   status: number;
@@ -26,13 +21,8 @@ export type ResendRegistrationEmailArgs = {
 
 export type ConfirmRegistrationResponse = {
   statusCode: number;
-  messages: ConfirmRegistrationMessage[];
+  messages: MessageField[];
   error: string;
-};
-
-export type ConfirmRegistrationMessage = {
-  message: string;
-  field: string;
 };
 
 export type ConfirmRegistrationArgs = {
@@ -44,7 +34,7 @@ export type LoginRequest = {
   password: string;
 };
 
-export type LoginResponse = {
+export type AccessResponse = {
   accessToken: string;
 };
 
@@ -63,15 +53,15 @@ export type MeResponse = {
   isBlocked: boolean;
 };
 
-export type MeServerError = {
+export type BaseServerError = {
   data: {
     statusCode: number;
-    messages: [
-      {
-        message: string;
-        field: string;
-      },
-    ];
+    messages: MessageField[];
     error: string;
   };
+};
+
+export type MessageField = {
+  message: string;
+  field: string;
 };
