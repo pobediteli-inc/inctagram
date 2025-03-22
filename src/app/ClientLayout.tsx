@@ -23,7 +23,9 @@ export default function ClientLayout({
         </div>
       )}
       <main className={s.main}>{children}</main>
-      {status && errorMessage && <Toast type={status} message={errorMessage} toastPosition={"left"} />}
+      {(status === "error" || status === "failed") && errorMessage && (
+        <Toast type={status} message={errorMessage} toastPosition={"left"} />
+      )}
     </>
   );
 }
