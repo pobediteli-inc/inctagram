@@ -6,14 +6,6 @@ export const handleAuthFieldError = (error: unknown, setError: UseFormSetError<L
     setError("password", { message: "Something went wrong. Please try again." });
     return;
   }
-  if (error instanceof Error) {
-    setError("password", { message: error.message });
-    return;
-  }
-  if (!navigator.onLine) {
-    setError("password", { message: "No internet connection. Please check your network." });
-    return;
-  }
 
   const authServerError = error as LoginServerError;
 
@@ -23,6 +15,7 @@ export const handleAuthFieldError = (error: unknown, setError: UseFormSetError<L
     switch (statusCode) {
       case 400:
       case 401:
+      case 404:
       case 429:
         setError("password", { message: serverErrorMessage });
         break;
