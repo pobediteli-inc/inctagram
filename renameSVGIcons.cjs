@@ -19,3 +19,5 @@ async function renameSVGIcons() {
 }
 
 void renameSVGIcons();
+
+// pnpm dlx @svgr/cli "./src/assets/logo/*.svg" --out-dir ".\src\assets\svgComponents\" --icon --jsx-runtime automatic --typescript --ref --memo --replace-attr-values "#000=currentColor,#fff=currentColor" --svg-props "fill=currentColor"
