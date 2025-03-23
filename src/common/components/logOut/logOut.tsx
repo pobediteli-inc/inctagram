@@ -8,11 +8,14 @@ import { NullableProps } from "common/types";
 import { useLogOutMutation } from "store/services/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "common/components/button/button";
+import { handleErrors } from "common/utils/handleErrors";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
   const [showModal, setShowModal] = useState(false);
   const [logOut] = useLogOutMutation();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const toggleModal = () => {
     setShowModal((prev) => !prev);
@@ -22,11 +25,11 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
     try {
       await logOut().unwrap();
       onLogOutAction();
+      setShowModal(false);
       toggleModal();
       router.push("/login");
     } catch (error: unknown) {
-      const serverError = error as NullableProps<string>;
-      console.log(serverError || "An error occurred. Token is either missing or expired.");
+      handleErrors(error, dispatch);
     }
   };
 
