@@ -8,9 +8,9 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
-import { handleAuthFieldError } from "common/utils/handleAuthFieldError";
 import { setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
 
 export default function Login() {
   const [login] = useLoginMutation();
@@ -42,8 +42,8 @@ export default function Login() {
         router.push("/home");
       }
     } catch (error: unknown) {
+      handleErrors(error, dispatch, setError);
       dispatch(setLoggedIn({ isLoggedIn: false }));
-      handleAuthFieldError(error, setError);
     }
   };
 
