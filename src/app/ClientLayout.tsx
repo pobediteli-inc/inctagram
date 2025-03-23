@@ -4,7 +4,8 @@ import { Header, ProgressBar } from "common/components";
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
-import { selectError, selectStatus } from "features/slices/status/statusSlice";
+import { selectMessage, selectStatus, setStatus } from "features/slices/status/statusSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 export default function ClientLayout({
   children,
@@ -12,7 +13,11 @@ export default function ClientLayout({
   children: ReactNode;
 }>) {
   const status = useAppSelector(selectStatus);
-  const errorMessage = useAppSelector(selectError);
+  const message = useAppSelector(selectMessage);
+  const dispatch = useAppDispatch();
+
+  const handleClose = () => dispatch(setStatus({ status: null, message: null }));
+  console.log(status, message);
 
   return (
     <>
@@ -23,8 +28,8 @@ export default function ClientLayout({
         </div>
       )}
       <main className={s.main}>{children}</main>
-      {(status === "error" || status === "failed") && errorMessage && (
-        <Toast type={status} message={errorMessage} toastPosition={"left"} />
+      {status && message && (
+        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
       )}
     </>
   );
