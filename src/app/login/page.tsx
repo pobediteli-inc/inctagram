@@ -50,6 +50,9 @@ export default function Login() {
       </Typography>
       <div className={s.socialIcons}>
         <GoogleAuth />
+        <button onClick={() => {
+          window.location.assign("https://accounts.google.com/o/oauth2/v2/auth?client_id=272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=email+profile")}
+        }>GOOGLE</button>
         {/*<Link href={"https://www.google.com"} target={"_blank"}>*/}
         {/*  <Google width={36} height={36} />*/}
         {/*</Link>*/}
