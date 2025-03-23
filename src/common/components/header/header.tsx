@@ -12,6 +12,7 @@ import { authApi, useMeQuery } from "store/services/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
 
 export const Header: FC = () => {
   const { data, isError, isLoading } = useMeQuery();
@@ -32,9 +33,13 @@ export const Header: FC = () => {
   };
 
   useEffect(() => {
-    if (data) dispatch(setLoggedIn({ isLoggedIn: true }));
-    else if (isError) dispatch(setLoggedIn({ isLoggedIn: false }));
-  }, [data, isError, dispatch]);
+    try {
+      if (data) dispatch(setLoggedIn({ isLoggedIn: true }));
+    } catch (error: unknown) {
+      handleErrors(error, dispatch);
+      dispatch(setLoggedIn({ isLoggedIn: false }));
+    }
+  }, [data, isLoggedIn, isError, dispatch]);
 
   return (
     <header className={s.headerWrapper}>
