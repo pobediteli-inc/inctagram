@@ -1,13 +1,16 @@
 .root {
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
   border-radius: 2px;
   padding: 16px;
   gap: 8px;
   max-width: 400px;
-  font-family: var(--font-family), sans-serif;
+  width: 100%;
   background-color: var(--dark-300);
+  z-index: 9999;
 }
 
 .color-success {
@@ -27,8 +30,6 @@
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 700;
   margin-bottom: 4px;
 }
 
@@ -66,21 +67,9 @@
 
 .Viewport {
   position: fixed;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 9999;
-  overflow: auto;
-}
-
-.position-left {
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-}
-
-.position-right {
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
 }
