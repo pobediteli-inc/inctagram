@@ -25,6 +25,27 @@ export type ConfirmRegistrationResponse = {
   error: string;
 };
 
+
+export type PasswordRecoveryArgs = {
+  email: string;
+  recaptcha: string;
+  baseUrl?: string;
+};
+
+export type ResendPasswordRecoveryArgs = {
+  email: string;
+  baseUrl?: string;
+};
+
+export type NewPasswordArgs = {
+  newPassword: string;
+  recoveryCode: string;
+};
+
+export type CheckRecoveryCodeArgs = {
+  recoveryCode: string
+};
+
 export type ConfirmRegistrationArgs = {
   confirmationCode: string;
 };
