@@ -3,12 +3,12 @@ import { MessageStatus, NullableProps } from "common/types";
 
 export type StatusProps = {
   status: NullableProps<MessageStatus>;
-  error: NullableProps<string>;
+  message: NullableProps<string>;
 };
 
 const initialStatusState: StatusProps = {
   status: null,
-  error: null,
+  message: null,
 };
 
 export const statusSlice = createSlice({
@@ -17,32 +17,29 @@ export const statusSlice = createSlice({
   reducers: (create) => ({
     setStatus: create.reducer<StatusProps>((state, action) => {
       state.status = action.payload.status;
-    }),
-    setError: create.reducer<StatusProps>((state, action) => {
-      state.error = action.payload.error;
+      state.message = action.payload.message;
     }),
   }),
   extraReducers: (builder) => {
     builder
       .addMatcher(isPending, (state) => {
         state.status = "loading";
-        state.error = null;
+        state.message = null;
       })
       .addMatcher(isFulfilled, (state) => {
         state.status = "success";
-        state.error = null;
+        state.message = null;
       })
       .addMatcher(isRejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error?.message || "Unknown error";
+        state.message = action.error?.message || "Unknown error";
       });
   },
   selectors: {
-    selectStatus: (sliceState) => sliceState.status,
-    selectError: (sliceState) => sliceState.error,
+    selectStatus: (sliceState) => sliceState,
   },
 });
 
-export const { setStatus, setError } = statusSlice.actions;
+export const { setStatus } = statusSlice.actions;
 export const statusSliceReducer = statusSlice.reducer;
-export const { selectStatus, selectError } = statusSlice.selectors;
+export const { selectStatus } = statusSlice.selectors;
