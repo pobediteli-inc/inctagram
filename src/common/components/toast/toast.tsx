@@ -8,28 +8,29 @@ import clsx from "clsx";
 import { CloseOutline } from "assets/icons";
 
 export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
-  ({ type, message, toastPosition, ...rest }, ref) => {
-    const [open, setOpen] = React.useState<boolean>(false);
+  ({ type, message, setOpen, open, ...rest }, ref) => {
     const getDuration = (status: NullableProps<MessageStatus>) => {
       switch (status) {
         case "success":
         case "info":
           return 3000;
         case "error":
+        case "failed":
         case "warning":
           return 5000;
         default:
           return 6000;
       }
     };
-    const handleClose = () => setOpen(false);
+
+    const handleClose = () => setOpen?.(false);
 
     return (
-      <RadixToast.Provider swipeDirection="left">
+      <RadixToast.Provider>
         <RadixToast.Root
           className={clsx(s.root, s[`color-${type}`])}
           open={open}
-          onOpenChange={setOpen}
+          onOpenChange={handleClose}
           duration={getDuration(type)}
           ref={ref}
           {...rest}
@@ -42,10 +43,12 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
             onClick={handleClose}
           />
           <RadixToast.Title className={clsx(s.title, s[`title-${type}`])}>
-            {type === "success" && "Success"}
-            {type === "error" && "Error"}
-            {type === "info" && "Information"}
-            {type === "warning" && "Warning"}
+            <Typography variant={"bold_16"}>
+              {type === "success" && "Success"}
+              {type === "error" && "Error"}
+              {type === "info" && "Information"}
+              {type === "warning" && "Warning"}
+            </Typography>
           </RadixToast.Title>
           <RadixToast.Description className={clsx(s.description)} asChild>
             <Typography variant={"regular_14"} color={"dark"}>
@@ -53,7 +56,7 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
             </Typography>
           </RadixToast.Description>
         </RadixToast.Root>
-        <RadixToast.Viewport className={clsx(s.Viewport, s[`position-${toastPosition} `])} />
+        <RadixToast.Viewport className={clsx(s.Viewport)} />
       </RadixToast.Provider>
     );
   }
@@ -64,5 +67,4 @@ type Props = {
   message: NullableProps<string>;
   open?: boolean;
   setOpen?: (open: boolean) => void;
-  toastPosition?: "left" | "right";
 } & ComponentPropsWithoutRef<typeof RadixToast.Provider>;
