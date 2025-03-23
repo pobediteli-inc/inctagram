@@ -6,14 +6,17 @@ import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/auth";
-import { handleClientError } from "common/utils/handleClientError";
-import { handleServerError } from "common/utils/handleServerError";
+import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
+import { setLoggedIn } from "features/slices/auth/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
 
 export default function Login() {
   const [login] = useLoginMutation();
+  const { refetch } = useMeQuery();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -29,16 +32,18 @@ export default function Login() {
     },
   });
 
-  const handleFormSubmit = async (data: LoginArgs) => {
+  const handleFormSubmit = async (data: LoginRequest) => {
     try {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
+        dispatch(setLoggedIn({ isLoggedIn: true }));
+        await refetch();
         router.push("/home");
       }
     } catch (error: unknown) {
-      handleClientError(error, setError);
-      handleServerError(error as LoginServerError, setError);
+      handleErrors(error, dispatch, setError);
+      dispatch(setLoggedIn({ isLoggedIn: false }));
     }
   };
 
