@@ -5,17 +5,12 @@ import {
   LoginRequest,
   RegistrationArgs,
   ResendRegistrationEmailArgs,
-  LoginResponse, 
-  ConfirmRegistrationArgs, 
-  CheckRecoveryCodeArgs, 
-  NewPasswordArgs, 
-  PasswordRecoveryArgs, 
-  RegistrationArgs, 
-  ResendPasswordRecoveryArgs, 
-  ResendRegistrationEmailArgs
+  CheckRecoveryCodeArgs,
+  NewPasswordArgs,
+  PasswordRecoveryArgs,
+  ResendPasswordRecoveryArgs,
 } from "./authApi.types";
 import { baseApi } from "store/services/baseApi/baseApi";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -95,13 +90,12 @@ export const authApi = baseApi.injectEndpoints({
     }),
   }),
 });
-  
 
-export const { 
+export const {
   useRegisterUserMutation,
   useResendRegistrationEmailMutation,
-  useConfirmRegistrationMutation, 
-  usePasswordRecoveryMutation, 
+  useConfirmRegistrationMutation,
+  usePasswordRecoveryMutation,
   useResendPasswordRecoveryMutation,
   useNewPasswordMutation,
   useCheckRecoveryCodeMutation,
