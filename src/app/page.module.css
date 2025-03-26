@@ -9,3 +9,12 @@
   background-color: var(--dark-700);
   margin-top: 84px;
 }
+
+.progressBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: transparent;
+  pointer-events: none;
+}

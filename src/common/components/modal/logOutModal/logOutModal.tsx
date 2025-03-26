@@ -2,22 +2,24 @@ import { BaseModal } from "../baseModal/baseModal";
 import { Typography } from "../../typography/typography";
 import { Button } from "../../button/button";
 import s from "./logOutModal.module.scss";
+import { NullableProps } from "common/types";
+import { FC } from "react";
 
 type LogOutModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  email: string;
+  email: NullableProps<string>;
   onLogout: () => void;
 };
 
-export const LogOutModal = ({ isOpen, onClose, onLogout, email }: LogOutModalProps) => {
+export const LogOutModal: FC<LogOutModalProps> = ({ isOpen, onClose, onLogout, email }) => {
   return (
     <BaseModal open={isOpen} onClose={onClose} modalTitle={"Log Out"} className={s.contentContainer}>
       <div className={s.container}>
         <div className={s.message}>
           <Typography variant={"regular_16"} color={"light"}>
             Do you really want to log out of your account “
-            <Typography variant={"bold_14"} asChild={true}>
+            <Typography variant={"bold_14"} asChild>
               <span tabIndex={0} autoFocus className={s.autoFocus}>
                 {email}
               </span>

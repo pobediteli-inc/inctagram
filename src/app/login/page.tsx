@@ -1,20 +1,22 @@
 "use client";
 import s from "./login.module.css";
 import Link from "next/link";
-import { Github } from "assets/icons";
+import { Github, Google } from "assets/icons";
 import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginArgs, LoginServerError, useLoginMutation } from "store/services/auth";
-import { handleClientError } from "common/utils/handleClientError";
-import { handleServerError } from "common/utils/handleServerError";
+import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
 import { useRouter } from "next/navigation";
-import GoogleAuth from "../../common/components/googleAuth/googleAuth";
+import { setLoggedIn } from "features/slices/auth/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
 
 export default function Login() {
   const [login] = useLoginMutation();
+  const { refetch } = useMeQuery();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -30,16 +32,18 @@ export default function Login() {
     },
   });
 
-  const handleFormSubmit = async (data: LoginArgs) => {
+  const handleFormSubmit = async (data: LoginRequest) => {
     try {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
+        dispatch(setLoggedIn({ isLoggedIn: true }));
+        await refetch();
         router.push("/home");
       }
     } catch (error: unknown) {
-      handleClientError(error, setError);
-      handleServerError(error as LoginServerError, setError);
+      handleErrors(error, dispatch, setError);
+      dispatch(setLoggedIn({ isLoggedIn: false }));
     }
   };
 
@@ -49,13 +53,9 @@ export default function Login() {
         Sign In
       </Typography>
       <div className={s.socialIcons}>
-        <GoogleAuth />
-        <button onClick={() => {
-          window.location.assign("https://accounts.google.com/o/oauth2/v2/auth?client_id=272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=email+profile")}
-        }>GOOGLE</button>
-        {/*<Link href={"https://www.google.com"} target={"_blank"}>*/}
-        {/*  <Google width={36} height={36} />*/}
-        {/*</Link>*/}
+        <Link href={"https://www.google.com"} target={"_blank"}>
+          <Google width={36} height={36} />
+        </Link>
         <Link href={"https://www.github.com"} target={"_blank"}>
           <Github width={36} height={36} color={"white"} />
         </Link>

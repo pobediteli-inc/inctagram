@@ -1,29 +1,53 @@
 "use client";
 import { LogOutOutline } from "../../../assets/icons";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
 import { Typography } from "../typography/typography";
+import { NullableProps } from "common/types";
+import { useLogOutMutation } from "store/services/auth";
+import { useRouter } from "next/navigation";
+import { Button } from "common/components/button/button";
+import { handleErrors } from "common/utils/handleErrors";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
-export const LogOut = () => {
+export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
   const [showModal, setShowModal] = useState(false);
-  const account = "Epam@epam.com";
+  const [logOut] = useLogOutMutation();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const toggleModal = () => setShowModal((prev) => !prev);
+  const toggleModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
-  const logOutHandler = () => {
-    // logout().then(res => {})
+  const handleLogout = async () => {
+    try {
+      await logOut().unwrap();
+      onLogOutAction();
+      setShowModal(false);
+      toggleModal();
+      router.push("/login");
+    } catch (error: unknown) {
+      handleErrors(error, dispatch);
+    }
   };
 
   return (
     <div>
-      <div className={s.container} onClick={toggleModal} aria-label="Log out">
+      <Button className={s.container} onClick={toggleModal}>
         <LogOutOutline width={24} height={24} color={"var(--light-100)"} className={s.icon} />
         <Typography variant={"medium_14"} color={"light"}>
           Log Out
         </Typography>
-      </div>
-      <LogOutModal isOpen={showModal} onClose={toggleModal} email={account} onLogout={logOutHandler} />
+      </Button>
+
+      {showModal && <LogOutModal isOpen={showModal} onClose={toggleModal} email={email} onLogout={handleLogout} />}
     </div>
   );
+};
+
+type LogOutProps = {
+  onLogOutAction: () => void;
+  email: NullableProps<string>;
 };

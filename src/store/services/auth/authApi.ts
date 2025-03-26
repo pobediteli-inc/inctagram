@@ -1,29 +1,38 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginArgs, LoginResponse, ConfirmRegistrationArgs, CheckRecoveryCodeArgs, NewPasswordArgs, PasswordRecoveryArgs, RegistrationArgs, ResendPasswordRecoveryArgs, ResendRegistrationEmailArgs } from "./authApi.types";
+import {
+  MeResponse,
+  AccessResponse,
+  ConfirmRegistrationArgs,
+  LoginRequest,
+  RegistrationArgs,
+  ResendRegistrationEmailArgs,
+  CheckRecoveryCodeArgs,
+  NewPasswordArgs,
+  PasswordRecoveryArgs,
+  ResendPasswordRecoveryArgs,
+} from "./authApi.types";
+import { baseApi } from "store/services/baseApi/baseApi";
 
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://inctagram.work/api/v1/auth" }),
+export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     registerUser: build.mutation<void, RegistrationArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/registration`,
+        url: `auth/registration`,
       }),
     }),
     resendRegistrationEmail: build.mutation<void, ResendRegistrationEmailArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/registration-email-resending`,
+        url: `auth/registration-email-resending`,
       }),
     }),
     confirmRegistration: build.mutation<void, ConfirmRegistrationArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/registration-confirmation`,
+        url: `auth/registration-confirmation`,
       }),
     }),
     passwordRecovery: build.mutation<void, PasswordRecoveryArgs>({
@@ -54,33 +63,43 @@ export const authApi = createApi({
         url: `/check-recovery-code`,
       }),
     }),
-    login: build.mutation<LoginResponse, LoginArgs>({
+    login: build.mutation<AccessResponse, LoginRequest>({
       query: (args) => ({
-        url: "/login",
+        url: "auth/login",
         method: "POST",
         body: args,
       }),
     }),
-    updateProviders: build.mutation<void, { email: string, provider: string }>({
-      query: ({ email, provider }) => ({
-        method: "PUT",
-        // url: `/users/${email}/update-providers`, // Adjust URL based on your backend route
-        url: `/users/${email}/profile`, // Adjust URL based on your backend route
-        body: { provider },
+    me: build.query<MeResponse, void>({
+      query: () => ({
+        url: "auth/me",
+        method: "GET",
+      }),
+    }),
+    updateTokens: build.mutation<AccessResponse, void>({
+      query: () => ({
+        url: "auth/update-tokens",
+        method: "POST",
+      }),
+    }),
+    logOut: build.mutation<void, void>({
+      query: () => ({
+        url: "auth/logout",
+        method: "POST",
       }),
     }),
   }),
 });
-  
 
-export const { 
+export const {
   useRegisterUserMutation,
   useResendRegistrationEmailMutation,
-  useConfirmRegistrationMutation, 
-  usePasswordRecoveryMutation, 
+  useConfirmRegistrationMutation,
+  usePasswordRecoveryMutation,
   useResendPasswordRecoveryMutation,
   useNewPasswordMutation,
   useCheckRecoveryCodeMutation,
   useLoginMutation,
-  useUpdateProvidersMutation
+  useMeQuery,
+  useLogOutMutation,
 } = authApi;
