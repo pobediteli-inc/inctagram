@@ -86,3 +86,13 @@ export type MessageField = {
   message: string;
   field: string;
 };
+
+export type LoginGoogleArgs = {
+  redirectUrl?: string;
+  code: string;
+};
+
+export type GoogleResponse = {
+  accessToken: string;
+  email: string;
+};
