@@ -51,7 +51,6 @@ export default function Auth() {
   };
 
   const code = searchParams.get("code");
-  console.log("code", code);
 
   useEffect(() => {
     if (code) {
@@ -71,7 +70,6 @@ export default function Auth() {
     } catch (error) {
       handleErrors(error, dispatch);
       dispatch(setLoggedIn({ isLoggedIn: false }));
-      console.error("Ошибка входа через Google", error);
     }
   };
 

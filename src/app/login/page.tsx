@@ -57,7 +57,7 @@ export default function Login() {
           variant={"link"}
           onClick={() => {
             window.location.assign(
-              "https://accounts.google.com/o/oauth2/v2/auth?client_id=272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=email+profile"
+              `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&response_type=code&scope=email+profile`
             );
           }}
         >
