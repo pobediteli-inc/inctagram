@@ -8,7 +8,7 @@ import {
   CheckRecoveryCodeArgs,
   NewPasswordArgs,
   PasswordRecoveryArgs,
-  ResendPasswordRecoveryArgs,
+  ResendPasswordRecoveryArgs, LoginGoogleArgs, GoogleResponse,
 } from "./authApi.types";
 import { baseApi } from "store/services/baseApi/baseApi";
 
@@ -88,6 +88,13 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
+    loginGoogle: build.mutation<GoogleResponse, LoginGoogleArgs>({
+      query: (args) => ({
+        url: "auth/google/login",
+        method: "POST",
+        body: args
+      }),
+    })
   }),
 });
 
@@ -102,4 +109,5 @@ export const {
   useLoginMutation,
   useMeQuery,
   useLogOutMutation,
+  useLoginGoogleMutation,
 } = authApi;

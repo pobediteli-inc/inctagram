@@ -3,7 +3,6 @@ export type RegistrationArgs = {
   email: string;
   password: string;
   baseUrl?: string;
-  providers?: string[];
 };
 
 export type RegistrationServerError = {
@@ -86,4 +85,14 @@ export type BaseServerError = {
 export type MessageField = {
   message: string;
   field: string;
+};
+
+export type LoginGoogleArgs = {
+  redirectUrl?: string;
+  code: string;
+};
+
+export type GoogleResponse = {
+  accessToken: string;
+  email: string;
 };

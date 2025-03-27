@@ -53,9 +53,16 @@ export default function Login() {
         Sign In
       </Typography>
       <div className={s.socialIcons}>
-        <Link href={"https://www.google.com"} target={"_blank"}>
+        <Button
+          variant={"link"}
+          onClick={() => {
+            window.location.assign(
+              "https://accounts.google.com/o/oauth2/v2/auth?client_id=272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=email+profile"
+            );
+          }}
+        >
           <Google width={36} height={36} />
-        </Link>
+        </Button>
         <Link href={"https://www.github.com"} target={"_blank"}>
           <Github width={36} height={36} color={"white"} />
         </Link>
