@@ -7,11 +7,7 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectStatus, setStatus } from "features/slices/status/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 
-export default function ClientLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function ClientLayout({ children }: Readonly<{ children: ReactNode }>) {
   const { status, message } = useAppSelector(selectStatus);
   const dispatch = useAppDispatch();
 

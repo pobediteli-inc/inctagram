@@ -8,15 +8,16 @@ import { SignUpForm } from "common/components/forms";
 import {
   RegistrationArgs,
   RegistrationServerError,
-  useLoginGoogleMutation, useMeQuery,
+  useLoginGoogleMutation,
+  useMeQuery,
   useRegisterUserMutation,
 } from "store/services/auth";
 import { EmailSentPopup } from "./emailSentPopup/emailSentPopup";
 import { NullableProps } from "common/types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { setLoggedIn } from "../../features/slices/auth/authSlice";
-import { useAppDispatch } from "../../common/hooks/useAppDispatch";
-import { handleErrors } from "../../common/utils/handleErrors";
+import { setLoggedIn } from "features/slices/auth/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
 
 export type SignUpApiError = {
   message: string;
@@ -33,7 +34,6 @@ export default function Auth() {
   const router = useRouter();
   const { refetch } = useMeQuery();
   const dispatch = useAppDispatch();
-
 
   const submitHandler = async (data: RegistrationArgs, resetForm: () => void) => {
     try {
