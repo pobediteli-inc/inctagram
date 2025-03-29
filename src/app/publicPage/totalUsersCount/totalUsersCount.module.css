@@ -1,0 +1,12 @@
+.mainWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  max-width: 972px;
+  width: 100%;
+}
+
+.totalCount {
+
+}
