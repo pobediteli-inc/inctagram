@@ -63,9 +63,12 @@ export default function Login() {
         >
           <Google width={36} height={36} />
         </Button>
-        <Link href={"https://www.github.com"} target={"_blank"}>
-          <Github width={36} height={36} color={"white"} />
-        </Link>
+        <Github
+          width={36}
+          height={36}
+          color={"white"}
+          onClick={() => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`)}
+        />
       </div>
       <div className={s.mainContent}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
