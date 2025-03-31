@@ -13,12 +13,12 @@
     border-bottom: 2px solid var(--primary-500);
 
     &:active {
-        background-color: rgba(115, 165, 255, 0.15);
+        background-color: rgb(115 165 255 / 15%);
         border-bottom: 2px solid var(--primary-500);
     }
     
     &:hover {
-        background-color: rgba(35, 78, 153, 0.15);
+        background-color: rgb(35 78 153 / 15%);
     }
     
     &:focus {
@@ -26,13 +26,13 @@
         border-radius: 2px;
     }
 
-    &:focus:not(:focus-visible), input:focus:not(:focus-visible) {
-        outline: none;
-    }
-
     &:disabled {
         color: var(--primary-900);
         border-bottom: 2px solid var(--primary-900);;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
     }
 }
 
@@ -41,11 +41,11 @@
     border-bottom: 2px solid var(--dark-100);
 
     &:active {
-        background-color: rgba(115, 165, 255, 0.15);
+        background-color: rgb(115 165 255 / 15%);
     }
     
     &:hover {
-        background-color: rgba(35, 78, 153, 0.15);
+        background-color: rgb(35 78 153 / 15%);
     }
     
     &:focus {
@@ -53,12 +53,12 @@
         border-radius: 2px;
     }
 
-    &:focus:not(:focus-visible), input:focus:not(:focus-visible) {
-        outline: none;
-    }
-    
     &:disabled {
         color: var(--dark-300);
         border-bottom: 2px solid var(--dark-300);
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
     }
 }
