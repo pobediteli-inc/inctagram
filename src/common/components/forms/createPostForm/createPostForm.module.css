@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--dark-900);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +12,13 @@
 }
 
 .card {
-  min-width: 492px;
-  max-width: 492px;
-  min-height: 564px;
+  min-width: 500px;
+  min-height: 500px;
   background-color: var(--dark-300);
+  overflow: hidden;
 }
 
 .popUpHeader {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,77 +28,105 @@
 
 .closeBtn {
   all: unset;
-  width: 24px;
-  height: 24px;
-  color: var(--light-100);
+  cursor: pointer;
 }
 
 .modalWrapper {
-  min-height: 504px;
-  padding-top: 72px;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.imageWrapper {
+  width: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.previewContainer {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.imageWrapper {
-  min-width: 222px;
-  max-width: 222px;
-  min-height: 228px;
-  background-color: var(--dark-500);
+.mainImage {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.carousel {
+  width: 100%;
   display: flex;
   justify-content: center;
-  vertical-align: center;
+  padding: 10px 0;
+  position: absolute;
+  top: -120px;
+  left: 30px;
+}
+
+.previewImageContainer {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 60px;
+  overflow: hidden;
+  cursor: pointer;
+  row-gap: 8px;
+  margin: 8px 0;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  background-color: var(--dark-500);
+}
+
+.fileInputWrapper {
+  width: 100%;
+  text-align: center;
 }
 
 .btnGroup {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.textarea {
   width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
 }
 
-.input[type="file"] {
-  margin-bottom: 10px;
+.btnForm {
+  min-width: 220px;
 }
 
-.button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #4CAF50;
-  color: white;
+.removeBtn {
+  position: absolute;
+  left: 80px;
+  top: 16px;
+  background-color: var(--dark-500);
+  color: var(--light-100);
   border: none;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #45a049;
-}
-
-.button[type="button"] {
-  background-color: #f44336;
-}
-
-.button[type="button"]:hover {
-  background-color: #da190b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
