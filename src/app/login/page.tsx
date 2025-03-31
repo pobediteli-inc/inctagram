@@ -6,9 +6,9 @@ import { Button, TextField, Typography } from "common/components";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/auth";
+import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/api/auth";
 import { useRouter } from "next/navigation";
-import { setLoggedIn } from "features/slices/auth/authSlice";
+import { setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 

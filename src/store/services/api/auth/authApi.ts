@@ -8,9 +8,11 @@ import {
   CheckRecoveryCodeArgs,
   NewPasswordArgs,
   PasswordRecoveryArgs,
-  ResendPasswordRecoveryArgs, LoginGoogleArgs, GoogleResponse,
-} from "./authApi.types";
-import { baseApi } from "store/services/baseApi/baseApi";
+  ResendPasswordRecoveryArgs,
+  LoginGoogleArgs,
+  GoogleResponse,
+} from "store/services/api/auth/authApi.types";
+import { baseApi } from "store/services/api/baseApi/baseApi";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -92,9 +94,9 @@ export const authApi = baseApi.injectEndpoints({
       query: (args) => ({
         url: "auth/google/login",
         method: "POST",
-        body: args
+        body: args,
       }),
-    })
+    }),
   }),
 });
 

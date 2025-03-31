@@ -1,7 +1,7 @@
 import { AppDispatch } from "store/store";
-import { BaseServerError, LoginRequest, LoginServerError } from "store/services/auth";
+import { BaseServerError, LoginRequest, LoginServerError } from "store/services/api/auth";
 import { UseFormSetError } from "react-hook-form";
-import { setStatus } from "features/slices/status/statusSlice";
+import { setStatus } from "store/services/slices/statusSlice";
 
 /**
  * Notes: Not all server errors processed by the handleError function

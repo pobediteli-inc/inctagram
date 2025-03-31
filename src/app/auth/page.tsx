@@ -11,11 +11,11 @@ import {
   useLoginGoogleMutation,
   useMeQuery,
   useRegisterUserMutation,
-} from "store/services/auth";
+} from "store/services/api/auth";
 import { EmailSentPopup } from "./emailSentPopup/emailSentPopup";
 import { NullableProps } from "common/types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { setLoggedIn } from "features/slices/auth/authSlice";
+import { setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 

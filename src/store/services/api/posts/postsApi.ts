@@ -1,5 +1,5 @@
-import { baseApi } from "../baseApi/baseApi";
-import { DeletePostArgs, UpdatePostArgs } from "./postsApi.types";
+import { baseApi } from "store/services/api/baseApi/baseApi";
+import { DeletePostArgs, UpdatePostArgs } from "store/services/api/posts/postsApi.types";
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

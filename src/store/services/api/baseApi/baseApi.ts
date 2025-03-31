@@ -1,6 +1,6 @@
 import { BaseQueryApi, createApi, FetchArgs, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import process from "process";
-import { AccessResponse, authApi } from "store/services/auth";
+import { AccessResponse, authApi } from "store/services/api/auth";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,

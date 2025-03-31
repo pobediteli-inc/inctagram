@@ -10,7 +10,7 @@ type ReCaptchaPropsType = {
   error: boolean;
 };
 
-const ReCaptcha = ({ sitekey, onVerify, error }: ReCaptchaPropsType) => {
+export const ReCaptcha = ({ sitekey, onVerify, error }: ReCaptchaPropsType) => {
   return (
     <div className={error ? s.errorContainer : ""}>
       <ReCAPTCHA sitekey={sitekey} theme={"dark"} className={s.recaptcha} onChange={onVerify} />
@@ -24,5 +24,3 @@ const ReCaptcha = ({ sitekey, onVerify, error }: ReCaptchaPropsType) => {
     </div>
   );
 };
-
-export default ReCaptcha;
