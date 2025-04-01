@@ -10,3 +10,4 @@ export { ControlledCheckbox } from "./controlled/controlledCheckbox";
 export { ControlledTextField } from "./controlled/controlledTextField";
 export { Card } from "./card/card";
 export { ProgressBar } from "./progressBar/progressBar";
+export { PostModal } from "./modal/postModal/postModal";
