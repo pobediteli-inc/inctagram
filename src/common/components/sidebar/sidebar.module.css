@@ -8,3 +8,7 @@
   padding-bottom: 36px;
   border-right: 1px solid var(--dark-300);
 }
+
+.navbar .createButton a {
+  margin: 0;
+}
