@@ -4,6 +4,7 @@ import s from "./baseModal.module.scss";
 import { ComponentPropsWithoutRef } from "react";
 import SvgClose from "assets/icons/Close";
 import { Typography } from "../../typography/typography";
+import { Separator } from "../../separator/separator";
 
 type Props = {
   open: boolean;
@@ -21,7 +22,7 @@ export const BaseModal = ({ modalTitle, onClose, open, children, className, ...r
             {modalTitle}
           </Typography>
         </Dialog.Title>
-        <hr className={s.separator} />
+        <Separator />
         {children}
         <Dialog.Close asChild>
           <button className={s.iconButton} aria-label="Close">
