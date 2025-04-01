@@ -1,4 +1,4 @@
-import s from "./userProfile.module.css";
+import s from "./userPublicProfile.module.css";
 
 export const UserPublicProfile = () => {
   return (
