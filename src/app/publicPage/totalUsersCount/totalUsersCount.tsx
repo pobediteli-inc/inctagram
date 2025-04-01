@@ -1,13 +1,27 @@
-import s from "app/publicPage/totalUsersCount/totalUsersCount.module.css";
+"use client";
+import s from "./totalUsersCount.module.css";
 import { Typography } from "common/components";
+import { useGetPublicUserQuery } from "store/services/api/publicUser";
+import { Fragment } from "react";
 
 export const TotalUsersCount = () => {
+  const { data } = useGetPublicUserQuery();
+
+  const totalCount = data?.totalCount || 0;
+  const totalCountString = totalCount.toString().padStart(6, "0");
+  const totalUsers = totalCountString.split("").map((digit, index) => (
+    <Fragment key={`${index}-${digit}`}>
+      <span className={s.digit}>{digit}</span>
+      {index < totalCountString.length - 1 && <span className={s.separator} />}
+    </Fragment>
+  ));
+
   return (
-    <div className={s.mainWrapper}>
-      <Typography variant={"h2"} color={"light"}>
-        Registered users:
-      </Typography>
-      <div className={s.totalCount}>009213</div>
-    </div>
+    <Typography variant={"h2"} color={"light"}>
+      <div className={s.mainWrapper}>
+        <div>Registered users:</div>
+        <div className={s.totalUser}>{totalUsers}</div>
+      </div>
+    </Typography>
   );
 };
