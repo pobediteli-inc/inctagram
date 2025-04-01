@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/auth", // Replace with your custom route
+        destination: "/publicPage",
         permanent: true,
       },
     ];
