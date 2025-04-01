@@ -1,4 +1,4 @@
-import { SortDirection } from "common/types/Sort/SortDirection";
+import { SortDirectionProps } from "common/types/SortDirectionProps/SortDirectionProps";
 
 export type PostIdRequest = {
   postId: number;
@@ -13,7 +13,7 @@ export type AllPublicPostsRequest = {
   pageSize?: number;
   pageNumber?: number;
   sortBy?: string;
-  sortDirection?: SortDirection;
+  sortDirection?: SortDirectionProps;
 };
 
 export type AllPublicPostsResponse = {
