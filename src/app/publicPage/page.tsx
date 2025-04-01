@@ -1,4 +1,4 @@
-import s from "./publicPage.module.css"
+import s from "./publicPage.module.css";
 import { TotalUsersCount } from "app/publicPage/totalUsersCount/totalUsersCount";
 import { UserPublicProfile } from "app/publicPage/userPublicProfile/userPublicProfile";
 
