@@ -90,9 +90,9 @@
     cursor: pointer;
 }
 
-.messageButton {
+.profileSettingsButton {
     padding: 0.5rem 1rem;
-    background-color: #444;
+    background-color: var(--dark-300);
     border: none;
     color: white;
     border-radius: 0.25rem;

@@ -1,5 +1,8 @@
+'use client'
+
 import styles from "./page.module.css";
 import Image from "next/image";
+import {useGetProfileQuery} from "store/services/profileApi/profileApi";
 
 type ImageType = {
   url: string;
@@ -16,6 +19,12 @@ type PostType = {
 };
 
 export default function MyProfile() {
+  const { data, isLoading, error } = useGetProfileQuery();
+
+  if (error) return <div>Error</div>;
+  console.log(data)
+
+
   const posts = Array<PostType>();
 
   return (
@@ -35,8 +44,7 @@ export default function MyProfile() {
           <div className={styles.top}>
             <h2 className={styles.profileName}>URLProfile</h2>
             <div className={styles.actionButtons}>
-              <button className={styles.followButton}>Follow</button>
-              <button className={styles.messageButton}>Send Message</button>
+              <button className={styles.profileSettingsButton}>Profile Settings</button>
             </div>
           </div>
 
