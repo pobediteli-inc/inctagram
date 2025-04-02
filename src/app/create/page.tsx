@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./createPage.module.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Card, Typography } from "../../common/components";
 import { Close, ImageOutline } from "../../assets/icons";
@@ -18,6 +18,7 @@ export default function CreatePage() {
   const [showForm, setShowForm] = useState<boolean>(false);
   const router = useRouter();
   const [uploadImagePost, { isLoading }] = useUploadImagePostMutation();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const onCloseHandler = () => {
     router.push("/home");
@@ -174,7 +175,7 @@ export default function CreatePage() {
                     <Button
                       className={s.btnForm}
                       type="button"
-                      onClick={() => document.getElementById("photo-upload")?.click()}
+                      onClick={() => fileInputRef.current?.click()}
                     >
                       Select from Computer
                     </Button>
@@ -204,7 +205,7 @@ export default function CreatePage() {
                     <Button
                       className={s.btnForm}
                       type="button"
-                      onClick={() => document.getElementById("photo-upload")?.click()}
+                      onClick={() => fileInputRef.current?.click()}
                     >
                       Select from Computer
                     </Button>
@@ -223,6 +224,7 @@ export default function CreatePage() {
                 multiple
                 onChange={handleImageChange}
                 id="photo-upload"
+                ref={fileInputRef}
                 className={s.fileUpload}
                 style={{ display: "none" }}
               />
