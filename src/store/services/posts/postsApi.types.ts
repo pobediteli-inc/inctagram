@@ -1,9 +1,9 @@
 export type GetPostByIdArgs = {
-  postId: string;
+  postId: number;
 };
 
 export type DeletePostArgs = {
-  postId: string;
+  postId: number;
 };
 
 export type UpdatePostArgs = {

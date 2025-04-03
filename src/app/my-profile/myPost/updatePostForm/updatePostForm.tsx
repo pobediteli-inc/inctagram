@@ -28,22 +28,21 @@ const updateDescriptionSchema = z.object({
 type UpdateDescriptionFormValues = z.infer<typeof updateDescriptionSchema>;
 
 export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, handleClose }: Props) => {
-  // const [updatePost] = useUpdatePostMutation();
-  // const dispatch = useAppDispatch();
+  const [updatePost] = useUpdatePostMutation();
+  const dispatch = useAppDispatch();
   const [closeModalIsOpen, setCloseModalIsOpen] = useState(false);
   const { control, handleSubmit, reset } = useForm<UpdateDescriptionFormValues>({
     resolver: zodResolver(updateDescriptionSchema),
     defaultValues: { description },
   });
   const onSubmit = handleSubmit(async (data) => {
-    console.log("data");
     handleClose();
-    // try {
-    //   await updatePost({ description: data.description || "", postId });
-    // handleClose()
-    // } catch (e) {
-    //   handleErrors(e, dispatch);
-    // }
+    try {
+      await updatePost({ description: data.description || "", postId });
+      handleClose();
+    } catch (e) {
+      handleErrors(e, dispatch);
+    }
   });
 
   const handleCloseWithReset = () => {

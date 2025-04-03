@@ -4,6 +4,7 @@ import s from "./myPost.module.css";
 import { useState } from "react";
 import { UpdatePostForm } from "./updatePostForm/updatePostForm";
 import { Edit2Outline, TrashOutline } from "assets/icons";
+import { DeletePostModal } from "./deletePostModal/deletePostModal";
 
 type Props = {
   post: Post;
@@ -13,6 +14,7 @@ type Props = {
 
 export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
   const [postIsUpdating, setPostIsUpdating] = useState(false);
+  const [postIsDeleting, setPostIsDeleting] = useState(false);
   return (
     <PostModal className={s.container} open={isOpen} onClose={() => setIsOpen(false)}>
       <div>photos</div>
@@ -25,7 +27,7 @@ export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
               <Edit2Outline width={24} height={24} />
               <Typography variant={"regular_14"}>Edit Post</Typography>
             </DropdownItem>
-            <DropdownItem className={s.menuItem}>
+            <DropdownItem className={s.menuItem} onClick={() => setPostIsDeleting(true)}>
               <TrashOutline width={24} height={24} />
               <Typography variant={"regular_14"}>Delete Post</Typography>
             </DropdownItem>
@@ -46,6 +48,7 @@ export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
         postId={post.id}
         handleClose={() => setPostIsUpdating(false)}
       />
+      <DeletePostModal isOpen={postIsDeleting} postId={post.id} handleClose={() => setPostIsDeleting(false)} />
     </PostModal>
   );
 };
