@@ -1,0 +1,11 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 234px;
+  max-height: 240px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+} 
