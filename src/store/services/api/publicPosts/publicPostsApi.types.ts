@@ -9,7 +9,7 @@ export type UserIdRequest = {
 } & AllPublicPostsRequest;
 
 export type AllPublicPostsRequest = {
-  endCursorPostId?: string;
+  endCursorPostId?: number;
   pageSize?: number;
   pageNumber?: number;
   sortBy?: string;
@@ -20,10 +20,10 @@ export type AllPublicPostsResponse = {
   totalCount: number;
   pageSize: number;
   totalUsers: number;
-  items?: ItemsResponse[];
+  items?: PostItemsResponse[];
 };
 
-export type ItemsResponse = {
+export type PostItemsResponse = {
   id: number;
   userName: string;
   description: string;

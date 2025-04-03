@@ -1,28 +1,27 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
 import {
-  AllPublicPostsRequest,
   AllPublicPostsResponse,
   CommentsResponse,
-  ItemsResponse,
+  PostItemsResponse,
   PostIdRequest,
   UserIdRequest,
 } from "store/services/api/publicPosts/publicPostsApi.types";
 
 export const publicPostsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getAllPublicPosts: build.query<AllPublicPostsResponse, AllPublicPostsRequest>({
-      query: ({ endCursorPostId }) => ({
-        url: `public-posts/all/${endCursorPostId}`,
+    getAllPublicPosts: build.query<AllPublicPostsResponse, void>({
+      query: () => ({
+        url: `public-posts/all`,
         method: "GET",
       }),
     }),
-    getAllPostsByUserId: build.query<AllPublicPostsResponse, UserIdRequest>({
+    getAllPublicPostsByUserId: build.query<AllPublicPostsResponse, UserIdRequest>({
       query: ({ userId, endCursorPostId }) => ({
         url: `public-posts/user/${userId}/${endCursorPostId}`,
         method: "GET",
       }),
     }),
-    getPostById: build.query<ItemsResponse, PostIdRequest>({
+    getPostById: build.query<PostItemsResponse, PostIdRequest>({
       query: ({ postId }) => ({
         url: `public-posts/${postId}`,
         method: "GET",
@@ -36,3 +35,10 @@ export const publicPostsApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const {
+  useGetAllPublicPostsQuery,
+  useGetAllPublicPostsByUserIdQuery,
+  useGetPostByIdQuery,
+  useGetCommentsByPostIdQuery,
+} = publicPostsApi;
