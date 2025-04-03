@@ -7,7 +7,7 @@ import {
 
 export const publicUserApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getPublicUser: build.query<TotalCountRequest, void>({
+    getPublicUsersCount: build.query<TotalCountRequest, void>({
       query: () => ({
         url: "public-user",
         method: "GET",
@@ -22,4 +22,4 @@ export const publicUserApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetPublicUserQuery, useGetPublicUserProfileQuery } = publicUserApi;
+export const { useGetPublicUsersCountQuery, useGetPublicUserProfileQuery } = publicUserApi;
