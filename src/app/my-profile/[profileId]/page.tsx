@@ -2,7 +2,8 @@
 
 import styles from "./page.module.css";
 import Image from "next/image";
-import {useGetProfileQuery} from "store/services/profileApi/profileApi";
+import {useGetProfileByUserNameQuery, useGetProfileQuery} from "store/services/profileApi/profileApi";
+import {useMeQuery} from "store/services/auth";
 
 type ImageType = {
   url: string;
@@ -19,11 +20,10 @@ type PostType = {
 };
 
 export default function MyProfile() {
-  const { data, isLoading, error } = useGetProfileQuery();
-
-  if (error) return <div>Error</div>;
-  console.log(data)
-
+  /*const {data: meData} = useMeQuery()
+  console.log('meData: ',  meData)*/
+  const {data} = useGetProfileByUserNameQuery({userName: /*meData?.userName ??*/ 'Irina124'})
+  console.log('byUserNameData :', data)
 
   const posts = Array<PostType>();
 
@@ -32,7 +32,7 @@ export default function MyProfile() {
       <section className={styles.profileSection}>
         <div className={styles.avatarWrapper}>
           <Image
-            src="/profile-picture.jpg"
+            src={data?.avatars[0]?.url ?? "/profile-picture.jpg"}
             alt="Profile Picture"
             layout="fill"
             objectFit="cover"
@@ -42,7 +42,7 @@ export default function MyProfile() {
 
         <div>
           <div className={styles.top}>
-            <h2 className={styles.profileName}>URLProfile</h2>
+            <h2 className={styles.profileName}>{data?.userName}</h2>
             <div className={styles.actionButtons}>
               <button className={styles.profileSettingsButton}>Profile Settings</button>
             </div>
@@ -51,18 +51,18 @@ export default function MyProfile() {
           <div>
             <div className={styles.stats}>
               <p>
-                <span className={styles.bold}>2,218</span> Following
+                <span className={styles.bold}>{data?.followingCount}</span> Following
               </p>
               <p>
-                <span className={styles.bold}>2,358</span> Followers
+                <span className={styles.bold}>{data?.followersCount}</span> Followers
               </p>
               <p>
-                <span className={styles.bold}>2,764</span> Publications
+                <span className={styles.bold}>{data?.publicationsCount}</span> Publications
               </p>
             </div>
             <p className={styles.bio}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
+              {data?.aboutMe ?? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
+                "dolore magna aliqua."}
               <a href="#" className={styles.link}>
                 {" "}
                 More
