@@ -16,12 +16,15 @@ export const authSlice = createSlice({
     setLoggedIn: create.reducer<StateProps>((state, action) => {
       state.isLoggedIn = action.payload.isLoggedIn;
     }),
+    logOut: create.reducer<void>((state) => {
+      state.isLoggedIn = false;
+    }),
   }),
   selectors: {
     selectIsLoggedIn: (sliceState) => sliceState.isLoggedIn,
   },
 });
 
-export const { setLoggedIn } = authSlice.actions;
+export const { setLoggedIn, logOut } = authSlice.actions;
 export const authSliceReducer = authSlice.reducer;
 export const { selectIsLoggedIn } = authSlice.selectors;
