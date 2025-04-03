@@ -1,5 +1,5 @@
 import { baseApi } from "../baseApi/baseApi";
-import { DeletePostArgs, UpdatePostArgs } from "./postsApi.types";
+import { DeletePostArgs, GetPostByIdArgs, Post, UpdatePostArgs } from "./postsApi.types";
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -16,7 +16,13 @@ export const postsApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getPostById: build.query<Post, GetPostByIdArgs>({
+      query: ({ postId }) => ({
+        url: `posts/id/${postId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdatePostMutation, useDeletePostMutation } = postsApi;
+export const { useUpdatePostMutation, useDeletePostMutation, useGetPostByIdQuery } = postsApi;

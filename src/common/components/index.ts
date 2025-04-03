@@ -10,3 +10,8 @@ export { ControlledCheckbox } from "./controlled/controlledCheckbox";
 export { ControlledTextField } from "./controlled/controlledTextField";
 export { Card } from "./card/card";
 export { ProgressBar } from "./progressBar/progressBar";
+export { PostModal } from "./modal/postModal/postModal";
+export { Separator } from "./separator/separator";
+export { DropdownMenu } from "./dropdownMenu/dropdownMenu";
+export { DropdownItem } from "./dropdownMenu/dropdownItem";
+export { Avatar } from "./avatar/avatar";
