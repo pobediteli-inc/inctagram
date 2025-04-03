@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
 import styles from "./page.module.css";
 import Image from "next/image";
-import {useGetProfileByUserNameQuery, useGetProfileQuery} from "store/services/profileApi/profileApi";
-import {useMeQuery} from "store/services/auth";
+import { useGetProfileByUserNameQuery } from "store/services/profileApi/profileApi";
+import { useGetPostsByUserNameQuery } from "store/services/postsApi/postsApi";
 
 type ImageType = {
   url: string;
@@ -22,10 +22,12 @@ type PostType = {
 export default function MyProfile() {
   /*const {data: meData} = useMeQuery()
   console.log('meData: ',  meData)*/
-  const {data} = useGetProfileByUserNameQuery({userName: /*meData?.userName ??*/ 'Irina124'})
-  console.log('byUserNameData :', data)
+  const { data } = useGetProfileByUserNameQuery({ userName: /*meData?.userName ??*/ "Irina124" });
+  console.log("byUserNameData :", data);
+  const { data: posts } = useGetPostsByUserNameQuery({ userName: "Irina124" });
+  console.log("Posts: ", posts);
 
-  const posts = Array<PostType>();
+  // const posts = Array<PostType>();
 
   return (
     <main className={styles.main}>
@@ -61,8 +63,9 @@ export default function MyProfile() {
               </p>
             </div>
             <p className={styles.bio}>
-              {data?.aboutMe ?? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
-                "dolore magna aliqua."}
+              {data?.aboutMe ??
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
+                  "dolore magna aliqua."}
               <a href="#" className={styles.link}>
                 {" "}
                 More

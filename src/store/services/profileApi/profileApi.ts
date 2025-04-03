@@ -1,5 +1,5 @@
-import {baseQueryUpdateToken} from "store/services/baseApi/baseApi";
-import {createApi} from "@reduxjs/toolkit/query/react";
+import { baseQueryUpdateToken } from "store/services/baseApi/baseApi";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 type User = {
   aboutMe: string;
@@ -24,22 +24,22 @@ type UserAvatar = {
 };
 
 type UserByUserName = {
-	id: number;
-	userName: string;
-	firstName: string;
-	lastName: string;
-	city: string;
-	country: string;
-	region: string;
-	dateOfBirth?: string;
-	aboutMe: string;
-	avatars: UserAvatar[];
-	isFollowing: boolean;
-	isFollowedBy: boolean;
-	followingCount: number;
-	followersCount: number;
-	publicationsCount: number;
-}
+  id: number;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  country: string;
+  region: string;
+  dateOfBirth?: string;
+  aboutMe: string;
+  avatars: UserAvatar[];
+  isFollowing: boolean;
+  isFollowedBy: boolean;
+  followingCount: number;
+  followersCount: number;
+  publicationsCount: number;
+};
 
 export const profileApi = createApi({
   reducerPath: "profileApi",
@@ -51,8 +51,8 @@ export const profileApi = createApi({
         method: "GET",
       }),
     }),
-    getProfileByUserName: build.query<UserByUserName, {userName: string}>({
-      query: ({userName}) => ({
+    getProfileByUserName: build.query<UserByUserName, { userName: string }>({
+      query: ({ userName }) => ({
         url: `users/${userName}`,
         method: "GET",
       }),
