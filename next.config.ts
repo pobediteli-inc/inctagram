@@ -1,5 +1,6 @@
 import { NextConfig } from "next";
 import path from "node:path";
+import * as https from "node:https";
 
 // Define your Next.js configuration
 const nextConfig: NextConfig = {
@@ -13,6 +14,15 @@ const nextConfig: NextConfig = {
       features: path.resolve(__dirname, "src/features"),
     };
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "staging-it-incubator.s3.eu-central-1.amazonaws.com",
+        pathname: "/trainee-instagram-api/Image/**",
+      },
+    ],
   },
   async redirects() {
     return [
