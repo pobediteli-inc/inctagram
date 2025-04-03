@@ -47,6 +47,8 @@ export default function Login() {
     }
   };
 
+  const handleAuthViaGithub = () => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`);
+
   return (
     <div className={s.loginWrapper}>
       <Typography variant={"h1"} className={s.signInHeader}>
@@ -63,9 +65,7 @@ export default function Login() {
         >
           <Google width={36} height={36} />
         </Button>
-        <Link href={"https://www.github.com"} target={"_blank"}>
-          <Github width={36} height={36} color={"white"} />
-        </Link>
+        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} />
       </div>
       <div className={s.mainContent}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
