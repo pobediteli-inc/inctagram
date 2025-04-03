@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdatePostMutation } from "store/services/posts/postsApi";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useState } from "react";
+import { CloseModal } from "./closeModal";
 
 // TODO make photoPreview required
 type Props = {
@@ -28,11 +30,14 @@ type UpdateDescriptionFormValues = z.infer<typeof updateDescriptionSchema>;
 export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, handleClose }: Props) => {
   // const [updatePost] = useUpdatePostMutation();
   // const dispatch = useAppDispatch();
-  const { control, handleSubmit } = useForm<UpdateDescriptionFormValues>({
+  const [closeModalIsOpen, setCloseModalIsOpen] = useState(false);
+  const { control, handleSubmit, reset } = useForm<UpdateDescriptionFormValues>({
     resolver: zodResolver(updateDescriptionSchema),
+    defaultValues: { description },
   });
   const onSubmit = handleSubmit(async (data) => {
     console.log("data");
+    handleClose();
     // try {
     //   await updatePost({ description: data.description || "", postId });
     // handleClose()
@@ -40,8 +45,20 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
     //   handleErrors(e, dispatch);
     // }
   });
+
+  const handleCloseWithReset = () => {
+    reset();
+    setCloseModalIsOpen(false);
+    handleClose();
+  };
+
   return (
-    <BaseModal modalTitle={"Edit Post"} open={isOpen} onClose={handleClose} className={s.modal}>
+    <BaseModal modalTitle={"Edit Post"} open={isOpen} onClose={() => setCloseModalIsOpen(true)} className={s.modal}>
+      <CloseModal
+        isOpen={closeModalIsOpen}
+        handleConfirm={handleCloseWithReset}
+        handleCancel={() => setCloseModalIsOpen(false)}
+      />
       <div className={s.container}>
         <div>photo preview</div>
         <form className={s.form} onSubmit={onSubmit}>
@@ -54,7 +71,6 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
             title={"Update publication description"}
             maxLength={LIMITS.MAX_DESCRIPTION_COUNT}
             name={"description"}
-            defaultValue={description}
             control={control}
           />
           <Button className={s.submit}>Save Changes</Button>

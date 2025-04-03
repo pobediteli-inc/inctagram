@@ -35,3 +35,24 @@
     margin-top: auto;
     align-self: flex-end;
 }
+
+/* close modal styles */
+
+.closeModal {
+    max-width: 486px;
+}
+
+.content {
+    padding: 30px 24px 36px;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 24px;
+    justify-content: right;
+    margin-top: 30px;
+}
+
+.button {
+    width: 96px;
+}

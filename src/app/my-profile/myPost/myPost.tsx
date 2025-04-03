@@ -32,7 +32,7 @@ export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
           </DropdownMenu>
         </div>
         <Separator />
-        <div className={s.comments}>comments</div>
+        <div className={s.comments}>{post.description}</div>
         <Separator />
         <div className={s.interactions}>interactions</div>
         <Separator />
