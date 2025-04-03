@@ -1,9 +1,9 @@
 import { Post } from "store/services/posts/postsApi.types";
-import { PostModal } from "common/components";
+import { Avatar, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
 import s from "./myPost.module.css";
-import { PostInfo } from "./postInfo/postInfo";
 import { useState } from "react";
 import { UpdatePostForm } from "./updatePostForm/updatePostForm";
+import { Edit2Outline, TrashOutline } from "assets/icons";
 
 type Props = {
   post: Post;
@@ -16,11 +16,36 @@ export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
   return (
     <PostModal className={s.container} open={isOpen} onClose={() => setIsOpen(false)}>
       <div>photos</div>
-      {postIsUpdating ? (
-        <UpdatePostForm />
-      ) : (
-        <PostInfo post={post} handleEditPostClick={() => setPostIsUpdating(true)} />
-      )}
+      <div className={s.photoActionsContainer}>
+        <div className={s.ownerInfo}>
+          <Avatar src={post.avatarOwner} className={s.avatar} />
+          <Typography variant={"h3"}>{post.userName}</Typography>
+          <DropdownMenu className={s.menu}>
+            <DropdownItem className={s.menuItem} onClick={() => setPostIsUpdating(true)}>
+              <Edit2Outline width={24} height={24} />
+              <Typography variant={"regular_14"}>Edit Post</Typography>
+            </DropdownItem>
+            <DropdownItem className={s.menuItem}>
+              <TrashOutline width={24} height={24} />
+              <Typography variant={"regular_14"}>Delete Post</Typography>
+            </DropdownItem>
+          </DropdownMenu>
+        </div>
+        <Separator />
+        <div className={s.comments}>comments</div>
+        <Separator />
+        <div className={s.interactions}>interactions</div>
+        <Separator />
+        <div className={s.leaveComment}>leave a comment</div>
+      </div>
+      <UpdatePostForm
+        isOpen={postIsUpdating}
+        avatar={post.avatarOwner}
+        userName={post.userName}
+        description={post.description}
+        postId={post.id}
+        handleClose={() => setPostIsUpdating(false)}
+      />
     </PostModal>
   );
 };

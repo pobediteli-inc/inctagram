@@ -8,7 +8,7 @@ export type DeletePostArgs = {
 
 export type UpdatePostArgs = {
   description: string;
-  postId: string;
+  postId: number;
 };
 
 export type Post = {
