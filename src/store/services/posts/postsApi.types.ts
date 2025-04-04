@@ -7,24 +7,22 @@ export type UpdatePostArgs = {
   postId: string;
 };
 
-export type childMetaDataArgs = {
-  uploadId: string;
-};
-
-export type CreatePostArgs = {
+export interface CreatePostArgs {
   description: string;
-  childrenMetadata: childMetaDataArgs[];
+  childrenMetadata: { uploadId: string; isMain: boolean }[];
+}
+
+export type UploadImageArgs = {
+  files: File[];
 };
 
-export type ImageArgs = {
-  url: string;
-  width: number;
-  height: number;
-  fileSize: number;
-  createdAt: string;
-  uploadId: string;
-};
-
-export type UploadImagePostArgs = {
-  images: ImageArgs[];
-};
+export interface UploadImageResponse {
+  images: {
+    url: string;
+    width: number;
+    height: number;
+    fileSize: number;
+    createdAt: string;
+    uploadId: string;
+  }[];
+}

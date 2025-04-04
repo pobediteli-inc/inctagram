@@ -7,24 +7,29 @@ import { Button, Card, Typography } from "../../common/components";
 import { Close, ImageOutline } from "../../assets/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import { useUploadImagePostMutation } from "../../store/services/posts/postsApi";
+import {
+  useCreatePostMutation,
+  useUploadImagePostMutation,
+} from "../../store/services/posts/postsApi";
 import "swiper/css";
+import { Textarea } from "../../common/components/textarea/textarea";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
-  const [descriptions, setDescriptions] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
   const router = useRouter();
-  const [uploadImagePost, { isLoading }] = useUploadImagePostMutation();
+  const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
+  const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const onCloseHandler = () => {
     router.push("/home");
   };
 
-  const MAX_IMAGES = 4;
+  const MAX_IMAGES = 10;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -37,7 +42,6 @@ export default function CreatePage() {
       const validFormats = ["image/jpeg", "image/png"];
       const newFiles: File[] = [];
       const newUrls: string[] = [];
-      const newDescriptions: string[] = [];
 
       filesArray.forEach((file) => {
         if (!validFormats.includes(file.type)) {
@@ -50,19 +54,16 @@ export default function CreatePage() {
         }
         newFiles.push(file);
         newUrls.push(URL.createObjectURL(file));
-        newDescriptions.push("");
       });
 
       setImages((prev) => [...prev, ...newFiles]);
       setPreviewUrls((prev) => [...prev, ...newUrls]);
-      setDescriptions((prev) => [...prev, ...newDescriptions]);
     }
   };
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
-    setDescriptions((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSelectMainImage = (index: number) => {
@@ -73,52 +74,43 @@ export default function CreatePage() {
     setShowForm(true);
   };
 
-  const handleDescriptionChangeForImage = (index: number, value: string) => {
-    setDescriptions((prev) => {
-      const newDescriptions = [...prev];
-      newDescriptions[index] = value;
-      return newDescriptions;
-    });
-  };
-
   const handleSubmit = async () => {
     if (images.length === 0) {
       alert("Add at least one photo");
       return;
     }
-
-    const formData = new FormData();
-    images.forEach((image, index) => {
-      formData.append("images", image);
-      formData.append(`descriptions[${index}]`, descriptions[index] || "");
-    });
-
-    // Создаем структуру данных для отправки
-    const imagesToUpload = images.map((image, index) => ({
-      url: previewUrls[index],
-      fileSize: image.size,
-      createdAt: new Date().toISOString(),
-      width: 500,
-      height: 500,
-      uploadId: `${Date.now()}-${index}`,
-    }));
+    console.log("handleSubmit");
 
     try {
-      const response = await uploadImagePost({ images: imagesToUpload }).unwrap();
+      // Upload images
+      console.log("Upload images");
+      const uploadResult = await uploadImagePost({ files: images }).unwrap();
 
-      if (response) {
-        alert("Photos uploaded successfully!");
-        setImages([]);
-        setPreviewUrls([]);
-        setDescriptions([]);
-        setShowForm(false);
-        router.push("/home");
-      } else {
-        alert("Loading error. Try again.");
+      if (!uploadResult || !Array.isArray(uploadResult.images)) {
+        alert("Image upload failed. Try again.");
+        return;
       }
+
+      const childrenMetadata = uploadResult.images.map((item, index) => ({
+        uploadId: item.uploadId,
+        isMain: index === mainImageIndex,
+      }));
+
+      // Create post
+      console.log("Create post")
+
+      const { postId } = await createPost({ description, childrenMetadata }).unwrap();
+      console.log('Created post with ID:', postId);
+
+      alert("Post created successfully!");
+      setImages([]);
+      setPreviewUrls([]);
+      setDescription("");
+      setShowForm(false);
+      router.push("/home");
     } catch (error) {
-      console.error("Error uploading to server.", error);
-      alert("Error uploading to server.");
+      console.error("Post creation error:", error);
+      alert("Something went wrong. Try again.");
     }
   };
 
@@ -172,14 +164,15 @@ export default function CreatePage() {
                   </div>
 
                   <div className={s.btnGroup}>
+                    <Button className={s.btnForm} type="button" onClick={() => fileInputRef.current?.click()}>
+                      Select from Computer
+                    </Button>
                     <Button
                       className={s.btnForm}
                       type="button"
-                      onClick={() => fileInputRef.current?.click()}
+                      variant={"outlined"}
+                      onClick={handleNextClick}
                     >
-                      Select from Computer
-                    </Button>
-                    <Button className={s.btnForm} type="button" variant={"outlined"} onClick={handleNextClick}>
                       Next
                     </Button>
                   </div>
@@ -202,14 +195,15 @@ export default function CreatePage() {
                   </div>
 
                   <div className={s.btnGroup}>
+                    <Button className={s.btnForm} type="button" onClick={() => fileInputRef.current?.click()}>
+                      Select from Computer
+                    </Button>
                     <Button
                       className={s.btnForm}
                       type="button"
-                      onClick={() => fileInputRef.current?.click()}
+                      variant={"outlined"}
+                      onClick={() => alert("Option is not available")}
                     >
-                      Select from Computer
-                    </Button>
-                    <Button className={s.btnForm} type="button" variant={"outlined"} onClick={handleNextClick}>
                       Open Draft
                     </Button>
                   </div>
@@ -241,20 +235,24 @@ export default function CreatePage() {
               </button>
             </div>
 
-            {previewUrls.map((_, index) => (
-              <div key={index} className={s.descriptionField}>
-                <Typography variant={"regular_14"}>Add publication descriptions {index + 1}:</Typography>
-                <textarea
-                  className={s.textarea}
-                  value={descriptions[index]}
-                  onChange={(e) => handleDescriptionChangeForImage(index, e.target.value)}
-                />
-              </div>
-            ))}
+            <div className={s.descriptionField}>
+              <Typography variant={"regular_14"}>Add description:</Typography>
+              <Textarea
+                title={"Description"}
+                className={s.textarea}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
 
             <div className={s.btnGroup}>
-              <Button className={s.btnForm} type="button" onClick={handleSubmit} disabled={isLoading}>
-                {isLoading ? "Uploading..." : "Submit"}
+              <Button
+                className={s.btnForm}
+                type="button"
+                onClick={handleSubmit}
+                disabled={isUploading || isCreating}
+              >
+                {(isUploading || isCreating) ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </div>
