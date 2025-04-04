@@ -1,3 +1,4 @@
+"use client";
 import s from "./createdDate.module.css";
 import { FC, useEffect, useState } from "react";
 import { NullableProps } from "common/types";
