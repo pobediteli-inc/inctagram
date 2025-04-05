@@ -14,6 +14,7 @@ import {
 import "swiper/css";
 import { Textarea } from "../../common/components/textarea/textarea";
 import { Toast } from "../../common/components/toast/toast";
+import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
@@ -21,6 +22,7 @@ export default function CreatePage() {
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [showCloseNotification, setShowCloseNotification] = useState<boolean>(false); // State for controlling CloseNotificationPopUp
   const router = useRouter();
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
@@ -32,6 +34,17 @@ export default function CreatePage() {
   } | null>(null);
 
   const onCloseHandler = () => {
+    setShowCloseNotification(true);
+  };
+
+  const handleCloseNotification = (action: "discard" | "save") => {
+    if (action === "discard") {
+      setImages([]);
+      setPreviewUrls([]);
+      setDescription("");
+      setShowForm(false);
+    }
+    setShowCloseNotification(false);
     router.push("/home");
   };
 
@@ -252,8 +265,9 @@ export default function CreatePage() {
                 className={s.btnForm}
                 type="button"
                 onClick={handlePrevClick}
+                disabled={isUploading || isCreating}
               >
-                Go back
+                Prev step
               </Button>
               <Button
                 className={s.btnForm}
@@ -274,6 +288,12 @@ export default function CreatePage() {
           message={toast.message}
           open={toast.open}
           setOpen={(open) => setToast((prev) => (prev ? { ...prev, open } : null))}
+        />
+      )}
+
+      {showCloseNotification && (
+        <CloseNotificationPopUp
+          close={() => setShowCloseNotification(false)}
         />
       )}
     </div>
