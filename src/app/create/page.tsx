@@ -7,10 +7,7 @@ import { Button, Card, Typography } from "../../common/components";
 import { Close, ImageOutline } from "../../assets/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import {
-  useCreatePostMutation,
-  useUploadImagePostMutation,
-} from "../../store/services/posts/postsApi";
+import { useCreatePostMutation, useUploadImagePostMutation } from "../../store/services/posts/postsApi";
 import "swiper/css";
 import { Textarea } from "../../common/components/textarea/textarea";
 import { Toast } from "../../common/components/toast/toast";
@@ -22,16 +19,16 @@ export default function CreatePage() {
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [showCloseNotification, setShowCloseNotification] = useState<boolean>(false); // State for controlling CloseNotificationPopUp
-  const router = useRouter();
-  const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
-  const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [showCloseNotification, setShowCloseNotification] = useState<boolean>(false);
   const [toast, setToast] = useState<{
     type: "success" | "error" | "warning";
     message: string;
     open: boolean;
   } | null>(null);
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
+  const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
 
   const onCloseHandler = () => {
     setShowCloseNotification(true);
@@ -48,11 +45,10 @@ export default function CreatePage() {
     router.push("/home");
   };
 
-  const MAX_IMAGES = 10;
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
+      const MAX_IMAGES = 10;
       if (images.length + filesArray.length > MAX_IMAGES) {
         setToast({ type: "warning", message: `You can upload up to ${MAX_IMAGES} images.`, open: true });
         return;
@@ -89,14 +85,6 @@ export default function CreatePage() {
     setMainImageIndex(index);
   };
 
-  const handleNextClick = () => {
-    setShowForm(true);
-  };
-
-  const handlePrevClick = () => {
-    setShowForm(false);
-  };
-
   const handleSubmit = async () => {
     if (images.length === 0) {
       setToast({ type: "warning", message: "Add at least one photo", open: true });
@@ -105,7 +93,6 @@ export default function CreatePage() {
 
     try {
       const uploadResult = await uploadImagePost({ files: images }).unwrap();
-
       if (!uploadResult || !Array.isArray(uploadResult.images)) {
         setToast({ type: "error", message: "Image upload failed. Try again.", open: true });
         return;
@@ -182,12 +169,7 @@ export default function CreatePage() {
                     <Button className={s.btnForm} type="button" onClick={() => fileInputRef.current?.click()}>
                       Select from Computer
                     </Button>
-                    <Button
-                      className={s.btnForm}
-                      type="button"
-                      variant={"outlined"}
-                      onClick={handleNextClick}
-                    >
+                    <Button className={s.btnForm} type="button" variant={"outlined"} onClick={() => setShowForm(true)}>
                       Next
                     </Button>
                   </div>
@@ -264,18 +246,13 @@ export default function CreatePage() {
               <Button
                 className={s.btnForm}
                 type="button"
-                onClick={handlePrevClick}
+                onClick={() => setShowForm(false)}
                 disabled={isUploading || isCreating}
               >
                 Prev step
               </Button>
-              <Button
-                className={s.btnForm}
-                type="button"
-                onClick={handleSubmit}
-                disabled={isUploading || isCreating}
-              >
-                {(isUploading || isCreating) ? "Submitting..." : "Submit"}
+              <Button className={s.btnForm} type="button" onClick={handleSubmit} disabled={isUploading || isCreating}>
+                {isUploading || isCreating ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </div>
@@ -291,11 +268,7 @@ export default function CreatePage() {
         />
       )}
 
-      {showCloseNotification && (
-        <CloseNotificationPopUp
-          close={() => setShowCloseNotification(false)}
-        />
-      )}
+      {showCloseNotification && <CloseNotificationPopUp close={() => setShowCloseNotification(false)} />}
     </div>
   );
 }

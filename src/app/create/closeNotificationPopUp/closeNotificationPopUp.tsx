@@ -1,8 +1,9 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import s from "./closeNotificationPopUp.module.css";
 import { Button, Card, Typography } from "common/components";
 import { Close } from "assets/icons";
-import { Toast } from "common/components/toast/toast"; // Assuming Toast is imported from your components
+import { Toast } from "common/components/toast/toast";
 
 type Props = {
   close: () => void;
@@ -15,7 +16,13 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
     open: boolean;
   } | null>(null);
 
-  const handleClose = () => close()
+  const router = useRouter();
+
+
+  const handleDiscardClick = () => {
+    router.push("/home");
+  };
+
   const handleSaveDraftClick = () => {
     setToast({
       type: "warning",
@@ -28,9 +35,7 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
     <div className={s.popUp}>
       <Card className={s.card}>
         <div className={s.popUpHeader}>
-          <Typography variant={"h1"} color={"light"}>
-            Close
-          </Typography>
+          <Typography variant={"h1"} color={"light"}>Close</Typography>
           <button className={s.closeBtn} onClick={close}>
             <Close width={24} height={24} />
           </button>
@@ -42,14 +47,9 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
             If you close everything will be deleted.
           </Typography>
           <div className={s.btnGroup}>
-            <Button onClick={handleClose} variant={"outlined"}>
-              Discard
-            </Button>
-            <Button onClick={handleSaveDraftClick}>
-              Save draft
-            </Button>
+            <Button onClick={handleDiscardClick} variant={"outlined"}>Discard</Button>
+            <Button onClick={handleSaveDraftClick}>Save draft</Button>
           </div>
-
         </div>
       </Card>
 
