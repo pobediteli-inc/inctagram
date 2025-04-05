@@ -80,6 +80,10 @@ export default function CreatePage() {
     setShowForm(true);
   };
 
+  const handlePrevClick = () => {
+    setShowForm(false);
+  };
+
   const handleSubmit = async () => {
     if (images.length === 0) {
       setToast({ type: "warning", message: "Add at least one photo", open: true });
@@ -108,7 +112,6 @@ export default function CreatePage() {
       setShowForm(false);
       router.push("/home");
     } catch (error) {
-      console.error("Post creation error:", error);
       setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }
   };
@@ -245,6 +248,13 @@ export default function CreatePage() {
             </div>
 
             <div className={s.btnGroup}>
+              <Button
+                className={s.btnForm}
+                type="button"
+                onClick={handlePrevClick}
+              >
+                Go back
+              </Button>
               <Button
                 className={s.btnForm}
                 type="button"
