@@ -14,13 +14,13 @@ type ImageType = {
   uploadId: string;
 };
 
-type PostType = {
+type Post = {
   id: number;
   images: ImageType[];
 };
 
 export default function MyProfile() {
-  const posts = Array<PostType>();
+  const posts = Array<Post>();
 
   const [showForm, setShowForm] = useState<boolean>(false);
 

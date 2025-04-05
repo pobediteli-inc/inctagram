@@ -13,6 +13,7 @@ import {
 } from "../../store/services/posts/postsApi";
 import "swiper/css";
 import { Textarea } from "../../common/components/textarea/textarea";
+import { Toast } from "../../common/components/toast/toast";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
@@ -24,6 +25,11 @@ export default function CreatePage() {
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [toast, setToast] = useState<{
+    type: "success" | "error" | "warning";
+    message: string;
+    open: boolean;
+  } | null>(null);
 
   const onCloseHandler = () => {
     router.push("/home");
@@ -35,7 +41,7 @@ export default function CreatePage() {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       if (images.length + filesArray.length > MAX_IMAGES) {
-        alert(`You can upload up to ${MAX_IMAGES} images.`);
+        setToast({ type: "warning", message: `You can upload up to ${MAX_IMAGES} images.`, open: true });
         return;
       }
 
@@ -45,11 +51,11 @@ export default function CreatePage() {
 
       filesArray.forEach((file) => {
         if (!validFormats.includes(file.type)) {
-          alert("Accepted formats: JPEG, PNG");
+          setToast({ type: "error", message: "Accepted formats: JPEG, PNG", open: true });
           return;
         }
         if (file.size > 20 * 1024 * 1024) {
-          alert("The file is too large! Maximum size is 20 MB.");
+          setToast({ type: "error", message: "The file is too large! Maximum size is 20 MB.", open: true });
           return;
         }
         newFiles.push(file);
@@ -76,18 +82,15 @@ export default function CreatePage() {
 
   const handleSubmit = async () => {
     if (images.length === 0) {
-      alert("Add at least one photo");
+      setToast({ type: "warning", message: "Add at least one photo", open: true });
       return;
     }
-    console.log("handleSubmit");
 
     try {
-      // Upload images
-      console.log("Upload images");
       const uploadResult = await uploadImagePost({ files: images }).unwrap();
 
       if (!uploadResult || !Array.isArray(uploadResult.images)) {
-        alert("Image upload failed. Try again.");
+        setToast({ type: "error", message: "Image upload failed. Try again.", open: true });
         return;
       }
 
@@ -96,13 +99,9 @@ export default function CreatePage() {
         isMain: index === mainImageIndex,
       }));
 
-      // Create post
-      console.log("Create post")
-
       const { postId } = await createPost({ description, childrenMetadata }).unwrap();
-      console.log('Created post with ID:', postId);
 
-      alert("Post created successfully!");
+      setToast({ type: "success", message: "Post created successfully!", open: true });
       setImages([]);
       setPreviewUrls([]);
       setDescription("");
@@ -110,7 +109,7 @@ export default function CreatePage() {
       router.push("/home");
     } catch (error) {
       console.error("Post creation error:", error);
-      alert("Something went wrong. Try again.");
+      setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }
   };
 
@@ -202,7 +201,7 @@ export default function CreatePage() {
                       className={s.btnForm}
                       type="button"
                       variant={"outlined"}
-                      onClick={() => alert("Option is not available")}
+                      onClick={() => setToast({ type: "warning", message: "Option is not available", open: true })}
                     >
                       Open Draft
                     </Button>
@@ -258,6 +257,15 @@ export default function CreatePage() {
           </div>
         )}
       </Card>
+
+      {toast && (
+        <Toast
+          type={toast.type}
+          message={toast.message}
+          open={toast.open}
+          setOpen={(open) => setToast((prev) => (prev ? { ...prev, open } : null))}
+        />
+      )}
     </div>
   );
 }
