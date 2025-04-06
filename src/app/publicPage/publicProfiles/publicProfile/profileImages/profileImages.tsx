@@ -5,13 +5,18 @@ import { FC, useState } from "react";
 import Image from "next/image";
 import ArrowIosBackOutline from "assets/icons/ArrowIosBackOutline";
 import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
-import { Button } from "common/components";
+import { Button, Typography } from "common/components";
 import clsx from "clsx";
 
 export const ProfileImages: FC<Props> = ({ images }) => {
   const [imageIndex, setImageIndex] = useState<number>(0);
 
-  if (!images || images.length === 0) return <div>No images</div>;
+  if (!images || images.length === 0)
+    return (
+      <Typography variant={"h2"} color={"light"} textAlign={"center"}>
+        No images
+      </Typography>
+    );
 
   const handlePreview = () => setImageIndex((prevState) => (prevState === 0 ? images?.length - 1 : prevState - 1));
   const handleNext = () => setImageIndex((prevState) => (prevState === images?.length - 1 ? 0 : prevState + 1));
