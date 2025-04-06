@@ -15,3 +15,6 @@ export { Separator } from "./separator/separator";
 export { DropdownMenu } from "./dropdownMenu/dropdownMenu";
 export { DropdownItem } from "./dropdownMenu/dropdownItem";
 export { Avatar } from "./avatar/avatar";
+export { BaseModal } from "./modal/baseModal/baseModal";
+export { Textarea } from "./textarea/textarea";
+export { ControlledTextarea } from "./controlled/controlledTextarea";
