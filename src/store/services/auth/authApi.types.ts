@@ -25,7 +25,6 @@ export type ConfirmRegistrationResponse = {
   error: string;
 };
 
-
 export type PasswordRecoveryArgs = {
   email: string;
   recaptcha: string;
@@ -43,7 +42,7 @@ export type NewPasswordArgs = {
 };
 
 export type CheckRecoveryCodeArgs = {
-  recoveryCode: string
+  recoveryCode: string;
 };
 
 export type ConfirmRegistrationArgs = {
@@ -85,4 +84,14 @@ export type BaseServerError = {
 export type MessageField = {
   message: string;
   field: string;
+};
+
+export type SocialAuthRequest = {
+  redirectUrl?: string;
+  code?: string;
+};
+
+export type SocialAuthResponse = {
+  accessToken: string;
+  email: string;
 };

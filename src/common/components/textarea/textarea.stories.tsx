@@ -29,8 +29,15 @@ export const WithError: Story = {
 };
 
 export const Disabled: Story = {
-    args: {
-      title: "Text-area",
-      disabled: true,
-    },
-  };
+  args: {
+    title: "Text-area",
+    disabled: true,
+  },
+};
+
+export const WithMaxLength: Story = {
+  args: {
+    title: "Text-area",
+    maxLength: 10,
+  },
+};
