@@ -1,22 +1,49 @@
+"use client";
 import s from "./ProfileImages.module.css";
 import { ImagesArgs } from "store/services/api/publicPosts";
-import { FC } from "react";
+import { FC, useState } from "react";
 import Image from "next/image";
+import ArrowIosBackOutline from "assets/icons/ArrowIosBackOutline";
+import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
+import { Button } from "common/components";
+import clsx from "clsx";
 
 export const ProfileImages: FC<Props> = ({ images }) => {
-  const image =
-    images?.map((image, index) => (
-      <Image
-        key={index}
-        className={s.avatar}
-        src={image.url}
-        alt={image.uploadId}
-        width={image.width}
-        height={image.height}
-      />
-    )) || "No images";
+  const [imageIndex, setImageIndex] = useState<number>(0);
 
-  return <div className={s.mainWrapper}>{image}</div>;
+  if (!images || images.length === 0) return <div>No images</div>;
+
+  const handlePreview = () => setImageIndex((prevState) => (prevState === 0 ? images?.length - 1 : prevState - 1));
+  const handleNext = () => setImageIndex((prevState) => (prevState === images?.length - 1 ? 0 : prevState + 1));
+
+  return (
+    <div className={s.mainWrapper}>
+      <Image
+        key={imageIndex}
+        className={s.avatar}
+        src={images[imageIndex].url}
+        alt={images[imageIndex].uploadId}
+        width={images[imageIndex].width}
+        height={images[imageIndex].height}
+      />
+      {images && images?.length > 1 && (
+        <>
+          <ArrowIosBackOutline className={s.arrowLeft} onClick={handlePreview} />
+          <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} />
+          <div className={s.pagination}>
+            {images.map((_, index) => (
+              <Button
+                key={index}
+                variant={"primary"}
+                className={clsx(s.whiteDot, { [s.blueDot]: imageIndex === index })}
+                onClick={() => setImageIndex(index)}
+              ></Button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 type Props = {
