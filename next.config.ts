@@ -3,6 +3,9 @@ import path from "node:path";
 
 // Define your Next.js configuration
 const nextConfig: NextConfig = {
+  images: {
+    domains: ["staging-it-incubator.s3.eu-central-1.amazonaws.com"],
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),

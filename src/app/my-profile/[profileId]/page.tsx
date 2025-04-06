@@ -14,27 +14,24 @@ type ImageType = {
   uploadId: string;
 };
 
-type PostType = {
-  id: number;
-  images: ImageType[];
-};
-
 export default function MyProfile() {
-  /*const {data: meData} = useMeQuery()
-  console.log('meData: ',  meData)*/
-  const { data } = useGetProfileByUserNameQuery({ userName: /*meData?.userName ??*/ "Irina124" });
+  const { data } = useGetProfileByUserNameQuery({ userName: "Irina124" });
   console.log("byUserNameData :", data);
-  const { data: posts } = useGetPostsByUserNameQuery({ userName: "Irina124" });
-  console.log("Posts: ", posts);
+  const { data: PostsWithMeta } = useGetPostsByUserNameQuery({ userName: "Irina124" });
+  console.log("PostsWithMeta: ", PostsWithMeta);
 
-  // const posts = Array<PostType>();
+  const posts = PostsWithMeta?.items;
+
+  if (!posts) {
+    return <p>Loading photos...</p>;
+  }
 
   return (
     <main className={styles.main}>
       <section className={styles.profileSection}>
         <div className={styles.avatarWrapper}>
           <Image
-            src={data?.avatars[0]?.url ?? "/profile-picture.jpg"}
+            src={data?.avatars[0]?.url ?? "/icons/svg/person.svg"}
             alt="Profile Picture"
             layout="fill"
             objectFit="cover"
@@ -76,15 +73,15 @@ export default function MyProfile() {
       </section>
 
       <section className={styles.gallery}>
-        {posts.length > 0 ? (
-          posts.flatMap((post) =>
+        {posts?.length > 0 ? (
+          posts?.flatMap((post) =>
             post.images.map((image, index) => (
               <div key={`${post.id}-${index}`} className={styles.imageWrapper}>
                 <Image
-                  src={image.url}
+                  src={image.url || "/icons/svg/person.svg"}
                   alt={`Image ${index + 1} of post ${post.id}`}
-                  width={image.width}
-                  height={image.height}
+                  width={image.width || 234}
+                  height={image.height || 228}
                   className={styles.image}
                   loading="lazy"
                 />
