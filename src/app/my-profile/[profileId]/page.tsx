@@ -7,9 +7,10 @@ import { useGetPostsByUserNameQuery } from "store/services/postsApi/postsApi";
 
 export default function MyProfile() {
   const { data } = useGetProfileByUserNameQuery({ userName: "Irina124" });
-  console.log("byUserNameData :", data);
-  const { data: PostsWithMeta } = useGetPostsByUserNameQuery({ userName: "Irina124" });
-  console.log("PostsWithMeta: ", PostsWithMeta);
+  console.log("data: ", data);
+
+  const { data: PostsWithMeta } = useGetPostsByUserNameQuery({ userName: "Irina124", pageSize: 8 });
+  console.log("PostsWithMeta", PostsWithMeta);
 
   const posts = PostsWithMeta?.items;
 
@@ -69,7 +70,7 @@ export default function MyProfile() {
             post.images.map((image, index) => (
               <div key={`${post.id}-${index}`} className={styles.imageWrapper}>
                 <Image
-                  src={image.url || "/icons/svg/person.svg"}
+                  src={image.url}
                   alt={`Image ${index + 1} of post ${post.id}`}
                   width={image.width || 234}
                   height={image.height || 228}
