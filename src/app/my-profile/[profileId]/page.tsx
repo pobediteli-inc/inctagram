@@ -66,20 +66,18 @@ export default function MyProfile() {
 
       <section className={styles.gallery}>
         {posts?.length > 0 ? (
-          posts?.flatMap((post) =>
-            post.images.map((image, index) => (
-              <div key={`${post.id}-${index}`} className={styles.imageWrapper}>
-                <Image
-                  src={image.url}
-                  alt={`Image ${index + 1} of post ${post.id}`}
-                  width={image.width || 234}
-                  height={image.height || 228}
-                  className={styles.image}
-                  loading="lazy"
-                />
-              </div>
-            ))
-          )
+          posts?.map((post) => (
+            <div key={`${post.id}`} className={styles.imageWrapper}>
+              <Image
+                src={post.images[0].url}
+                alt={`Image of post ${post.id}`}
+                width={post.images[0].width || 234}
+                height={post.images[0].height || 228}
+                className={styles.image}
+                loading="lazy"
+              />
+            </div>
+          ))
         ) : (
           <p>Loading photos...</p>
         )}
