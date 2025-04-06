@@ -5,15 +5,6 @@ import Image from "next/image";
 import { useGetProfileByUserNameQuery } from "store/services/profileApi/profileApi";
 import { useGetPostsByUserNameQuery } from "store/services/postsApi/postsApi";
 
-type ImageType = {
-  url: string;
-  width: number;
-  height: number;
-  fileSize: number;
-  createdAt: string;
-  uploadId: string;
-};
-
 export default function MyProfile() {
   const { data } = useGetProfileByUserNameQuery({ userName: "Irina124" });
   console.log("byUserNameData :", data);
