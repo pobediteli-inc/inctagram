@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode } from "react";
 import { Header, ProgressBar, Sidebar } from "common/components";
 import s from "./page.module.css";

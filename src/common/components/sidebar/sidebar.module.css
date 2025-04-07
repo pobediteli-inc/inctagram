@@ -1,6 +1,5 @@
 .navbar {
   width: 220px;
-  /*height: 100vh;*/
   display: flex;
   flex-direction: column;
   gap: 24px;
