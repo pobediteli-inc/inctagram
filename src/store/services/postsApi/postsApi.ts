@@ -6,8 +6,8 @@ export const postsApi = createApi({
   reducerPath: "postsApi",
   baseQuery: baseQueryUpdateToken,
   endpoints: (build) => ({
-    getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number }>({
-      query: ({ userName, pageSize }) => ({
+    getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number; pageNumber: number }>({
+      query: ({ userName, pageSize, pageNumber }) => ({
         url: `posts/${userName}?pageSize=${pageSize}`,
         method: "GET",
       }),
