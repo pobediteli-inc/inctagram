@@ -2,20 +2,14 @@
 
 .container {
     min-height: 100vh;
-    background-color: black;
-    color: white;
-}
-
-
-.title {
-    font-size: 1.25rem;
-    font-weight: bold;
+    background-color: var(--dark-900);
+    color: var(--light-100);
 }
 
 .button {
     font-size: 0.875rem;
     background: none;
-    color: white;
+    color: var(--light-100);
     border: none;
     cursor: pointer;
 }
@@ -25,14 +19,14 @@
     min-height: 100%;
     margin: 0 auto;
     padding: 1rem;
-    border: 1px solid #333333;
+    border: 1px solid var(--dark-300);
 }
 
 .profileSection {
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    outline: 1px solid red;
+    outline: 1px solid var(--danger-500);
 }
 
 .avatarWrapper {
@@ -40,19 +34,14 @@
     min-width: 204px;
     min-height: 204px;
     overflow: hidden;
-    outline: 1px solid green;
+    outline: 1px solid var(--success-900);
 }
 
 .avatar {
     object-fit: cover;
     overflow: hidden;
     border-radius: 50%;
-    outline: 1px solid black;
-}
-
-.profileName {
-    font-size: 1.5rem;
-    font-weight: 600;
+    outline: 1px solid var(--dark-900);
 }
 
 .stats {
@@ -61,17 +50,13 @@
     margin-top: 0.5rem;
 }
 
-.bold {
-    font-weight: bold;
-}
-
 .bio {
     margin-top: 0.5rem;
-    color: #aaa;
+    color: var(--light-100);
 }
 
 .link {
-    color: #1e90ff;
+    color: var(--primary-500);
     text-decoration: none;
 }
 
@@ -79,24 +64,6 @@
     margin-left: auto;
     display: flex;
     gap: 1rem;
-}
-
-.followButton {
-    padding: 0.5rem 1rem;
-    background-color: #1e90ff;
-    border: none;
-    color: white;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.profileSettingsButton {
-    padding: 0.5rem 1rem;
-    background-color: var(--dark-300);
-    border: none;
-    color: white;
-    border-radius: 0.25rem;
-    cursor: pointer;
 }
 
 .gallery {

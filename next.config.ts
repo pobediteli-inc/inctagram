@@ -3,9 +3,6 @@ import path from "node:path";
 
 // Define your Next.js configuration
 const nextConfig: NextConfig = {
-  images: {
-    domains: ["staging-it-incubator.s3.eu-central-1.amazonaws.com"],
-  },
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
@@ -16,6 +13,15 @@ const nextConfig: NextConfig = {
       features: path.resolve(__dirname, "src/features"),
     };
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "staging-it-incubator.s3.eu-central-1.amazonaws.com",
+        pathname: "/trainee-instagram-api/Image/**",
+      },
+    ],
   },
   async redirects() {
     return [

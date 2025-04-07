@@ -3,8 +3,8 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { authApi } from "./services/auth";
 import { authSliceReducer, authSlice } from "features/slices/auth/authSlice";
 import { statusSlice, statusSliceReducer } from "features/slices/status/statusSlice";
-import { profileApi } from "store/services/profileApi/profileApi";
-import { postsApi } from "store/services/postsApi/postsApi";
+import { profileApi } from "store/services/profile/profileApi";
+import { postsApi } from "store/services/posts/postsApi";
 
 export const store = configureStore({
   reducer: {
