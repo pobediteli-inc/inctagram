@@ -7,22 +7,19 @@ import { useGetPostsByUserNameQuery } from "store/services/posts/postsApi";
 import { useEffect, useState } from "react";
 import { Post } from "store/services/posts/postsApi.types";
 import { Button, Typography } from "common/components";
+import { debounce } from "next/dist/server/utils";
 
 export default function MyProfile() {
-  const [page, setPage] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   const { data } = useGetProfileByUserNameQuery({ userName: "Irina124" });
-  console.log("data: ", data);
 
-  const {
-    data: postsWithMeta,
-    isFetching,
-    isLoading,
-  } = useGetPostsByUserNameQuery({ userName: "Irina124", pageSize: 8, pageNumber: page });
-  console.log("PostsWithMeta", postsWithMeta);
-
-  const posts = postsWithMeta?.items;
+  const { data: postsWithMeta, isFetching } = useGetPostsByUserNameQuery({
+    userName: "Irina124",
+    pageSize: 8,
+    pageNumber,
+  });
 
   useEffect(() => {
     if (postsWithMeta?.items && !isFetching) {
@@ -32,24 +29,29 @@ export default function MyProfile() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 50 // Буфер в 50px
-      ) {
-        /*setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы*/
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 50) {
         if (!isFetching) {
-          setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы
+          setPageNumber((prevPage) => prevPage + 1);
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll); // Очистка при размонтировании
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isFetching]);
 
-  if (!posts) {
-    return <p>Loading photos...</p>;
-  }
+  useEffect(() => {
+    const handleWheel = debounce((event: WheelEvent) => {
+      if (event.deltaY > 0) {
+        if (!isFetching) {
+          setPageNumber((prevPage) => prevPage + 1);
+        }
+      }
+    }, 300);
+
+    window.addEventListener("wheel", handleWheel);
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isFetching]);
 
   return (
     <main className={s.main}>
@@ -114,7 +116,6 @@ export default function MyProfile() {
         ) : (
           <p>Loading photos...</p>
         )}
-        {isFetching && <p>Loading more posts...</p>}
       </section>
     </main>
   );
