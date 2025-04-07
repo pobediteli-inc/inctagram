@@ -19,6 +19,7 @@ body {
   margin: 0 auto;
   box-sizing: border-box;
   color: var(--light-100);
+  cursor: default;
 }
 
 a {

@@ -13,12 +13,16 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "features/slices/auth/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const Header: FC = () => {
-  const { data, isError, isLoading } = useMeQuery();
+  const { data, isError, isLoading, refetch } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const params = useSearchParams();
 
+  const accessToken = params.get("accessToken");
   const { email } = data ?? {};
 
   const selectLanguages: SelectItemsProps[] = [
@@ -31,6 +35,21 @@ export const Header: FC = () => {
     dispatch(authApi.util.resetApiState());
     dispatch(setLoggedIn({ isLoggedIn: false }));
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      try {
+        localStorage.setItem("accessToken", accessToken);
+        dispatch(setLoggedIn({ isLoggedIn: true }));
+        dispatch(authApi.util.resetApiState());
+        refetch();
+        router.push("/home");
+      } catch (error: unknown) {
+        handleErrors(error, dispatch);
+        dispatch(setLoggedIn({ isLoggedIn: false }));
+      }
+    }
+  }, [accessToken, dispatch, refetch, router]);
 
   useEffect(() => {
     try {

@@ -9,6 +9,8 @@ import {
   NewPasswordArgs,
   PasswordRecoveryArgs,
   ResendPasswordRecoveryArgs,
+  SocialAuthRequest,
+  SocialAuthResponse,
 } from "./authApi.types";
 import { baseApi } from "store/services/baseApi/baseApi";
 
@@ -39,28 +41,28 @@ export const authApi = baseApi.injectEndpoints({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/password-recovery`,
+        url: `auth/password-recovery`,
       }),
     }),
     resendPasswordRecovery: build.mutation<void, ResendPasswordRecoveryArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/password-recovery-resending`,
+        url: `auth/password-recovery-resending`,
       }),
     }),
     newPassword: build.mutation<void, NewPasswordArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/new-password`,
+        url: `auth/new-password`,
       }),
     }),
     checkRecoveryCode: build.mutation<void, CheckRecoveryCodeArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/check-recovery-code`,
+        url: `auth/check-recovery-code`,
       }),
     }),
     login: build.mutation<AccessResponse, LoginRequest>({
@@ -88,6 +90,19 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
+    loginGoogle: build.mutation<SocialAuthResponse, SocialAuthRequest>({
+      query: (args) => ({
+        url: "auth/google/login",
+        method: "POST",
+        body: args,
+      }),
+    }),
+    authViaGithub: build.query<SocialAuthResponse, void>({
+      query: () => ({
+        url: "auth/github/login",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -102,4 +117,6 @@ export const {
   useLoginMutation,
   useMeQuery,
   useLogOutMutation,
+  useLoginGoogleMutation,
+  useAuthViaGithubQuery,
 } = authApi;

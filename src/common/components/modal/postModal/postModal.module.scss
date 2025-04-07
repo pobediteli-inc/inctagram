@@ -12,10 +12,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90vw;
-    max-width: 438px;
-    max-height: 240px;
-    padding: 10px 0;
+    max-width: 972px;
+    max-height: 564px;
     border: 1px solid var(--dark-100);
     animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -25,16 +23,9 @@
 
 }
 
-.title {
-    padding: 0 24px 10px;
-
-}
-
 .iconButton {
     all: unset;
-    font-family: inherit;
     border-radius: 100%;
-    background-color: var(--dark-300);
     height: 24px;
     width: 24px;
     display: inline-flex;
@@ -42,15 +33,12 @@
     justify-content: center;
     color: var(--light-100);
     position: absolute;
-    top: 16px;
-    right: 24px;
+    top: -24px;
+    right: -30px;
     cursor: pointer;
 
-    &:hover {
-        background-color: var(--dark-100);
-    }
-
-    &:focus {
+    &:hover,
+    &:focus-visible {
         background-color: var(--dark-100);
     }
 }

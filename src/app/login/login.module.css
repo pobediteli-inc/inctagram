@@ -20,8 +20,17 @@
 
 .socialIcons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   gap: 60px;
+
+  & button {
+    min-width: 60px;
+  }
+
+  & a {
+    min-width: 60px;
+  }
 }
 
 .mainContent {
