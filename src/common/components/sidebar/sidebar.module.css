@@ -1,10 +1,9 @@
 .navbar {
   width: 220px;
+  /*height: 100vh;*/
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-left: 60px;
-  padding-top: 72px;
-  padding-bottom: 36px;
+  padding: 72px 0 36px 60px;
   border-right: 1px solid var(--dark-300);
 }

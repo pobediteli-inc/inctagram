@@ -18,3 +18,28 @@
   background-color: transparent;
   pointer-events: none;
 }
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+  overflow: auto;
+}
+
+.children {
+  min-width: 1060px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333333;
+  color: var(--light-100);
+}

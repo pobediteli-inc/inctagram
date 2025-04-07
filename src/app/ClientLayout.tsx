@@ -1,11 +1,12 @@
 "use client";
 import { ReactNode } from "react";
-import { Header, ProgressBar } from "common/components";
+import { Header, ProgressBar, Sidebar } from "common/components";
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectStatus, setStatus } from "features/slices/status/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { selectIsLoggedIn } from "../features/slices/auth/authSlice";
 
 export default function ClientLayout({
   children,
@@ -14,20 +15,28 @@ export default function ClientLayout({
 }>) {
   const { status, message } = useAppSelector(selectStatus);
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const handleClose = () => dispatch(setStatus({ status: null, message: null }));
 
   return (
     <>
-      <Header />
+      <div className={s.header}>
+        <Header />
+      </div>
       {status === "loading" && (
         <div className={s.progressBar}>
           <ProgressBar />
         </div>
       )}
-      <main className={s.main}>{children}</main>
+      <div className={s.wrapper}>
+        {isLoggedIn && <Sidebar />}
+        <main className={s.children}>{children}</main>
+      </div>
       {status && message && (
-        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
+        <Toast type={status} message={message}
+               open={!!status && !!message}
+               setOpen={handleClose} />
       )}
     </>
   );
