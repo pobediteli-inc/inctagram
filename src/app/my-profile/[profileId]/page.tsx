@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import { Post } from "store/services/posts/postsApi.types";
 import { Button, Typography } from "common/components";
 import { debounce } from "next/dist/server/utils";
+import { useMeQuery } from "store/services/auth";
 
 export default function MyProfile() {
   const [pageNumber, setPageNumber] = useState(1);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
-  const { data } = useGetProfileByUserNameQuery({ userName: "Irina124" });
+  const { data: meData } = useMeQuery();
+  const { data } = useGetProfileByUserNameQuery({ userName: meData?.userName as string });
 
   const { data: postsWithMeta, isFetching } = useGetPostsByUserNameQuery({
     userName: "Irina124",

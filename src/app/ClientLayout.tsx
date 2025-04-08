@@ -7,7 +7,7 @@ import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectStatus, setStatus } from "features/slices/status/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { selectIsLoggedIn } from "../features/slices/auth/authSlice";
+import { selectIsLoggedIn } from "features/slices/auth/authSlice";
 
 export default function ClientLayout({
   children,
@@ -35,9 +35,7 @@ export default function ClientLayout({
         <main className={s.children}>{children}</main>
       </div>
       {status && message && (
-        <Toast type={status} message={message}
-               open={!!status && !!message}
-               setOpen={handleClose} />
+        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
       )}
     </>
   );
