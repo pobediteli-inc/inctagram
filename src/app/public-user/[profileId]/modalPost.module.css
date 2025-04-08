@@ -233,7 +233,7 @@
     object-fit: cover;
     overflow: hidden;
     border-radius: 50%;
-    background-color: lightblue;
+    background-color: var(--primary-100);
     z-index: 3; 
 }
 
@@ -242,7 +242,7 @@
     object-fit: cover;
     overflow: hidden;
     border-radius: 50%;
-    background-color: lightcoral;
+    background-color: var(--danger-100);
     z-index: 2;
     left: 16px;
 }
@@ -252,7 +252,7 @@
     object-fit: cover;
     overflow: hidden;
     border-radius: 50%;
-    background-color: lightsalmon;
+    background-color: var(--warning-100);
     z-index: 1;
     left: 32px;
 }

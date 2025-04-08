@@ -52,9 +52,6 @@ export default async function UserProfilePage({
   const { userName, userMetadata, avatars, aboutMe } = profile;
   const post = searchParams.postId ? await getPost(searchParams.postId) : null;
   const comments = searchParams.postId ? await getPostComments(searchParams.postId) : null;
-  console.log("data", profile);
-  console.log("post", post);
-  console.log("comments", comments);
 
   if (!profile)
     return (
