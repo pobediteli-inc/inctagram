@@ -22,7 +22,7 @@ type Props = {
 };
 
 const updateDescriptionSchema = z.object({
-  description: z.string().max(LIMITS.MAX_DESCRIPTION_COUNT).optional(),
+  description: z.string().max(LIMITS.MAX_DESCRIPTION_COUNT),
 });
 
 type UpdateDescriptionFormValues = z.infer<typeof updateDescriptionSchema>;
@@ -31,7 +31,7 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
   const [updatePost] = useUpdatePostMutation();
   const dispatch = useAppDispatch();
   const [closeModalIsOpen, setCloseModalIsOpen] = useState(false);
-  const { control, handleSubmit, reset } = useForm<UpdateDescriptionFormValues>({
+  const { control, handleSubmit, reset, formState } = useForm<UpdateDescriptionFormValues>({
     resolver: zodResolver(updateDescriptionSchema),
     defaultValues: { description },
   });
@@ -51,8 +51,16 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
     handleClose();
   };
 
+  const handleFormModalCLose = () => {
+    if (formState.isDirty) {
+      setCloseModalIsOpen(true);
+    } else {
+      handleClose();
+    }
+  };
+
   return (
-    <BaseModal modalTitle={"Edit Post"} open={isOpen} onClose={() => setCloseModalIsOpen(true)} className={s.modal}>
+    <BaseModal modalTitle={"Edit Post"} open={isOpen} onClose={handleFormModalCLose} className={s.modal}>
       <CloseModal
         isOpen={closeModalIsOpen}
         handleConfirm={handleCloseWithReset}
