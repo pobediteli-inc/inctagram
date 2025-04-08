@@ -8,7 +8,7 @@ import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
 import { Button, Typography } from "common/components";
 import clsx from "clsx";
 
-export const ProfileImages: FC<Props> = ({ images }) => {
+export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   if (!images || images.length === 0)
@@ -22,10 +22,10 @@ export const ProfileImages: FC<Props> = ({ images }) => {
   const handleNext = () => setImageIndex((prevState) => (prevState === images?.length - 1 ? 0 : prevState + 1));
 
   return (
-    <div className={s.mainWrapper}>
+    <div className={clsx(s.mainWrapper, { [s.collapsed]: isCollapsed })}>
       <Image
         key={imageIndex}
-        className={s.avatar}
+        className={s.avatars}
         src={images[imageIndex].url}
         alt={images[imageIndex].uploadId}
         width={images[imageIndex].width}
@@ -53,4 +53,5 @@ export const ProfileImages: FC<Props> = ({ images }) => {
 
 type Props = {
   images?: ImagesArgs[];
+  isCollapsed?: boolean;
 };

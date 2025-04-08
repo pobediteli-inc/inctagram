@@ -4,11 +4,23 @@
   max-width: 234px;
   max-height: 240px;
   position: relative;
+  transition: max-height 0.3s;
+  overflow: hidden;
 }
 
-.avatar {
+.mainWrapper.collapsed {
+  max-height: 120px;
+}
+
+.avatars {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.mainWrapper.collapsed .avatars {
+  transform: scale(1.1);
 }
 
 .arrowLeft,
