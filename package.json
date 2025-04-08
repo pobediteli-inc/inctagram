@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "stylelint:css": "stylelint '**/*.{css,scss}'",
+    "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "echo \"test will be added later\""
