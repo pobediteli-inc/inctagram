@@ -9,10 +9,12 @@ import { Post } from "store/services/posts/postsApi.types";
 import { Button, Typography } from "common/components";
 import { debounce } from "next/dist/server/utils";
 import { useMeQuery } from "store/services/auth";
+import { MyPost } from "app/my-profile/myPost/myPost";
 
 export default function MyProfile() {
   const [pageNumber, setPageNumber] = useState(1);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [postIsOpen, setPostIsOpen] = useState(false);
 
   const { data: meData } = useMeQuery();
   const { data } = useGetProfileByUserNameQuery({ userName: meData?.userName as string });
@@ -105,6 +107,7 @@ export default function MyProfile() {
         {allPosts.length > 0 ? (
           allPosts.map((post) => (
             <div key={`${post.id}`} className={s.imageWrapper}>
+              <MyPost post={post} isOpen={postIsOpen} setIsOpen={setPostIsOpen} />
               <Image
                 src={post.images[0]?.url ?? "/icons/svg/person.svg"}
                 alt={`Image of post ${post.id}`}
@@ -112,6 +115,7 @@ export default function MyProfile() {
                 height={post.images[0]?.height || 228}
                 className={s.image}
                 loading="lazy"
+                onClick={() => setPostIsOpen(true)}
               />
             </div>
           ))
