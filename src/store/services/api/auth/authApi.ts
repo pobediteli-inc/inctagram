@@ -41,28 +41,28 @@ export const authApi = baseApi.injectEndpoints({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/password-recovery`,
+        url: `auth/password-recovery`,
       }),
     }),
     resendPasswordRecovery: build.mutation<void, ResendPasswordRecoveryArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/password-recovery-resending`,
+        url: `auth/password-recovery-resending`,
       }),
     }),
     newPassword: build.mutation<void, NewPasswordArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/new-password`,
+        url: `auth/new-password`,
       }),
     }),
     checkRecoveryCode: build.mutation<void, CheckRecoveryCodeArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `/check-recovery-code`,
+        url: `auth/check-recovery-code`,
       }),
     }),
     login: build.mutation<AccessResponse, LoginRequest>({

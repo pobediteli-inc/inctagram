@@ -44,3 +44,7 @@
     border: 1px solid var(--danger-500);
     color: var(--light-100);
 }
+
+.charCounter {
+    text-align: right;
+}
