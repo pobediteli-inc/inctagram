@@ -2,7 +2,7 @@ import { Typography } from "common/components";
 import s from "./page.module.css";
 import Image from "next/image";
 import { Avatar } from "store/services/publicUserApi/publicUserApi.types";
-import defaultAvatar from "./../../../../public/icons/svg/person.svg";
+import defaultAvatar from "public/icons/svg/person.svg";
 import ModalPost from "./modalPost";
 
 async function getProfile(profileId: string) {
