@@ -90,7 +90,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
-    loginGoogle: build.mutation<SocialAuthResponse, SocialAuthRequest>({
+    authViaGoogle: build.mutation<SocialAuthResponse, SocialAuthRequest>({
       query: (args) => ({
         url: "auth/google/login",
         method: "POST",
@@ -117,6 +117,6 @@ export const {
   useLoginMutation,
   useMeQuery,
   useLogOutMutation,
-  useLoginGoogleMutation,
+  useAuthViaGoogleMutation,
   useAuthViaGithubQuery,
 } = authApi;

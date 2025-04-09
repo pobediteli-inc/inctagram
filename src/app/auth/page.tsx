@@ -8,7 +8,7 @@ import { SignUpForm } from "common/components/forms";
 import {
   RegistrationArgs,
   RegistrationServerError,
-  useLoginGoogleMutation,
+  useAuthViaGoogleMutation,
   useMeQuery,
   useRegisterUserMutation,
 } from "store/services/api/auth";
@@ -18,6 +18,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
+import { Github, Google } from "/assets/icons";
 
 export type SignUpApiError = {
   message: string;
@@ -30,7 +31,7 @@ export default function Auth() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const searchParams = useSearchParams();
-  const [loginGoogle] = useLoginGoogleMutation();
+  const [loginGoogle] = useAuthViaGoogleMutation();
   const router = useRouter();
   const { refetch } = useMeQuery();
   const dispatch = useAppDispatch();
@@ -73,11 +74,23 @@ export default function Auth() {
     }
   };
 
+  const handleAuthViaGoogle = () =>
+    window.location.assign(
+      `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&response_type=code&scope=email+profile`
+    );
+  const handleAuthViaGithub = () => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`);
+
+
   return (
     <Card className={s.authWrapper}>
       <Typography variant={"h1"} className={s.authHeader}>
         Sign Up
       </Typography>
+
+      <div className={s.socialIcons}>
+        <Google width={36} height={36} color={"white"} onClick={handleAuthViaGoogle} />
+        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} />
+      </div>
 
       <SignUpForm onSubmit={submitHandler} apiError={apiError} />
 
