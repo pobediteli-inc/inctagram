@@ -1,25 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import Pagination from './pagination';
+import { Pagination } from "./pagination";
 
 const meta = {
-  title: 'Components/pagination',
+  title: "Components/pagination",
   component: Pagination,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     totalPages: 10,
-    currentPage: 2,  // Установим текущую страницу на 2 по умолчанию
   },
   argTypes: {
-    totalPages: { control: 'number' },  // Включаем контроль для totalPages
-    currentPage: { control: 'number' },  // Включаем контроль для currentPage
+    totalPages: { control: "number" }, // Включаем контроль для totalPages
   },
   decorators: [
     (Story) => (
-      <div >
+      <div>
         <Story />
       </div>
     ),
@@ -35,7 +33,7 @@ export const Default: Story = {
       appDirectory: true,
       navigation: {
         query: {
-          page: 2,  // Мы устанавливаем query параметр для страницы на 2
+          page: 2, // Мы устанавливаем query параметр для страницы на 2
         },
       },
     },

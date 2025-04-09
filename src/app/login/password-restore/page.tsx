@@ -130,7 +130,7 @@ export default function ForgotPassword() {
             <Button variant={"link"} className={s.button} asChild disabled={isLoading}>
               <Link href={"/login"}>Back to Sign In</Link>
             </Button>
-            <ReCaptcha sitekey={siteKey} onVerify={handleCaptcha} error={isSubmitted && captchaError} />
+            <ReCaptcha siteKey={siteKey} onVerifyAction={handleCaptcha} error={isSubmitted && captchaError} />
           </div>
         )}
       </form>

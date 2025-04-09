@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import ReCaptcha from "./recaptcha";
+import { ReCaptcha } from "./recaptcha";
 import "app/globals.css";
 import process from "process";
 
