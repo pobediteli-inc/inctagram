@@ -2,7 +2,7 @@
 
 import s from "./registration-confirmation.module.css";
 import { useSearchParams } from "next/navigation";
-import { useConfirmRegistrationMutation } from "store/services/auth";
+import { useConfirmRegistrationMutation } from "store/services/api/auth";
 import { useCallback, useEffect, useState } from "react";
 import Success from "../success/page";
 import EmailExpired from "../emailExpired/page";

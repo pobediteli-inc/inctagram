@@ -1,3 +1,4 @@
+"use client";
 import { DayPicker } from "react-day-picker";
 import { ComponentProps } from "react";
 import "./calendar.style.css";

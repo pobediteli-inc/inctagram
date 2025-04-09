@@ -7,17 +7,18 @@ import { useEffect, useState } from "react";
 import { SignUpForm } from "common/components/forms";
 import {
   RegistrationArgs,
-  RegistrationServerError, useAuthViaGoogleMutation,
+  RegistrationServerError,
+  useAuthViaGoogleMutation,
   useMeQuery,
   useRegisterUserMutation,
-} from "store/services/auth";
+} from "store/services/api/auth";
 import { EmailSentPopup } from "./emailSentPopup/emailSentPopup";
 import { NullableProps } from "common/types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { setLoggedIn } from "../../features/slices/auth/authSlice";
-import { useAppDispatch } from "../../common/hooks/useAppDispatch";
-import { handleErrors } from "../../common/utils/handleErrors";
-import { Github, Google } from "../../assets/icons";
+import { setLoggedIn } from "store/services/slices/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
+import { Github, Google } from "/assets/icons";
 
 export type SignUpApiError = {
   message: string;
@@ -34,7 +35,6 @@ export default function Auth() {
   const router = useRouter();
   const { refetch } = useMeQuery();
   const dispatch = useAppDispatch();
-
 
   const submitHandler = async (data: RegistrationArgs, resetForm: () => void) => {
     try {

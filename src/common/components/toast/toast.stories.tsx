@@ -24,11 +24,6 @@ const meta: Meta<typeof Toast> = {
         disable: true,
       },
     },
-    toastPosition: {
-      control: "select",
-      options: ["left", "right"],
-      description: "position of toast",
-    },
   },
   args: {
     open: true,

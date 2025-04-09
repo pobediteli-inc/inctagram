@@ -1,4 +1,4 @@
-import { Post } from "store/services/posts/postsApi.types";
+import { Post } from "store/services/api/posts/postsApi.types";
 import { Avatar, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
 import s from "./myPost.module.css";
 import { useState } from "react";

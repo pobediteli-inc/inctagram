@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { UpdatePostForm } from "./updatePostForm";
 import "app/globals.css";
-import { Post } from "store/services/posts/postsApi.types";
+import { Post } from "store/services/api/posts/postsApi.types";
 
 const meta: Meta<typeof UpdatePostForm> = {
   title: "Components/UpdatePostForm",

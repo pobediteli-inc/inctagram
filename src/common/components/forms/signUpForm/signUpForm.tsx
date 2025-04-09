@@ -5,7 +5,7 @@ import { z } from "zod";
 import validator from "validator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegistrationArgs } from "store/services/auth";
+import { RegistrationArgs } from "store/services/api/auth";
 import { SignUpApiError } from "app/auth/page";
 import { NullableProps } from "common/types";
 import { useEffect } from "react";

@@ -5,14 +5,14 @@ import s from "./page.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Card } from "common/components/card/card";
-import ReCaptcha from "common/components/recaptcha/recaptcha";
+import { ReCaptcha } from "common/components/recaptcha/recaptcha";
 import { BaseModal } from "common/components/modal/baseModal/baseModal";
 import { useForm } from "react-hook-form";
 import {
   PasswordRecoveryArgs,
   usePasswordRecoveryMutation,
   useResendPasswordRecoveryMutation,
-} from "store/services/auth";
+} from "store/services/api/auth";
 
 type Inputs = {
   email: string;
@@ -32,6 +32,7 @@ export default function ForgotPassword() {
     watch,
     setError,
   } = useForm<Inputs>();
+
   const email = watch("email");
 
   const onSubmit = async (data: PasswordRecoveryArgs) => {
@@ -43,8 +44,7 @@ export default function ForgotPassword() {
         }).unwrap();
         setIsLinkSent(true);
         setIsModalOpen(true);
-      } catch (error) {
-        console.log(error);
+      } catch {
         setError("email", { type: "manual", message: "User with this email doesn't exist" });
       }
     }
@@ -53,8 +53,7 @@ export default function ForgotPassword() {
   const handleResend = async () => {
     try {
       await resendPasswordRecovery({ email }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch {
       setError("email", { type: "manual", message: "User with this email doesn't exist" });
     }
   };
@@ -101,9 +100,11 @@ export default function ForgotPassword() {
             </Typography>
           )}
         </div>
+
         <Typography variant={"regular_14"} className={s.text} color={"dark"}>
           Enter your email address and we will send you further instructions
         </Typography>
+
         {isLinkSent ? (
           <>
             <Typography variant={"regular_14"} color={"light"} className={s.otherText}>
@@ -129,13 +130,12 @@ export default function ForgotPassword() {
               <Link href={"/login"}>Back to Sign In</Link>
             </Button>
             <ReCaptcha
-              sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM"
-              onVerify={handleCaptcha}
+              siteKey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+              onVerifyAction={handleCaptcha}
               error={isSubmitted && captchaError}
             />
           </div>
         )}
-        я
       </form>
     </Card>
   );

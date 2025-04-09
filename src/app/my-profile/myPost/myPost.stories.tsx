@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { MyPost } from "./myPost";
 import "app/globals.css";
-import { Post } from "store/services/posts/postsApi.types";
+import { Post } from "store/services/api/posts/postsApi.types";
 
 const meta: Meta<typeof MyPost> = {
   title: "Components/MyPost",

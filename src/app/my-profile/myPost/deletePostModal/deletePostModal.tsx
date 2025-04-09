@@ -1,6 +1,6 @@
 import { BaseModal, Button, Typography } from "common/components";
 import s from "./deletePostModal.module.css";
-import { useDeletePostMutation } from "store/services/posts/postsApi";
+import { useDeletePostMutation } from "store/services/api/posts/postsApi";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 

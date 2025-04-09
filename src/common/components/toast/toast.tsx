@@ -2,14 +2,14 @@ import * as React from "react";
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from "react";
 import * as RadixToast from "@radix-ui/react-toast";
 import s from "./toast.module.css";
-import { MessageStatus, NullableProps } from "common/types";
+import { MessageStatusProps, NullableProps } from "common/types";
 import { Typography } from "common/components/typography/typography";
 import clsx from "clsx";
 import { CloseOutline } from "assets/icons";
 
 export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
   ({ type, message, setOpen, open, ...rest }, ref) => {
-    const getDuration = (status: NullableProps<MessageStatus>) => {
+    const getDuration = (status: NullableProps<MessageStatusProps>) => {
       switch (status) {
         case "success":
         case "info":
@@ -63,7 +63,7 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
 );
 
 type Props = {
-  type: NullableProps<MessageStatus>;
+  type: NullableProps<MessageStatusProps>;
   message: NullableProps<string>;
   open?: boolean;
   setOpen?: (open: boolean) => void;
