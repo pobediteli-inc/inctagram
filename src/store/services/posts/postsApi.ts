@@ -39,8 +39,14 @@ export const postsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getPostById: build.query<Post, GetPostByIdArgs>({
+      query: ({ postId }) => ({
+        url: `posts/id/${postId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useUpdatePostMutation, useDeletePostMutation, useCreatePostMutation, useUploadImagePostMutation } =
+export const { useUpdatePostMutation, useDeletePostMutation, useCreatePostMutation, useUploadImagePostMutation, useGetPostByIdQuery } =
   postsApi;
