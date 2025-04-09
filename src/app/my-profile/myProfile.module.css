@@ -1,16 +1,8 @@
-/* Page.module.css */
-
-.wrapper {
-  display: flex;
-  flex-direction: row;
-}
-
 .container {
   min-height: 100vh;
   background-color: black;
   color: white;
 }
-
 
 .title {
   font-size: 1.25rem;
