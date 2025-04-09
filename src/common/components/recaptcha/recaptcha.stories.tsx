@@ -9,7 +9,7 @@ const meta: Meta<typeof ReCaptcha> = {
   title: "Components/ReCaptcha",
   component: ReCaptcha,
   argTypes: {
-    sitekey: {
+    siteKey: {
       description: "Google reCAPTCHA site key",
       control: "text",
     },
@@ -17,7 +17,7 @@ const meta: Meta<typeof ReCaptcha> = {
       description: "Indicates if an error message should be shown",
       control: "boolean",
     },
-    onVerify: { action: "verified" },
+    onVerifyAction: { action: "verified" },
   },
   tags: ["autodocs"],
   parameters: {
@@ -30,14 +30,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    sitekey: siteKey,
+    siteKey: siteKey,
     error: false,
   },
 };
 
 export const WithError: Story = {
   args: {
-    sitekey: siteKey,
+    siteKey: siteKey,
     error: true,
   },
 };
