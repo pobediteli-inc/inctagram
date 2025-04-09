@@ -34,7 +34,6 @@ export default function ForgotPassword() {
   } = useForm<Inputs>();
 
   const email = watch("email");
-  const siteKey = "6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM";
 
   const onSubmit = async (data: PasswordRecoveryArgs) => {
     if (!captchaError) {
@@ -130,7 +129,11 @@ export default function ForgotPassword() {
             <Button variant={"link"} className={s.button} asChild disabled={isLoading}>
               <Link href={"/login"}>Back to Sign In</Link>
             </Button>
-            <ReCaptcha siteKey={siteKey} onVerifyAction={handleCaptcha} error={isSubmitted && captchaError} />
+            <ReCaptcha
+              siteKey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+              onVerifyAction={handleCaptcha}
+              error={isSubmitted && captchaError}
+            />
           </div>
         )}
       </form>

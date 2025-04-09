@@ -17,7 +17,6 @@ const meta: Meta<typeof ReCaptcha> = {
       description: "Indicates if an error message should be shown",
       control: "boolean",
     },
-    onVerifyAction: { action: "verified" },
   },
   tags: ["autodocs"],
   parameters: {
