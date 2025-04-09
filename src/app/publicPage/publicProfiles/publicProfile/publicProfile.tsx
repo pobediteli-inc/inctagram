@@ -1,4 +1,5 @@
 "use client";
+
 import s from "./publicProfile.module.css";
 import { FC, Fragment, useState } from "react";
 import { AllPublicPostsResponse } from "store/services/api/publicPosts";

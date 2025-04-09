@@ -5,7 +5,7 @@ import s from "./page.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Card } from "common/components/card/card";
-import ReCaptcha from "common/components/recaptcha/recaptcha";
+import { ReCaptcha } from "common/components/recaptcha/recaptcha";
 import { BaseModal } from "common/components/modal/baseModal/baseModal";
 import { useForm } from "react-hook-form";
 import {
@@ -32,7 +32,9 @@ export default function ForgotPassword() {
     watch,
     setError,
   } = useForm<Inputs>();
+
   const email = watch("email");
+  const siteKey = "6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM";
 
   const onSubmit = async (data: PasswordRecoveryArgs) => {
     if (!captchaError) {
@@ -43,8 +45,7 @@ export default function ForgotPassword() {
         }).unwrap();
         setIsLinkSent(true);
         setIsModalOpen(true);
-      } catch (error) {
-        console.log(error);
+      } catch {
         setError("email", { type: "manual", message: "User with this email doesn't exist" });
       }
     }
@@ -53,8 +54,7 @@ export default function ForgotPassword() {
   const handleResend = async () => {
     try {
       await resendPasswordRecovery({ email }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch {
       setError("email", { type: "manual", message: "User with this email doesn't exist" });
     }
   };
@@ -130,11 +130,7 @@ export default function ForgotPassword() {
             <Button variant={"link"} className={s.button} asChild disabled={isLoading}>
               <Link href={"/login"}>Back to Sign In</Link>
             </Button>
-            <ReCaptcha
-              sitekey="6LdHxG4qAAAAAPKRxEHrlV5VvLFHIf2BO5NMI8YM"
-              onVerify={handleCaptcha}
-              error={isSubmitted && captchaError}
-            />
+            <ReCaptcha sitekey={siteKey} onVerify={handleCaptcha} error={isSubmitted && captchaError} />
           </div>
         )}
       </form>

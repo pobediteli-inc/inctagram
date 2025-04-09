@@ -1,4 +1,5 @@
 "use client";
+
 import s from "./ProfileImages.module.css";
 import { ImagesArgs } from "store/services/api/publicPosts";
 import { FC, useState } from "react";

@@ -36,8 +36,8 @@ export default function NewPassword() {
           recoveryCode,
         }).unwrap();
         router.push("/login");
-      } catch (error) {
-        console.log(error);
+      } catch {
+        /* empty */
       }
     }
   };
@@ -47,7 +47,7 @@ export default function NewPassword() {
       if (recoveryCode) {
         try {
           await checkRecoveryCode({ recoveryCode }).unwrap();
-        } catch (error) {
+        } catch {
           router.push("/login/verification-link-expired");
         }
       } else {

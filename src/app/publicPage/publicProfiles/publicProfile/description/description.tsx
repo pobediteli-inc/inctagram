@@ -1,4 +1,5 @@
 "use client";
+
 import { FC, useState } from "react";
 import s from "./description.module.css";
 import { Typography } from "common/components";

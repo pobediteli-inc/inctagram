@@ -1,6 +1,5 @@
 import { NextConfig } from "next";
 import path from "node:path";
-import * as https from "node:https";
 
 // Define your Next.js configuration
 const nextConfig: NextConfig = {
