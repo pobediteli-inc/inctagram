@@ -22,9 +22,7 @@ export default function ClientLayout({
 
   return (
     <>
-      <div className={s.header}>
-        <Header />
-      </div>
+      <Header />
       {status === "loading" && (
         <div className={s.progressBar}>
           <ProgressBar />

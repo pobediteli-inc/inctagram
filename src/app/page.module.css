@@ -19,13 +19,6 @@
   pointer-events: none;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
 .wrapper {
   display: flex;
   flex-direction: row;
