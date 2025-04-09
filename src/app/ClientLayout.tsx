@@ -22,9 +22,7 @@ export default function ClientLayout({
 
   return (
     <>
-      <div className={s.header}>
-        <Header />
-      </div>
+      <Header />
       {status === "loading" && (
         <div className={s.progressBar}>
           <ProgressBar />
@@ -35,9 +33,7 @@ export default function ClientLayout({
         <main className={s.children}>{children}</main>
       </div>
       {status && message && (
-        <Toast type={status} message={message}
-               open={!!status && !!message}
-               setOpen={handleClose} />
+        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
       )}
     </>
   );
