@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ChangeEvent, forwardRef, TextareaHTMLAttributes, useEffect, useState } from "react";
 import clsx from "clsx";

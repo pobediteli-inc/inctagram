@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FieldValues, UseControllerProps, useController } from "react-hook-form";
 import { useEffect, useRef } from "react";
