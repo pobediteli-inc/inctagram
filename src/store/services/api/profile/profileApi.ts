@@ -1,5 +1,5 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
-import { User, UserByUserName } from "store/services/profile/profileApi.types";
+import { User, UserByUserName } from "store/services/api/profile/profileApi.types";
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

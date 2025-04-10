@@ -2,7 +2,7 @@
 
 import s from "./page.module.css";
 import Image from "next/image";
-import { useGetProfileByUserNameQuery } from "store/services/profile/profileApi";
+import { useGetProfileByUserNameQuery } from "store/services/api/profile/profileApi";
 import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
 import { useEffect, useState } from "react";
 import { Post } from "store/services/api/posts/postsApi.types";
