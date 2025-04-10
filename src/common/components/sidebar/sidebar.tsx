@@ -1,3 +1,5 @@
+"use client";
+
 import s from "./sidebar.module.css";
 import {
   Home,
@@ -10,7 +12,7 @@ import {
   LogOutOutline,
 } from "assets/icons";
 import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
-import { useMeQuery } from "store/services/auth";
+import { useMeQuery } from "store/services/api/auth";
 
 const sidebarItems: SidebarItem[] = [
   {

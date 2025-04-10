@@ -3,12 +3,12 @@
 import s from "./page.module.css";
 import Image from "next/image";
 import { useGetProfileByUserNameQuery } from "store/services/profile/profileApi";
-import { useGetPostsByUserNameQuery } from "store/services/posts/postsApi";
+import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
 import { useEffect, useState } from "react";
-import { Post } from "store/services/posts/postsApi.types";
+import { Post } from "store/services/api/posts/postsApi.types";
 import { Button, Typography } from "common/components";
 import { debounce } from "next/dist/server/utils";
-import { useMeQuery } from "store/services/auth";
+import { useMeQuery } from "store/services/api/auth";
 import { MyPost } from "app/my-profile/myPost/myPost";
 
 export default function MyProfile() {
@@ -20,7 +20,7 @@ export default function MyProfile() {
   const { data } = useGetProfileByUserNameQuery({ userName: meData?.userName as string });
 
   const { data: postsWithMeta, isFetching } = useGetPostsByUserNameQuery({
-    userName: "Irina124",
+    userName: meData?.userName as string,
     pageSize: 8,
     pageNumber,
   });
@@ -81,13 +81,16 @@ export default function MyProfile() {
           <div>
             <div className={s.stats}>
               <div>
-                <Typography variant={"bold_14"}>{data?.followingCount}</Typography> Following
+                <Typography variant={"bold_14"}>{data?.followingCount}</Typography>
+                <Typography variant={"bold_14"}>Following</Typography>
               </div>
               <div>
-                <Typography variant={"bold_14"}>{data?.followersCount}</Typography> Followers
+                <Typography variant={"bold_14"}>{data?.followersCount}</Typography>
+                <Typography variant={"bold_14"}>Followers</Typography>
               </div>
               <div>
-                <Typography variant={"bold_14"}>{data?.publicationsCount}</Typography> Publications
+                <Typography variant={"bold_14"}>{data?.publicationsCount}</Typography>
+                <Typography variant={"bold_14"}>Publications</Typography>
               </div>
             </div>
             <p className={s.bio}>

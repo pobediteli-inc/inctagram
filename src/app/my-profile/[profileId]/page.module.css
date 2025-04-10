@@ -1,7 +1,7 @@
 /* Page.module.css */
 
 .container {
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     background-color: var(--dark-900);
     color: var(--light-100);
 }
@@ -19,7 +19,6 @@
     min-height: 100%;
     margin: 0 auto;
     padding: 1rem;
-    border: 1px solid var(--dark-300);
 }
 
 .profileSection {

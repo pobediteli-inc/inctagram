@@ -1,10 +1,7 @@
-import { baseQueryUpdateToken } from "store/services/baseApi/baseApi";
-import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseApi } from "store/services/api/baseApi/baseApi";
 import { User, UserByUserName } from "store/services/profile/profileApi.types";
 
-export const profileApi = createApi({
-  reducerPath: "profileApi",
-  baseQuery: baseQueryUpdateToken,
+export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getProfile: build.query<User, void>({
       query: () => ({

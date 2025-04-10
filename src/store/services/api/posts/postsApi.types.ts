@@ -1,8 +1,14 @@
-export type PostsWithMeta = {
-  pageSize: number;
-  totalCount: number;
-  notReadCount: number;
-  items: Post[];
+export type GetPostByIdArgs = {
+  postId: number;
+};
+
+export type DeletePostArgs = {
+  postId: number;
+};
+
+export type UpdatePostArgs = {
+  description: string;
+  postId: number;
 };
 
 export type Post = {
@@ -15,7 +21,7 @@ export type Post = {
   updatedAt: string;
   ownerId: number;
   avatarOwner: string;
-  owner: PostOwner;
+  owner: Owner;
   likesCount: number;
   isLiked: boolean;
   avatarWhoLikes: boolean;
@@ -30,7 +36,7 @@ export type Image = {
   uploadId: string;
 };
 
-export type PostOwner = {
+export type Owner = {
   firstName: string;
   lastName: string;
 };
@@ -54,3 +60,10 @@ export interface UploadImageResponse {
     uploadId: string;
   }[];
 }
+
+export type PostsWithMeta = {
+  pageSize: number;
+  totalCount: number;
+  notReadCount: number;
+  items: Post[];
+};
