@@ -1,3 +1,5 @@
+"use client";
+
 import s from "./sidebar.module.css";
 import {
   Home,
@@ -10,6 +12,7 @@ import {
   LogOutOutline,
 } from "assets/icons";
 import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
+import { useMeQuery } from "store/services/api/auth";
 
 const sidebarItems: SidebarItem[] = [
   {
@@ -55,9 +58,15 @@ const sidebarItems: SidebarItem[] = [
 ];
 
 export const Sidebar = () => {
+  const { data } = useMeQuery();
+
+  const dynamicSidebarItems = sidebarItems.map((item) =>
+    item.title === "My Profile" ? { ...item, href: `/my-profile/${data?.userId}` } : item
+  );
+
   return (
     <nav className={s.navbar}>
-      {sidebarItems.map((i, index) => (
+      {dynamicSidebarItems.map((i, index) => (
         <SidebarLink item={i} key={index} />
       ))}
     </nav>

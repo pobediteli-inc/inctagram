@@ -1,0 +1,87 @@
+.container {
+    background-color: var(--dark-900);
+    color: var(--light-100);
+}
+
+.button {
+    font-size: 0.875rem;
+    background: none;
+    color: var(--light-100);
+    border: none;
+    cursor: pointer;
+}
+
+.main {
+    max-width: 1060px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.profileSection {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.avatarWrapper {
+    position: relative;
+    min-width: 204px;
+    min-height: 204px;
+    overflow: hidden;
+}
+
+.avatar {
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+    outline: 1px solid var(--dark-900);
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.bio {
+    margin-top: 0.5rem;
+}
+
+.link {
+    color: var(--primary-500);
+}
+
+.actionButtons {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+}

@@ -60,3 +60,10 @@ export interface UploadImageResponse {
     uploadId: string;
   }[];
 }
+
+export type PostsWithMeta = {
+  pageSize: number;
+  totalCount: number;
+  notReadCount: number;
+  items: Post[];
+};

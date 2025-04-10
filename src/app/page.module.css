@@ -32,7 +32,6 @@
 .children {
   min-width: 1060px;
   display: flex;
-  align-items: center;
   justify-content: center;
   color: var(--light-100);
 }

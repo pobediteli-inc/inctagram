@@ -1,5 +1,14 @@
 import { baseApi } from "../baseApi/baseApi";
-import { CreatePostArgs, DeletePostArgs, UpdatePostArgs, UploadImageArgs, UploadImageResponse } from "./postsApi.types";
+import {
+  CreatePostArgs,
+  DeletePostArgs,
+  GetPostByIdArgs,
+  Post,
+  PostsWithMeta,
+  UpdatePostArgs,
+  UploadImageArgs,
+  UploadImageResponse,
+} from "store/services/api/posts/postsApi.types";
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -42,11 +51,22 @@ export const postsApi = baseApi.injectEndpoints({
     getPostById: build.query<Post, GetPostByIdArgs>({
       query: ({ postId }) => ({
         url: `posts/id/${postId}`,
+      }),
+    }),
+    getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number; pageNumber: number }>({
+      query: ({ userName, pageSize, pageNumber }) => ({
+        url: `posts/${userName}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
         method: "GET",
       }),
     }),
   }),
 });
 
-export const { useUpdatePostMutation, useDeletePostMutation, useCreatePostMutation, useUploadImagePostMutation, useGetPostByIdQuery } =
-  postsApi;
+export const {
+  useGetPostsByUserNameQuery,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+  useCreatePostMutation,
+  useUploadImagePostMutation,
+  useGetPostByIdQuery,
+} = postsApi;
