@@ -18,7 +18,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
-import { Github, Google } from "/assets/icons";
+import { Github, Google } from "assets/icons";
 
 export type SignUpApiError = {
   message: string;
