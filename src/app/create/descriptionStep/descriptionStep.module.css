@@ -1,0 +1,46 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 564px;
+  flex-wrap: wrap;
+}
+
+.popUpHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  min-width: 500px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--dark-100);
+}
+
+.closeBtn {
+  all: unset;
+  cursor: pointer;
+}
+
+.descriptionField {
+  width: 400px;
+  margin: 12px;
+}
+
+.textarea {
+  min-width: 400px;
+  height: 200px;
+  border-radius: 2px;
+}
+
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  margin: 24px 0;
+}
+
+.btnForm:first-child {
+  width: 100%;
+  margin-bottom: 24px;
+}

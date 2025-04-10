@@ -1,0 +1,71 @@
+.previewContainer {
+  position: relative;
+  width: 500px;
+  height: 370px;
+  overflow: hidden;
+}
+
+.mainImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel {
+  position: absolute;
+  top: -24%;
+  left: 50%;
+  min-width: 450px;
+  max-width: 450px;
+  padding: 10px 0;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.previewImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  row-gap: 8px;
+  margin: 8px 0;
+  z-index: 5;
+}
+
+.previewImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 16px;
+  left: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-500);
+  color: var(--light-100);
+  border: none;
+  cursor: pointer;
+}
+
+.previewContainerEmpty {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.imageEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  background-color: var(--dark-500);
+}

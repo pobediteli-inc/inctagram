@@ -1,17 +1,14 @@
 "use client";
 
-import s from "./createPage.module.css";
 import React, { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button, Card, Typography } from "../../common/components";
-import { Close, ImageOutline } from "../../assets/icons";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
-import { useCreatePostMutation, useUploadImagePostMutation } from "../../store/services/posts/postsApi";
-import "swiper/css";
-import { Textarea } from "../../common/components/textarea/textarea";
+import s from "./createPage.module.css";
+import { Card } from "../../common/components";
 import { Toast } from "../../common/components/toast/toast";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
+import { useCreatePostMutation, useUploadImagePostMutation } from "../../store/services/posts/postsApi";
+import { useRouter } from "next/navigation";
+import { UploadStep } from "./uploadStep/uploadStep";
+import { DescriptionStep } from "./descriptionStep/descriptionStep";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
@@ -25,14 +22,13 @@ export default function CreatePage() {
     message: string;
     open: boolean;
   } | null>(null);
+
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
 
-  const onCloseHandler = () => {
-    setShowCloseNotification(true);
-  };
+  const onCloseHandler = () => setShowCloseNotification(true);
 
   const handleCloseNotification = (action: "discard" | "save") => {
     if (action === "discard") {
@@ -81,10 +77,6 @@ export default function CreatePage() {
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSelectMainImage = (index: number) => {
-    setMainImageIndex(index);
-  };
-
   const handleSubmit = async () => {
     if (images.length === 0) {
       setToast({ type: "warning", message: "Add at least one photo", open: true });
@@ -103,7 +95,7 @@ export default function CreatePage() {
         isMain: index === mainImageIndex,
       }));
 
-      const { postId } = await createPost({ description, childrenMetadata }).unwrap();
+      await createPost({ description, childrenMetadata }).unwrap();
 
       setToast({ type: "success", message: "Post created successfully!", open: true });
       setImages([]);
@@ -111,7 +103,7 @@ export default function CreatePage() {
       setDescription("");
       setShowForm(false);
       router.push("/home");
-    } catch (error) {
+    } catch {
       setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }
   };
@@ -120,142 +112,25 @@ export default function CreatePage() {
     <div className={s.popUp}>
       <Card>
         {!showForm ? (
-          <div className={s.modalWrapper}>
-            <div>
-              {previewUrls.length > 0 ? (
-                <div className={s.headerDataButtons}>
-                  <div className={s.popUpHeader}>
-                    <Typography variant={"h2"} color={"light"}>
-                      Edit Photos
-                    </Typography>
-                    <button className={s.closeBtn} onClick={onCloseHandler}>
-                      <Close width={24} height={24} />
-                    </button>
-                  </div>
-
-                  <div className={s.previewContainer}>
-                    <Image
-                      className={s.mainImage}
-                      src={previewUrls[mainImageIndex]}
-                      alt="Main Preview"
-                      priority
-                      width={400}
-                      height={400}
-                    />
-                    {previewUrls.length > 1 && (
-                      <Swiper spaceBetween={10} slidesPerView={3} className={s.carousel}>
-                        {previewUrls.map((url, index) => (
-                          <SwiperSlide key={index}>
-                            <div className={s.previewImageContainer}>
-                              <Image
-                                className={s.previewImage}
-                                src={url}
-                                alt={`Preview ${index + 1}`}
-                                width={100}
-                                height={100}
-                                onClick={() => handleSelectMainImage(index)}
-                              />
-                              <button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
-                                <Close width={12} height={12} />
-                              </button>
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    )}
-                  </div>
-
-                  <div className={s.btnGroup}>
-                    <Button className={s.btnForm} type="button" onClick={() => fileInputRef.current?.click()}>
-                      Select from Computer
-                    </Button>
-                    <Button className={s.btnForm} type="button" variant={"outlined"} onClick={() => setShowForm(true)}>
-                      Next
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className={s.headerDataButtons}>
-                  <div className={s.popUpHeader}>
-                    <Typography variant={"h2"} color={"light"}>
-                      Add Photos
-                    </Typography>
-                    <button className={s.closeBtn} onClick={onCloseHandler}>
-                      <Close width={24} height={24} />
-                    </button>
-                  </div>
-
-                  <div className={s.previewContainerEmpty}>
-                    <div className={s.imageEmpty}>
-                      <ImageOutline width={48} height={48} />
-                    </div>
-                  </div>
-
-                  <div className={s.btnGroup}>
-                    <Button className={s.btnForm} type="button" onClick={() => fileInputRef.current?.click()}>
-                      Select from Computer
-                    </Button>
-                    <Button
-                      className={s.btnForm}
-                      type="button"
-                      variant={"outlined"}
-                      onClick={() => setToast({ type: "warning", message: "Option is not available", open: true })}
-                    >
-                      Open Draft
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className={s.fileInputWrapper}>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-                id="photo-upload"
-                ref={fileInputRef}
-                className={s.fileUpload}
-                style={{ display: "none" }}
-              />
-            </div>
-          </div>
+          <UploadStep
+            previewUrls={previewUrls}
+            mainImageIndex={mainImageIndex}
+            setMainImageIndex={setMainImageIndex}
+            handleRemoveImage={handleRemoveImage}
+            onCloseHandler={onCloseHandler}
+            fileInputRef={fileInputRef}
+            handleImageChange={handleImageChange}
+            setShowForm={setShowForm}
+          />
         ) : (
-          <div className={s.formContainer}>
-            <div className={s.popUpHeader}>
-              <Typography variant={"h2"} color={"light"}>
-                Publication
-              </Typography>
-              <button className={s.closeBtn} onClick={onCloseHandler}>
-                <Close width={24} height={24} />
-              </button>
-            </div>
-
-            <div className={s.descriptionField}>
-              <Typography variant={"regular_14"}>Add description:</Typography>
-              <Textarea
-                title={"Description"}
-                className={s.textarea}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            <div className={s.btnGroup}>
-              <Button
-                className={s.btnForm}
-                type="button"
-                onClick={() => setShowForm(false)}
-                disabled={isUploading || isCreating}
-              >
-                Prev step
-              </Button>
-              <Button className={s.btnForm} type="button" onClick={handleSubmit} disabled={isUploading || isCreating}>
-                {isUploading || isCreating ? "Submitting..." : "Submit"}
-              </Button>
-            </div>
-          </div>
+          <DescriptionStep
+            description={description}
+            setDescription={setDescription}
+            onCloseHandler={onCloseHandler}
+            onBack={() => setShowForm(false)}
+            onSubmit={handleSubmit}
+            isLoading={isUploading || isCreating}
+          />
         )}
       </Card>
 
