@@ -2,13 +2,13 @@
 
 import React, { useRef, useState } from "react";
 import s from "./createPage.module.css";
-import { Card } from "../../common/components";
-import { Toast } from "../../common/components/toast/toast";
+import { Card } from "common/components";
+import { Toast } from "common/components";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
-import { useCreatePostMutation, useUploadImagePostMutation } from "../../store/services/posts/postsApi";
 import { useRouter } from "next/navigation";
 import { UploadStep } from "./uploadStep/uploadStep";
 import { DescriptionStep } from "./descriptionStep/descriptionStep";
+import { useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
@@ -110,7 +110,7 @@ export default function CreatePage() {
 
   return (
     <div className={s.popUp}>
-      <Card>
+      <Card className={s.wrapper}>
         {!showForm ? (
           <UploadStep
             previewUrls={previewUrls}

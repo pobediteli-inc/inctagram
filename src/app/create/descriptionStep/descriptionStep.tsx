@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./descriptionStep.module.css";
-import { Close } from "../../../assets/icons";
-import { Button, Textarea, Typography } from "../../../common/components";
+import { Close } from "assets/icons";
+import { Button, Textarea, Typography } from "common/components";
 
 type DescriptionStepProps = {
   description: string;

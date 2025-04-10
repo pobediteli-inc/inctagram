@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import s from "./imagePreview.module.css";
 import "swiper/css";
-import { Close, ImageOutline } from "../../../assets/icons";
+import { Close, ImageOutline } from "assets/icons";
 
 type ImagePreviewProps = {
   previewUrls: string[];

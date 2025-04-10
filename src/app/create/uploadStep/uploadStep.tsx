@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./uploadStep.module.css";
-import { Typography } from "../../../common/components";
-import { Close } from "../../../assets/icons";
+import { Typography } from "common/components";
+import { Close } from "assets/icons";
 import { ImagePreview } from "../imagePreview/imagePreview";
 import { ImageSelector } from "../imageSelector/ImageSelector";
 
