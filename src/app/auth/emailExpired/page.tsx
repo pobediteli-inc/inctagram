@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { EmailSentPopup } from "../emailSentPopup/emailSentPopup";
 import { redirect } from "next/navigation";
-import { useResendRegistrationEmailMutation } from "store/services/auth/authApi";
+import { useResendRegistrationEmailMutation } from "store/services/api/auth/authApi";
 
 const resendLinkSchema = z.object({
   email: z

@@ -12,7 +12,7 @@ export type PaginationProps = {
   totalPages: number;
 };
 
-const Pagination = ({ totalPages }: PaginationProps) => {
+export const Pagination = ({ totalPages }: PaginationProps) => {
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -49,11 +49,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={clsx(
-                s.basicButton,
-                { [s.active]: page === currentPage },
-                "typography-variant--regular_14"
-              )}
+              className={clsx(s.basicButton, { [s.active]: page === currentPage }, "typography-variant--regular_14")}
             >
               {page}
             </button>
@@ -77,11 +73,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
 
       <div className={clsx(s.selectContainer, "typography-variant--regular_14")}>
         <span>Show</span>
-        <select
-          className={s.selectBox}
-          value={pageSize}
-          onChange={(e) => onPageSizeChange(Number(e.target.value))}
-        >
+        <select className={s.selectBox} value={pageSize} onChange={(e) => onPageSizeChange(Number(e.target.value))}>
           {[10, 20, 30, 50, 100].map((size) => (
             <option key={size} value={size}>
               {size}
@@ -93,4 +85,3 @@ const Pagination = ({ totalPages }: PaginationProps) => {
     </div>
   );
 };
-export default Pagination;

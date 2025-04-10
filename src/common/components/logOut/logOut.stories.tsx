@@ -14,7 +14,7 @@ const meta: Meta<typeof LogOut> = {
       description: "User email displayed in the logout modal",
       defaultValue: "Epam@epam.com",
     },
-    onLogout: { action: "logout clicked" },
+    onLogOutAction: { action: "logout clicked" },
   },
 };
 

@@ -4,13 +4,12 @@ import { LIMITS } from "constants/limits";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdatePostMutation } from "store/services/posts/postsApi";
+import { useUpdatePostMutation } from "store/services/api/posts/postsApi";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { useState } from "react";
 import { CloseModal } from "./closeModal";
 
-// TODO make photoPreview required
 type Props = {
   isOpen: boolean;
   avatar: string;

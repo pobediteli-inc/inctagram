@@ -7,7 +7,7 @@ type ScrollProps = {
   children: ReactNode;
 };
 
-const Scroll: React.FC<ScrollProps> = ({ children }) => {
+export const Scroll: React.FC<ScrollProps> = ({ children }) => {
   return (
     <ScrollArea.Root className={styles.scrollRoot}>
       <ScrollArea.Viewport className={styles.scrollViewport}>{children}</ScrollArea.Viewport>
@@ -24,5 +24,3 @@ const Scroll: React.FC<ScrollProps> = ({ children }) => {
     </ScrollArea.Root>
   );
 };
-
-export default Scroll;

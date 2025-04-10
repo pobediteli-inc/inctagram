@@ -5,7 +5,7 @@ import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
 import { Typography } from "../typography/typography";
 import { NullableProps } from "common/types";
-import { useLogOutMutation } from "store/services/auth";
+import { useLogOutMutation } from "store/services/api/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "common/components/button/button";
 import { handleErrors } from "common/utils/handleErrors";

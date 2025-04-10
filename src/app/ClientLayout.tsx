@@ -5,15 +5,11 @@ import { Header, ProgressBar, Sidebar } from "common/components";
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
-import { selectStatus, setStatus } from "features/slices/status/statusSlice";
+import { selectStatus, setStatus } from "store/services/slices/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { selectIsLoggedIn } from "../features/slices/auth/authSlice";
+import { selectIsLoggedIn } from "store/services/slices";
 
-export default function ClientLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function ClientLayout({ children }: Readonly<{ children: ReactNode }>) {
   const { status, message } = useAppSelector(selectStatus);
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
