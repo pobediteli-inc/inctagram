@@ -10,6 +10,7 @@ import { Button, Typography } from "common/components";
 import { debounce } from "next/dist/server/utils";
 import { useMeQuery } from "store/services/api/auth";
 import { MyPost } from "app/my-profile/myPost/myPost";
+import Link from "next/link";
 
 export default function MyProfile() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -93,15 +94,15 @@ export default function MyProfile() {
                 <Typography variant={"bold_14"}>Publications</Typography>
               </div>
             </div>
-            <p className={s.bio}>
+            <Typography variant={"bold_14"} color={"light"}>
               {data?.aboutMe ??
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
                   "dolore magna aliqua."}
-              <a href="#" className={s.link}>
+              <Link href="#" className={s.link}>
                 {" "}
                 More
-              </a>
-            </p>
+              </Link>
+            </Typography>
           </div>
         </div>
       </section>

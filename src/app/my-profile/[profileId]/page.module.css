@@ -1,7 +1,4 @@
-/* Page.module.css */
-
 .container {
-    /*min-height: 100vh;*/
     background-color: var(--dark-900);
     color: var(--light-100);
 }
@@ -49,7 +46,6 @@
 
 .bio {
     margin-top: 0.5rem;
-    color: var(--light-100);
 }
 
 .link {
