@@ -5,6 +5,7 @@
   align-items: center;
   color: var(--light-100);
   padding: 24px;
+  background-color: var(--dark-500) !important;
 }
 
 .authHeader {
