@@ -83,18 +83,18 @@ export default function MyProfile() {
             <div className={s.stats}>
               <div>
                 <Typography variant={"bold_14"}>{data?.followingCount}</Typography>
-                <Typography variant={"bold_14"}>Following</Typography>
+                <Typography variant={"regular_14"}>Following</Typography>
               </div>
               <div>
                 <Typography variant={"bold_14"}>{data?.followersCount}</Typography>
-                <Typography variant={"bold_14"}>Followers</Typography>
+                <Typography variant={"regular_14"}>Followers</Typography>
               </div>
               <div>
                 <Typography variant={"bold_14"}>{data?.publicationsCount}</Typography>
-                <Typography variant={"bold_14"}>Publications</Typography>
+                <Typography variant={"regular_14"}>Publications</Typography>
               </div>
             </div>
-            <Typography variant={"bold_14"} color={"light"}>
+            <Typography variant={"regular_16"} color={"light"}>
               {data?.aboutMe ??
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
                   "dolore magna aliqua."}
@@ -124,7 +124,7 @@ export default function MyProfile() {
             </div>
           ))
         ) : (
-          <p>Loading photos...</p>
+          <Typography variant={"regular_16"}>Loading photos...</Typography>
         )}
       </section>
     </main>
