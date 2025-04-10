@@ -52,13 +52,7 @@ export default function Auth() {
   };
 
   const code = searchParams.get("code");
-
-  useEffect(() => {
-    if (code) {
-      handleGoogleLogin(code);
-    }
-  }, [code]);
-
+  
   const handleGoogleLogin = async (code: string) => {
     try {
       const response = await loginGoogle({ code }).unwrap();
@@ -80,6 +74,11 @@ export default function Auth() {
     );
   const handleAuthViaGithub = () => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`);
 
+  useEffect(() => {
+    if (code) {
+      handleGoogleLogin(code);
+    }
+  }, [code]);
 
   return (
     <Card className={s.authWrapper}>
