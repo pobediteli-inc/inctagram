@@ -1,7 +1,6 @@
 import { BaseQueryApi, createApi, FetchArgs, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import process from "process";
-import { AccessResponse } from "store/services/auth";
-import {logOut} from "features/slices/auth/authSlice";
+import { AccessResponse } from "store/services/api/auth";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -39,7 +38,10 @@ export const baseQueryUpdateToken = async (args: string | FetchArgs, api: BaseQu
     if (refreshToken.data && (refreshToken.data as AccessResponse).accessToken) {
       localStorage.setItem("accessToken", (refreshToken.data as AccessResponse).accessToken);
       response = await baseQuery(args, api, extraOptions);
-    } else api.dispatch(logOut());
+    } else {
+      const { authApi } = await import("store/services/api/auth/authApi");
+      await api.dispatch(authApi.endpoints.logOut.initiate());
+    }
   }
 
   return response;

@@ -11,8 +11,8 @@ import {
   ResendPasswordRecoveryArgs,
   SocialAuthRequest,
   SocialAuthResponse,
-} from "./authApi.types";
-import { baseApi } from "store/services/baseApi/baseApi";
+} from "store/services/api/auth/authApi.types";
+import { baseApi } from "store/services/api/baseApi/baseApi";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

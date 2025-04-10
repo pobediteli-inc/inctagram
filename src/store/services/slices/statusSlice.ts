@@ -1,8 +1,8 @@
 import { createSlice, isPending, isFulfilled, isRejected } from "@reduxjs/toolkit";
-import { MessageStatus, NullableProps } from "common/types";
+import { MessageStatusProps, NullableProps } from "common/types";
 
 export type StatusProps = {
-  status: NullableProps<MessageStatus>;
+  status: NullableProps<MessageStatusProps>;
   message: NullableProps<string>;
 };
 

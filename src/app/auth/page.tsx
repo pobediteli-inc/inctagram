@@ -7,17 +7,18 @@ import { useEffect, useState } from "react";
 import { SignUpForm } from "common/components/forms";
 import {
   RegistrationArgs,
-  RegistrationServerError, useAuthViaGoogleMutation,
+  RegistrationServerError,
+  useAuthViaGoogleMutation,
   useMeQuery,
   useRegisterUserMutation,
-} from "store/services/auth";
+} from "store/services/api/auth";
 import { EmailSentPopup } from "./emailSentPopup/emailSentPopup";
 import { NullableProps } from "common/types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { setLoggedIn } from "../../features/slices/auth/authSlice";
-import { useAppDispatch } from "../../common/hooks/useAppDispatch";
-import { handleErrors } from "../../common/utils/handleErrors";
-import { Github, Google } from "../../assets/icons";
+import { setLoggedIn } from "store/services/slices/authSlice";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { handleErrors } from "common/utils/handleErrors";
+import { Github, Google } from "assets/icons";
 
 export type SignUpApiError = {
   message: string;
@@ -35,7 +36,6 @@ export default function Auth() {
   const { refetch } = useMeQuery();
   const dispatch = useAppDispatch();
 
-
   const submitHandler = async (data: RegistrationArgs, resetForm: () => void) => {
     try {
       await signUp(data).unwrap();
@@ -52,13 +52,7 @@ export default function Auth() {
   };
 
   const code = searchParams.get("code");
-
-  useEffect(() => {
-    if (code) {
-      handleGoogleLogin(code);
-    }
-  }, [code]);
-
+  
   const handleGoogleLogin = async (code: string) => {
     try {
       const response = await loginGoogle({ code }).unwrap();
@@ -80,6 +74,11 @@ export default function Auth() {
     );
   const handleAuthViaGithub = () => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`);
 
+  useEffect(() => {
+    if (code) {
+      handleGoogleLogin(code);
+    }
+  }, [code]);
 
   return (
     <Card className={s.authWrapper}>

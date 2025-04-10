@@ -1,6 +1,6 @@
 import "app/globals.css";
 import { Meta, StoryObj } from "@storybook/react";
-import Scroll from "./scroll";
+import { Scroll } from "./scroll";
 
 const meta: Meta<typeof Scroll> = {
   title: "Components/Scroll",

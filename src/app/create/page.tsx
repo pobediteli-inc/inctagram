@@ -3,15 +3,13 @@
 import s from "./createPage.module.css";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Card, Typography } from "../../common/components";
-import { Close, ImageOutline } from "../../assets/icons";
+import { Button, Card, Textarea, Toast, Typography } from "common/components";
+import { Close, ImageOutline } from "assets/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import { useCreatePostMutation, useUploadImagePostMutation } from "../../store/services/posts/postsApi";
 import "swiper/css";
-import { Textarea } from "../../common/components/textarea/textarea";
-import { Toast } from "../../common/components/toast/toast";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
+import { useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);

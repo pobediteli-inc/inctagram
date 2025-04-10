@@ -1,4 +1,4 @@
-import Sidebar from "./sidebar";
+import { Sidebar } from "./sidebar";
 import "app/globals.css";
 import { Meta, StoryObj } from "@storybook/react";
 
