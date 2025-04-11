@@ -11,17 +11,19 @@ export const TotalUsersCount = () => {
   const totalCountString = totalCount.toString().padStart(6, "0");
   const totalUsers = totalCountString.split("").map((digit, index) => (
     <Fragment key={`${index}-${digit}`}>
-      <span>{digit}</span>
-      {index < totalCountString.length - 1 && <span className={s.separator} />}
+      <Typography variant={"h2"} color={"light"}>
+        {digit}
+      </Typography>
+      {index < totalCountString.length - 1 && <Typography className={s.separator} />}
     </Fragment>
   ));
 
   return (
-    <Typography variant={"h2"} color={"light"}>
-      <div className={s.mainWrapper}>
-        <div>Registered users:</div>
-        <div className={s.totalUser}>{totalUsers}</div>
-      </div>
-    </Typography>
+    <div className={s.mainWrapper}>
+      <Typography variant={"h2"} color={"light"}>
+        Registered users:
+      </Typography>
+      <div className={s.totalUser}>{totalUsers}</div>
+    </div>
   );
 };
