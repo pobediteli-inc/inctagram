@@ -36,9 +36,9 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
       <Card className={s.card}>
         <div className={s.popUpHeader}>
           <Typography variant={"h1"} color={"light"}>Close</Typography>
-          <button className={s.closeBtn} onClick={close}>
+          <Button className={s.closeBtn} onClick={close}>
             <Close width={24} height={24} />
-          </button>
+          </Button>
         </div>
         <div className={s.popUpMessage}>
           <Typography variant={"regular_16"} color={"light"}>

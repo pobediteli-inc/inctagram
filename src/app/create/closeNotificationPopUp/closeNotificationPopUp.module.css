@@ -13,6 +13,7 @@
 
 .card {
   max-width: 378px;
+  background-color: var(--dark-300);
 }
 
 .popUpHeader {
