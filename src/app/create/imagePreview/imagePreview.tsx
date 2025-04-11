@@ -4,6 +4,7 @@ import Image from "next/image";
 import s from "./imagePreview.module.css";
 import "swiper/css";
 import { Close, ImageOutline } from "assets/icons";
+import { Button } from "../../../common/components";
 
 type ImagePreviewProps = {
   previewUrls: string[];
@@ -20,10 +21,8 @@ export const ImagePreview = ({
 }: ImagePreviewProps) => {
   if (previewUrls.length === 0) {
     return (
-      <div className={s.previewContainerEmpty}>
-        <div className={s.imageEmpty}>
-          <ImageOutline width={48} height={48} />
-        </div>
+      <div className={s.imageEmpty}>
+        <ImageOutline width={48} height={48} />
       </div>
     );
   }
@@ -51,9 +50,9 @@ export const ImagePreview = ({
                   height={100}
                   onClick={() => setMainImageIndex(index)}
                 />
-                <button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
+                <Button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
                   <Close width={12} height={12} />
-                </button>
+                </Button>
               </div>
             </SwiperSlide>
           ))}

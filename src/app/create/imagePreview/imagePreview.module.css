@@ -14,8 +14,7 @@
   position: absolute;
   top: -24%;
   left: 50%;
-  min-width: 450px;
-  max-width: 450px;
+  width: 450px;
   padding: 10px 0;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -41,8 +40,9 @@
 }
 
 .removeBtn {
+  all: unset;
   position: absolute;
-  top: 16px;
+  top: 10px;
   left: 80px;
   display: flex;
   justify-content: center;
@@ -51,14 +51,6 @@
   color: var(--light-100);
   border: none;
   cursor: pointer;
-}
-
-.previewContainerEmpty {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
 }
 
 .imageEmpty {

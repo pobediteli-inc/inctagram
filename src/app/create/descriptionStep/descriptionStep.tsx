@@ -26,9 +26,9 @@ export const DescriptionStep = ({
         <Typography variant="h2" color="light">
           Publication
         </Typography>
-        <button className={s.closeBtn} onClick={onCloseHandler}>
+        <Button className={s.closeBtn} onClick={onCloseHandler}>
           <Close width={24} height={24} />
-        </button>
+        </Button>
       </div>
 
       <div className={s.descriptionField}>

@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./uploadStep.module.css";
-import { Typography } from "common/components";
+import { Button, Typography } from "common/components";
 import { Close } from "assets/icons";
 import { ImagePreview } from "../imagePreview/imagePreview";
 import { ImageSelector } from "../imageSelector/ImageSelector";
@@ -35,9 +35,9 @@ export const UploadStep = ({
           <Typography variant="h2" color="light">
             {hasImages ? "Edit Photos" : "Add Photos"}
           </Typography>
-          <button className={s.closeBtn} onClick={onCloseHandler}>
+          <Button className={s.closeBtn} onClick={onCloseHandler}>
             <Close width={24} height={24} />
-          </button>
+          </Button>
         </div>
 
         <ImagePreview
