@@ -33,6 +33,12 @@ export default function MyProfile() {
   }, [postsWithMeta, isFetching]);
 
   useEffect(() => {
+    return () => {
+      setAllPosts([]);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 50) {
         if (!isFetching) {
