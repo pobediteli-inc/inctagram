@@ -22,7 +22,6 @@
 }
 
 .separator {
-  display: block;
   width: 1px;
   height: 30px;
   background-color: var(--dark-300);
