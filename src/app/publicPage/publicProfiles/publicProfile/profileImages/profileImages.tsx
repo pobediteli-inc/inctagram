@@ -60,6 +60,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
         alt={images[imageIndex].uploadId}
         width={images[imageIndex].width}
         height={images[imageIndex].height}
+        priority
       />
       {images && images?.length > 1 && (
         <>
@@ -69,7 +70,6 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
             {visibleButtons.map((_, index) => (
               <Button
                 key={visibleButtonIndex + index}
-                variant={"primary"}
                 className={clsx(s.whiteDot, { [s.blueDot]: imageIndex === visibleButtonIndex + index })}
                 onClick={() => handlePaginationButton(visibleButtonIndex + index)}
               ></Button>
