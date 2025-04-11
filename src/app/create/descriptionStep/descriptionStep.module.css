@@ -5,7 +5,8 @@
   justify-content: space-between;
   min-height: 564px;
   flex-wrap: wrap;
-  background-color: var(--dark-300)
+  background-color: var(--dark-300);
+  max-width: 500px;
 }
 
 .popUpHeader {

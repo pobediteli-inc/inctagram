@@ -3,7 +3,7 @@ import s from "./imageSelector.module.css";
 import { Button } from "common/components/button/button";
 
 type ImageSelectorProps = {
-  fileInputRef: React.RefObject<HTMLInputElement>;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
   setShowForm: (value: boolean) => void;
 };
 
