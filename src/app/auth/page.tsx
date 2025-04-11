@@ -52,7 +52,7 @@ export default function Auth() {
   };
 
   const code = searchParams.get("code");
-  
+
   const handleGoogleLogin = async (code: string) => {
     try {
       const response = await loginGoogle({ code }).unwrap();
@@ -78,7 +78,7 @@ export default function Auth() {
     if (code) {
       handleGoogleLogin(code);
     }
-  }, [code]);
+  }, [code, handleGoogleLogin]);
 
   return (
     <Card className={s.authWrapper}>
@@ -87,8 +87,8 @@ export default function Auth() {
       </Typography>
 
       <div className={s.socialIcons}>
-        <Google width={36} height={36} color={"white"} onClick={handleAuthViaGoogle} />
-        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} />
+        <Google width={36} height={36} color={"white"} onClick={handleAuthViaGoogle} style={{ cursor: "pointer" }} />
+        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} style={{ cursor: "pointer" }} />
       </div>
 
       <SignUpForm onSubmit={submitHandler} apiError={apiError} />

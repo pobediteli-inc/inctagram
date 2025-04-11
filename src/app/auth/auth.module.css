@@ -17,16 +17,6 @@
   align-items: center;
   gap: 60px;
   margin-bottom: 24px;
-
-  & button {
-    min-width: 60px;
-    cursor: pointer;
-  }
-
-  & a {
-    min-width: 60px;
-    cursor: pointer;
-  }
 }
 
 .isAccount {
