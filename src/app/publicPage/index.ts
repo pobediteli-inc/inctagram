@@ -1,3 +1,5 @@
+export * from "./page";
+export * from "./publicPage.module.css";
 export * from "./publicProfiles/publicProfiles";
 export * from "./publicProfiles/publicProfiles.module.css";
 export * from "./publicProfiles/publicProfile/publicProfile";
@@ -6,5 +8,5 @@ export * from "./publicProfiles/publicProfile/profileImages/profileImages";
 export * from "./publicProfiles/publicProfile/profileImages/ProfileImages.module.css";
 export * from "./publicProfiles/publicProfile/createdDate/createdDate";
 export * from "./publicProfiles/publicProfile/createdDate/createdDate.module.css";
-export * from "./publicProfiles/publicProfile/description/description"
-export * from "./publicProfiles/publicProfile/description/description.module.css"
+export * from "./publicProfiles/publicProfile/description/description";
+export * from "./publicProfiles/publicProfile/description/description.module.css";
