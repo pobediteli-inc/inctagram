@@ -9,11 +9,19 @@ import { Avatar, Button, Typography } from "common/components";
 import { useMeQuery } from "store/services/api/auth";
 import { MyPost } from "app/my-profile/myPost/myPost";
 import Link from "next/link";
+import { Post } from "store/services/api/posts";
 
 export default function MyProfile() {
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
   const pageSize = 8;
+
+  useEffect(() => {
+    if (page === 1) {
+      setPosts([]);
+    }
+  }, [page]);
 
   const [openPostId, setOpenPostId] = useState<number | null>(null);
 
@@ -30,13 +38,18 @@ export default function MyProfile() {
     pageNumber: page,
   });
 
-  const posts = postsWithMeta?.items ?? [];
+  useEffect(() => {
+    if (postsWithMeta?.items) {
+      setPosts((prevPosts) => [...prevPosts, ...postsWithMeta.items]); // Добавляем новые посты
+    }
+  }, [postsWithMeta]);
+
   const totalCount = postsWithMeta?.totalCount ?? 0;
   const hasMore = posts.length < totalCount;
 
   useEffect(() => {
     const target = observerRef.current;
-    if (!target || !hasMore) return;
+    if (!target || !hasMore || isFetching) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
