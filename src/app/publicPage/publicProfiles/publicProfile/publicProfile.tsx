@@ -35,6 +35,7 @@ export const PublicProfile: FC<Props> = ({ data }) => {
           alt={item.userName}
           width={36}
           height={36}
+          priority
         />
         <Button variant={"link"} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
           <Typography variant={"h3"} color={"light"} textAlign={"center"}>
