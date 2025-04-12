@@ -47,7 +47,6 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
               <Image
                 src={post.images[currentImage]?.url || defaultAvatar}
                 alt="Post Image"
-                objectFit="cover"
                 width={post.images[currentImage]?.width}
                 height={post.images[currentImage]?.height}
                 className={post.images ? s.image : s.defaultImage}
@@ -82,8 +81,8 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                     <Image
                       src={post.avatarOwner || defaultAvatar}
                       alt="Post Creator Avatar"
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      sizes="36px"
                       className={post.avatarOwner ? s.avatar : s.defaultAvatar}
                     />
                   </div>
@@ -99,8 +98,8 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                       <Image
                         src={post.avatarOwner || defaultAvatar}
                         alt="Post Description Avatar"
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        sizes="36px"
                         className={post.avatarOwner ? s.avatar : s.defaultAvatar}
                       />
                     </div>
@@ -121,8 +120,8 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                           <Image
                             src={comment.from.avatars[0]?.url || defaultAvatar}
                             alt="User Comment Avatar"
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            sizes="36px"
                             className={comment.from.avatars[0] ? s.avatar : s.defaultAvatar}
                           />
                         </div>
@@ -140,7 +139,6 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                                 alt="Line Of Answers"
                                 width={24}
                                 height={1}
-                                objectFit="cover"
                                 className={s.answerLine}
                               />
                               <Typography variant={"bold_small"} color={"dark"}>
@@ -165,7 +163,6 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                           <Image
                             src={defaultAvatar}
                             alt="User Avatar"
-                            objectFit="cover"
                             width={24}
                             height={24}
                             className={s.defaultFirstLikeAvatar}
@@ -175,7 +172,6 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                           <Image
                             src={defaultAvatar}
                             alt="User Avatar"
-                            objectFit="cover"
                             width={24}
                             height={24}
                             className={s.defaultSecondLikeAvatar}
@@ -185,7 +181,6 @@ export default function ModalPost({ post, comments }: { post: Post; comments?: C
                           <Image
                             src={defaultAvatar}
                             alt="User Avatar"
-                            objectFit="cover"
                             width={24}
                             height={24}
                             className={s.defaultThirdLikeAvatar}
