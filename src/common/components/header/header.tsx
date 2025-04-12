@@ -16,7 +16,7 @@ import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 
 export const Header: FC = () => {
-  const { data, isError, isLoading } = useMeQuery();
+  const { data, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,7 @@ export const Header: FC = () => {
       handleErrors(error, dispatch);
       dispatch(setLoggedIn({ isLoggedIn: false }));
     }
-  }, [data, isLoggedIn, isError, dispatch]);
+  }, [data, isLoggedIn, dispatch]);
 
   return (
     <header className={s.headerWrapper}>
