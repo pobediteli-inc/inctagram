@@ -3,22 +3,27 @@
 import s from "./publicProfile.module.css";
 import { FC, Fragment, useState } from "react";
 import { AllPublicPostsResponse } from "store/services/api/publicPosts";
-import { Typography } from "common/components";
+import { Button, Typography } from "common/components";
 import { ProfileImages } from "app/publicPage/publicProfiles/publicProfile/profileImages/profileImages";
 import { CreatedDate } from "app/publicPage/publicProfiles/publicProfile/createdDate/createdDate";
 import Image from "next/image";
 import { Description } from "./description/description";
+import { useRouter } from "next/navigation";
 
 export const PublicProfile: FC<Props> = ({ data }) => {
   const { items } = data ?? {};
 
   const [isImageCollapsed, setIsImageCollapsed] = useState<Record<number, boolean>>({});
+  const router = useRouter();
 
   const handleShowMore = (id: number, isExpanded: boolean) =>
     setIsImageCollapsed((prevState) => ({
       ...prevState,
       [id]: isExpanded,
     }));
+  const handleUserProfile = (ownerId: number) => {
+    router.push(`public-user/${ownerId}`);
+  };
 
   const getItems = items?.map((item, index) => (
     <div key={`${index}-${item.id}`} className={s.mainWrapper}>
@@ -31,9 +36,11 @@ export const PublicProfile: FC<Props> = ({ data }) => {
           width={36}
           height={36}
         />
-        <Typography variant={"h3"} color={"light"} textAlign={"center"}>
-          {item.userName}
-        </Typography>
+        <Button variant={"link"} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
+          <Typography variant={"h3"} color={"light"} textAlign={"center"}>
+            {item.userName}
+          </Typography>
+        </Button>
       </div>
       <CreatedDate createdAt={item.createdAt} />
       <Description

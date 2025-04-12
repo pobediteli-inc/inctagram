@@ -1,11 +1,17 @@
-"use client";
 import s from "./totalUsersCount.module.css";
 import { Typography } from "common/components";
-import { useGetPublicUsersCountQuery } from "store/services/api/publicUser";
 import { Fragment } from "react";
+import { AllPublicPostsResponse } from "store/services/api/publicPosts";
 
-export const TotalUsersCount = () => {
-  const { data } = useGetPublicUsersCountQuery();
+export const TotalUsersCount = async () => {
+  const data = await getTotalUsersCount();
+
+  if (!data)
+    return (
+      <Typography variant={"h3"} color={"light"} asChild>
+        <span>No data available</span>
+      </Typography>
+    );
 
   const totalCount = data?.totalCount || 0;
   const totalCountString = totalCount.toString().padStart(6, "0");
@@ -26,4 +32,17 @@ export const TotalUsersCount = () => {
       <div className={s.totalUser}>{totalUsers}</div>
     </div>
   );
+};
+
+const getTotalUsersCount = async (): Promise<AllPublicPostsResponse | undefined> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-user`, {
+      method: "GET",
+      cache: "no-cache",
+    });
+
+    return await response.json();
+  } catch {
+    return undefined;
+  }
 };

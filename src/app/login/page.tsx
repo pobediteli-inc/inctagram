@@ -59,8 +59,8 @@ export default function Login() {
         Sign In
       </Typography>
       <div className={s.socialIcons}>
-        <Google width={36} height={36} color={"white"} onClick={handleAuthViaGoogle} />
-        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} />
+        <Google width={36} height={36} color={"white"} onClick={handleAuthViaGoogle} style={{ cursor: "pointer" }} />
+        <Github width={36} height={36} color={"white"} onClick={handleAuthViaGithub} style={{ cursor: "pointer" }} />
       </div>
       <div className={s.mainContent}>
         <form onSubmit={handleSubmit(handleFormSubmit)}>

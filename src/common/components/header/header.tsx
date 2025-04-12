@@ -1,4 +1,5 @@
 "use client";
+
 import { FC, useEffect } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
@@ -13,16 +14,12 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
-import { useRouter, useSearchParams } from "next/navigation";
 
 export const Header: FC = () => {
-  const { data, isError, isLoading, refetch } = useMeQuery();
+  const { data, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  const params = useSearchParams();
 
-  const accessToken = params.get("accessToken");
   const { email } = data ?? {};
 
   const selectLanguages: SelectItemsProps[] = [
@@ -37,28 +34,13 @@ export const Header: FC = () => {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      try {
-        localStorage.setItem("accessToken", accessToken);
-        dispatch(setLoggedIn({ isLoggedIn: true }));
-        dispatch(authApi.util.resetApiState());
-        refetch();
-        router.push("/home");
-      } catch (error: unknown) {
-        handleErrors(error, dispatch);
-        dispatch(setLoggedIn({ isLoggedIn: false }));
-      }
-    }
-  }, [accessToken, dispatch, refetch, router]);
-
-  useEffect(() => {
     try {
       if (data) dispatch(setLoggedIn({ isLoggedIn: true }));
     } catch (error: unknown) {
       handleErrors(error, dispatch);
       dispatch(setLoggedIn({ isLoggedIn: false }));
     }
-  }, [data, isLoggedIn, isError, dispatch]);
+  }, [data, isLoggedIn, dispatch]);
 
   return (
     <header className={s.headerWrapper}>

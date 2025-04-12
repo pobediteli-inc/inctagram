@@ -6,12 +6,13 @@ import { FC, useState } from "react";
 import Image from "next/image";
 import ArrowIosBackOutline from "assets/icons/ArrowIosBackOutline";
 import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
-import { Button, Typography } from "common/components";
+import { Typography } from "common/components";
 import clsx from "clsx";
 
 export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
   const [imageIndex, setImageIndex] = useState<number>(0);
   const [visibleButtonIndex, setVisibleButtonIndex] = useState<number>(0);
+
   const MAX_BUTTONS = 5;
 
   if (!images || images.length === 0)
@@ -60,6 +61,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
         alt={images[imageIndex].uploadId}
         width={images[imageIndex].width}
         height={images[imageIndex].height}
+        priority
       />
       {images && images?.length > 1 && (
         <>
@@ -67,12 +69,11 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
           <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} />
           <div className={s.pagination}>
             {visibleButtons.map((_, index) => (
-              <Button
+              <div
                 key={visibleButtonIndex + index}
-                variant={"primary"}
                 className={clsx(s.whiteDot, { [s.blueDot]: imageIndex === visibleButtonIndex + index })}
                 onClick={() => handlePaginationButton(visibleButtonIndex + index)}
-              ></Button>
+              ></div>
             ))}
           </div>
         </>

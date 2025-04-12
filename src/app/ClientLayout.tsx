@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Header, ProgressBar, Sidebar } from "common/components";
+import { GithubOAuth, GoogleOAuth, Header, ProgressBar, Sidebar } from "common/components";
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
@@ -18,6 +18,8 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
 
   return (
     <>
+      <GoogleOAuth redirect={"/home"} />
+      <GithubOAuth redirect={"/home"} />
       <Header />
       {status === "loading" && (
         <div className={s.progressBar}>
