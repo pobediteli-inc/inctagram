@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function MyProfile() {
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
-  const pageSize = 10;
+  const pageSize = 8;
 
   const [openPostId, setOpenPostId] = useState<number | null>(null);
 
