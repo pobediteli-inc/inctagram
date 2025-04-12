@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { FC, useEffect } from "react";
-import { setLoggedIn } from "store/services/slices";
+import { setLoggedIn, setStatus } from "store/services/slices";
 import { authApi, useMeQuery } from "store/services/api/auth";
 import { handleErrors } from "common/utils";
 import { useAppDispatch } from "common/hooks";
@@ -23,6 +23,7 @@ export const GithubOAuth: FC<Props> = ({ redirect }) => {
         dispatch(authApi.util.resetApiState());
         refetch();
         router.push(redirect);
+        dispatch(setStatus({ status: "success", message: "Successfully logged in via github account." }));
       } catch (error) {
         handleErrors(error, dispatch);
         dispatch(setLoggedIn({ isLoggedIn: false }));
