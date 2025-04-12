@@ -58,7 +58,7 @@ export default function MyProfile() {
     <main className={s.main}>
       <section className={s.profileSection}>
         <div className={s.avatarWrapper}>
-          <Avatar src={data?.avatars[0]?.url ?? "/icons/svg/person.svg"} size={"large"} className={s.avatar} />
+          <Avatar src={data?.avatars[0]?.url} size={"large"} className={s.avatar} />
         </div>
 
         <div>
