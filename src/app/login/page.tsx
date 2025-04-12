@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
+import { setStatus } from "store/services/slices";
 
 export default function Login() {
   const [login] = useLoginMutation();
@@ -40,10 +41,12 @@ export default function Login() {
         dispatch(setLoggedIn({ isLoggedIn: true }));
         await refetch();
         router.push("/home");
+        dispatch(setStatus({ status: "success", message: "Successfully logged in." }));
       }
     } catch (error: unknown) {
       handleErrors(error, dispatch, setError);
       dispatch(setLoggedIn({ isLoggedIn: false }));
+      dispatch(setStatus({ status: "error", message: "Login failed. Please try again." }));
     }
   };
 
