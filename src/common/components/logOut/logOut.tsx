@@ -27,7 +27,7 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
       onLogOutAction();
       setShowModal(false);
       toggleModal();
-      router.push("/login");
+      router.push("/publicPage");
     } catch (error: unknown) {
       handleErrors(error, dispatch);
     }
