@@ -1,9 +1,9 @@
 import { Typography } from "common/components";
 import s from "./page.module.css";
 import Image from "next/image";
-import { Avatar } from "store/services/publicUserApi/publicUserApi.types";
 import defaultAvatar from "public/icons/svg/person.svg";
-import ModalPost from "./modalPost";
+import ModalPost from "./modalPost/modalPost";
+import PublicProfilePostsGrid from "./postsGrid/postsGrid";
 
 async function getProfile(profileId: string) {
   try {
@@ -12,7 +12,19 @@ async function getProfile(profileId: string) {
     });
     if (!response.ok) return null;
     return response.json();
-  } catch (error) {
+  } catch {
+    return null;
+  }
+}
+
+async function getPosts(profileId: string, endCursorPostId?: number) {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/user/${profileId}/${endCursorPostId}`, {
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+    return response.json();
+  } catch {
     return null;
   }
 }
@@ -24,7 +36,7 @@ async function getPost(postId: string) {
     });
     if (!response.ok) return null;
     return response.json();
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -36,7 +48,7 @@ async function getPostComments(postId: string) {
     });
     if (!response.ok) return null;
     return response.json();
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -49,9 +61,6 @@ export default async function UserProfilePage({
   searchParams: { postId?: string };
 }) {
   const profile = await getProfile(params.profileId);
-  const { userName, userMetadata, avatars, aboutMe } = profile;
-  const post = searchParams.postId ? await getPost(searchParams.postId) : null;
-  const comments = searchParams.postId ? await getPostComments(searchParams.postId) : null;
 
   if (!profile)
     return (
@@ -59,6 +68,11 @@ export default async function UserProfilePage({
         Profile not found
       </Typography>
     );
+    
+  const { userName, userMetadata, avatars, aboutMe } = profile;
+  const posts = await getPosts(params.profileId)
+  const post = searchParams.postId ? await getPost(searchParams.postId) : null;
+  const comments = searchParams.postId ? await getPostComments(searchParams.postId) : null;
 
   return (
     <div className={s.container}>
@@ -67,8 +81,8 @@ export default async function UserProfilePage({
           <Image
             src={avatars.length !== 0 ? avatars[0].url : defaultAvatar}
             alt="Profile Avatar"
-            layout="fill"
-            objectFit="cover"
+            fill
+            sizes="204px"
             className={avatars.length !== 0 ? s.avatar : s.defaultAvatar}
           />
         </div>
@@ -93,22 +107,7 @@ export default async function UserProfilePage({
           </Typography>
         </div>
       </div>
-      <div className={s.grid}>
-        {avatars?.length
-          ? avatars.map((avatar: Avatar) => (
-              <div key={avatar.url} className={s.post}>
-                <Image
-                  src={avatar.url}
-                  width={avatar.width}
-                  height={avatar.height}
-                  alt="Profile Post"
-                  objectFit="cover"
-                  className={s.image}
-                />
-              </div>
-            ))
-          : null}
-      </div>
+      <PublicProfilePostsGrid posts={posts}/>
       {post && <ModalPost post={post} comments={comments} />}
     </div>
   );
