@@ -18,12 +18,20 @@ export const postsApi = baseApi.injectEndpoints({
         method: "PUT",
         body: { description },
       }),
+      invalidatesTags: (result, error, { postId }) => [
+        { type: "Posts", id: postId },
+        { type: "Posts", id: "LIST" },
+      ],
     }),
     deletePost: build.mutation<void, DeletePostArgs>({
       query: ({ postId }) => ({
         url: `posts/${postId}`,
         method: "DELETE",
       }),
+      invalidatesTags: (result, error, postId) => [
+        { type: "Posts", id: String(postId) },
+        { type: "Posts", id: "LIST" },
+      ],
     }),
     createPost: build.mutation<{ postId: string }, CreatePostArgs>({
       query: ({ description, childrenMetadata }) => ({
@@ -31,6 +39,7 @@ export const postsApi = baseApi.injectEndpoints({
         method: "POST",
         body: { description, childrenMetadata },
       }),
+      invalidatesTags: () => [{ type: "Posts", id: "LIST" }],
     }),
     uploadImagePost: build.mutation<UploadImageResponse, UploadImageArgs>({
       query: ({ files }) => {
@@ -55,11 +64,16 @@ export const postsApi = baseApi.injectEndpoints({
     }),
     getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number; pageNumber: number }>({
       query: ({ userName, pageSize, pageNumber }) => ({
-        url: `posts/${userName}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
-        method: "GET",
+        url: `/posts/${userName}`,
+        params: { pageSize, pageNumber },
       }),
+      providesTags: (result) =>
+        result
+          ? [...result.items.map(({ id }) => ({ type: "Posts" as const, id })), { type: "Posts", id: "LIST" }]
+          : [{ type: "Posts", id: "LIST" }],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

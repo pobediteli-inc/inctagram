@@ -18,6 +18,7 @@ type Props = {
   photoPreview?: string;
   postId: number;
   handleClose: () => void;
+  handleUpdate: (postId: number, description: string) => void;
 };
 
 const updateDescriptionSchema = z.object({
@@ -26,7 +27,7 @@ const updateDescriptionSchema = z.object({
 
 type UpdateDescriptionFormValues = z.infer<typeof updateDescriptionSchema>;
 
-export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, handleClose }: Props) => {
+export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, handleClose, handleUpdate }: Props) => {
   const [updatePost] = useUpdatePostMutation();
   const dispatch = useAppDispatch();
   const [closeModalIsOpen, setCloseModalIsOpen] = useState(false);
@@ -38,6 +39,7 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
     handleClose();
     try {
       await updatePost({ description: data.description || "", postId });
+      handleUpdate(postId, data.description);
       handleClose();
     } catch (e) {
       handleErrors(e, dispatch);

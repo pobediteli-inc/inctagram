@@ -4,77 +4,88 @@ import s from "./page.module.css";
 import Image from "next/image";
 import { useGetProfileByUserNameQuery } from "store/services/api/profile/profileApi";
 import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
-import { useEffect, useState } from "react";
-import { Post } from "store/services/api/posts/postsApi.types";
-import { Button, Typography } from "common/components";
-import { debounce } from "next/dist/server/utils";
+import { useEffect, useRef, useState } from "react";
+import { Avatar, Button, Typography } from "common/components";
 import { useMeQuery } from "store/services/api/auth";
 import { MyPost } from "app/my-profile/myPost/myPost";
 import Link from "next/link";
+import { Post } from "store/services/api/posts";
 
 export default function MyProfile() {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [postIsOpen, setPostIsOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const observerRef = useRef<HTMLDivElement>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const pageSize = 8;
+
+  useEffect(() => {
+    if (page === 1) {
+      setPosts([]);
+    }
+  }, [page]);
+
+  const [openPostId, setOpenPostId] = useState<number | null>(null);
+
+  const handlePostOpen = (postId: number) => {
+    setOpenPostId(postId);
+  };
 
   const { data: meData } = useMeQuery();
   const { data } = useGetProfileByUserNameQuery({ userName: meData?.userName as string });
 
   const { data: postsWithMeta, isFetching } = useGetPostsByUserNameQuery({
     userName: meData?.userName as string,
-    pageSize: 8,
-    pageNumber,
+    pageSize,
+    pageNumber: page,
   });
 
   useEffect(() => {
-    if (postsWithMeta?.items && !isFetching) {
-      setAllPosts((prevPosts) => [...prevPosts, ...postsWithMeta.items]);
+    if (postsWithMeta?.items) {
+      setPosts((prevPosts) => {
+        const newPosts = postsWithMeta.items;
+        const updatedPosts = prevPosts.filter((post) => !newPosts.some((newPost) => newPost.id === post.id));
+        return [...updatedPosts, ...newPosts];
+      });
     }
-  }, [postsWithMeta, isFetching]);
+  }, [postsWithMeta]);
+
+  const totalCount = postsWithMeta?.totalCount ?? 0;
+  const hasMore = posts.length < totalCount;
 
   useEffect(() => {
+    const target = observerRef.current;
+    if (!target || !hasMore || isFetching) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isFetching) {
+          setPage((prev) => prev + 1);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    observer.observe(target);
+
     return () => {
-      setAllPosts([]);
+      if (target) observer.unobserve(target);
     };
-  }, []);
+  }, [hasMore, isFetching]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 50) {
-        if (!isFetching) {
-          setPageNumber((prevPage) => prevPage + 1);
-        }
-      }
-    };
+  const handleDelete = (postId: number) => {
+    setPosts((prevState) => prevState.filter((post) => post.id !== postId));
+  };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isFetching]);
-
-  useEffect(() => {
-    const handleWheel = debounce((event: WheelEvent) => {
-      if (event.deltaY > 0) {
-        if (!isFetching) {
-          setPageNumber((prevPage) => prevPage + 1);
-        }
-      }
-    }, 300);
-
-    window.addEventListener("wheel", handleWheel);
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [isFetching]);
+  const handleUpdate = (postId: number, description: string) => {
+    setPosts((prevPosts) => {
+      return prevPosts.map((post) => (post.id === postId ? { ...post, description } : post));
+    });
+  };
 
   return (
     <main className={s.main}>
       <section className={s.profileSection}>
         <div className={s.avatarWrapper}>
-          <Image
-            src={data?.avatars[0]?.url ?? "/icons/svg/person.svg"}
-            alt="Profile Picture"
-            layout="fill"
-            objectFit="cover"
-            className={s.avatar}
-          />
+          <Avatar src={data?.avatars[0]?.url} size={"large"} className={s.avatar} />
         </div>
 
         <div>
@@ -114,10 +125,16 @@ export default function MyProfile() {
       </section>
 
       <section className={s.gallery}>
-        {allPosts.length > 0 ? (
-          allPosts.map((post) => (
+        {posts.length ? (
+          posts.map((post) => (
             <div key={`${post.id}`} className={s.imageWrapper}>
-              <MyPost post={post} isOpen={postIsOpen} setIsOpen={setPostIsOpen} />
+              <MyPost
+                post={post}
+                isOpen={openPostId === post.id}
+                handleClose={() => setOpenPostId(null)}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
+              />
               <Image
                 src={post.images[0]?.url ?? "/icons/svg/person.svg"}
                 alt={`Image of post ${post.id}`}
@@ -125,13 +142,14 @@ export default function MyProfile() {
                 height={post.images[0]?.height || 228}
                 className={s.image}
                 loading="lazy"
-                onClick={() => setPostIsOpen(true)}
+                onClick={() => handlePostOpen(post.id)}
               />
             </div>
           ))
         ) : (
           <Typography variant={"regular_16"}>Loading photos...</Typography>
         )}
+        {hasMore && <div ref={observerRef} style={{ height: "1px" }} />}
       </section>
     </main>
   );
