@@ -41,16 +41,16 @@ export type Owner = {
   lastName: string;
 };
 
-export interface CreatePostArgs {
+export type CreatePostArgs = {
   description: string;
   childrenMetadata: { uploadId: string; isMain: boolean }[];
-}
+};
 
 export type UploadImageArgs = {
   files: File[];
 };
 
-export interface UploadImageResponse {
+export type UploadImageResponse = {
   images: {
     url: string;
     width: number;
@@ -59,7 +59,7 @@ export interface UploadImageResponse {
     createdAt: string;
     uploadId: string;
   }[];
-}
+};
 
 export type PostsWithMeta = {
   pageSize: number;
