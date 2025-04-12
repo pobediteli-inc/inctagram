@@ -30,6 +30,17 @@ const nextConfig: NextConfig = {
         destination: "/publicPage",
         permanent: true,
       },
+      {
+        source: "/",
+        has: [
+          {
+            type: "query",
+            key: "accessToken",
+          },
+        ],
+        destination: "/",
+        permanent: false,
+      },
     ];
   },
 };
