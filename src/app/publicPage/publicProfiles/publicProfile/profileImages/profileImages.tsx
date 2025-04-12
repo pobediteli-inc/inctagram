@@ -65,15 +65,15 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
       />
       {images && images?.length > 1 && (
         <>
-          <ArrowIosBackOutline className={s.arrowLeft} onClick={handlePreview} />
-          <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} />
+          <ArrowIosBackOutline className={s.arrowLeft} onClick={handlePreview} width={24} height={24} />
+          <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} width={24} height={24} />
           <div className={s.pagination}>
             {visibleButtons.map((_, index) => (
               <div
                 key={visibleButtonIndex + index}
                 className={clsx(s.whiteDot, { [s.blueDot]: imageIndex === visibleButtonIndex + index })}
                 onClick={() => handlePaginationButton(visibleButtonIndex + index)}
-              ></div>
+              />
             ))}
           </div>
         </>
