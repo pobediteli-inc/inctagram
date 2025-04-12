@@ -10,9 +10,11 @@ type Props = {
   post: Post;
   isOpen: boolean;
   handleClose: () => void;
+  handleDelete: (postId: number) => void;
+  handleUpdate: (postId: number, description: string) => void;
 };
 
-export const MyPost = ({ post, isOpen, handleClose }: Props) => {
+export const MyPost = ({ post, isOpen, handleClose, handleDelete, handleUpdate }: Props) => {
   const [postIsUpdating, setPostIsUpdating] = useState(false);
   const [postIsDeleting, setPostIsDeleting] = useState(false);
   return (
@@ -47,8 +49,14 @@ export const MyPost = ({ post, isOpen, handleClose }: Props) => {
         description={post.description}
         postId={post.id}
         handleClose={() => setPostIsUpdating(false)}
+        handleUpdate={handleUpdate}
       />
-      <DeletePostModal isOpen={postIsDeleting} postId={post.id} handleClose={() => setPostIsDeleting(false)} />
+      <DeletePostModal
+        isOpen={postIsDeleting}
+        postId={post.id}
+        handleClose={() => setPostIsDeleting(false)}
+        handleDelete={handleDelete}
+      />
     </PostModal>
   );
 };

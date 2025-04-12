@@ -8,14 +8,17 @@ type Props = {
   isOpen: boolean;
   postId: number;
   handleClose: () => void;
+  handleDelete: (postId: number) => void;
 };
 
-export const DeletePostModal = ({ isOpen, handleClose, postId }: Props) => {
+export const DeletePostModal = ({ isOpen, handleClose, postId, handleDelete }: Props) => {
   const [deletePost] = useDeletePostMutation();
   const dispatch = useAppDispatch();
+
   const handleConfirm = async () => {
     try {
       await deletePost({ postId });
+      handleDelete(postId);
       handleClose();
     } catch (e) {
       handleErrors(e, dispatch);

@@ -40,7 +40,11 @@ export default function MyProfile() {
 
   useEffect(() => {
     if (postsWithMeta?.items) {
-      setPosts((prevPosts) => [...prevPosts, ...postsWithMeta.items]); // Добавляем новые посты
+      setPosts((prevPosts) => {
+        const newPosts = postsWithMeta.items;
+        const updatedPosts = prevPosts.filter((post) => !newPosts.some((newPost) => newPost.id === post.id));
+        return [...updatedPosts, ...newPosts];
+      });
     }
   }, [postsWithMeta]);
 
@@ -66,6 +70,16 @@ export default function MyProfile() {
       if (target) observer.unobserve(target);
     };
   }, [hasMore, isFetching]);
+
+  const handleDelete = (postId: number) => {
+    setPosts((prevState) => prevState.filter((post) => post.id !== postId));
+  };
+
+  const handleUpdate = (postId: number, description: string) => {
+    setPosts((prevPosts) => {
+      return prevPosts.map((post) => (post.id === postId ? { ...post, description } : post));
+    });
+  };
 
   return (
     <main className={s.main}>
@@ -114,7 +128,13 @@ export default function MyProfile() {
         {posts.length ? (
           posts.map((post) => (
             <div key={`${post.id}`} className={s.imageWrapper}>
-              <MyPost post={post} isOpen={openPostId === post.id} handleClose={() => setOpenPostId(null)} />
+              <MyPost
+                post={post}
+                isOpen={openPostId === post.id}
+                handleClose={() => setOpenPostId(null)}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
+              />
               <Image
                 src={post.images[0]?.url ?? "/icons/svg/person.svg"}
                 alt={`Image of post ${post.id}`}
