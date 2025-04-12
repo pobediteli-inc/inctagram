@@ -9,14 +9,14 @@ import { DeletePostModal } from "./deletePostModal/deletePostModal";
 type Props = {
   post: Post;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  handleClose: () => void;
 };
 
-export const MyPost = ({ post, isOpen, setIsOpen }: Props) => {
+export const MyPost = ({ post, isOpen, handleClose }: Props) => {
   const [postIsUpdating, setPostIsUpdating] = useState(false);
   const [postIsDeleting, setPostIsDeleting] = useState(false);
   return (
-    <PostModal className={s.container} open={isOpen} onClose={() => setIsOpen(false)}>
+    <PostModal className={s.container} open={isOpen} onClose={handleClose}>
       <div>photos</div>
       <div className={s.photoActionsContainer}>
         <div className={s.ownerInfo}>

@@ -22,7 +22,7 @@ export const DeletePostModal = ({ isOpen, handleClose, postId }: Props) => {
     }
   };
   return (
-    <BaseModal open={isOpen} onClose={handleClose} modalTitle={"Delete Post"}>
+    <BaseModal open={isOpen} onClose={handleClose} modalTitle={"Delete Post"} className={s.modal}>
       <div className={s.content}>
         <Typography variant={"regular_16"}>Are you sure you want to delete this post?</Typography>
         <div className={s.buttonsContainer}>

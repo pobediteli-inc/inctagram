@@ -31,13 +31,6 @@
     overflow: hidden;
 }
 
-.avatar {
-    object-fit: cover;
-    overflow: hidden;
-    border-radius: 50%;
-    outline: 1px solid var(--dark-900);
-}
-
 .stats {
     display: flex;
     gap: 2rem;

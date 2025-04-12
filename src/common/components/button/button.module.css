@@ -1,5 +1,4 @@
 .buttonBaseStyles {
-  all: unset;
   box-sizing: border-box;
   cursor: pointer;
   color: var(--light-100);

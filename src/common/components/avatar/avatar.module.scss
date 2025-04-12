@@ -1,6 +1,7 @@
 .avatar {
   object-fit: cover;
   border-radius: 50%;
+  outline: 1px solid var(--dark-900);
 
   &.small {
     width: 36px;

@@ -22,6 +22,10 @@ body {
   cursor: default;
 }
 
+button {
+  all: unset;
+}
+
 a {
   text-decoration: none;
 }

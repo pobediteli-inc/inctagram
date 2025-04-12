@@ -50,5 +50,6 @@ export const baseQueryUpdateToken = async (args: string | FetchArgs, api: BaseQu
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryUpdateToken,
+  tagTypes: ["Posts"],
   endpoints: () => ({}),
 });
