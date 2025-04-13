@@ -7,7 +7,7 @@ import { Typography } from "common/components";
 export const Description: FC<Props> = ({ description = "", onClickShowMore }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const MAX_CHAR_COUNT = 96;
+  const MAX_CHAR_COUNT = 76;
   const isOverflowing = description.length > MAX_CHAR_COUNT;
 
   const handleExpand = () => {

@@ -25,7 +25,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
   const updatePagination = (newButtonIndex: number) => {
     if (images.length <= MAX_BUTTONS) return;
 
-    const currentButton = Math.floor(MAX_BUTTONS / 2);
+    const currentButton = Math.floor(MAX_BUTTONS / 2 + 1);
     let newIndex = newButtonIndex - currentButton;
 
     if (newIndex < 0) newIndex = 0;
@@ -65,15 +65,15 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
       />
       {images && images?.length > 1 && (
         <>
-          <ArrowIosBackOutline className={s.arrowLeft} onClick={handlePreview} />
-          <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} />
+          <ArrowIosBackOutline className={s.arrowLeft} onClick={handlePreview} width={24} height={24} />
+          <ArrowIosForwardOutline className={s.arrowRight} onClick={handleNext} width={24} height={24} />
           <div className={s.pagination}>
             {visibleButtons.map((_, index) => (
               <div
                 key={visibleButtonIndex + index}
                 className={clsx(s.whiteDot, { [s.blueDot]: imageIndex === visibleButtonIndex + index })}
                 onClick={() => handlePaginationButton(visibleButtonIndex + index)}
-              ></div>
+              />
             ))}
           </div>
         </>
