@@ -25,7 +25,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
   const updatePagination = (newButtonIndex: number) => {
     if (images.length <= MAX_BUTTONS) return;
 
-    const currentButton = Math.floor(MAX_BUTTONS / 2);
+    const currentButton = Math.floor(MAX_BUTTONS / 2 + 1);
     let newIndex = newButtonIndex - currentButton;
 
     if (newIndex < 0) newIndex = 0;

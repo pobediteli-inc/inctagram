@@ -54,19 +54,23 @@
 
 .pagination {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   justify-content: center;
   align-items: center;
   position: absolute;
   bottom: 10px;
   left: 50%;
   border-radius: 2px;
-  padding: 4px 8px;
+  padding: 6px 8px;
   max-width: 78px;
   max-height: 12px;
   background-color: var(--dark-300);
   opacity: 0.50;
   transform: translateX(-50%);
+
+  &:hover {
+    opacity: 0.80;
+  }
 }
 
 .whiteDot {
@@ -79,6 +83,10 @@
   cursor: pointer;
   transition: background-color 0.3s;
 
+  &:hover {
+    opacity: 0.80;
+  }
+
   &:focus {
     outline: none;
   }
@@ -86,4 +94,12 @@
 
 .blueDot {
   background-color: var(--primary-500);
+
+  &:hover {
+    opacity: 0.80;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
