@@ -96,7 +96,7 @@ export default function MyProfile() {
             </div>
           </div>
 
-          <div>
+          <div className={s.profileInfo}>
             <div className={s.stats}>
               <div>
                 <Typography variant={"bold_14"}>{data?.followingCount}</Typography>
