@@ -46,7 +46,6 @@ export default function Login() {
     } catch (error: unknown) {
       handleErrors(error, dispatch, setError);
       dispatch(setLoggedIn({ isLoggedIn: false }));
-      dispatch(setStatus({ status: "error", message: "Login failed. Please try again." }));
     }
   };
 
