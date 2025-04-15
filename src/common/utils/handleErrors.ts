@@ -4,8 +4,18 @@ import { UseFormSetError } from "react-hook-form";
 import { setStatus } from "store/services/slices/statusSlice";
 
 /**
- * Notes: Not all server errors processed by the handleError function
- **/
+ * Handles various error scenarios and updates the application state or form state accordingly.
+ *
+ * @param {unknown} error - The error object to be handled. It can be an instance of Error, a server error, or undefined.
+ * @param {AppDispatch} dispatch - Function to dispatch actions to update the application state.
+ * @param {UseFormSetError<LoginRequest>} [setError] - An optional function used to set validation errors in a form.
+ *
+ * The method performs the following operations:
+ * 1. Checks if the device is offline and dispatches an error status with a corresponding message.
+ * 2. Handles cases when the error is undefined and dispatches a generic error message.
+ * 3. Processes known Error instances and dispatches the error message accordingly.
+ * 4. Handles server error responses by updating form error states and dispatching messages based on the error's content.
+ */
 export const handleErrors = (error: unknown, dispatch: AppDispatch, setError?: UseFormSetError<LoginRequest>) => {
   if (!navigator.onLine) {
     dispatch(
