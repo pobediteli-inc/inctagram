@@ -1,5 +1,5 @@
 import { AppDispatch } from "store/store";
-import { BaseServerError, LoginRequest, LoginServerError } from "store/services/api/auth";
+import { BaseServerError, LoginRequest } from "store/services/api/auth";
 import { UseFormSetError } from "react-hook-form";
 import { setStatus } from "store/services/slices/statusSlice";
 
@@ -23,13 +23,8 @@ export const handleErrors = (error: unknown, dispatch: AppDispatch, setError?: U
   }
   if (error as BaseServerError) {
     const { statusCode, messages } = (error as BaseServerError).data;
+    if (statusCode && !Array.isArray(messages)) setError?.("password", { message: messages });
     if (statusCode && messages?.length) dispatch(setStatus({ status: "error", message: messages[0].message }));
     else dispatch(setStatus({ status: "error", message: "An unknown error occurred." }));
-  }
-  if (error as LoginServerError) {
-    const { statusCode, messages, error: serverError } = (error as LoginServerError).data;
-    if (statusCode && messages) {
-      setError?.("password", { message: messages });
-    } else setError?.("password", { message: serverError });
   }
 };
