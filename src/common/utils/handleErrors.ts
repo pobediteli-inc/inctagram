@@ -27,20 +27,9 @@ export const handleErrors = (error: unknown, dispatch: AppDispatch, setError?: U
     else dispatch(setStatus({ status: "error", message: "An unknown error occurred." }));
   }
   if (error as LoginServerError) {
-    const { statusCode, messages: serverErrorMessage, error: serverError } = (error as LoginServerError).data;
-
-    switch (statusCode) {
-      case 400:
-      case 401:
-      case 404:
-      case 429:
-        setError?.("password", { message: serverErrorMessage });
-        break;
-      default:
-        setError?.("password", { message: serverError });
-    }
-    return;
+    const { statusCode, messages, error: serverError } = (error as LoginServerError).data;
+    if (statusCode && messages) {
+      setError?.("password", { message: messages });
+    } else setError?.("password", { message: serverError });
   }
-
-  dispatch(setStatus({ status: "error", message: "An unknown error occurred. Please try again later." }));
 };
