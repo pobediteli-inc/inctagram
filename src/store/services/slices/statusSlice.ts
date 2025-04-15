@@ -35,7 +35,7 @@ export const statusSlice = createSlice({
         state.status = "error";
         const payload = action.payload as BaseServerError;
         const { statusCode, messages, error } = payload.data;
-        if (authApi.endpoints.me.matchRejected(action)) if (statusCode === 401) return;
+        if (authApi.endpoints.me.matchRejected(action)) if (statusCode && action.error) return;
         state.message = messages[0].message || error || (action.error as string);
       });
   },
