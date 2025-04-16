@@ -3,22 +3,15 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import s from "../page.module.css";
-import { Post } from "store/services/publicPostApi/publicPostApi.types";
+import { AllPublicPostsResponse, PostItemsResponse } from "store/services/api/publicPosts";
 
-type Posts = {
-  totalCount: number;
-  pageSize: number;
-  totalUsers: number;
-  items: Post[];
-};
-
-export default function PublicProfilePostsGrid({ posts }: { posts: Posts }) {
+export default function PublicProfilePostsGrid(posts: AllPublicPostsResponse) {
   const router = useRouter();
 
   return (
     <div className={s.grid}>
       {posts?.items?.length
-        ? posts.items.map((post: Post) => (
+        ? posts.items.map((post: PostItemsResponse) => (
             <div key={post.id} className={s.post} onClick={() => router.push(`?postId=${post.id}`)}>
               <Image
                 src={post.images[0].url}
