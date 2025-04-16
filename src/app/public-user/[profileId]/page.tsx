@@ -19,9 +19,12 @@ async function getProfile(profileId: string) {
 
 async function getPosts(profileId: string, endCursorPostId?: number) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/user/${profileId}/${endCursorPostId}`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/user/${profileId}/${endCursorPostId}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!response.ok) return null;
     return response.json();
   } catch {
@@ -53,14 +56,10 @@ async function getPostComments(postId: string) {
   }
 }
 
-export default async function UserProfilePage({
-  params,
-  searchParams,
-}: {
-  params: { profileId: string };
-  searchParams: { postId?: string };
-}) {
-  const profile = await getProfile(params.profileId);
+export default async function UserProfilePage({ params, searchParams }: ProfileRequest) {
+  const paramsValue = await params;
+  const searchParamsValue = await searchParams;
+  const profile = await getProfile(paramsValue.profileId);
 
   if (!profile)
     return (
@@ -68,11 +67,11 @@ export default async function UserProfilePage({
         Profile not found
       </Typography>
     );
-    
+
   const { userName, userMetadata, avatars, aboutMe } = profile;
-  const posts = await getPosts(params.profileId)
-  const post = searchParams.postId ? await getPost(searchParams.postId) : null;
-  const comments = searchParams.postId ? await getPostComments(searchParams.postId) : null;
+  const posts = await getPosts(paramsValue.profileId);
+  const post = searchParamsValue.postId ? await getPost(searchParamsValue.postId) : null;
+  const comments = searchParamsValue.postId ? await getPostComments(searchParamsValue.postId) : null;
 
   return (
     <div className={s.container}>
@@ -107,8 +106,13 @@ export default async function UserProfilePage({
           </Typography>
         </div>
       </div>
-      <PublicProfilePostsGrid posts={posts}/>
+      <PublicProfilePostsGrid posts={posts} />
       {post && <ModalPost post={post} comments={comments} />}
     </div>
   );
 }
+
+type ProfileRequest = {
+  params: Promise<{ profileId: string }>;
+  searchParams: Promise<{ postId?: string }>;
+};

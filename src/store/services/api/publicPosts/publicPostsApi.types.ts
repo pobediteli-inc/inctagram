@@ -57,7 +57,13 @@ export type CommentsResponse = {
   pageSize: number;
   totalCount: number;
   notReadCount: number;
-  items: ItemsArgs[];
+  items: CommentItems[];
+};
+
+export type CommentItems = {
+  id: number;
+  postId: number;
+  from: CommentAuthor;
   content: string;
   createdAt: string;
   answerCount: number;
@@ -65,16 +71,10 @@ export type CommentsResponse = {
   isLiked: boolean;
 };
 
-export type ItemsArgs = {
-  id: number;
-  postId: number;
-  from: ParentViewArgs;
-};
-
-export type ParentViewArgs = {
+export type CommentAuthor = {
   id: number;
   username: string;
   avatars: AvatarArgs[];
 };
 
-export type AvatarArgs = object;
+export type AvatarArgs = Record<string, unknown>;
