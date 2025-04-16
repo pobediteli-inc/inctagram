@@ -10,12 +10,16 @@ import Image from "next/image";
 import defaultAvatar from "public/icons/svg/person.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
 import { ArrowIosBackOutline, ArrowIosForwardOutline } from "assets/icons";
-import { Post } from "store/services/publicPostApi/publicPostApi.types";
-import { Comments } from "store/services/postCommentsApi/postCommentsApi.types";
 import { useEffect, useState } from "react";
 import { formatPostDate, formatRelativeTime } from "common/utils/dateUtils";
+import { CommentsResponse, PostItemsResponse } from "store/services/api/publicPosts";
 
-export default function ModalPost({ post, comments }: { post: Post; comments?: Comments | null }) {
+type ModalPostProps = {
+  post: PostItemsResponse;
+  comments?: CommentsResponse | null;
+};
+
+export default function ModalPost({ post, comments }: ModalPostProps) {
   const handleNextImage = () => {
     setCurrentImage((prev) => (prev + 1) % post.images.length);
   };
