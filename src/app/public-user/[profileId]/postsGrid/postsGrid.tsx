@@ -5,7 +5,7 @@ import Image from "next/image";
 import s from "../page.module.css";
 import { AllPublicPostsResponse, PostItemsResponse } from "store/services/api/publicPosts";
 
-export default function PublicProfilePostsGrid(posts: AllPublicPostsResponse) {
+export default function PublicProfilePostsGrid({ posts }: { posts: AllPublicPostsResponse }) {
   const router = useRouter();
 
   return (

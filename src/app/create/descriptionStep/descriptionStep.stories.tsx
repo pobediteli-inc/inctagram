@@ -8,7 +8,7 @@ const meta: Meta<typeof DescriptionStep> = {
   tags: ["autodocs"],
   args: {
     description: "",
-    setDescription: (value: string) => {},
+    setDescription: (_value: string) => {},
     onCloseHandler: action("onCloseHandler"),
     onBack: action("onBack"),
     onSubmit: () => {

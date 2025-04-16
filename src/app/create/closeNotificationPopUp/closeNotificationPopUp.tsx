@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import s from "./closeNotificationPopUp.module.css";
 import { Button, Card, Typography } from "common/components";
@@ -16,10 +15,8 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
     open: boolean;
   } | null>(null);
 
-  const router = useRouter();
-
   const handleDiscardClick = () => {
-    router.push("/home");
+    close();
   };
 
   const handleSaveDraftClick = () => {

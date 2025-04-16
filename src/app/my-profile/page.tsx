@@ -1,7 +1,6 @@
 "use client";
 
 import s from "./myProfile.module.css";
-import { useState } from "react";
 import Image from "next/image";
 
 type ImageType = {
@@ -20,16 +19,6 @@ type Post = {
 
 export default function MyProfile() {
   const posts = Array<Post>();
-
-  const [showForm, setShowForm] = useState<boolean>(false);
-
-  const handleOpenForm = () => {
-    setShowForm(true);
-  };
-
-  const handleCloseForm = () => {
-    setShowForm(false);
-  };
 
   return (
     <main className={s.main}>
