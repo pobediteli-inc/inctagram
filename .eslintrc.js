@@ -25,5 +25,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "react/display-name": "off",
+    "linebreak-style": ["error", "unix"],
+    "eol-last": ["error", "always"],
   },
 };
