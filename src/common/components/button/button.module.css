@@ -10,7 +10,9 @@
   border-radius: 2px;
   outline: 1px solid transparent;
   padding: 6px 24px;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
 
   &:active {
     transform: scale(0.95);
@@ -114,7 +116,7 @@
 
   &:focus-visible {
     outline: 2px solid var(--primary-700);
-    color: var(--primary-500)
+    color: var(--primary-500);
   }
 
   &:disabled {

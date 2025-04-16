@@ -1,67 +1,67 @@
 .container {
-    width: 1000px;
-    margin: 0 auto;
+  width: 1000px;
+  margin: 0 auto;
 }
 
 .infoWrapper {
-    display: flex;
-    justify-content: left;
-    gap: 100px;
-    margin: 0 25px;
+  display: flex;
+  justify-content: left;
+  gap: 100px;
+  margin: 0 25px;
 }
 
 .menu {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
 }
 
 .ul {
-    display: flex;
-    gap: 50px;
-    align-items: center;
-    list-style-type: none;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  list-style-type: none;
 }
 
 .avatarWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input {
-    width: 690px;
-    margin-bottom: 25px;
-    height: 30px;
+  width: 690px;
+  margin-bottom: 25px;
+  height: 30px;
 }
 
 .selectWrapper {
-    display: flex;
-    gap: 25px;
+  display: flex;
+  gap: 25px;
 }
 
 .select {
-    display: flex;
-    flex-direction: column;
-    width: 332px;
-    margin-bottom: 20px;
-    height: 60px;
+  display: flex;
+  flex-direction: column;
+  width: 332px;
+  margin-bottom: 20px;
+  height: 60px;
 }
 
 .hr {
-    margin: 25px;
+  margin: 25px;
 }
 
 .button {
-    width: 160px;
-    height: 35px;
+  width: 160px;
+  height: 35px;
 }
 
 .buttonWrapper {
-    text-align: end;
-    margin-right: 25px;
+  text-align: end;
+  margin-right: 25px;
 }
