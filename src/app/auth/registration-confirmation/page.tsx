@@ -19,7 +19,7 @@ export default function RegistrationConfirmation() {
     if (confirmationCode) {
       try {
         await confirmRegistration({ confirmationCode }).unwrap();
-      } catch (error) {
+      } catch {
         setIsError(true);
       }
     }

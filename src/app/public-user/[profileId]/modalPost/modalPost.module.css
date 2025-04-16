@@ -61,7 +61,7 @@
 }
 
 .defaultImage {
-  background-color: rgb(25, 34, 41);
+  background-color: rgb(25 34 41);
   min-height: 562px;
   height: 100%;
   max-width: 490px;
@@ -124,10 +124,9 @@
 .commentsWrapper {
   display: flex;
   flex: 1;
-  flex-direction: column;
+  flex-flow: column nowrap;
   align-items: flex-start;
   gap: 16px;
-  flex-wrap: nowrap;
   min-height: 416px;
   height: 100%;
   padding: 20px 24px;
@@ -274,24 +273,24 @@
   position: absolute;
   left: 12px;
   top: 256px;
-  background-color: rgba(51, 51, 51, 0.4);
+  background-color: rgb(51 51 51 / 40%);
 }
 
 .imageLeftArrow:hover {
   cursor: pointer;
-  background-color: rgba(51, 51, 51, 1);
+  background-color: rgb(51 51 51 / 100%);
 }
 
 .imageRightArrow {
   position: absolute;
   left: 430px;
   top: 256px;
-  background-color: rgba(51, 51, 51, 0.4);
+  background-color: rgb(51 51 51 / 40%);
 }
 
 .imageRightArrow:hover {
   cursor: pointer;
-  background-color: rgba(51, 51, 51, 1);
+  background-color: rgb(51 51 51 / 100%);
 }
 
 .dotsWrapper {
@@ -302,14 +301,14 @@
   left: 50%;
   transform: translateX(-50%);
   top: 526px;
-  background-color: rgba(51, 51, 51, 0.5);
+  background-color: rgb(51 51 51 / 50%);
   padding: 8px;
   gap: 12px;
   border-radius: 2px;
 }
 
 .dotsWrapper:hover {
-  background-color: rgba(51, 51, 51, 1);
+  background-color: rgb(51 51 51 / 100%);
 }
 
 .dot {

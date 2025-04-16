@@ -49,6 +49,5 @@ export const Default: Story = {
   args: {
     post: post,
     isOpen: true,
-    setIsOpen: () => {},
   },
 };

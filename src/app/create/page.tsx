@@ -143,7 +143,7 @@ export default function CreatePage() {
         />
       )}
 
-      {showCloseNotification && <CloseNotificationPopUp close={() => setShowCloseNotification(false)} />}
+      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification} />}
     </div>
   );
 }
