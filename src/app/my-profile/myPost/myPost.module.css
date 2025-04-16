@@ -1,37 +1,37 @@
 .container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
 }
 
 .photoActionsContainer {
-    display: grid;
-    grid-template-rows: 60px 1px 338px 1px 108px 1px 60px;
+  display: grid;
+  grid-template-rows: 60px 1px 338px 1px 108px 1px 60px;
 }
 
 .ownerInfo {
-    display: flex;
-    padding: 12px 24px;
-    align-items: center;
+  display: flex;
+  padding: 12px 24px;
+  align-items: center;
 }
 
 .avatar {
-    margin-right: 12px;
+  margin-right: 12px;
 }
 
 .menu {
-    margin-left: auto;
+  margin-left: auto;
 }
 
-.menu[data-state='open'] {
-    color: var(--primary-500);
+.menu[data-state="open"] {
+  color: var(--primary-500);
 }
 
 .menuItem {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .comments {
@@ -39,4 +39,3 @@
 
 .interactions {
 }
-

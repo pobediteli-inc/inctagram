@@ -1,7 +1,7 @@
 import "app/globals.css";
 import { Meta, StoryObj } from "@storybook/react";
 import { DatePickerWithRange } from "./datePickerRange";
-import "../calendar/calendar.style.css"
+import "../calendar/calendar.style.css";
 
 const meta = {
   title: "Components/DatePickerWithRange",

@@ -43,9 +43,11 @@
   }
 }
 
-.rdp-day_button {}
+.rdp-day_button {
+}
 
-.rdp-day_button:disabled {}
+.rdp-day_button:disabled {
+}
 
 .rdp-caption_label {
   z-index: 1;
@@ -106,7 +108,8 @@
   opacity: 0.5;
 }
 
-.rdp-chevron {}
+.rdp-chevron {
+}
 
 .rdp-dropdown_root[data-disabled="true"] .rdp-chevron {
   opacity: 0.5;
@@ -187,7 +190,8 @@
   align-items: center;
 }
 
-.rdp-weekday {}
+.rdp-weekday {
+}
 
 /* DAY MODIFIERS */
 
@@ -195,7 +199,8 @@
   color: var(--primary-500);
 }
 
-.rdp-today:not(.rdp-outside) {}
+.rdp-today:not(.rdp-outside) {
+}
 
 .rdp-day_today {
   color: var(--primary-500);
@@ -222,7 +227,8 @@
 .rdp-selected {
 }
 
-.rdp-selected .rdp-day_button {}
+.rdp-selected .rdp-day_button {
+}
 
 .rdp-outside {
   opacity: 0.75;
@@ -236,24 +242,31 @@
   opacity: 0.5;
 }
 
-.rdp-hidden {}
+.rdp-hidden {
+}
 
-.rdp-range_start {}
+.rdp-range_start {
+}
 
-.rdp-range_start .rdp-day_button {}
+.rdp-range_start .rdp-day_button {
+}
 
-.rdp-range_middle {}
+.rdp-range_middle {
+}
 
 .rdp-day_range_middle {
   border-radius: unset;
   outline: 1px solid var(--primary-900);
 }
 
-.rdp-range_middle .rdp-day_button {}
+.rdp-range_middle .rdp-day_button {
+}
 
-.rdp-range_end {}
+.rdp-range_end {
+}
 
-.rdp-range_end .rdp-day_button {}
+.rdp-range_end .rdp-day_button {
+}
 
 .rdp-range_start.rdp-range_end {
   background: revert;
