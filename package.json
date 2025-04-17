@@ -9,7 +9,7 @@
     "start": "next start",
     "eslint": "pnpm exec eslint .",
     "stylelint:css": "stylelint '**/*.{css,scss}'",
-    "format": "prettier --write .",
+    "prettier": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "echo \"test will be added later\""

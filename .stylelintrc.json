@@ -2,7 +2,7 @@
   "extends": ["stylelint-config-standard", "stylelint-config-standard-scss", "stylelint-config-recommended-scss"],
   "overrides": [
     {
-      "files": ["*.module.css", "*.css"],
+      "files": ["*.module.css", "*.module.scss", "*.css"],
       "rules": {
         "block-no-empty": null,
         "selector-class-pattern": ["^[a-zA-Z0-9]+([-_]{1,2}[a-zA-Z0-9]+)*$", {}],
@@ -14,12 +14,6 @@
         ],
         "no-duplicate-selectors": true,
         "declaration-block-no-duplicate-properties": true
-      }
-    },
-    {
-      "files": ["*.module.scss"],
-      "rules": {
-        "block-no-empty": true
       }
     }
   ]
