@@ -18,23 +18,23 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
 
   return (
     <>
-      <Suspense fallback={<ProgressBar />}>
-        <GoogleOAuth redirect={"/home"} />
-        <GithubOAuth redirect={"/home"} />
-        <Header />
-        {status === "loading" && (
-          <div className={s.progressBar}>
-            <ProgressBar />
-          </div>
-        )}
-        <div className={s.wrapper}>
-          {isLoggedIn && <Sidebar />}
-          <main className={s.children}>{children}</main>
+      <GoogleOAuth redirect={"/home"} />
+      <GithubOAuth redirect={"/home"} />
+      <Header />
+      {status === "loading" && (
+        <div className={s.progressBar}>
+          <ProgressBar />
         </div>
-        {status && message && (
-          <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
-        )}
-      </Suspense>
+      )}
+      <div className={s.wrapper}>
+        {isLoggedIn && <Sidebar />}
+        <main className={s.children}>
+          <Suspense fallback={<ProgressBar />}>{children}</Suspense>
+        </main>
+      </div>
+      {status && message && (
+        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
+      )}
     </>
   );
 }
