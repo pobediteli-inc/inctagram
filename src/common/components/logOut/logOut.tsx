@@ -1,4 +1,5 @@
 "use client";
+
 import { LogOutOutline } from "../../../assets/icons";
 import { FC, useState } from "react";
 import { LogOutModal } from "../modal/logOutModal/logOutModal";
@@ -27,7 +28,7 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
       onLogOutAction();
       setShowModal(false);
       toggleModal();
-      router.push("/publicPage");
+      router.push("/");
     } catch (error: unknown) {
       handleErrors(error, dispatch);
     }
