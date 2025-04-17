@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { GithubOAuth, GoogleOAuth, Header, ProgressBar, Sidebar } from "common/components";
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
@@ -18,21 +18,23 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
 
   return (
     <>
-      <GoogleOAuth redirect={"/home"} />
-      <GithubOAuth redirect={"/home"} />
-      <Header />
-      {status === "loading" && (
-        <div className={s.progressBar}>
-          <ProgressBar />
+      <Suspense fallback={<ProgressBar />}>
+        <GoogleOAuth redirect={"/home"} />
+        <GithubOAuth redirect={"/home"} />
+        <Header />
+        {status === "loading" && (
+          <div className={s.progressBar}>
+            <ProgressBar />
+          </div>
+        )}
+        <div className={s.wrapper}>
+          {isLoggedIn && <Sidebar />}
+          <main className={s.children}>{children}</main>
         </div>
-      )}
-      <div className={s.wrapper}>
-        {isLoggedIn && <Sidebar />}
-        <main className={s.children}>{children}</main>
-      </div>
-      {status && message && (
-        <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
-      )}
+        {status && message && (
+          <Toast type={status} message={message} open={!!status && !!message} setOpen={handleClose} />
+        )}
+      </Suspense>
     </>
   );
 }
