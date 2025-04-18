@@ -7,15 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdatePostMutation } from "store/services/api/posts/postsApi";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CloseModal } from "./closeModal";
+import Image from "next/image";
 
 type Props = {
   isOpen: boolean;
   avatar: string;
   userName: string;
   description: string;
-  photoPreview?: string;
+  photoPreview: string;
   postId: number;
   handleClose: () => void;
   handleUpdate: (postId: number, description: string) => void;
@@ -27,7 +28,16 @@ const updateDescriptionSchema = z.object({
 
 type UpdateDescriptionFormValues = z.infer<typeof updateDescriptionSchema>;
 
-export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, handleClose, handleUpdate }: Props) => {
+export const UpdatePostForm = ({
+  isOpen,
+  avatar,
+  userName,
+  description,
+  postId,
+  handleClose,
+  handleUpdate,
+  photoPreview,
+}: Props) => {
   const [updatePost] = useUpdatePostMutation();
   const dispatch = useAppDispatch();
   const [closeModalIsOpen, setCloseModalIsOpen] = useState(false);
@@ -68,7 +78,9 @@ export const UpdatePostForm = ({ isOpen, avatar, userName, description, postId, 
         handleCancel={() => setCloseModalIsOpen(false)}
       />
       <div className={s.container}>
-        <div>photo preview</div>
+        <div>
+          <Image src={photoPreview} alt="Photo preview" width={490} height={504} style={{ objectFit: "cover" }} />
+        </div>
         <form className={s.form} onSubmit={onSubmit}>
           <div className={s.userInfo}>
             <Avatar src={avatar} />
