@@ -5,6 +5,7 @@ import { useState } from "react";
 import { UpdatePostForm } from "./updatePostForm/updatePostForm";
 import { Edit2Outline, TrashOutline } from "assets/icons";
 import { DeletePostModal } from "./deletePostModal/deletePostModal";
+import { Carousel } from "common/components/carousel/carousel";
 
 type Props = {
   post: Post;
@@ -19,7 +20,7 @@ export const MyPost = ({ post, isOpen, handleClose, handleDelete, handleUpdate }
   const [postIsDeleting, setPostIsDeleting] = useState(false);
   return (
     <PostModal className={s.container} open={isOpen} onClose={handleClose}>
-      <div>photos</div>
+      <Carousel slides={post.images} options={{ active: post.images.length > 1 }} />
       <div className={s.photoActionsContainer}>
         <div className={s.ownerInfo}>
           <Avatar src={post.avatarOwner} className={s.avatar} />
