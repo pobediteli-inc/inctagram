@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import ClientLayout from "app/ClientLayout";
 import { StoreWrapper } from "store/storeWrapper";
+import { ProgressBar } from "common/components";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <StoreWrapper>
-          <Suspense>
+          <Suspense fallback={<ProgressBar />}>
             <ClientLayout>{children}</ClientLayout>
           </Suspense>
         </StoreWrapper>
