@@ -12,7 +12,7 @@ import { AccessResponse } from "store/services/api/auth";
 import { setStatus } from "store/services/slices";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_PRODUCTION_BASE_URL,
+  baseUrl: process.env.NEXT_PUBLIC_API_LOCAL_BASE_URL,
   credentials: "include",
   prepareHeaders: (headers) => {
     const accessToken = localStorage.getItem("accessToken");
