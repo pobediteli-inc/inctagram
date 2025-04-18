@@ -9,7 +9,6 @@ RUN npm install
 #но package.json остался неизменным, то стейдж с установкой зависимостей повторно не выполняется, что экономит время.
 FROM node:20.11-alpine as builder
 WORKDIR /app
-COPY .env.production .env
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build:production
