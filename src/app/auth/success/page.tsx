@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, Typography } from "common/components";
 import Link from "next/link";
 import Image from "next/image";
