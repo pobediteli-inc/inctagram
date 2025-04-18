@@ -11,8 +11,8 @@ FROM node:20.11-alpine as builder
 WORKDIR /app
 RUN rm -f .env.local
 COPY . .
-COPY .env.production .env
 COPY --from=dependencies /app/node_modules ./node_modules
+COPY .env.production .env
 RUN npm run build:production
 
 #Стейдж запуска
