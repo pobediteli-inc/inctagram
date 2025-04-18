@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -25,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable}`}>
         <StoreWrapper>
-          <ClientLayout>{children}</ClientLayout>
+          <Suspense>
+            <ClientLayout>{children}</ClientLayout>
+          </Suspense>
         </StoreWrapper>
       </body>
     </html>
