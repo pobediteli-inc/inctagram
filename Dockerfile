@@ -14,6 +14,7 @@ RUN rm -f .env.local
 COPY . .
 COPY .env.production .env
 COPY --from=dependencies /app/node_modules ./node_modules
+RUN npm install -g pnpm
 RUN pnpm run build:production
 
 #Стейдж запуска
