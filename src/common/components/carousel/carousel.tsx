@@ -11,22 +11,38 @@ import { clsx } from "clsx";
 type Props = {
   slides: ApiImage[];
   options?: EmblaOptionsType;
+  width?: number;
+  height?: number;
 };
 
-export const Carousel = ({ slides, options }: Props) => {
+export const Carousel = ({ slides, options, width = 490, height = 562 }: Props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
 
   return (
-    <section className={s.embla}>
+    <section
+      className={s.embla}
+      style={
+        {
+          "--slide-width": `${width}px`,
+          "--slide-height": `${height}px`,
+        } as React.CSSProperties
+      }
+    >
       <div className={s.viewportWrapper}>
         <div className={s.viewport} ref={emblaRef}>
           <div className={s.container}>
             {slides.map((image, index) => (
               <div className={s.slide} key={index}>
-                <Image src={image.url} alt="Photo preview" width={490} height={562} style={{ objectFit: "cover" }} />
+                <Image
+                  src={image.url}
+                  alt="Photo preview"
+                  width={width}
+                  height={height}
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             ))}
           </div>
