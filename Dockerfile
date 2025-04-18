@@ -2,7 +2,6 @@
 FROM node:20.11-alpine as dependencies
 WORKDIR /app
 COPY package*.json ./
-COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
 RUN pnpm install
 
