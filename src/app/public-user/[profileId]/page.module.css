@@ -57,3 +57,12 @@
   min-height: 228px;
   height: 100%;
 }
+
+.defaultImage {
+  padding: 48px;
+  min-width: 234px;
+  width: 100%;
+  min-height: 228px;
+  height: 100%;
+  background-color: var(--light-900);
+}
