@@ -38,9 +38,9 @@ export default function Login() {
       const response = await login(data).unwrap();
       if (response.accessToken) {
         localStorage.setItem("accessToken", response.accessToken);
+        const me = await refetch().unwrap();
         dispatch(setLoggedIn({ isLoggedIn: true }));
-        await refetch();
-        router.push("/home");
+        router.push(`/my-profile/${me.userId}`);
         dispatch(setStatus({ status: "success", message: "Successfully logged in." }));
       }
     } catch (error: unknown) {
