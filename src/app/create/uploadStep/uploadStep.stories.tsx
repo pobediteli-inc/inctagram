@@ -1,20 +1,24 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
 import { UploadStep } from "./uploadStep";
 
-export default {
+const meta: Meta<typeof UploadStep> = {
   title: "Create page/UploadStep",
   component: UploadStep,
   tags: ["autodocs"],
   argTypes: {
-    previewUrls: { control: "array" },
     mainImageIndex: { control: "number" },
     fileInputRef: { control: "object" },
   },
 };
 
-const Template = () => {
-  return (
+export default meta;
+
+type Story = StoryObj<typeof UploadStep>;
+
+export const Default: Story = {
+  render: () => (
     <UploadStep
       previewUrls={[]}
       mainImageIndex={0}
@@ -25,7 +29,5 @@ const Template = () => {
       handleImageChange={(e) => action("handleImageChange")(e)}
       setShowForm={(value) => action("setShowForm")(value)}
     />
-  );
+  ),
 };
-
-export const Default = Template.bind({});

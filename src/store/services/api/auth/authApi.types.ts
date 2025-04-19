@@ -58,14 +58,6 @@ export type AccessResponse = {
   accessToken: string;
 };
 
-export type LoginServerError = {
-  data: {
-    statusCode: number;
-    messages: string;
-    error: string;
-  };
-};
-
 export type MeResponse = {
   userId: number;
   userName: string;

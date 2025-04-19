@@ -27,11 +27,6 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/publicPage",
-        permanent: true,
-      },
-      {
-        source: "/",
         has: [
           {
             type: "query",

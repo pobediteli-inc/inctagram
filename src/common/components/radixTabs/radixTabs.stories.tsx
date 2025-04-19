@@ -1,6 +1,6 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import { Meta, StoryObj } from "@storybook/react";
-import { RadixTabs } from "./radixTabs";
+import { Props, RadixTabs } from "./radixTabs";
 
 const meta: Meta<typeof RadixTabs> = {
   title: "Components/RadixTabs",
@@ -20,7 +20,7 @@ export default meta;
 
 type Story = StoryObj<typeof RadixTabs>;
 
-const Template = (args: any) => (
+const Template = (args: Props) => (
   <Tabs.Root defaultValue={args.value}>
     <Tabs.List>
       <RadixTabs {...args} />
@@ -55,4 +55,3 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
-

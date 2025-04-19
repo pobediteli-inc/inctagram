@@ -4,6 +4,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #333333;
+  border: 1px solid var(--dark-300);
   color: var(--light-100);
 }

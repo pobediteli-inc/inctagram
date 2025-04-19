@@ -46,10 +46,6 @@ export const postsApi = baseApi.injectEndpoints({
         const formData = new FormData();
         files.forEach((file) => formData.append("file", file));
 
-        for (const [key, value] of formData.entries()) {
-          console.log("FormData field:", key, value);
-        }
-
         return {
           url: `posts/image`,
           method: "POST",

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { BaseModal } from './baseModal';
+import { BaseModal } from "./baseModal";
 import "app/globals.css";
 import { Typography } from "../../typography/typography";
 import { Button } from "../../button/button";
@@ -34,7 +34,9 @@ export const Default: Story = {
     onClose: () => {},
     children: (
       <div style={{ padding: "20px" }}>
-        <Typography variant="regular_16" color={"light"}>This is the modal content.</Typography>
+        <Typography variant="regular_16" color={"light"}>
+          This is the modal content.
+        </Typography>
         <Button onClick={() => {}}>Close</Button>
       </div>
     ),

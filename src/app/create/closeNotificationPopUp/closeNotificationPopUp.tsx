@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import s from "./closeNotificationPopUp.module.css";
 import { Button, Card, Typography } from "common/components";
@@ -16,11 +15,8 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
     open: boolean;
   } | null>(null);
 
-  const router = useRouter();
-
-
   const handleDiscardClick = () => {
-    router.push("/home");
+    close();
   };
 
   const handleSaveDraftClick = () => {
@@ -35,7 +31,9 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
     <div className={s.popUp}>
       <Card className={s.card}>
         <div className={s.popUpHeader}>
-          <Typography variant={"h1"} color={"light"}>Close</Typography>
+          <Typography variant={"h1"} color={"light"}>
+            Close
+          </Typography>
           <Button className={s.closeBtn} onClick={close}>
             <Close width={24} height={24} />
           </Button>
@@ -47,7 +45,9 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
             If you close everything will be deleted.
           </Typography>
           <div className={s.btnGroup}>
-            <Button onClick={handleDiscardClick} variant={"outlined"}>Discard</Button>
+            <Button onClick={handleDiscardClick} variant={"outlined"}>
+              Discard
+            </Button>
             <Button onClick={handleSaveDraftClick}>Save draft</Button>
           </div>
         </div>

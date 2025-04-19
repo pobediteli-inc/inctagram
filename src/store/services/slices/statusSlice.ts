@@ -1,5 +1,6 @@
-import { createSlice, isPending, isFulfilled, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit";
 import { MessageStatusProps, NullableProps } from "common/types";
+import { authApi, BaseServerError } from "store/services/api/auth";
 
 export type StatusProps = {
   status: NullableProps<MessageStatusProps>;
@@ -31,8 +32,11 @@ export const statusSlice = createSlice({
         state.message = null;
       })
       .addMatcher(isRejected, (state, action) => {
-        state.status = "failed";
-        state.message = action.error?.message || "Unknown error";
+        state.status = "error";
+        const payload = action.payload as BaseServerError;
+        const { statusCode, messages, error } = payload.data;
+        if (authApi.endpoints.me.matchRejected(action)) if (statusCode && action.error) return;
+        state.message = messages[0].message || error || (action.error as string);
       });
   },
   selectors: {

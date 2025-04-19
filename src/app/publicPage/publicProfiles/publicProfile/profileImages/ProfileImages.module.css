@@ -33,14 +33,14 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  opacity: 0.20;
+  opacity: 0.2;
 }
 
 .arrowLeft {
   left: 10px;
 
   &:hover {
-    opacity: 0.50;
+    opacity: 0.5;
   }
 }
 
@@ -48,7 +48,7 @@
   right: 10px;
 
   &:hover {
-    opacity: 0.50;
+    opacity: 0.5;
   }
 }
 
@@ -65,11 +65,11 @@
   max-width: 78px;
   max-height: 12px;
   background-color: var(--dark-300);
-  opacity: 0.50;
+  opacity: 0.5;
   transform: translateX(-50%);
 
   &:hover {
-    opacity: 0.80;
+    opacity: 0.8;
   }
 }
 
@@ -84,7 +84,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    opacity: 0.80;
+    opacity: 0.8;
   }
 
   &:focus {
@@ -96,7 +96,7 @@
   background-color: var(--primary-500);
 
   &:hover {
-    opacity: 0.80;
+    opacity: 0.8;
   }
 
   &:focus {
