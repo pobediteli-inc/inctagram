@@ -92,7 +92,9 @@ export default function MyProfile() {
           <div className={s.top}>
             <Typography variant={"h1"}>{data?.userName}</Typography>
             <div className={s.actionButtons}>
-              <Button variant={"secondary"}>Profile Settings</Button>
+              <Button variant={"secondary"} asChild>
+                <Link href={"/settings"}>Profile Settings</Link>
+              </Button>
             </div>
           </div>
 
