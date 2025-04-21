@@ -1,6 +1,6 @@
 import { Avatar, BaseModal, Button, Typography, ControlledTextarea } from "common/components";
 import s from "./updatePostForm.module.css";
-import { LIMITS } from "constants/limits";
+import { LIMITS } from "common/constants/limits";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
