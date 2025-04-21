@@ -8,10 +8,12 @@ import ArrowIosBackOutline from "assets/icons/ArrowIosBackOutline";
 import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
 import { Typography } from "common/components";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
-export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
+export const ProfileImages: FC<Props> = ({ images, isCollapsed, ownerId, postId }) => {
   const [imageIndex, setImageIndex] = useState<number>(0);
   const [visibleButtonIndex, setVisibleButtonIndex] = useState<number>(0);
+  const router = useRouter();
 
   const MAX_BUTTONS = 5;
 
@@ -49,6 +51,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
     setImageIndex(currentIndex);
     updatePagination(currentIndex);
   };
+  const handleUserProfile = () => router.push(`public-user/${ownerId}?postId=${postId}`);
 
   const visibleButtons = images.slice(visibleButtonIndex, visibleButtonIndex + MAX_BUTTONS);
 
@@ -61,6 +64,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
         alt={images[imageIndex].uploadId}
         width={images[imageIndex].width}
         height={images[imageIndex].height}
+        onClick={handleUserProfile}
         priority
       />
       {images && images?.length > 1 && (
@@ -83,6 +87,8 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed }) => {
 };
 
 type Props = {
+  ownerId: number;
+  postId: number;
   images?: ImagesArgs[];
   isCollapsed?: boolean;
 };
