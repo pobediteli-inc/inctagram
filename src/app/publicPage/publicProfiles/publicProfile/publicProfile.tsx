@@ -10,6 +10,8 @@ import Image from "next/image";
 import { Description } from "./description/description";
 import { useRouter } from "next/navigation";
 
+// TODO: change naming of folders, and components
+
 export const PublicProfile: FC<Props> = ({ data }) => {
   const { items } = data ?? {};
 
@@ -25,7 +27,12 @@ export const PublicProfile: FC<Props> = ({ data }) => {
 
   const getItems = items?.map((item, index) => (
     <div key={`${index}-${item.id}`} className={s.mainWrapper}>
-      <ProfileImages images={item.images} isCollapsed={isImageCollapsed[item.id] || false} />
+      <ProfileImages
+        images={item.images}
+        isCollapsed={isImageCollapsed[item.id] || false}
+        ownerId={item.ownerId}
+        postId={item.id}
+      />
       <div className={s.profileName}>
         <div className={s.avatarOwner}>
           <Button style={{ all: "unset" }} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
