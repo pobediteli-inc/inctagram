@@ -177,7 +177,6 @@
 
 .commentText {
   max-width: 100%;
-  word-wrap: break-word;
   overflow-wrap: anywhere;
   font-size: 14px;
   font-weight: 400;
