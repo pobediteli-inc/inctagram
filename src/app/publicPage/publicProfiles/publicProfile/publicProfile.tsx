@@ -12,8 +12,8 @@ import { useRouter } from "next/navigation";
 
 // TODO: change naming of folders, and components
 
-export const PublicProfile: FC<Props> = ({ data }) => {
-  const { items } = data ?? {};
+export const PublicProfile: FC<Props> = ({ publicPosts }) => {
+  const { items } = publicPosts ?? {};
 
   const [isImageCollapsed, setIsImageCollapsed] = useState<Record<number, boolean>>({});
   const router = useRouter();
@@ -63,5 +63,5 @@ export const PublicProfile: FC<Props> = ({ data }) => {
 };
 
 type Props = {
-  data?: AllPublicPostsResponse;
+  publicPosts?: AllPublicPostsResponse;
 };
