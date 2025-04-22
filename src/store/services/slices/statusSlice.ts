@@ -33,10 +33,12 @@ export const statusSlice = createSlice({
       })
       .addMatcher(isRejected, (state, action) => {
         state.status = "error";
-        const payload = action.payload as BaseServerError;
-        const { statusCode, messages, error } = payload.data;
-        if (authApi.endpoints.me.matchRejected(action)) if (statusCode && action.error) return;
-        state.message = messages[0].message || error || (action.error as string);
+        const payload = (action.payload as BaseServerError) || null;
+        if (payload?.data) {
+          const { messages, error } = payload.data;
+          if (authApi.endpoints.me.matchRejected(action)) return; // ignore unauthorized me request
+          state.message = messages[0].message || error;
+        } else state.message = action.error as string;
       });
   },
   selectors: {
