@@ -40,7 +40,7 @@ export default function Login() {
         localStorage.setItem("accessToken", response.accessToken);
         dispatch(setLoggedIn({ isLoggedIn: true }));
         await refetch();
-        router.push("/home");
+        router.push("/");
         dispatch(setStatus({ status: "success", message: "Successfully logged in." }));
       }
     } catch (error: unknown) {
