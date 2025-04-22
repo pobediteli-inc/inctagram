@@ -18,8 +18,8 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
 
   return (
     <>
-      <GoogleOAuth redirect={"/home"} />
-      <GithubOAuth redirect={"/home"} />
+      <GoogleOAuth redirect={"/"} />
+      <GithubOAuth redirect={"/"} />
       <Header />
       {status === "loading" && (
         <div className={s.progressBar}>

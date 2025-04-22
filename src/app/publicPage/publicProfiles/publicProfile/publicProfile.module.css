@@ -6,6 +6,13 @@
   width: 100%;
 }
 
+.profileName {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+}
+
 .avatarOwner {
   max-width: 36px;
   width: 100%;
@@ -13,10 +20,4 @@
   height: 100%;
   border-radius: 50%;
   background-color: var(--dark-300);
-}
-
-.profileName {
-  display: flex;
-  gap: 12px;
-  width: 100%;
 }

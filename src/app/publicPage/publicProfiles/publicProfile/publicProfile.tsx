@@ -10,6 +10,8 @@ import Image from "next/image";
 import { Description } from "./description/description";
 import { useRouter } from "next/navigation";
 
+// TODO: change naming of folders, and components
+
 export const PublicProfile: FC<Props> = ({ data }) => {
   const { items } = data ?? {};
 
@@ -21,24 +23,30 @@ export const PublicProfile: FC<Props> = ({ data }) => {
       ...prevState,
       [id]: isExpanded,
     }));
-  const handleUserProfile = (ownerId: number) => {
-    router.push(`public-user/${ownerId}`);
-  };
+  const handleUserProfile = (ownerId: number) => router.push(`public-user/${ownerId}`);
 
   const getItems = items?.map((item, index) => (
     <div key={`${index}-${item.id}`} className={s.mainWrapper}>
-      <ProfileImages images={item.images} isCollapsed={isImageCollapsed[item.id] || false} />
+      <ProfileImages
+        images={item.images}
+        isCollapsed={isImageCollapsed[item.id] || false}
+        ownerId={item.ownerId}
+        postId={item.id}
+      />
       <div className={s.profileName}>
-        <Image // avatar image
-          className={s.avatarOwner}
-          src={item.avatarOwner || "/icons/svg/person.svg"}
-          alt={item.userName}
-          width={36}
-          height={36}
-          priority
-        />
-        <Button variant={"link"} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
-          <Typography variant={"h3"} color={"light"} textAlign={"center"}>
+        <div className={s.avatarOwner}>
+          <Button style={{ all: "unset" }} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
+            <Image // avatar image
+              src={item.avatarOwner || "/icons/svg/person.svg"}
+              alt={item.userName}
+              width={36}
+              height={36}
+              priority
+            />
+          </Button>
+        </div>
+        <Button style={{ all: "unset" }} key={`${index}-${item.id}`} onClick={() => handleUserProfile(item.ownerId)}>
+          <Typography variant={"h3"} color={"light"} textAlign={"left"}>
             {item.userName}
           </Typography>
         </Button>

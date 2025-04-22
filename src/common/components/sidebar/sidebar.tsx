@@ -16,7 +16,7 @@ import { useMeQuery } from "store/services/api/auth";
 
 const sidebarItems: SidebarItem[] = [
   {
-    href: "/home",
+    href: "/",
     icon: <Home width={24} height={24} />,
     title: "Home",
   },
@@ -59,6 +59,8 @@ const sidebarItems: SidebarItem[] = [
 
 export const Sidebar = () => {
   const { data } = useMeQuery();
+
+  if (!data?.userId) return null;
 
   const dynamicSidebarItems = sidebarItems.map((item) =>
     item.title === "My Profile" ? { ...item, href: `/my-profile/${data?.userId}` } : item

@@ -45,9 +45,11 @@ export const Header: FC = () => {
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
-        <Typography variant={"large"} color={"light"} textAlign={"center"}>
-          Inctagram
-        </Typography>
+        <Link style={{ cursor: "pointer" }} href={`/`}>
+          <Typography variant={"large"} color={"light"} textAlign={"center"}>
+            Inctagram
+          </Typography>
+        </Link>
         <div className={s.selectButtonsWrapper}>
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
