@@ -14,11 +14,13 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
+import { useRouter } from "next/navigation";
 
 export const Header: FC = () => {
   const { data, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const { email } = data ?? {};
 
@@ -32,6 +34,7 @@ export const Header: FC = () => {
     dispatch(authApi.util.resetApiState());
     dispatch(setLoggedIn({ isLoggedIn: false }));
   };
+  const handleOnMainPage = () => router.push("/");
 
   useEffect(() => {
     try {
@@ -45,11 +48,15 @@ export const Header: FC = () => {
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
-        <Link style={{ cursor: "pointer" }} href={`/`}>
-          <Typography variant={"large"} color={"light"} textAlign={"center"}>
-            Inctagram
-          </Typography>
-        </Link>
+        <Typography
+          style={{ cursor: "pointer" }}
+          variant={"large"}
+          color={"light"}
+          textAlign={"center"}
+          onClick={handleOnMainPage}
+        >
+          Inctagram
+        </Typography>
         <div className={s.selectButtonsWrapper}>
           <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
           <div className={s.buttonsWrapper}>
