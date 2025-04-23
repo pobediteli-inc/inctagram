@@ -60,7 +60,11 @@ export default function CreatePage() {
           return;
         }
         if (file.size > 20 * 1024 * 1024) {
-          setToast({ type: "error", message: "The file is too large! Maximum size is 20 MB.", open: true });
+          setToast({
+            type: "error",
+            message: "The photo must be less than 20 Mb and have JPEG or PNG format",
+            open: true,
+          });
           return;
         }
         newFiles.push(file);
