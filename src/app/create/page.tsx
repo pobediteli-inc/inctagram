@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./createPage.module.css";
 import { Card } from "common/components";
 import { Toast } from "common/components";
@@ -25,6 +25,21 @@ export default function CreatePage() {
 
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        onCloseHandler();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
 
@@ -110,7 +125,7 @@ export default function CreatePage() {
 
   return (
     <div className={s.popUp}>
-      <Card className={s.wrapper}>
+      <Card className={s.wrapper} ref={modalRef}>
         {!showForm ? (
           <UploadStep
             previewUrls={previewUrls}
