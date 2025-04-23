@@ -47,6 +47,7 @@ export default function CreatePage() {
       const MAX_IMAGES = 10;
       if (images.length + filesArray.length > MAX_IMAGES) {
         setToast({ type: "warning", message: `You can upload up to ${MAX_IMAGES} images.`, open: true });
+        e.target.value = "";
         return;
       }
 
@@ -70,6 +71,8 @@ export default function CreatePage() {
       setImages((prev) => [...prev, ...newFiles]);
       setPreviewUrls((prev) => [...prev, ...newUrls]);
     }
+
+    e.target.value = "";
   };
 
   const handleRemoveImage = (index: number) => {
