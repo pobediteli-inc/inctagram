@@ -38,7 +38,7 @@ export default function CreatePage() {
       setShowForm(false);
     }
     setShowCloseNotification(false);
-    router.push("/home");
+    router.push("/");
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +102,7 @@ export default function CreatePage() {
       setPreviewUrls([]);
       setDescription("");
       setShowForm(false);
-      router.push("/home");
+      router.push("/");
     } catch {
       setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }
@@ -143,7 +143,7 @@ export default function CreatePage() {
         />
       )}
 
-      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification} />}
+      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification("discard")} />}
     </div>
   );
 }
