@@ -40,7 +40,7 @@
 }
 
 .removeBtn {
-  all: unset;
+  all: unset !important;
   position: absolute;
   top: 10px;
   left: 80px;

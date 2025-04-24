@@ -7,6 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--dark-700);
+  background-color: rgb(18 18 18 / 70%);
   z-index: 99999;
 }

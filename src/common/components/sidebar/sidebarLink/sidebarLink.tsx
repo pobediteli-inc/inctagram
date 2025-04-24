@@ -13,11 +13,14 @@ type SidebarLinkProps = {
 
 export const SidebarLink = ({ item }: SidebarLinkProps) => {
   const currentPath = usePathname();
+
+  const isActive = () => {
+    if (item.href === "/") return currentPath === "/";
+    return currentPath.startsWith(item.href);
+  };
+
   return (
-    <Link
-      className={clsx(s.navbarLink, item.disabled && s.disabled, currentPath.startsWith(item.href) && s.active)}
-      href={item.href}
-    >
+    <Link className={clsx(s.navbarLink, item.disabled && s.disabled, isActive() && s.active)} href={item.href}>
       {item.icon}
       <Typography variant={"medium_14"}>{item.title}</Typography>
     </Link>

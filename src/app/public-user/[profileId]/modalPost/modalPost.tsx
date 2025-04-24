@@ -8,6 +8,7 @@ import s from "./modalPost.module.css";
 import { Typography } from "common/components";
 import Image from "next/image";
 import defaultAvatar from "public/icons/svg/person.svg";
+import defaultImage from "public/icons/svg/image.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
 import { ArrowIosBackOutline, ArrowIosForwardOutline } from "assets/icons";
 import { useEffect, useState } from "react";
@@ -49,11 +50,11 @@ export default function ModalPost({ post, comments }: ModalPostProps) {
           <div className={s.container}>
             <div className={s.imageWrapper}>
               <Image
-                src={post.images[currentImage]?.url || defaultAvatar}
+                src={post.images[currentImage]?.url || defaultImage}
                 alt="Post Image"
                 width={post.images[currentImage]?.width}
                 height={post.images[currentImage]?.height}
-                className={post.images ? s.image : s.defaultImage}
+                className={post.images[currentImage]?.url ? s.image : s.defaultImage}
               />
               {post.images.length > 1 && (
                 <ArrowIosBackOutline width={48} height={48} className={s.imageLeftArrow} onClick={handlePrevImage} />

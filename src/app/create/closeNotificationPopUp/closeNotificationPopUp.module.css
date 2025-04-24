@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--dark-700);
+  background-color: rgb(18 18 18 / 70%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@
 }
 
 .closeBtn {
-  all: unset;
+  all: unset !important;
   width: 24px;
   height: 24px;
   color: var(--light-100);

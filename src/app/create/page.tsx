@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./createPage.module.css";
 import { Card } from "common/components";
 import { Toast } from "common/components";
@@ -25,6 +25,21 @@ export default function CreatePage() {
 
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        onCloseHandler();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
 
@@ -38,7 +53,7 @@ export default function CreatePage() {
       setShowForm(false);
     }
     setShowCloseNotification(false);
-    router.push("/home");
+    router.push("/");
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +62,7 @@ export default function CreatePage() {
       const MAX_IMAGES = 10;
       if (images.length + filesArray.length > MAX_IMAGES) {
         setToast({ type: "warning", message: `You can upload up to ${MAX_IMAGES} images.`, open: true });
+        e.target.value = "";
         return;
       }
 
@@ -60,7 +76,11 @@ export default function CreatePage() {
           return;
         }
         if (file.size > 20 * 1024 * 1024) {
-          setToast({ type: "error", message: "The file is too large! Maximum size is 20 MB.", open: true });
+          setToast({
+            type: "error",
+            message: "The photo must be less than 20 Mb and have JPEG or PNG format",
+            open: true,
+          });
           return;
         }
         newFiles.push(file);
@@ -70,6 +90,8 @@ export default function CreatePage() {
       setImages((prev) => [...prev, ...newFiles]);
       setPreviewUrls((prev) => [...prev, ...newUrls]);
     }
+
+    e.target.value = "";
   };
 
   const handleRemoveImage = (index: number) => {
@@ -102,7 +124,7 @@ export default function CreatePage() {
       setPreviewUrls([]);
       setDescription("");
       setShowForm(false);
-      router.push("/home");
+      router.push("/");
     } catch {
       setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }
@@ -110,7 +132,7 @@ export default function CreatePage() {
 
   return (
     <div className={s.popUp}>
-      <Card className={s.wrapper}>
+      <Card className={s.wrapper} ref={modalRef}>
         {!showForm ? (
           <UploadStep
             previewUrls={previewUrls}
@@ -143,7 +165,7 @@ export default function CreatePage() {
         />
       )}
 
-      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification} />}
+      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification("discard")} />}
     </div>
   );
 }

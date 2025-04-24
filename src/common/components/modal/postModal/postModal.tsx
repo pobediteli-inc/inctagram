@@ -3,6 +3,7 @@ import clsx from "clsx";
 import s from "./postModal.module.scss";
 import { ComponentPropsWithoutRef } from "react";
 import SvgClose from "assets/icons/Close";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type Props = {
   open: boolean;
@@ -14,6 +15,9 @@ export const PostModal = ({ onClose, open, children, className, ...rest }: Props
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay} />
       <Dialog.Content className={clsx(s.content, className)}>
+        <VisuallyHidden>
+          <Dialog.Title>Post</Dialog.Title>
+        </VisuallyHidden>
         {children}
         <Dialog.Close asChild>
           <button className={s.iconButton} aria-label="Close">
