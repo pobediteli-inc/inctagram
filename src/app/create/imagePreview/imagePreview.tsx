@@ -4,7 +4,6 @@ import Image from "next/image";
 import s from "./imagePreview.module.css";
 import "swiper/css";
 import { Close, ImageOutline } from "assets/icons";
-import { Button } from "../../../common/components";
 
 type ImagePreviewProps = {
   previewUrls: string[];
