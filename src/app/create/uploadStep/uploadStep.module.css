@@ -27,7 +27,7 @@
 }
 
 .closeBtn {
-  all: unset;
+  all: unset !important;
   cursor: pointer;
 }
 
