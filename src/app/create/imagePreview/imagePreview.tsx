@@ -50,9 +50,9 @@ export const ImagePreview = ({
                   height={100}
                   onClick={() => setMainImageIndex(index)}
                 />
-                <Button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
+                <button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
                   <Close width={12} height={12} />
-                </Button>
+                </button>
               </div>
             </SwiperSlide>
           ))}
