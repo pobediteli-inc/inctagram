@@ -4,7 +4,6 @@ import Image from "next/image";
 import s from "./imagePreview.module.css";
 import "swiper/css";
 import { Close, ImageOutline } from "assets/icons";
-import { Button } from "../../../common/components";
 
 type ImagePreviewProps = {
   previewUrls: string[];
@@ -19,7 +18,9 @@ export const ImagePreview = ({
   setMainImageIndex,
   handleRemoveImage,
 }: ImagePreviewProps) => {
-  if (previewUrls.length === 0) {
+  const mainImageUrl = previewUrls[mainImageIndex];
+
+  if (previewUrls.length === 0 || !mainImageUrl) {
     return (
       <div className={s.imageEmpty}>
         <ImageOutline width={48} height={48} />
@@ -29,14 +30,17 @@ export const ImagePreview = ({
 
   return (
     <div className={s.previewContainer}>
-      <Image
-        className={s.mainImage}
-        src={previewUrls[mainImageIndex]}
-        alt="Main Preview"
-        priority
-        width={400}
-        height={400}
-      />
+      {mainImageUrl && (
+        <Image
+          className={s.mainImage}
+          src={previewUrls[mainImageIndex]}
+          alt="Main Preview"
+          priority
+          width={400}
+          height={400}
+        />
+      )}
+
       {previewUrls.length > 1 && (
         <Swiper spaceBetween={10} slidesPerView={3} className={s.carousel}>
           {previewUrls.map((url, index) => (
@@ -50,9 +54,9 @@ export const ImagePreview = ({
                   height={100}
                   onClick={() => setMainImageIndex(index)}
                 />
-                <Button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
+                <button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
                   <Close width={12} height={12} />
-                </Button>
+                </button>
               </div>
             </SwiperSlide>
           ))}

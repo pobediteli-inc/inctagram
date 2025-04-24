@@ -40,10 +40,9 @@
 }
 
 .removeBtn {
-  all: unset !important;
   position: absolute;
-  top: 10px;
-  left: 80px;
+  top: 6px;
+  left: 82px;
   display: flex;
   justify-content: center;
   align-items: center;
