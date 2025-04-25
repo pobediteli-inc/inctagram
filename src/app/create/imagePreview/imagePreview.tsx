@@ -20,7 +20,7 @@ export const ImagePreview = ({
   handleRemoveImage,
   onSelectClickHandler,
 }: ImagePreviewProps) => {
-  const mainImageUrl = previewUrls[mainImageIndex];
+  const mainImageUrl = previewUrls[mainImageIndex] ?? previewUrls[0];
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", containScroll: "trimSnaps" });
 

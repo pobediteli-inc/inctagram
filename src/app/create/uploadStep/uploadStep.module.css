@@ -75,5 +75,5 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
   line-height: 1;
   padding: 0;
-  margin: 0 12px;
+  margin: 12px;
 }

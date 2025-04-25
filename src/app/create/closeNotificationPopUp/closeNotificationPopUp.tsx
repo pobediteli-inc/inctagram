@@ -5,10 +5,11 @@ import { Close } from "assets/icons";
 import { Toast } from "common/components/toast/toast";
 
 type Props = {
-  close: () => void;
+  resetCreateForm: () => void;
+  closeNotificationPopUp: () => void;
 };
 
-export const CloseNotificationPopUp = ({ close }: Props) => {
+export const CloseNotificationPopUp = ({ resetCreateForm, closeNotificationPopUp }: Props) => {
   const [toast, setToast] = useState<{
     type: "success" | "error" | "warning";
     message: string;
@@ -16,7 +17,7 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
   } | null>(null);
 
   const handleDiscardClick = () => {
-    close();
+    closeNotificationPopUp();
   };
 
   const handleSaveDraftClick = () => {
@@ -34,7 +35,7 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
           <Typography variant={"h1"} color={"light"}>
             Close
           </Typography>
-          <Button className={s.closeBtn} onClick={close}>
+          <Button className={s.closeBtn} onClick={resetCreateForm}>
             <Close width={24} height={24} />
           </Button>
         </div>

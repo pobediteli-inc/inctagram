@@ -96,7 +96,7 @@
 .carouselWrapper {
   max-width: 476px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: absolute;
   bottom: 12px;
   right: 12px;
@@ -152,5 +152,5 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
   line-height: 1;
   padding: 0;
-  margin: 0 12px;
+  margin: 12px;
 }
