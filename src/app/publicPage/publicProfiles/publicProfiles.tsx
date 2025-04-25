@@ -4,7 +4,7 @@ import { AllPublicPostsResponse } from "store/services/api/publicPosts";
 import { Typography } from "common/components";
 
 export const PublicProfiles = async () => {
-  const publicPostsResponse = await getPublicPosts();
+  const publicPostsResponse = await getPublicPosts(4);
 
   if (!publicPostsResponse)
     return (
@@ -20,12 +20,11 @@ export const PublicProfiles = async () => {
   );
 };
 
-const getPublicPosts = async (): Promise<AllPublicPostsResponse | undefined> => {
+const getPublicPosts = async (pageSize: number): Promise<AllPublicPostsResponse | undefined> => {
   try {
-    const pageSize = 4;
     const sortDirection = "desc";
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/all/,?pageSize=${pageSize}&sortDirection=${sortDirection}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/all?pageSize=${pageSize}&sortDirection=${sortDirection}`,
       {
         method: "GET",
         cache: "no-cache",
