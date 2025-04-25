@@ -3,7 +3,6 @@ import s from "./uploadStep.module.css";
 import { Button, Typography } from "common/components";
 import { Close } from "assets/icons";
 import { ImagePreview } from "../imagePreview/imagePreview";
-import { ImageSelector } from "../imageSelector/ImageSelector";
 
 type UploadStepProps = {
   previewUrls: string[];
@@ -28,6 +27,14 @@ export const UploadStep = ({
 }: UploadStepProps) => {
   const hasImages = previewUrls.length > 0;
 
+  const onSelectClickHandler = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onNextClickHandler = () => {
+    setShowForm(true);
+  };
+
   return (
     <div className={s.modalWrapper}>
       <div className={s.headerDataButtons}>
@@ -35,9 +42,16 @@ export const UploadStep = ({
           <Typography variant="h2" color="light">
             {hasImages ? "Edit Photos" : "Add Photos"}
           </Typography>
-          <Button className={s.closeBtn} onClick={onCloseHandler}>
-            <Close width={24} height={24} />
-          </Button>
+
+          {hasImages ? (
+            <Button className={s.nextBtn} type="button" variant="link" onClick={onNextClickHandler}>
+              Next
+            </Button>
+          ) : (
+            <Button className={s.closeBtn} onClick={onCloseHandler}>
+              <Close width={24} height={24} />
+            </Button>
+          )}
         </div>
 
         <ImagePreview
@@ -45,22 +59,34 @@ export const UploadStep = ({
           mainImageIndex={mainImageIndex}
           setMainImageIndex={setMainImageIndex}
           handleRemoveImage={handleRemoveImage}
+          onSelectClickHandler={onSelectClickHandler}
         />
 
-        <ImageSelector fileInputRef={fileInputRef as React.RefObject<HTMLInputElement>} setShowForm={setShowForm} />
-      </div>
+        <div>
+          {!hasImages && (
+            <div className={s.btnGroup}>
+              <Button className={s.btnForm} type="button" onClick={onSelectClickHandler}>
+                Select from Computer
+              </Button>
+              <Button className={s.btnForm} type="button" variant="outlined">
+                Open draft
+              </Button>
+            </div>
+          )}
+        </div>
 
-      <div className={s.fileInputWrapper}>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          id="photo-upload"
-          ref={fileInputRef}
-          className={s.fileUpload}
-          style={{ display: "none" }}
-        />
+        <div className={s.fileInputWrapper}>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            id="photo-upload"
+            ref={fileInputRef}
+            className={s.fileUpload}
+            style={{ display: "none" }}
+          />
+        </div>
       </div>
     </div>
   );

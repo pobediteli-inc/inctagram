@@ -132,7 +132,7 @@ export default function CreatePage() {
 
   return (
     <div className={s.popUp}>
-      <Card className={s.wrapper} ref={modalRef}>
+      <Card ref={modalRef}>
         {!showForm ? (
           <UploadStep
             previewUrls={previewUrls}
@@ -156,14 +156,14 @@ export default function CreatePage() {
         )}
       </Card>
 
-      {toast && (
-        <Toast
-          type={toast.type}
-          message={toast.message}
-          open={toast.open}
-          setOpen={(open) => setToast((prev) => (prev ? { ...prev, open } : null))}
-        />
-      )}
+      {/*{toast && (*/}
+      {/*  <Toast*/}
+      {/*    type={toast.type}*/}
+      {/*    message={toast.message}*/}
+      {/*    open={toast.open}*/}
+      {/*    setOpen={(open) => setToast((prev) => (prev ? { ...prev, open } : null))}*/}
+      {/*  />*/}
+      {/*)}*/}
 
       {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification("discard")} />}
     </div>
