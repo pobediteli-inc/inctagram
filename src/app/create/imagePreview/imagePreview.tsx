@@ -9,7 +9,7 @@ type ImagePreviewProps = {
   previewUrls: string[];
   mainImageIndex: number;
   setMainImageIndex: (index: number) => void;
-  handleRemoveImage: (index: number) => void;
+  handleRemoveImage: (index: number, e: React.MouseEvent<HTMLButtonElement>) => void;
   onSelectClickHandler: () => void;
 };
 
@@ -41,6 +41,52 @@ export const ImagePreview = ({
     };
   }, [emblaApi, mainImageIndex, setMainImageIndex]);
 
+  const renderMainImage = () => (
+    <div className={s.mainImageWrapper}>
+      {mainImageIndex > 0 && (
+        <button className={`${s.arrow} ${s.leftArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex - 1)}>
+          <ChevronLeft size={24} />
+        </button>
+      )}
+
+      <Image className={s.mainImage} src={mainImageUrl} alt="Main Preview" priority width={400} height={400} />
+
+      {mainImageIndex < previewUrls.length - 1 && (
+        <button className={`${s.arrow} ${s.rightArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex + 1)}>
+          <ChevronRight size={24} />
+        </button>
+      )}
+    </div>
+  );
+
+  const renderCarousel = () => (
+    <div className={s.carouselWrapper}>
+      <div className={s.embla} ref={emblaRef}>
+        <div className={s.emblaContainer}>
+          {previewUrls.map((url, index) => (
+            <div className={s.emblaSlide} key={index}>
+              <div
+                className={`${s.previewImageContainer} ${index === mainImageIndex ? s.active : ""}`}
+                onClick={() => setMainImageIndex(index)}
+              >
+                <Image className={s.previewImage} src={url} alt={`Preview ${index + 1}`} width={100} height={100} />
+                <button className={s.removeBtn} onClick={(e) => handleRemoveImage(index, e)}>
+                  <Close width={12} height={12} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className={s.btnGroup}>
+        <button className={s.btnAddPhoto} onClick={onSelectClickHandler}>
+          +
+        </button>
+      </div>
+    </div>
+  );
+
   if (previewUrls.length === 0 || !mainImageUrl) {
     return (
       <div className={s.imageEmpty}>
@@ -51,47 +97,8 @@ export const ImagePreview = ({
 
   return (
     <div className={s.previewContainer}>
-      <div className={s.mainImageWrapper}>
-        {mainImageIndex > 0 && (
-          <button className={`${s.arrow} ${s.leftArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex - 1)}>
-            <ChevronLeft size={24} />
-          </button>
-        )}
-
-        <Image className={s.mainImage} src={mainImageUrl} alt="Main Preview" priority width={400} height={400} />
-
-        {mainImageIndex < previewUrls.length - 1 && (
-          <button className={`${s.arrow} ${s.rightArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex + 1)}>
-            <ChevronRight size={24} />
-          </button>
-        )}
-      </div>
-
-      <div className={s.carouselWrapper}>
-        <div className={s.embla} ref={emblaRef}>
-          <div className={s.emblaContainer}>
-            {previewUrls.map((url, index) => (
-              <div className={s.emblaSlide} key={index}>
-                <div
-                  className={`${s.previewImageContainer} ${index === mainImageIndex ? s.active : ""}`}
-                  onClick={() => setMainImageIndex(index)}
-                >
-                  <Image className={s.previewImage} src={url} alt={`Preview ${index + 1}`} width={100} height={100} />
-                  <button className={s.removeBtn} onClick={() => handleRemoveImage(index)}>
-                    <Close width={12} height={12} />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={s.btnGroup}>
-          <button className={s.btnAddPhoto} onClick={onSelectClickHandler}>
-            +
-          </button>
-        </div>
-      </div>
+      {renderMainImage()}
+      {renderCarousel()}
     </div>
   );
 };

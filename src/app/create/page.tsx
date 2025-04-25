@@ -103,6 +103,7 @@ export default function CreatePage() {
             onBack={() => setShowForm(false)}
             onSubmit={handleSubmit}
             isLoading={isUploading || isCreating}
+            previewUrls={previewUrls}
           />
         )}
       </Card>
