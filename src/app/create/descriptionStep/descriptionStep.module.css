@@ -1,6 +1,8 @@
 .modalWrapper {
   min-width: 1000px;
   background-color: var(--dark-300);
+  display: flex;
+  flex-direction: column;
 }
 
 .popUpHeader {
@@ -10,27 +12,37 @@
   width: 100%;
   padding: 12px 24px;
   border-bottom: 1px solid var(--dark-100);
+  box-sizing: border-box;
+  z-index: 2;
+  background-color: var(--dark-300);
 }
 
 .photosAndDescription {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .uploadedPhotos {
   min-width: 500px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .formContainer {
   min-width: 500px;
   width: 100%;
+  max-width: 500px;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-between;
-  min-height: 564px;
-  max-width: 500px;
+  min-height: 500px;
+  background-color: var(--dark-300);
+  box-sizing: border-box;
 }
 
 .closeBtn {
@@ -72,8 +84,8 @@
 
 .imageWrapper {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,7 +101,6 @@
   cursor: pointer;
   z-index: 2;
   padding: 4px;
-  border-radius: 50%;
   color: white;
 }
 
@@ -102,6 +113,6 @@
 }
 
 .previewImage {
-  border-radius: 8px;
+  border-radius: 2px;
   object-fit: cover;
 }
