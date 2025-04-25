@@ -54,6 +54,10 @@
   margin: 12px;
 }
 
+.previewImageContainer:last-child {
+  margin-right: 0;
+}
+
 .previewImageContainer:hover {
   border-color: var(--primary-300);
 }
