@@ -112,12 +112,13 @@
   background-color: var(--dark-100);
   border: none;
   cursor: pointer;
+}
 
-  svg {
+.rdpButton_next svg,
+.rdpButton_previous svg{
     width: 20px;
     height: 20px;
     fill: var(--light-100);
-  }
 }
 
 .rdpButton_next:disabled,
