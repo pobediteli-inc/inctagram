@@ -11,7 +11,7 @@ type FormContainerProps = {
 export const FormContainer = ({ description, setDescription }: FormContainerProps) => {
   const { data } = useGetProfileQuery();
   const userName = data?.userName ?? "Unknown";
-  const avatarUrl = data?.avatars?.length ? data.avatars[0].url : null;
+  const avatarUrl = data?.avatars?.[0]?.url || "";
 
   const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
@@ -20,9 +20,7 @@ export const FormContainer = ({ description, setDescription }: FormContainerProp
   return (
     <div className={s.formContainer}>
       <div className={s.profilePhotoAndUrl}>
-        <div>
-          <Avatar width={36} height={36} className={s.profileImage} src={avatarUrl ?? undefined} size="small" />
-        </div>
+        <Avatar size="small" className={s.profileImage} src={avatarUrl || undefined} />
         <Typography variant="regular_16">{userName}</Typography>
       </div>
 

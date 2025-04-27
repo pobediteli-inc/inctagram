@@ -9,12 +9,3 @@
   background-color: var(--dark-300);
   z-index: 2;
 }
-
-.prevStep {
-  display: contents;
-}
-
-.prevStep:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
