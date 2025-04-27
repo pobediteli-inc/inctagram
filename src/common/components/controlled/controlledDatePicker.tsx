@@ -5,10 +5,10 @@ import { DatePickerSingle, DatePickerSingleProps } from "../datePicker/single/da
 
 type Props<T extends FieldValues> = UseControllerProps<T> & Omit<DatePickerSingleProps, "value" | "onDateChange">;
 
-export const ControlledDatePicker = <T extends FieldValues>({ control, name, label }: Props<T>) => {
+export const ControlledDatePicker = <T extends FieldValues>({ control, name, label, ...restProps }: Props<T>) => {
   const {
     field: { value, onChange },
   } = useController({ name, control });
 
-  return <DatePickerSingle value={value} onDateChange={onChange} label={label} />;
+  return <DatePickerSingle value={value} onDateChange={onChange} label={label} {...restProps} />;
 };

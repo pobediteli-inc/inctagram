@@ -115,10 +115,10 @@
 }
 
 .rdpButton_next svg,
-.rdpButton_previous svg{
-    width: 20px;
-    height: 20px;
-    fill: var(--light-100);
+.rdpButton_previous svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--light-100);
 }
 
 .rdpButton_next:disabled,
@@ -177,6 +177,7 @@
   inset-inline-start: 0;
   opacity: 0;
   appearance: none;
+  cursor: pointer;
 }
 
 .rdpDropdown_root {
@@ -185,14 +186,18 @@
   align-items: center;
 }
 
+.rdpDropdown_root svg {
+  fill: var(--light-100);
+}
+
 /* Today Styles */
 .rdpToday {
   color: var(--primary-500);
 }
 
 .rdpToday.rdpDay_selected {
-    color: var(--light-100);
-    font-weight: 700;
+  color: var(--light-100);
+  font-weight: 700;
 }
 
 /* Disabled */

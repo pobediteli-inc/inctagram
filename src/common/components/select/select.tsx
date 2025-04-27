@@ -7,7 +7,7 @@ import { SelectItem } from "common/components/select/selectItems/selectItems";
 import { Typography } from "common/components/typography/typography";
 import { NullableProps, SelectItemsProps } from "common/types";
 
-export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Props>(
+export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, SelectProps>(
   (
     {
       className,
@@ -84,7 +84,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Props
   }
 );
 
-type Props = {
+export type SelectProps = {
   id?: string;
   className?: string;
   labelClassName?: string;

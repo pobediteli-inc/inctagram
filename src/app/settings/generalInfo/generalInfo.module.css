@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 21fr 79fr;
+  gap: 38px;
+  width: 100%;
+  padding-top: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.countryCitySelect {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.select {
+  width: 100%;
+}
+
+.submit {
+  align-self: flex-end;
+  margin-top: 24px;
+}
+
+.separator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+}
