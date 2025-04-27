@@ -1,8 +1,8 @@
 import s from "./uploadedPhotos.module.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { Typography } from "../../../../common/components";
+import { Button, Typography } from "../../../../common/components";
 import React, { useState } from "react";
+import { ArrowIosBack, ArrowIosForward } from "../../../../assets/icons";
 
 type UploadedPhotosProps = {
   previewUrls: string[];
@@ -29,9 +29,14 @@ export const UploadedPhotos = ({ previewUrls }: UploadedPhotosProps) => {
         <div className={s.carouselWrapper}>
           <div className={s.imageWrapper}>
             {canGoPrev && (
-              <button className={s.arrowLeft} onClick={handlePrev}>
-                <ChevronLeft size={24} />
-              </button>
+              <Button
+                type={"button"}
+                variant={"secondary"}
+                onClick={handlePrev}
+                className={`${s.arrowOverlay} ${s.arrowOverlayLeft}`}
+              >
+                <ArrowIosBack width={24} height={24} />
+              </Button>
             )}
 
             <Image
@@ -43,20 +48,28 @@ export const UploadedPhotos = ({ previewUrls }: UploadedPhotosProps) => {
             />
 
             {canGoNext && (
-              <button className={s.arrowRight} onClick={handleNext}>
-                <ChevronRight size={24} />
-              </button>
+              <Button
+                type={"button"}
+                variant={"secondary"}
+                onClick={handleNext}
+                className={`${s.arrowOverlay} ${s.arrowOverlayRight}`}
+              >
+                <ArrowIosForward width={24} height={24} />
+              </Button>
             )}
 
             <div className={s.carouselDotsWrapper}>
               <div className={s.carouselDots}>
-                {previewUrls.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`${s.dot} ${index === currentIndex ? s.activeDot : ""}`}
-                    onClick={() => setCurrentIndex(index)}
-                  />
-                ))}
+                {previewUrls.map((_, index) => {
+                  const handleCarousel = () => setCurrentIndex(index);
+                  return (
+                    <button
+                      key={index}
+                      className={`${s.dot} ${index === currentIndex ? s.activeDot : ""}`}
+                      onClick={handleCarousel}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

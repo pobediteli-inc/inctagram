@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Avatar, Textarea, Typography } from "../../../../common/components";
 import s from "./formContainer.module.css";
 import Image from "next/image";
@@ -38,6 +38,7 @@ export const FormContainer = ({ description, setDescription }: FormContainerProp
     );
   };
 
+  const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value);
   return (
     <div className={s.formContainer}>
       <div className={s.profilePhotoAndUrl}>{renderProfileContent()}</div>
@@ -46,12 +47,7 @@ export const FormContainer = ({ description, setDescription }: FormContainerProp
         <Typography variant="regular_14" className={s.descriptionTitle}>
           Add publication descriptions
         </Typography>
-        <Textarea
-          title=""
-          className={s.textarea}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <Textarea title="" className={s.textarea} value={description} onChange={handleTextarea} />
       </div>
     </div>
   );

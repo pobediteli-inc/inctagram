@@ -27,10 +27,10 @@
 
 .closeBtn {
   all: unset !important;
+  cursor: pointer !important;
   width: 24px;
   height: 24px;
   color: var(--light-100);
-  cursor: pointer !important;
 }
 
 .popUpMessage {

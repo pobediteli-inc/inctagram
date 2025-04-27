@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import s from "./imagePreview.module.css";
-import { Close, ImageOutline } from "assets/icons";
+import { ArrowIosBack, ArrowIosForward, CloseOutline, ImageOutline, PlusCircleOutline } from "assets/icons";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "../../../common/components";
 
 type ImagePreviewProps = {
   previewUrls: string[];
@@ -41,20 +41,36 @@ export const ImagePreview = ({
     };
   }, [emblaApi, mainImageIndex, setMainImageIndex]);
 
+  const canGoPrev = mainImageIndex > 0;
+  const canGoNext = mainImageIndex < previewUrls.length - 1;
+
+  const handlePrev = () => setMainImageIndex(mainImageIndex - 1);
+  const handleNext = () => setMainImageIndex(mainImageIndex + 1);
+
   const renderMainImage = () => (
     <div className={s.mainImageWrapper}>
-      {mainImageIndex > 0 && (
-        <button className={`${s.arrow} ${s.leftArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex - 1)}>
-          <ChevronLeft size={24} />
-        </button>
+      {canGoPrev && (
+        <Button
+          type={"button"}
+          variant={"secondary"}
+          onClick={handlePrev}
+          className={`${s.arrowOverlay} ${s.arrowOverlayLeft}`}
+        >
+          <ArrowIosBack width={24} height={24} />
+        </Button>
       )}
 
       <Image className={s.mainImage} src={mainImageUrl} alt="Main Preview" priority width={400} height={400} />
 
-      {mainImageIndex < previewUrls.length - 1 && (
-        <button className={`${s.arrow} ${s.rightArrowOverlay}`} onClick={() => setMainImageIndex(mainImageIndex + 1)}>
-          <ChevronRight size={24} />
-        </button>
+      {canGoNext && (
+        <Button
+          type={"button"}
+          variant={"secondary"}
+          onClick={handleNext}
+          className={`${s.arrowOverlay} ${s.arrowOverlayRight}`}
+        >
+          <ArrowIosForward width={24} height={24} />
+        </Button>
       )}
     </div>
   );
@@ -63,26 +79,36 @@ export const ImagePreview = ({
     <div className={s.carouselWrapper}>
       <div className={s.embla} ref={emblaRef}>
         <div className={s.emblaContainer}>
-          {previewUrls.map((url, index) => (
-            <div className={s.emblaSlide} key={index}>
-              <div
-                className={`${s.previewImageContainer} ${index === mainImageIndex ? s.active : ""}`}
-                onClick={() => setMainImageIndex(index)}
-              >
-                <Image className={s.previewImage} src={url} alt={`Preview ${index + 1}`} width={100} height={100} />
-                <button className={s.removeBtn} onClick={(e) => handleRemoveImage(index, e)}>
-                  <Close width={12} height={12} />
-                </button>
+          {previewUrls.map((url, index) => {
+            const handleRenderCarousel = () => setMainImageIndex(index);
+            const onRemoveImageClick = (e: React.MouseEvent<HTMLButtonElement>) => handleRemoveImage(index, e);
+            return (
+              <div className={s.emblaSlide} key={index}>
+                <div
+                  className={`${s.previewImageContainer} ${index === mainImageIndex ? s.active : ""}`}
+                  onClick={handleRenderCarousel}
+                >
+                  <Image className={s.previewImage} src={url} alt={`Preview ${index + 1}`} width={100} height={100} />
+                  <button onClick={onRemoveImageClick} className={s.removeBtn}>
+                    <CloseOutline width={12} height={12} />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}{" "}
         </div>
       </div>
 
       <div className={s.btnGroup}>
-        <button className={s.btnAddPhoto} onClick={onSelectClickHandler}>
-          +
-        </button>
+        <Button
+          type="button"
+          variant="link"
+          onClick={onSelectClickHandler}
+          style={{ color: "var(--light-100)" }}
+          color="light"
+        >
+          <PlusCircleOutline width={36} height={36} />
+        </Button>
       </div>
     </div>
   );

@@ -38,13 +38,18 @@ export const UploadStep = ({
   const renderButtons = () => {
     if (hasImages) {
       return (
-        <Button className={s.nextBtn} type="button" variant="link" onClick={onNextClickHandler}>
+        <Button type="button" variant="link" onClick={onNextClickHandler} style={{ display: "contents" }}>
           Next
         </Button>
       );
     }
     return (
-      <Button className={s.closeBtn} onClick={onCloseHandler}>
+      <Button
+        type={"button"}
+        variant={"link"}
+        onClick={onCloseHandler}
+        style={{ color: "var(--light-100)", display: "contents" }}
+      >
         <Close width={24} height={24} />
       </Button>
     );
@@ -79,10 +84,10 @@ export const UploadStep = ({
     if (!hasImages) {
       return (
         <div className={s.btnGroup}>
-          <Button className={s.btnForm} type="button" onClick={onSelectClickHandler}>
+          <Button type="button" variant={"primary"} onClick={onSelectClickHandler}>
             Select from Computer
           </Button>
-          <Button className={s.btnForm} type="button" variant="outlined">
+          <Button type="button" variant="outlined">
             Open draft
           </Button>
         </div>
