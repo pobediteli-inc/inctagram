@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { Avatar, Textarea, Typography } from "../../../../common/components";
 import s from "./formContainer.module.css";
-import Image from "next/image";
 import { useGetProfileQuery } from "../../../../store/services/api/profile/profileApi";
 
 type FormContainerProps = {
@@ -10,38 +9,22 @@ type FormContainerProps = {
 };
 
 export const FormContainer = ({ description, setDescription }: FormContainerProps) => {
-  const { data, isLoading, isError } = useGetProfileQuery();
+  const { data } = useGetProfileQuery();
+  const userName = data?.userName ?? "Unknown";
+  const avatarUrl = data?.avatars?.length ? data.avatars[0].url : null;
 
-  const renderProfileContent = () => {
-    if (isLoading) {
-      return <Typography variant="regular_16">Loading profile...</Typography>;
-    }
-
-    if (isError || !data) {
-      return <Typography variant="regular_16">Error loading profile</Typography>;
-    }
-
-    const { userName, avatars } = data;
-    const avatarUrl = avatars?.length ? avatars[0].url : null;
-
-    return (
-      <>
-        <div>
-          {avatarUrl ? (
-            <Image src={avatarUrl} alt="Profile Avatar" className={s.profileImage} width={36} height={36} />
-          ) : (
-            <Avatar width={36} height={36} className={s.profileImage} />
-          )}
-        </div>
-        <Typography variant="regular_16">{userName}</Typography>
-      </>
-    );
+  const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
   };
 
-  const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value);
   return (
     <div className={s.formContainer}>
-      <div className={s.profilePhotoAndUrl}>{renderProfileContent()}</div>
+      <div className={s.profilePhotoAndUrl}>
+        <div>
+          <Avatar width={36} height={36} className={s.profileImage} src={avatarUrl ?? undefined} size="small" />
+        </div>
+        <Typography variant="regular_16">{userName}</Typography>
+      </div>
 
       <div className={s.descriptionField}>
         <Typography variant="regular_14" className={s.descriptionTitle}>

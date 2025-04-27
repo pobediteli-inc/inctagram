@@ -100,13 +100,7 @@ export const ImagePreview = ({
       </div>
 
       <div className={s.btnGroup}>
-        <Button
-          type="button"
-          variant="link"
-          onClick={onSelectClickHandler}
-          style={{ color: "var(--light-100)" }}
-          color="light"
-        >
+        <Button type="button" variant="link" onClick={onSelectClickHandler} style={{ color: "var(--light-100)" }}>
           <PlusCircleOutline width={36} height={36} />
         </Button>
       </div>
