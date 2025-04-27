@@ -11,9 +11,10 @@ import {
   Select,
   Separator,
 } from "common/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
+import { useGetProfileQuery } from "store/services/api/profile/profileApi";
 
 const generalInfoSchema = z.object({
   username: z
@@ -56,12 +57,37 @@ const generalInfoSchema = z.object({
 export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
+  const { data: profile } = useGetProfileQuery();
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
   const { control, handleSubmit, formState, reset, setError } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
+    defaultValues: {
+      username: "",
+      firstName: "",
+      lastName: "",
+      dateOfBirth: undefined,
+      country: "",
+      city: "",
+      aboutMe: "",
+    },
   });
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (profile) {
+      reset({
+        username: profile.userName || "",
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth) : undefined,
+        country: profile.country || "",
+        city: profile.city || "",
+        aboutMe: profile.aboutMe || "",
+      });
+    }
+  }, [profile, reset]);
 
   const countries = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
@@ -78,6 +104,7 @@ export const GeneralInfo = () => {
   const onSubmit = handleSubmit((data) => {
     alert(JSON.stringify(data));
   });
+
   return (
     <div className={s.container}>
       <div>photo block</div>
@@ -103,7 +130,7 @@ export const GeneralInfo = () => {
               setSelectedCountry(value);
               setSelectedCity(null);
             }}
-            defaultValue={countries[0].value}
+            defaultValue={countries[0]?.value}
             className={s.select}
           />
           <Select
