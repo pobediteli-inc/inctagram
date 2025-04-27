@@ -1,6 +1,6 @@
 "use client";
 
-import { FieldValues, UseControllerProps, useController } from "react-hook-form";
+import { FieldValues, useController, UseControllerProps } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { Textarea, TextareaProps } from "../textarea/textarea";
 
@@ -13,6 +13,7 @@ export const ControlledTextarea = <T extends FieldValues>({
   name,
   rules,
   shouldUnregister,
+  autoFocus = true,
   ...textareaProps
 }: Props<T>) => {
   const {
@@ -23,12 +24,12 @@ export const ControlledTextarea = <T extends FieldValues>({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    if (textareaRef.current) {
+    if (autoFocus && textareaRef.current) {
       const length = textareaRef.current.value.length;
       textareaRef.current.setSelectionRange(length, length);
       textareaRef.current.focus();
     }
-  }, [value]); // Перемещаем курсор в конец при изменении value
+  }, [value]);
 
   return (
     <Textarea

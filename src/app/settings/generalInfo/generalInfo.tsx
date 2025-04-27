@@ -3,10 +3,17 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, ControlledTextField, Select } from "common/components";
+import {
+  Button,
+  ControlledDatePicker,
+  ControlledTextarea,
+  ControlledTextField,
+  Select,
+  Separator,
+} from "common/components";
 import { useState } from "react";
 import { City, Country } from "country-state-city";
-import { ControlledDatePicker } from "../../../common/components/controlled/controlledDatePicker";
+import s from "./generalInfo.module.css";
 
 const generalInfoSchema = z.object({
   username: z
@@ -72,9 +79,9 @@ export const GeneralInfo = () => {
     alert(JSON.stringify(data));
   });
   return (
-    <div>
+    <div className={s.container}>
       <div>photo block</div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={s.form}>
         <ControlledTextField name={"username"} control={control} label={"Username"} />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
         <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
@@ -87,24 +94,32 @@ export const GeneralInfo = () => {
           startMonth={new Date(1940, 1)}
           endMonth={new Date()}
         />
-        <Select
-          items={countries}
-          label={"Select your country"}
-          name={"country"}
-          onValueChange={(value) => {
-            setSelectedCountry(value);
-            setSelectedCity(null);
-          }}
-          defaultValue={countries[0].value}
-        />
-        <Select
-          items={cities || []}
-          label={"Select your city"}
-          name={"city"}
-          onValueChange={setSelectedCity}
-          disabled={!selectedCountry}
-        />
-        <Button type={"submit"}>Save</Button>
+        <div className={s.countryCitySelect}>
+          <Select
+            items={countries}
+            label={"Select your country"}
+            name={"country"}
+            onValueChange={(value) => {
+              setSelectedCountry(value);
+              setSelectedCity(null);
+            }}
+            defaultValue={countries[0].value}
+            className={s.select}
+          />
+          <Select
+            items={cities || []}
+            label={"Select your city"}
+            name={"city"}
+            onValueChange={setSelectedCity}
+            disabled={!selectedCountry}
+            className={s.select}
+          />
+        </div>
+        <ControlledTextarea control={control} name={"aboutMe"} title={"About me"} autoFocus={false} />
+        <Separator className={s.separator} />
+        <Button className={s.submit} disabled={!formState.isDirty || !formState.isValid} type={"submit"}>
+          Save Changes
+        </Button>
       </form>
     </div>
   );
