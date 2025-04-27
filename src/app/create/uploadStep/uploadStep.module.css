@@ -31,7 +31,7 @@
 
 .closeBtn {
   all: unset !important;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .fileInputWrapper {
