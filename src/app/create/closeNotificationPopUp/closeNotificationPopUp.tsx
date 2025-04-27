@@ -35,7 +35,12 @@ export const CloseNotificationPopUp = ({ resetCreateForm, closeNotificationPopUp
           <Typography variant={"h1"} color={"light"}>
             Close
           </Typography>
-          <Button className={s.closeBtn} onClick={resetCreateForm}>
+          <Button
+            type={"button"}
+            variant={"link"}
+            onClick={resetCreateForm}
+            style={{ color: "var(--light-100)", display: "contents" }}
+          >
             <Close width={24} height={24} />
           </Button>
         </div>
@@ -46,10 +51,12 @@ export const CloseNotificationPopUp = ({ resetCreateForm, closeNotificationPopUp
             If you close everything will be deleted.
           </Typography>
           <div className={s.btnGroup}>
-            <Button onClick={handleDiscardClick} variant={"outlined"}>
+            <Button type={"button"} variant={"outlined"} onClick={handleDiscardClick}>
               Discard
             </Button>
-            <Button onClick={handleSaveDraftClick}>Save draft</Button>
+            <Button type={"button"} onClick={handleSaveDraftClick}>
+              Save draft
+            </Button>
           </div>
         </div>
       </Card>

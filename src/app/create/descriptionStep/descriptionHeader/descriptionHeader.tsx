@@ -18,7 +18,6 @@ export const DescriptionHeader = ({ onBack, onSubmit, isLoading }: DescriptionHe
         onClick={onBack}
         disabled={isLoading}
         style={{ color: "var(--light-100)", display: "contents" }}
-        color="light"
       >
         <ArrowIosBack width={24} height={24} />
       </Button>
