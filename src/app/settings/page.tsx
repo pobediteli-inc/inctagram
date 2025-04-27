@@ -5,6 +5,10 @@ import { RadixTabs } from "../../common/components";
 import s from "./page.module.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import { motion } from "framer-motion";
+import { GeneralInfo } from "./generalInfo/generalInfo";
+import { Devices } from "./devices/devices";
+import { AccountManagement } from "./accountManagement/accountManagement";
+import { MyPayments } from "./myPayments/myPayments";
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("generalInfo");
@@ -12,10 +16,10 @@ export default function Settings() {
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
 
   const tabs = [
-    { value: "generalInfo", title: "General Information" },
-    { value: "devices", title: "Devices" },
-    { value: "accountManagement", title: "Account Management" },
-    { value: "myPayments", title: "My Payments" },
+    { value: "generalInfo", title: "General Information", component: <GeneralInfo /> },
+    { value: "devices", title: "Devices", component: <Devices /> },
+    { value: "accountManagement", title: "Account Management", component: <AccountManagement /> },
+    { value: "myPayments", title: "My Payments", component: <MyPayments /> },
   ];
 
   useLayoutEffect(() => {
@@ -53,6 +57,11 @@ export default function Settings() {
             transition={{ type: "spring", stiffness: 300, damping: 40 }}
           />
         </Tabs.List>
+        {tabs.map((t) => (
+          <Tabs.Content value={t.value} key={t.value}>
+            {t.component}
+          </Tabs.Content>
+        ))}
       </Tabs.Root>
     </div>
   );
