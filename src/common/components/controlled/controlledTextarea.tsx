@@ -29,7 +29,7 @@ export const ControlledTextarea = <T extends FieldValues>({
       textareaRef.current.setSelectionRange(length, length);
       textareaRef.current.focus();
     }
-  }, [value]);
+  }, [value, autoFocus]);
 
   return (
     <Textarea

@@ -37,3 +37,13 @@ export type UserByUserName = {
   followersCount: number;
   publicationsCount: number;
 };
+
+export type UpdateProfileArgs = {
+  userName: string;
+  firstName: string | null;
+  lastName: string | null;
+  city: string | null;
+  country: string | null;
+  dateOfBirth: Date | null;
+  aboutMe: string | null;
+};

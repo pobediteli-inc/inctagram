@@ -61,7 +61,7 @@ export const GeneralInfo = () => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
-  const { control, handleSubmit, formState, reset, setError } = useForm<GeneralInfoFormValues>({
+  const { control, handleSubmit, formState, reset } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
     defaultValues: {

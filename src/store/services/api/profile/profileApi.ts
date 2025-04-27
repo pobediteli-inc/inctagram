@@ -1,5 +1,5 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
-import { User, UserByUserName } from "store/services/api/profile/profileApi.types";
+import { UpdateProfileArgs, User, UserByUserName } from "store/services/api/profile/profileApi.types";
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -15,7 +15,14 @@ export const profileApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateProfile: build.mutation<void, UpdateProfileArgs>({
+      query: (args) => ({
+        body: args,
+        method: "PUT",
+        url: `users/profile`,
+      }),
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useGetProfileByUserNameQuery } = profileApi;
+export const { useGetProfileQuery, useGetProfileByUserNameQuery, useUpdateProfileMutation } = profileApi;
