@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   ControlledDatePicker,
+  ControlledSelect,
   ControlledTextarea,
   ControlledTextField,
-  Select,
   Separator,
 } from "common/components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
@@ -50,7 +50,7 @@ const generalInfoSchema = z.object({
   aboutMe: z
     .string()
     .max(200)
-    .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]+$/)
+    .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
     .optional(),
 });
 
@@ -58,10 +58,8 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
-  const { control, handleSubmit, formState, reset } = useForm<GeneralInfoFormValues>({
+  const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
     defaultValues: {
@@ -89,6 +87,8 @@ export const GeneralInfo = () => {
     }
   }, [profile, reset]);
 
+  const selectedCountry = watch("country");
+
   const countries = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
     label: country.name,
@@ -102,7 +102,17 @@ export const GeneralInfo = () => {
     : [];
 
   const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data));
+    const selectedCountry = countries.find((country) => country.value === data.country)?.label;
+
+    const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+
+    const transformedData = {
+      ...data,
+      country: selectedCountry || data.country,
+      city: selectedCity || data.city,
+    };
+
+    alert(JSON.stringify(transformedData));
   });
 
   return (
@@ -122,22 +132,19 @@ export const GeneralInfo = () => {
           endMonth={new Date()}
         />
         <div className={s.countryCitySelect}>
-          <Select
+          <ControlledSelect
+            control={control}
             items={countries}
             label={"Select your country"}
             name={"country"}
-            onValueChange={(value) => {
-              setSelectedCountry(value);
-              setSelectedCity(null);
-            }}
             defaultValue={countries[0]?.value}
             className={s.select}
           />
-          <Select
+          <ControlledSelect
+            control={control}
             items={cities || []}
             label={"Select your city"}
             name={"city"}
-            onValueChange={setSelectedCity}
             disabled={!selectedCountry}
             className={s.select}
           />

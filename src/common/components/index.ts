@@ -32,3 +32,4 @@ export { PostModal } from "./modal/postModal/postModal";
 export { Separator } from "./separator/separator";
 export { Avatar } from "./avatar/avatar";
 export { ControlledDatePicker } from "./controlled/controlledDatePicker";
+export { ControlledSelect } from "./controlled/controlledSelect";
