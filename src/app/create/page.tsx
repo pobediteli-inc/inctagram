@@ -65,7 +65,10 @@ export default function CreatePage() {
 
       await createPost({ description, childrenMetadata }).unwrap();
       showToast("success", "Post created successfully!");
-      handleResetCreateForm();
+
+      setTimeout(() => {
+        handleResetCreateForm();
+      }, 500);
     } catch {
       showToast("error", "Something went wrong. Try again.");
     }
@@ -99,7 +102,6 @@ export default function CreatePage() {
           <DescriptionStep
             description={description}
             setDescription={setDescription}
-            onCloseHandler={handleClose}
             onBack={() => setShowForm(false)}
             onSubmit={handleSubmit}
             isLoading={isUploading || isCreating}

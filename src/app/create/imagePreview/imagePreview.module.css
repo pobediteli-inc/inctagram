@@ -1,3 +1,5 @@
+/* imagePreview */
+
 .imageEmpty {
   display: flex;
   justify-content: center;
@@ -112,10 +114,6 @@
   z-index: 2;
   transition: background 0.2s ease;
   border-radius: 2px;
-}
-
-.arrow:hover {
-  background: var(--primary-500);
 }
 
 .leftArrowOverlay {
