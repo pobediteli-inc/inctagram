@@ -1,7 +1,6 @@
 .formContainer {
-  min-width: 500px;
-  max-width: 500px;
   width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   padding: 24px;
@@ -28,7 +27,8 @@
 
 .textarea {
   width: 100%;
-  height: 200px;
+  max-height: 120px;
+  height: 100%;
   border-radius: 2px;
 }
 

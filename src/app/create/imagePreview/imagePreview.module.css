@@ -2,8 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 220px;
-  height: 220px;
+  width: 100%;
+  max-width: 220px;
+  height: 100%;
+  min-height: 220px;
   background-color: var(--dark-500);
   border-radius: 2px;
   margin: 72px 0 60px;
