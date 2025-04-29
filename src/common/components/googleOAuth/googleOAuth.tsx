@@ -3,16 +3,17 @@
 import { FC, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthViaGoogleMutation, useMeQuery } from "store/services/api/auth";
-import { setLoggedIn, setStatus } from "store/services/slices";
-import { useAppDispatch } from "common/hooks";
+import { selectStatus, setLoggedIn, setStatus } from "store/services/slices";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 import { handleErrors } from "common/utils";
 
 export const GoogleOAuth: FC<Props> = ({ redirect }) => {
   const [authViaGoogle] = useAuthViaGoogleMutation();
   const { refetch } = useMeQuery();
   const params = useSearchParams();
-  const dispatch = useAppDispatch();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(selectStatus);
 
   useEffect(() => {
     const code = params.get("code");
@@ -23,7 +24,8 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
           if (response.accessToken) {
             localStorage.setItem("accessToken", response.accessToken);
             dispatch(setLoggedIn({ isLoggedIn: true }));
-            dispatch(setStatus({ status: "success", message: "Successfully logged in via google account." }));
+            if (status.status === "success")
+              dispatch(setStatus({ status: "success", message: "Successfully logged in via google account." }));
             await refetch();
             router.push(redirect);
           }
@@ -35,7 +37,7 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
 
       googleOAuth();
     }
-  }, [authViaGoogle, dispatch, params, redirect, refetch, router]);
+  }, [authViaGoogle, dispatch, params, redirect, refetch, router, status.status]);
 
   return null;
 };
