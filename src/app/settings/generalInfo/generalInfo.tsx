@@ -11,34 +11,29 @@ import {
   ControlledTextField,
   Separator,
 } from "common/components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
-import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
+import { SaveNotificationPopUp } from "../saveNotificationPopUp/saveNotificationPopUp";
 
 const generalInfoSchema = z.object({
-  username: z
-    .string({
-      required_error: "Username is required.",
-    })
+  userName: z
+    .string({ required_error: "Username is required." })
     .min(6)
     .max(30)
     .regex(/^[a-z\d\-_]+$/i, {
       message: "Usernames may only include letters, numbers, underscores (_), and hyphens (-).",
     }),
   firstName: z
-    .string({
-      required_error: "First Name is required.",
-    })
+    .string({ required_error: "First Name is required." })
     .min(1)
     .max(50)
     .regex(/^[A-Za-zА-Яа-я]+$/, {
       message: "First Name may only include letters",
     }),
   lastName: z
-    .string({
-      required_error: "Last Name is required.",
-    })
+    .string({ required_error: "Last Name is required." })
     .min(1)
     .max(50)
     .regex(/^[A-Za-zА-Яа-я]+$/, {
@@ -58,12 +53,16 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const [updateProfile] = useUpdateProfileMutation();
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState<boolean>(true);
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
     defaultValues: {
-      username: "",
+      userName: "",
       firstName: "",
       lastName: "",
       dateOfBirth: undefined,
@@ -76,7 +75,7 @@ export const GeneralInfo = () => {
   useEffect(() => {
     if (profile) {
       reset({
-        username: profile.userName || "",
+        userName: profile.userName || "",
         firstName: profile.firstName || "",
         lastName: profile.lastName || "",
         dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth) : undefined,
@@ -101,25 +100,37 @@ export const GeneralInfo = () => {
       }))
     : [];
 
-  const onSubmit = handleSubmit((data) => {
-    const selectedCountry = countries.find((country) => country.value === data.country)?.label;
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const selectedCountryLabel = countries.find((country) => country.value === data.country)?.label;
+      const selectedCityLabel = cities?.find((city) => city.value === data.city)?.label;
 
-    const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+      const transformedData = {
+        userName: data.userName,
+        firstName: data.firstName || null,
+        lastName: data.lastName || null,
+        dateOfBirth: data.dateOfBirth || null,
+        country: selectedCountryLabel || data.country || null,
+        city: selectedCityLabel || data.city || null,
+        aboutMe: data.aboutMe || null,
+      };
 
-    const transformedData = {
-      ...data,
-      country: selectedCountry || data.country,
-      city: selectedCity || data.city,
-    };
+      await updateProfile(transformedData).unwrap();
 
-    alert(JSON.stringify(transformedData));
+      setSaveSuccess(true);
+      setShowPopUp(true);
+      reset(data);
+    } catch (error) {
+      setSaveSuccess(false);
+      setShowPopUp(true);
+    }
   });
 
   return (
     <div className={s.container}>
       <div>photo block</div>
       <form onSubmit={onSubmit} className={s.form}>
-        <ControlledTextField name={"username"} control={control} label={"Username"} />
+        <ControlledTextField name={"userName"} control={control} label={"Username"} />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
         <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
         <ControlledDatePicker
@@ -155,6 +166,8 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+
+      {showPopUp && <SaveNotificationPopUp success={saveSuccess} />}
     </div>
   );
 };
