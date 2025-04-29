@@ -58,6 +58,19 @@ export default function CreatePage() {
 
     try {
       const uploadResult = await uploadImagePost({ files: images }).unwrap();
+
+      if (!uploadResult.images || uploadResult.images.length === 0) {
+        showToast("error", "Image upload failed. Try again.");
+        return;
+      }
+
+      const validImages = uploadResult.images.filter((img) => img.uploadId && img.uploadId.trim() !== "");
+
+      if (validImages.length === 0) {
+        showToast("error", "No valid images found after upload.");
+        return;
+      }
+
       const childrenMetadata = uploadResult.images.map((img: Image, idx: number) => ({
         uploadId: img.uploadId,
         isMain: idx === mainImageIndex,
