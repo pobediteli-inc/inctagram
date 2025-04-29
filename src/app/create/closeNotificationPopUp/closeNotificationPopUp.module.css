@@ -25,23 +25,11 @@
   border-bottom: 1px solid var(--dark-100);
 }
 
-.closeBtn {
-  all: unset !important;
-  width: 24px;
-  height: 24px;
-  color: var(--light-100);
-}
-
 .popUpMessage {
   padding: 30px 24px 36px;
   display: flex;
   flex-direction: column;
-
-  & button {
-    min-width: 108px;
-    align-self: end;
-    margin-top: 18px;
-  }
+  gap: 18px;
 }
 
 .btnGroup {
