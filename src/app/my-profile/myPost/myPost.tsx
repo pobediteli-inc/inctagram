@@ -51,7 +51,7 @@ export const MyPost = ({ post, isOpen, handleClose, handleDelete, handleUpdate }
         postId={post.id}
         handleClose={() => setPostIsUpdating(false)}
         handleUpdate={handleUpdate}
-        photoPreview={post.images[0].url}
+        photoPreview={post.images[0]?.url}
       />
       <DeletePostModal
         isOpen={postIsDeleting}

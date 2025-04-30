@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import Link from "next/link";
 
 const generalInfoSchema = z.object({
   username: z
@@ -117,7 +118,11 @@ export const GeneralInfo = () => {
 
   return (
     <div className={s.container}>
-      <div>photo block</div>
+      <div>
+        <Button variant={"outlined"} asChild>
+          <Link href={"/uploadAvatar"}>Add a Profile Photo</Link>
+        </Button>
+      </div>
       <form onSubmit={onSubmit} className={s.form}>
         <ControlledTextField name={"username"} control={control} label={"Username"} />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
