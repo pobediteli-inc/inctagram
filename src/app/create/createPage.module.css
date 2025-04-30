@@ -9,4 +9,5 @@
   align-items: center;
   background-color: rgb(18 18 18 / 70%);
   z-index: 99999;
+  border-radius: 2px;
 }
