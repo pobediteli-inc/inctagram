@@ -120,7 +120,7 @@ export const GeneralInfo = () => {
     <div className={s.container}>
       <div>
         <Button variant={"outlined"} asChild>
-          <Link href={"/uploadAvatar"}>Add a Profile Photo</Link>
+          <Link href={"/settings/uploadAvatar"}>Add a Profile Photo</Link>
         </Button>
       </div>
       <form onSubmit={onSubmit} className={s.form}>

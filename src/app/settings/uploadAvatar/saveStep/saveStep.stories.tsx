@@ -1,10 +1,10 @@
 import { action } from "@storybook/addon-actions";
-import { DescriptionStep } from "./descriptionStep";
+import { SaveStep } from "./saveStep";
 import { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta<typeof DescriptionStep> = {
+const meta: Meta<typeof SaveStep> = {
   title: "Create page/SaveStep",
-  component: DescriptionStep,
+  component: SaveStep,
   tags: ["autodocs"],
   args: {
     description: "",
@@ -20,15 +20,15 @@ const meta: Meta<typeof DescriptionStep> = {
 
 export default meta;
 
-export const Default: StoryObj<typeof DescriptionStep> = {};
+export const Default: StoryObj<typeof SaveStep> = {};
 
-export const WithDescription: StoryObj<typeof DescriptionStep> = {
+export const WithDescription: StoryObj<typeof SaveStep> = {
   args: {
     description: "This is a sample description.",
   },
 };
 
-export const LoadingState: StoryObj<typeof DescriptionStep> = {
+export const LoadingState: StoryObj<typeof SaveStep> = {
   args: {
     description: "Description is being submitted...",
     isLoading: true,
