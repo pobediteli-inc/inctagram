@@ -14,6 +14,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: `users/${userName}`,
         method: "GET",
       }),
+      providesTags: () => ["Profile"],
     }),
     updateProfile: build.mutation<void, UpdateProfileArgs>({
       query: (args) => ({
@@ -22,7 +23,20 @@ export const profileApi = baseApi.injectEndpoints({
         url: `users/profile`,
       }),
     }),
+    uploadAvatar: build.mutation<void, File>({
+      query: (avatar) => {
+        const formData = new FormData();
+        formData.append("file", avatar);
+        return {
+          url: "users/profile/avatar",
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: () => ["Profile"],
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useGetProfileByUserNameQuery, useUpdateProfileMutation } = profileApi;
+export const { useGetProfileQuery, useGetProfileByUserNameQuery, useUpdateProfileMutation, useUploadAvatarMutation } =
+  profileApi;

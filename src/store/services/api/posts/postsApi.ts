@@ -31,6 +31,7 @@ export const postsApi = baseApi.injectEndpoints({
       invalidatesTags: (result, error, postId) => [
         { type: "Posts", id: String(postId) },
         { type: "Posts", id: "LIST" },
+        "Profile",
       ],
     }),
     createPost: build.mutation<{ postId: string }, CreatePostArgs>({
@@ -39,13 +40,12 @@ export const postsApi = baseApi.injectEndpoints({
         method: "POST",
         body: { description, childrenMetadata },
       }),
-      invalidatesTags: () => [{ type: "Posts", id: "LIST" }],
+      invalidatesTags: () => [{ type: "Posts", id: "LIST" }, "Profile"],
     }),
     uploadImagePost: build.mutation<UploadImageResponse, UploadImageArgs>({
       query: ({ files }) => {
         const formData = new FormData();
         files.forEach((file) => formData.append("file", file));
-
         return {
           url: `posts/image`,
           method: "POST",

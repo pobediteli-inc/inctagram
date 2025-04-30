@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { UploadStep } from "./uploadStep/uploadStep";
 import { SaveStep } from "./saveStep/saveStep";
 import { useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
+import { useUploadAvatarMutation } from "../../../store/services/api/profile/profileApi";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
@@ -42,6 +43,7 @@ export default function CreatePage() {
 
   const [uploadImagePost, { isLoading: isUploading }] = useUploadImagePostMutation();
   const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
+  const [uploadAvatar, isLoading] = useUploadAvatarMutation();
 
   const onCloseHandler = () => setShowCloseNotification(true);
 
@@ -107,6 +109,7 @@ export default function CreatePage() {
 
     try {
       const uploadResult = await uploadImagePost({ files: images }).unwrap();
+      const uploadAvatarResult = await uploadAvatar(images[0]);
       if (!uploadResult || !Array.isArray(uploadResult.images)) {
         setToast({ type: "error", message: "Image upload failed. Try again.", open: true });
         return;
