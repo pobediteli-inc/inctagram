@@ -1,5 +1,10 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
-import { UpdateProfileArgs, User, UserByUserName } from "store/services/api/profile/profileApi.types";
+import {
+  UpdateProfileArgs,
+  UploadAvatarResponse,
+  User,
+  UserByUserName,
+} from "store/services/api/profile/profileApi.types";
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -23,7 +28,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: `users/profile`,
       }),
     }),
-    uploadAvatar: build.mutation<void, File>({
+    uploadAvatar: build.mutation<UploadAvatarResponse, File>({
       query: (avatar) => {
         const formData = new FormData();
         formData.append("file", avatar);
