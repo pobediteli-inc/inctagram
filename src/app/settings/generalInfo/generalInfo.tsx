@@ -11,10 +11,14 @@ import {
   ControlledTextField,
   Separator,
 } from "common/components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import Image from "next/image";
+import defaultImage from "public/icons/svg/image-outline-white.svg";
+import { CloseOutline } from "assets/icons";
+import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 
 const generalInfoSchema = z.object({
   username: z
@@ -58,6 +62,7 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
@@ -117,7 +122,19 @@ export const GeneralInfo = () => {
 
   return (
     <div className={s.container}>
-      <div>photo block</div>
+      <div>
+        <div className={s.avatarWrapper}>
+          <Image src={profile?.avatars[0]?.url || defaultImage} alt="Avatar" className={s.defaultAvatar} />
+          {profile?.avatars[0] && (
+            <div className={s.deletePhotoWrapper}>
+              <CloseOutline className={s.deletePhotoButton} onClick={() => setIsDeleteAvatarModalOpen(true)} />
+            </div>
+          )}
+        </div>
+        <Button variant={"outlined"} className={s.addPhotoButton}>
+          Add a Profile Photo
+        </Button>
+      </div>
       <form onSubmit={onSubmit} className={s.form}>
         <ControlledTextField name={"username"} control={control} label={"Username"} />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
@@ -155,6 +172,7 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+      {isDeleteAvatarModalOpen && <DeleteAvatarModal close={() => setIsDeleteAvatarModalOpen(false)} />}
     </div>
   );
 };
