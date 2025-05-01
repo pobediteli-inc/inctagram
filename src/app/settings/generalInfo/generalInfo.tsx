@@ -62,6 +62,7 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const avatar = profile?.avatars[0];
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
@@ -106,6 +107,14 @@ export const GeneralInfo = () => {
       }))
     : [];
 
+  const openDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(true);
+  };
+
+  const closeDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(false);
+  };
+
   const onSubmit = handleSubmit((data) => {
     const selectedCountry = countries.find((country) => country.value === data.country)?.label;
 
@@ -124,10 +133,10 @@ export const GeneralInfo = () => {
     <div className={s.container}>
       <div>
         <div className={s.avatarWrapper}>
-          <Image src={profile?.avatars[0]?.url || defaultImage} alt="Avatar" className={s.defaultAvatar} />
-          {profile?.avatars[0] && (
+          <Image src={avatar?.url || defaultImage} alt="Avatar" className={avatar ? s.avatar : s.defaultAvatar} />
+          {avatar && (
             <div className={s.deletePhotoWrapper}>
-              <CloseOutline className={s.deletePhotoButton} onClick={() => setIsDeleteAvatarModalOpen(true)} />
+              <CloseOutline className={s.deletePhotoButton} onClick={openDeleteAvatarModalHandler} />
             </div>
           )}
         </div>
@@ -172,7 +181,7 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
-      {isDeleteAvatarModalOpen && <DeleteAvatarModal close={() => setIsDeleteAvatarModalOpen(false)} />}
+      <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
     </div>
   );
 };
