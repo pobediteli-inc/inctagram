@@ -31,54 +31,52 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
       <div className={s.selectWrapper}>
         {label && (
           <Typography variant={"regular_14"} color={"dark"} asChild>
-            <label htmlFor={id} className={labelClassName}>
+            <label htmlFor={id} className={s.label}>
               {label}
             </label>
           </Typography>
         )}
-        <Typography variant={"regular_14"} color={"light"}>
-          <RadixSelect.Root
-            defaultValue={defaultValue}
-            value={value}
-            onValueChange={rest.onValueChange}
-            disabled={disabled}
-          >
-            <RadixSelect.Trigger id={id} className={clsx(s.trigger, className)} ref={ref} {...rest}>
-              <RadixSelect.Value placeholder={placeholder} />
-              <RadixSelect.Icon>
-                <ChevronDownIcon className={s.iconDown} />
-              </RadixSelect.Icon>
-            </RadixSelect.Trigger>
+        <RadixSelect.Root
+          defaultValue={defaultValue}
+          value={value}
+          onValueChange={rest.onValueChange}
+          disabled={disabled}
+        >
+          <RadixSelect.Trigger id={id} className={clsx(s.trigger, className)} ref={ref} {...rest}>
+            <RadixSelect.Value placeholder={placeholder} />
+            <RadixSelect.Icon>
+              <ChevronDownIcon className={s.iconDown} />
+            </RadixSelect.Icon>
+          </RadixSelect.Trigger>
 
-            <RadixSelect.Portal>
-              <RadixSelect.Content className={s.Content} position={"popper"}>
-                <RadixSelect.ScrollUpButton className={s.ScrollButton}>
-                  <ChevronUpIcon />
-                </RadixSelect.ScrollUpButton>
-                <RadixSelect.Viewport className={s.Viewport}>
-                  <RadixSelect.Group>
-                    {groupLabel && (
-                      <>
-                        <RadixSelect.Label style={{ marginLeft: 5 }}>{groupLabel}</RadixSelect.Label>
-                        {withSeparator && <RadixSelect.Separator className={s.Separator} />}
-                      </>
-                    )}
-                    {items.map((item) => (
-                      <SelectItem key={item.value} value={item.value}>
-                        <Typography variant={"regular_14"} className={s.selectItems}>
-                          {item.icon && item.icon} {item.label}
-                        </Typography>
-                      </SelectItem>
-                    ))}
-                  </RadixSelect.Group>
-                </RadixSelect.Viewport>
-                <RadixSelect.ScrollDownButton>
-                  <ChevronDownIcon />
-                </RadixSelect.ScrollDownButton>
-              </RadixSelect.Content>
-            </RadixSelect.Portal>
-          </RadixSelect.Root>
-        </Typography>
+          <RadixSelect.Portal>
+            <RadixSelect.Content className={s.Content} position={"popper"}>
+              <RadixSelect.ScrollUpButton className={s.ScrollButton}>
+                <ChevronUpIcon />
+              </RadixSelect.ScrollUpButton>
+              <RadixSelect.Viewport className={s.Viewport}>
+                <RadixSelect.Group>
+                  {groupLabel && (
+                    <>
+                      <RadixSelect.Label style={{ marginLeft: 5 }}>{groupLabel}</RadixSelect.Label>
+                      {withSeparator && <RadixSelect.Separator className={s.Separator} />}
+                    </>
+                  )}
+                  {items.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      <Typography variant={"regular_14"} className={s.selectItems}>
+                        {item.icon && item.icon} {item.label}
+                      </Typography>
+                    </SelectItem>
+                  ))}
+                </RadixSelect.Group>
+              </RadixSelect.Viewport>
+              <RadixSelect.ScrollDownButton>
+                <ChevronDownIcon />
+              </RadixSelect.ScrollDownButton>
+            </RadixSelect.Content>
+          </RadixSelect.Portal>
+        </RadixSelect.Root>
       </div>
     );
   }

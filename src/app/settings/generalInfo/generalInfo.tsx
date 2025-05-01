@@ -135,6 +135,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={countries}
+            placeholder={"Country"}
             label={"Select your country"}
             name={"country"}
             defaultValue={countries[0]?.value}
@@ -143,6 +144,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={cities || []}
+            placeholder={"City"}
             label={"Select your city"}
             name={"city"}
             disabled={!selectedCountry}
