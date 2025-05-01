@@ -9,19 +9,7 @@ import { NullableProps, SelectItemsProps } from "common/types";
 
 export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, SelectProps>(
   (
-    {
-      className,
-      labelClassName,
-      placeholder,
-      defaultValue,
-      value,
-      label,
-      disabled,
-      items,
-      groupLabel,
-      withSeparator = true,
-      ...rest
-    },
+    { className, placeholder, defaultValue, value, label, disabled, items, groupLabel, withSeparator = true, ...rest },
     ref
   ) => {
     const generatedId = useId();

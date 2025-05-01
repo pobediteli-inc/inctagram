@@ -119,9 +119,9 @@ export const GeneralInfo = () => {
     <div className={s.container}>
       <div>photo block</div>
       <form onSubmit={onSubmit} className={s.form}>
-        <ControlledTextField name={"username"} control={control} label={"Username"} />
-        <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
-        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
+        <ControlledTextField name={"username"} control={control} label={"Username"} required />
+        <ControlledTextField name={"firstName"} control={control} label={"First Name"} required />
+        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} required />
         <ControlledDatePicker
           name={"dateOfBirth"}
           control={control}
