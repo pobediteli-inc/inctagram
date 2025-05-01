@@ -40,7 +40,7 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
         </div>
         <div className={s.popUpMessage}>
           <Typography variant={"regular_16"} color={"light"}>
-            Do you really want to close the creation of a publication?
+            Do you really want to close the addition of a profile photo?
             <br />
             If you close everything will be deleted.
           </Typography>

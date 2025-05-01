@@ -33,7 +33,7 @@ export const UploadStep = ({
       <div className={s.headerDataButtons}>
         <div className={s.popUpHeader}>
           <Typography variant="h2" color="light">
-            {hasImages ? "Edit Photos" : "Add Photos"}
+            Add a Profile Photo
           </Typography>
           <Button className={s.closeBtn} onClick={onCloseHandler}>
             <Close width={24} height={24} />

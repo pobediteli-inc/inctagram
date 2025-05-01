@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { UploadStep } from "./uploadStep/uploadStep";
 import { SaveStep } from "./saveStep/saveStep";
 import { useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
-import { useUploadAvatarMutation } from "../../../store/services/api/profile/profileApi";
+import { useUploadAvatarMutation } from "store/services/api/profile";
 
 export default function CreatePage() {
   const [images, setImages] = useState<File[]>([]);
