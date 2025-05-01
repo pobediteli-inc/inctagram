@@ -6,28 +6,22 @@ import { ImagePreview } from "../imagePreview/imagePreview";
 import { ImageSelector } from "../imageSelector/ImageSelector";
 
 type UploadStepProps = {
-  previewUrls: string[];
-  mainImageIndex: number;
-  setMainImageIndex: (index: number) => void;
-  handleRemoveImage: (index: number) => void;
+  previewUrl: string;
   onCloseHandler: () => void;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setShowForm: (value: boolean) => void;
+  onSubmit: () => void;
+  errorMessage: string;
 };
 
 export const UploadStep = ({
-  previewUrls,
-  mainImageIndex,
-  setMainImageIndex,
-  handleRemoveImage,
+  previewUrl,
   onCloseHandler,
   fileInputRef,
   handleImageChange,
-  setShowForm,
+  onSubmit,
+  errorMessage,
 }: UploadStepProps) => {
-  const hasImages = previewUrls.length > 0;
-
   return (
     <div className={s.modalWrapper}>
       <div className={s.headerDataButtons}>
@@ -39,15 +33,14 @@ export const UploadStep = ({
             <Close width={24} height={24} />
           </Button>
         </div>
+        {errorMessage && <div>{errorMessage}</div>}
+        <ImagePreview previewUrl={previewUrl} />
 
-        <ImagePreview
-          previewUrls={previewUrls}
-          mainImageIndex={mainImageIndex}
-          setMainImageIndex={setMainImageIndex}
-          handleRemoveImage={handleRemoveImage}
+        <ImageSelector
+          fileInputRef={fileInputRef as React.RefObject<HTMLInputElement>}
+          onSubmit={onSubmit}
+          previewUrl={previewUrl}
         />
-
-        <ImageSelector fileInputRef={fileInputRef as React.RefObject<HTMLInputElement>} setShowForm={setShowForm} />
       </div>
 
       <div className={s.fileInputWrapper}>

@@ -4,25 +4,30 @@ import { Button } from "common/components/button/button";
 
 type ImageSelectorProps = {
   fileInputRef: React.RefObject<HTMLInputElement | null>;
-  setShowForm: (value: boolean) => void;
+  onSubmit: () => void;
+  previewUrl: string;
 };
 
-export const ImageSelector = ({ fileInputRef, setShowForm }: ImageSelectorProps) => {
+export const ImageSelector = ({ fileInputRef, onSubmit, previewUrl }: ImageSelectorProps) => {
   const onSelectClickHandler = () => {
     fileInputRef.current?.click();
   };
-  const onNextClickHandler = () => {
-    setShowForm(true);
+  const onSaveClickHandler = () => {
+    onSubmit();
   };
 
   return (
     <div className={s.btnGroup}>
-      <Button className={s.btnForm} type="button" onClick={onSelectClickHandler}>
-        Select from Computer
-      </Button>
-      <Button className={s.btnForm} type="button" variant="outlined" onClick={onNextClickHandler}>
-        Next
-      </Button>
+      {!previewUrl && (
+        <Button className={s.btnForm} type="button" onClick={onSelectClickHandler}>
+          Select from Computer
+        </Button>
+      )}
+      {previewUrl && (
+        <Button className={s.saveButton} type="button" onClick={onSaveClickHandler}>
+          Save
+        </Button>
+      )}
     </div>
   );
 };

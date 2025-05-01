@@ -9,3 +9,7 @@
   width: 100%;
   margin-bottom: 24px;
 }
+
+.saveButton {
+  align-self: flex-end;
+}
