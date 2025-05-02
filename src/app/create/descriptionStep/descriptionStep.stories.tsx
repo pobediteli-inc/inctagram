@@ -3,7 +3,7 @@ import { DescriptionStep } from "./descriptionStep";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof DescriptionStep> = {
-  title: "Create page/SaveStep",
+  title: "Create page/DescriptionStep",
   component: DescriptionStep,
   tags: ["autodocs"],
   args: {
