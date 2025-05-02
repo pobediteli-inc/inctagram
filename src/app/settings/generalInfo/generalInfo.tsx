@@ -11,10 +11,14 @@ import {
   ControlledTextField,
   Separator,
 } from "common/components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import Image from "next/image";
+import defaultImage from "public/icons/svg/image-outline-white.svg";
+import { CloseOutline } from "assets/icons";
+import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 
 const generalInfoSchema = z.object({
   username: z
@@ -58,6 +62,8 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const avatar = profile?.avatars[0];
+  const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
@@ -101,6 +107,14 @@ export const GeneralInfo = () => {
       }))
     : [];
 
+  const openDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(true);
+  };
+
+  const closeDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(false);
+  };
+
   const onSubmit = handleSubmit((data) => {
     const selectedCountry = countries.find((country) => country.value === data.country)?.label;
 
@@ -117,7 +131,19 @@ export const GeneralInfo = () => {
 
   return (
     <div className={s.container}>
-      <div>photo block</div>
+      <div>
+        <div className={s.avatarWrapper}>
+          <Image src={avatar?.url || defaultImage} alt="Avatar" className={avatar ? s.avatar : s.defaultAvatar} />
+          {avatar && (
+            <div className={s.deletePhotoWrapper}>
+              <CloseOutline className={s.deletePhotoButton} onClick={openDeleteAvatarModalHandler} />
+            </div>
+          )}
+        </div>
+        <Button variant={"outlined"} className={s.addPhotoButton}>
+          Add a Profile Photo
+        </Button>
+      </div>
       <form onSubmit={onSubmit} className={s.form}>
         <ControlledTextField name={"username"} control={control} label={"Username"} />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
@@ -155,6 +181,7 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+      <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
     </div>
   );
 };
