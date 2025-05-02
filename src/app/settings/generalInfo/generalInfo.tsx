@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Alert,
   Button,
   ControlledDatePicker,
   ControlledSelect,
@@ -11,7 +12,7 @@ import {
   ControlledTextField,
   Separator,
 } from "common/components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
@@ -58,6 +59,8 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
@@ -101,19 +104,30 @@ export const GeneralInfo = () => {
       }))
     : [];
 
-  const onSubmit = handleSubmit((data) => {
-    const selectedCountry = countries.find((country) => country.value === data.country)?.label;
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const selectedCountry = countries.find((country) => country.value === data.country)?.label;
 
-    const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+      const selectedCity = cities?.find((city) => city.value === data.city)?.label;
 
-    const transformedData = {
-      ...data,
-      country: selectedCountry || data.country,
-      city: selectedCity || data.city,
-    };
+      const transformedData = {
+        ...data,
+        country: selectedCountry || data.country,
+        city: selectedCity || data.city,
+      };
 
-    alert(JSON.stringify(transformedData));
+      alert(JSON.stringify(transformedData));
+
+      // TODO: add request to server with await
+      setAlertMessage("Your settings are saved!");
+      setAlertVariant("success");
+    } catch (error) {
+      setAlertMessage("Error! Server is not available!");
+      setAlertVariant("danger");
+    }
   });
+
+  const onCloseAlertHandle = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
@@ -155,6 +169,12 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+
+      {alertMessage && (
+        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+          {alertMessage}
+        </Alert>
+      )}
     </div>
   );
 };

@@ -18,7 +18,7 @@ export const Success: Story = {
 };
 export const Danger: Story = {
   args: {
-    children: "Server is not available",
+    children: "Error! Server is not available",
     variant: "danger",
   },
 };
