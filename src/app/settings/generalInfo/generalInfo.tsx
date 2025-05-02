@@ -16,6 +16,21 @@ import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
 
+const calculateAge = (dateOfBirth: Date): number => {
+  const today = new Date();
+  const age = today.getFullYear() - dateOfBirth.getFullYear();
+  const month = today.getMonth();
+  const birthMonth = dateOfBirth.getMonth();
+  const day = today.getDate();
+  const birthDay = dateOfBirth.getDate();
+
+  if (month < birthMonth || (month === birthMonth && day < birthDay)) {
+    return age - 1;
+  }
+  console.log("age: ", age);
+  return age;
+};
+
 const generalInfoSchema = z.object({
   username: z
     .string({
@@ -44,13 +59,27 @@ const generalInfoSchema = z.object({
     .regex(/^[A-Za-zА-Яа-я]+$/, {
       message: "Last Name may only include letters",
     }),
-  dateOfBirth: z.date().optional(),
+  dateOfBirth: z.coerce
+    .date()
+    .refine(
+      (date) => {
+        console.log("Checking date:", date);
+        if (isNaN(date.getTime())) {
+          return false;
+        }
+        return calculateAge(date) >= 13;
+      },
+      {
+        message: "A user under 13 cannot create a profile. Privacy Policy",
+      }
+    )
+    .optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   aboutMe: z
     .string()
     .max(200)
-    .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
+    .regex(/^[0-9A-Za-zА-Яа-я\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
     .optional(),
 });
 
@@ -131,6 +160,7 @@ export const GeneralInfo = () => {
           startMonth={new Date(1940, 1)}
           endMonth={new Date()}
         />
+        {formState.errors.dateOfBirth && <p style={{ color: "red" }}>{formState.errors.dateOfBirth.message}</p>}
         <div className={s.countryCitySelect}>
           <ControlledSelect
             control={control}
