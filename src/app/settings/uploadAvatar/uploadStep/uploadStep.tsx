@@ -33,7 +33,14 @@ export const UploadStep = ({
             <Close width={24} height={24} />
           </Button>
         </div>
-        {errorMessage && <div>{errorMessage}</div>}
+        {errorMessage && (
+          <div className={s.errorMessage}>
+            <Typography variant={"bold_14"} style={{ display: "inline" }}>
+              Error!
+            </Typography>
+            {errorMessage}
+          </div>
+        )}
         <ImagePreview previewUrl={previewUrl} />
 
         <ImageSelector

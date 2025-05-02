@@ -35,3 +35,11 @@
   width: 100%;
   text-align: center;
 }
+
+.errorMessage {
+  background-color: var(--danger-900);
+  border: 1px solid var(--danger-500);
+  padding: 12px;
+  max-width: 445px;
+  font-size: 14px;
+}

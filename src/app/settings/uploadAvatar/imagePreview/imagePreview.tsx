@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import s from "./imagePreview.module.css";
-import "swiper/css";
 import { ImageOutline } from "assets/icons";
 
 type ImagePreviewProps = {
@@ -19,7 +18,7 @@ export const ImagePreview = ({ previewUrl }: ImagePreviewProps) => {
 
   return (
     <div className={s.previewContainer}>
-      <Image className={s.mainImage} src={previewUrl} alt="Main Preview" priority width={400} height={400} />
+      <Image className={s.mainImage} src={previewUrl} alt="Main Preview" priority width={332} height={340} />
     </div>
   );
 };

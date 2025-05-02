@@ -19,7 +19,7 @@ export const ImageSelector = ({ fileInputRef, onSubmit, previewUrl }: ImageSelec
   return (
     <div className={s.btnGroup}>
       {!previewUrl && (
-        <Button className={s.btnForm} type="button" onClick={onSelectClickHandler}>
+        <Button className={s.selectButton} type="button" onClick={onSelectClickHandler}>
           Select from Computer
         </Button>
       )}

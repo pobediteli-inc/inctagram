@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import s from "./createPage.module.css";
+import s from "./uploadAvatar.module.css";
 import { Card } from "common/components";
 import { Toast } from "common/components";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
@@ -57,11 +57,11 @@ export default function UploadAvatar() {
       const validFormats = ["image/jpeg", "image/png"];
 
       if (!validFormats.includes(file.type)) {
-        setErrorMessage("Error! The format of the uploaded photo must be PNG or JPEG");
+        setErrorMessage(" The format of the uploaded photo must be PNG or JPEG");
         return;
       }
       if (file.size > 10 * 1024 * 1024) {
-        setErrorMessage("Error! Photo size must be less than 10 MB");
+        setErrorMessage(" Photo size must be less than 10 MB");
         return;
       }
 

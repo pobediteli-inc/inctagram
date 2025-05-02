@@ -1,4 +1,7 @@
 .previewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   width: 500px;
   height: 370px;
@@ -6,50 +9,11 @@
 }
 
 .mainImage {
+  max-width: 332px;
+  max-height: 340px;
   width: 100%;
   object-fit: cover;
-}
-
-.carousel {
-  position: absolute;
-  top: -24%;
-  left: 50%;
-  width: 450px;
-  padding: 10px 0;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
-
-.previewImageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  row-gap: 8px;
-  margin: 8px 0;
-  z-index: 5;
-}
-
-.previewImage {
-  width: 100%;
-  object-fit: cover;
-}
-
-.removeBtn {
-  position: absolute;
-  top: 6px;
-  left: 82px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--dark-500);
-  color: var(--light-100);
-  border: none;
-  cursor: pointer;
+  mask-image: radial-gradient(circle, black 70%, rgb(0 0 0 / 20%) 70%);
 }
 
 .imageEmpty {
