@@ -35,6 +35,9 @@
 }
 
 .comments {
+  overflow-wrap: break-word;
+  max-width: 480px;
+  padding: 12px;
 }
 
 .interactions {
