@@ -145,9 +145,9 @@ export const GeneralInfo = () => {
         </Button>
       </div>
       <form onSubmit={onSubmit} className={s.form}>
-        <ControlledTextField name={"username"} control={control} label={"Username"} />
-        <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
-        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
+        <ControlledTextField name={"username"} control={control} label={"Username"} required />
+        <ControlledTextField name={"firstName"} control={control} label={"First Name"} required />
+        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} required />
         <ControlledDatePicker
           name={"dateOfBirth"}
           control={control}
@@ -161,6 +161,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={countries}
+            placeholder={"Country"}
             label={"Select your country"}
             name={"country"}
             defaultValue={countries[0]?.value}
@@ -169,6 +170,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={cities || []}
+            placeholder={"City"}
             label={"Select your city"}
             name={"city"}
             disabled={!selectedCountry}
