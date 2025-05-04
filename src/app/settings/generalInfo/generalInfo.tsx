@@ -15,7 +15,6 @@ import {
 import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
-import { useGetProfileQuery } from "store/services/api/profile/profileApi";
 import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
 import Image from "next/image";
 import defaultImage from "public/icons/svg/image-outline-white.svg";
@@ -68,10 +67,10 @@ export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
   const [updateProfile] = useUpdateProfileMutation();
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success"); 
+  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
   const avatar = profile?.avatars[0];
-    
+
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onChange",
@@ -137,7 +136,7 @@ export const GeneralInfo = () => {
       setAlertVariant("danger");
     }
   });
-    
+
   const openDeleteAvatarModalHandler = () => {
     setIsDeleteAvatarModalOpen(true);
   };
@@ -207,12 +206,12 @@ export const GeneralInfo = () => {
       </form>
 
       <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
-      
-       {alertMessage && (
+
+      {alertMessage && (
         <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
           {alertMessage}
         </Alert>
-      )} 
+      )}
     </div>
   );
 };
