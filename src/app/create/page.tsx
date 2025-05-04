@@ -22,7 +22,7 @@ export default function CreatePage() {
     reset: resetImages,
   } = useImageManager();
 
-  const { toast, showToast, closeToast } = useToastManager();
+  const { toast, showToast } = useToastManager();
   const [description, setDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [showCloseNotification, setShowCloseNotification] = useState(false);
@@ -123,14 +123,7 @@ export default function CreatePage() {
         )}
       </Card>
 
-      {toast && (
-        <Toast
-          type={toast.type}
-          message={toast.message}
-          open={toast.open}
-          setOpen={(open) => (open ? toast : closeToast())}
-        />
-      )}
+      {toast && <Toast type={toast.type} message={toast.message} />}
 
       {showCloseNotification && (
         <CloseNotificationPopUp
