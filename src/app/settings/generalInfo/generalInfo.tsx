@@ -145,8 +145,6 @@ export const GeneralInfo = () => {
     setIsDeleteAvatarModalOpen(false);
   };
 
-  const onCloseAlertHandle = () => setAlertMessage(null);
-
   const onCloseAlertHandler = () => setAlertMessage(null);
 
   return (
@@ -208,7 +206,7 @@ export const GeneralInfo = () => {
       <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
 
       {alertMessage && (
-        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+        <Alert variant={alertVariant} onClose={onCloseAlertHandler}>
           {alertMessage}
         </Alert>
       )}
