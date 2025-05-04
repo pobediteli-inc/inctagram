@@ -121,8 +121,6 @@ export const GeneralInfo = () => {
         aboutMe: data.aboutMe || null,
       };
 
-      console.log(JSON.stringify(payload));
-
       await updateProfile(payload).unwrap();
 
       setAlertMessage("Your settings are saved!");
@@ -133,7 +131,7 @@ export const GeneralInfo = () => {
     }
   });
 
-  const onCloseAlertHandle = () => setAlertMessage(null);
+  const onCloseAlertHandler = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
@@ -177,7 +175,7 @@ export const GeneralInfo = () => {
       </form>
 
       {alertMessage && (
-        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+        <Alert variant={alertVariant} onClose={onCloseAlertHandler}>
           {alertMessage}
         </Alert>
       )}
