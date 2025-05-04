@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
 import Image from "next/image";
 import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
@@ -92,6 +93,7 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const [updateProfile] = useUpdateProfileMutation();
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success"); 
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
@@ -141,19 +143,20 @@ export const GeneralInfo = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const selectedCountry = countries.find((country) => country.value === data.country)?.label;
-    
-      const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+      const selectedCountryLabel = countries.find((country) => country.value === data.country)?.label;
+      const selectedCityLabel = cities?.find((city) => city.value === data.city)?.label;
 
-      const transformedData = {
-        ...data,
-        country: selectedCountry || data.country,
-        city: selectedCity || data.city,
+      const payload = {
+        userName: data.username,
+        firstName: data.firstName || null,
+        lastName: data.lastName || null,
+        dateOfBirth: data.dateOfBirth || null,
+        country: selectedCountryLabel || null,
+        city: selectedCityLabel || null,
+        aboutMe: data.aboutMe || null,
       };
 
-      alert(JSON.stringify(transformedData));
-
-      // TODO: add request to server with await
+      await updateProfile(payload).unwrap();
       setAlertMessage("Your settings are saved!");
       setAlertVariant("success");
     } catch (error) {
@@ -171,6 +174,8 @@ export const GeneralInfo = () => {
   };
 
   const onCloseAlertHandle = () => setAlertMessage(null);
+
+  const onCloseAlertHandler = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
