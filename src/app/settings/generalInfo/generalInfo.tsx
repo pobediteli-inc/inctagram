@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Alert,
   Button,
   ControlledDatePicker,
   ControlledSelect,
@@ -91,9 +92,11 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
-  const avatar = profile?.avatars[0];
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success"); 
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
-
+  const avatar = profile?.avatars[0];
+    
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
@@ -136,6 +139,29 @@ export const GeneralInfo = () => {
       }))
     : [];
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const selectedCountry = countries.find((country) => country.value === data.country)?.label;
+    
+      const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+
+      const transformedData = {
+        ...data,
+        country: selectedCountry || data.country,
+        city: selectedCity || data.city,
+      };
+
+      alert(JSON.stringify(transformedData));
+
+      // TODO: add request to server with await
+      setAlertMessage("Your settings are saved!");
+      setAlertVariant("success");
+    } catch (error) {
+      setAlertMessage("Error! Server is not available!");
+      setAlertVariant("danger");
+    }
+  });
+    
   const openDeleteAvatarModalHandler = () => {
     setIsDeleteAvatarModalOpen(true);
   };
@@ -144,19 +170,7 @@ export const GeneralInfo = () => {
     setIsDeleteAvatarModalOpen(false);
   };
 
-  const onSubmit = handleSubmit((data) => {
-    const selectedCountry = countries.find((country) => country.value === data.country)?.label;
-
-    const selectedCity = cities?.find((city) => city.value === data.city)?.label;
-
-    const transformedData = {
-      ...data,
-      country: selectedCountry || data.country,
-      city: selectedCity || data.city,
-    };
-
-    alert(JSON.stringify(transformedData));
-  });
+  const onCloseAlertHandle = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
@@ -213,7 +227,14 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+
       <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
+      
+       {alertMessage && (
+        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+          {alertMessage}
+        </Alert>
+      )} 
     </div>
   );
 };
