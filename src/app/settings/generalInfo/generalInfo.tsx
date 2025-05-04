@@ -16,6 +16,25 @@ import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import { useGetProfileQuery } from "store/services/api/profile/profileApi";
+import Image from "next/image";
+import defaultImage from "public/icons/svg/image-outline-white.svg";
+import { CloseOutline } from "assets/icons";
+import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
+
+const calculateAge = (dateOfBirth: Date): number => {
+  const today = new Date();
+  const age = today.getFullYear() - dateOfBirth.getFullYear();
+  const month = today.getMonth();
+  const birthMonth = dateOfBirth.getMonth();
+  const day = today.getDate();
+  const birthDay = dateOfBirth.getDate();
+
+  if (month < birthMonth || (month === birthMonth && day < birthDay)) {
+    return age - 1;
+  }
+  console.log("age: ", age);
+  return age;
+};
 
 const generalInfoSchema = z.object({
   username: z
@@ -45,13 +64,27 @@ const generalInfoSchema = z.object({
     .regex(/^[A-Za-zА-Яа-я]+$/, {
       message: "Last Name may only include letters",
     }),
-  dateOfBirth: z.date().optional(),
+  dateOfBirth: z.coerce
+    .date()
+    .refine(
+      (date) => {
+        console.log("Checking date:", date);
+        if (isNaN(date.getTime())) {
+          return false;
+        }
+        return calculateAge(date) >= 13;
+      },
+      {
+        message: "A user under 13 cannot create a profile. Privacy Policy",
+      }
+    )
+    .optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   aboutMe: z
     .string()
     .max(200)
-    .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
+    .regex(/^[0-9A-Za-zА-Яа-я\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
     .optional(),
 });
 
@@ -60,8 +93,10 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
-
+  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success"); 
+  const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
+  const avatar = profile?.avatars[0];
+    
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onTouched",
@@ -107,7 +142,7 @@ export const GeneralInfo = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const selectedCountry = countries.find((country) => country.value === data.country)?.label;
-
+    
       const selectedCity = cities?.find((city) => city.value === data.city)?.label;
 
       const transformedData = {
@@ -126,16 +161,36 @@ export const GeneralInfo = () => {
       setAlertVariant("danger");
     }
   });
+    
+  const openDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(true);
+  };
+
+  const closeDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(false);
+  };
 
   const onCloseAlertHandle = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
-      <div>photo block</div>
+      <div>
+        <div className={s.avatarWrapper}>
+          <Image src={avatar?.url || defaultImage} alt="Avatar" className={avatar ? s.avatar : s.defaultAvatar} />
+          {avatar && (
+            <div className={s.deletePhotoWrapper}>
+              <CloseOutline className={s.deletePhotoButton} onClick={openDeleteAvatarModalHandler} />
+            </div>
+          )}
+        </div>
+        <Button variant={"outlined"} className={s.addPhotoButton}>
+          Add a Profile Photo
+        </Button>
+      </div>
       <form onSubmit={onSubmit} className={s.form}>
-        <ControlledTextField name={"username"} control={control} label={"Username"} />
-        <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
-        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
+        <ControlledTextField name={"username"} control={control} label={"Username"} required />
+        <ControlledTextField name={"firstName"} control={control} label={"First Name"} required />
+        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} required />
         <ControlledDatePicker
           name={"dateOfBirth"}
           control={control}
@@ -145,10 +200,12 @@ export const GeneralInfo = () => {
           startMonth={new Date(1940, 1)}
           endMonth={new Date()}
         />
+        {formState.errors.dateOfBirth && <p style={{ color: "red" }}>{formState.errors.dateOfBirth.message}</p>}
         <div className={s.countryCitySelect}>
           <ControlledSelect
             control={control}
             items={countries}
+            placeholder={"Country"}
             label={"Select your country"}
             name={"country"}
             defaultValue={countries[0]?.value}
@@ -157,6 +214,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={cities || []}
+            placeholder={"City"}
             label={"Select your city"}
             name={"city"}
             disabled={!selectedCountry}
@@ -170,11 +228,13 @@ export const GeneralInfo = () => {
         </Button>
       </form>
 
-      {alertMessage && (
+      <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
+      
+       {alertMessage && (
         <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
           {alertMessage}
         </Alert>
-      )}
+      )} 
     </div>
   );
 };

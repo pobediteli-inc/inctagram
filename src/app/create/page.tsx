@@ -22,7 +22,7 @@ export default function CreatePage() {
     reset: resetImages,
   } = useImageManager();
 
-  const { toast, showToast, closeToast } = useToastManager();
+  const { toast, showToast } = useToastManager();
   const [description, setDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [showCloseNotification, setShowCloseNotification] = useState(false);
@@ -50,6 +50,9 @@ export default function CreatePage() {
     router.push("/");
   };
 
+  const isValidUploadId = (id: string) =>
+    typeof id === "string" && id.trim() !== "" && id !== "string" && id.length >= 24;
+
   const handleSubmit = async () => {
     if (images.length === 0) {
       showToast("warning", "Add at least one photo");
@@ -64,21 +67,29 @@ export default function CreatePage() {
         return;
       }
 
-      const validImages = uploadResult.images.filter((img) => img.uploadId && img.uploadId.trim() !== "");
+      const validImages = uploadResult.images.filter((img) => isValidUploadId(img.uploadId));
 
       if (validImages.length === 0) {
         showToast("error", "No valid images found after upload.");
         return;
       }
 
-      const childrenMetadata = uploadResult.images.map((img: Image, idx: number) => ({
+      if (!description.trim()) {
+        showToast("warning", "Please enter a description.");
+        return;
+      }
+
+      const childrenMetadata = validImages.map((img: Image, idx: number) => ({
         uploadId: img.uploadId,
         isMain: idx === mainImageIndex,
       }));
 
-      await createPost({ description, childrenMetadata }).unwrap();
-      showToast("success", "Post created successfully!");
+      await createPost({
+        description: description.trim(),
+        childrenMetadata,
+      }).unwrap();
 
+      showToast("success", "Post created successfully!");
       setTimeout(() => {
         handleResetCreateForm();
       }, 500);
@@ -123,14 +134,7 @@ export default function CreatePage() {
         )}
       </Card>
 
-      {toast && (
-        <Toast
-          type={toast.type}
-          message={toast.message}
-          open={toast.open}
-          setOpen={(open) => (open ? toast : closeToast())}
-        />
-      )}
+      {toast && <Toast type={toast.type} message={toast.message} />}
 
       {showCloseNotification && (
         <CloseNotificationPopUp
