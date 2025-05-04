@@ -5,14 +5,13 @@ import stl from "../terms.module.css";
 import { Typography } from "common/components/typography/typography";
 import { Button } from "common/components/button/button";
 import ArrowBackOutline from "assets/icons/ArrowBackOutline";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Policy() {
   const router = useRouter();
 
   const handleBack = () => {
-    router.back(); // Вернёт пользователя на предыдущую страницу
+    router.back();
   };
 
   return (
