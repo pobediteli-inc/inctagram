@@ -1,21 +1,28 @@
+"use client";
+
 import React from "react";
 import stl from "../terms.module.css";
 import { Typography } from "common/components/typography/typography";
 import { Button } from "common/components/button/button";
 import ArrowBackOutline from "assets/icons/ArrowBackOutline";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Policy() {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back(); // Вернёт пользователя на предыдущую страницу
+  };
+
   return (
     <div className={stl.termsWrapper}>
       <div className={stl.buttonWrapper}>
-        <Button variant={"link"} className={stl.backButton} asChild>
-          <Link href={"/auth"}>
-            <ArrowBackOutline width={24} height={24} color={"var(--light-100)"} />
-            <Typography variant={"regular_14"} color={"light"}>
-              Back to Sign Up
-            </Typography>
-          </Link>
+        <Button variant={"link"} className={stl.backButton} onClick={handleBack}>
+          <ArrowBackOutline width={24} height={24} color={"var(--light-100)"} />
+          <Typography variant={"regular_14"} color={"light"}>
+            Back
+          </Typography>
         </Button>
       </div>
       <div className={stl.textWrapper}>
