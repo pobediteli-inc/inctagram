@@ -48,7 +48,7 @@ export default function UploadAvatar() {
     }
     setShowCloseNotification(false);
     router.push("/settings");
-  };
+  }; 
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
