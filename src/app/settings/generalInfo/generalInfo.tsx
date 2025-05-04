@@ -22,21 +22,6 @@ import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 
-const calculateAge = (dateOfBirth: Date): number => {
-  const today = new Date();
-  const age = today.getFullYear() - dateOfBirth.getFullYear();
-  const month = today.getMonth();
-  const birthMonth = dateOfBirth.getMonth();
-  const day = today.getDate();
-  const birthDay = dateOfBirth.getDate();
-
-  if (month < birthMonth || (month === birthMonth && day < birthDay)) {
-    return age - 1;
-  }
-  console.log("age: ", age);
-  return age;
-};
-
 const generalInfoSchema = z.object({
   username: z
     .string({
@@ -65,21 +50,9 @@ const generalInfoSchema = z.object({
     .regex(/^[A-Za-zА-Яа-я]+$/, {
       message: "Last Name may only include letters",
     }),
-  dateOfBirth: z.coerce
-    .date()
-    .refine(
-      (date) => {
-        console.log("Checking date:", date);
-        if (isNaN(date.getTime())) {
-          return false;
-        }
-        return calculateAge(date) >= 13;
-      },
-      {
-        message: "A user under 13 cannot create a profile. Privacy Policy",
-      }
-    )
-    .optional(),
+  dateOfBirth: z.date().max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
+    message: "A user under 13 cannot create a profile. Privacy Policy",
+  }),
   country: z.string().optional(),
   city: z.string().optional(),
   aboutMe: z
@@ -101,7 +74,7 @@ export const GeneralInfo = () => {
     
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
-    mode: "onTouched",
+    mode: "onChange",
     defaultValues: {
       username: "",
       firstName: "",
