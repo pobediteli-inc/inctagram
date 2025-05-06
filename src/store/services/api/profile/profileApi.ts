@@ -13,6 +13,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: "users/profile",
         method: "GET",
       }),
+      providesTags: () => ["Profile"],
     }),
     getProfileByUserName: build.query<UserByUserName, { userName: string }>({
       query: ({ userName }) => ({
@@ -45,6 +46,7 @@ export const profileApi = baseApi.injectEndpoints({
         method: "DELETE",
         url: `users/profile/avatar`,
       }),
+      invalidatesTags: () => ["Profile"],
     }),
   }),
 });
