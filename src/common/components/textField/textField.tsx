@@ -46,6 +46,7 @@ export const TextField = memo(
             <Typography variant={"regular_14"} color={"dark"} asChild>
               <label htmlFor={id} className={clsx(s.label, { [s.labelDisabled]: disabled }, labelClassName)}>
                 {label}
+                {rest.required && <span className={s.required}>*</span>}
               </label>
             </Typography>
           )}

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
 import { DayPicker, DayPickerProps } from "react-day-picker";
 import { Popover, PopoverContent, PopoverTrigger } from "../../popover/popover";
 import clsx from "clsx";
@@ -22,11 +21,8 @@ export const DatePickerSingle = ({
   label = "Select Date",
   ...restProps
 }: DatePickerSingleProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(value);
-
   const handleSelect = (date: Date | undefined) => {
     if (date) {
-      setSelectedDate(date);
       onDateChange(date);
     }
   };
@@ -37,7 +33,7 @@ export const DatePickerSingle = ({
       <Popover>
         <PopoverTrigger asChild>
           <div className={clsx(s.datePicker)}>
-            <div>{selectedDate ? selectedDate.toLocaleDateString() : "Select date"}</div>
+            <div>{value ? value.toLocaleDateString() : "Select date"}</div>
             <CalendarOutline width="24px" height="24px" />
           </div>
         </PopoverTrigger>
@@ -45,7 +41,7 @@ export const DatePickerSingle = ({
           <div className={s.wrapperCalendar}>
             <DayPicker
               mode="single"
-              selected={selectedDate}
+              selected={value}
               onSelect={handleSelect}
               ISOWeek
               showOutsideDays

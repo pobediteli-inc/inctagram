@@ -1,19 +1,20 @@
 .selectWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 170px;
   width: 100%;
-  gap: 10px;
   position: relative;
+}
+
+.iconDown {
+  margin-left: auto;
 }
 
 .trigger {
   all: unset;
   display: inline-flex;
+  box-sizing: border-box;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   min-height: 40px;
   height: 100%;
@@ -51,8 +52,6 @@
   &:hover {
     background-color: var(--dark-100);
   }
-
-  --radix-select-trigger-width: 170px;
 }
 
 .Content {
@@ -60,7 +59,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: var(--radix-select-trigger-width);
   background-color: var(--dark-500);
   border-radius: 2px;
   border: 1px solid var(--dark-100);

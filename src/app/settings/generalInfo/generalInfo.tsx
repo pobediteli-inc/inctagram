@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Alert,
   Button,
   ControlledDatePicker,
   ControlledSelect,
@@ -11,11 +12,15 @@ import {
   ControlledTextField,
   Separator,
 } from "common/components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
-import { useGetProfileQuery } from "store/services/api/profile/profileApi";
 import Link from "next/link";
+import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
+import Image from "next/image";
+import defaultImage from "public/icons/svg/image-outline-white.svg";
+import { CloseOutline } from "assets/icons";
+import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 
 const generalInfoSchema = z.object({
   username: z
@@ -45,13 +50,15 @@ const generalInfoSchema = z.object({
     .regex(/^[A-Za-zА-Яа-я]+$/, {
       message: "Last Name may only include letters",
     }),
-  dateOfBirth: z.date().optional(),
+  dateOfBirth: z.date().max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
+    message: "A user under 13 cannot create a profile. Privacy Policy",
+  }),
   country: z.string().optional(),
   city: z.string().optional(),
   aboutMe: z
     .string()
     .max(200)
-    .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
+    .regex(/^[0-9A-Za-zА-Яа-я\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
     .optional(),
 });
 
@@ -59,10 +66,15 @@ export type GeneralInfoFormValues = z.infer<typeof generalInfoSchema>;
 
 export const GeneralInfo = () => {
   const { data: profile } = useGetProfileQuery();
+  const [updateProfile] = useUpdateProfileMutation();
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
+  const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
+  const avatar = profile?.avatars[0];
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
-    mode: "onTouched",
+    mode: "onChange",
     defaultValues: {
       username: "",
       firstName: "",
@@ -102,31 +114,61 @@ export const GeneralInfo = () => {
       }))
     : [];
 
-  const onSubmit = handleSubmit((data) => {
-    const selectedCountry = countries.find((country) => country.value === data.country)?.label;
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const selectedCountryLabel = countries.find((country) => country.value === data.country)?.label;
+      const selectedCityLabel = cities?.find((city) => city.value === data.city)?.label;
 
-    const selectedCity = cities?.find((city) => city.value === data.city)?.label;
+      const payload = {
+        userName: data.username,
+        firstName: data.firstName || null,
+        lastName: data.lastName || null,
+        dateOfBirth: data.dateOfBirth || null,
+        country: selectedCountryLabel || null,
+        city: selectedCityLabel || null,
+        aboutMe: data.aboutMe || null,
+      };
 
-    const transformedData = {
-      ...data,
-      country: selectedCountry || data.country,
-      city: selectedCity || data.city,
-    };
-
-    alert(JSON.stringify(transformedData));
+      await updateProfile(payload).unwrap();
+      setAlertMessage("Your settings are saved!");
+      setAlertVariant("success");
+    } catch (error) {
+      setAlertMessage("Error! Server is not available!");
+      setAlertVariant("danger");
+    }
   });
+
+  const openDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(true);
+  };
+
+  const closeDeleteAvatarModalHandler = () => {
+    setIsDeleteAvatarModalOpen(false);
+  };
+
+  const onCloseAlertHandle = () => setAlertMessage(null);
+
+  const onCloseAlertHandler = () => setAlertMessage(null);
 
   return (
     <div className={s.container}>
       <div>
-        <Button variant={"outlined"} asChild>
+        <div className={s.avatarWrapper}>
+          <Image src={avatar?.url || defaultImage} alt="Avatar" className={avatar ? s.avatar : s.defaultAvatar} />
+          {avatar && (
+            <div className={s.deletePhotoWrapper}>
+              <CloseOutline className={s.deletePhotoButton} onClick={openDeleteAvatarModalHandler} />
+            </div>
+          )}
+        </div>
+        <Button variant={"outlined"} className={s.addPhotoButton} asChild>
           <Link href={"/settings/uploadAvatar"}>Add a Profile Photo</Link>
         </Button>
       </div>
       <form onSubmit={onSubmit} className={s.form}>
-        <ControlledTextField name={"username"} control={control} label={"Username"} />
-        <ControlledTextField name={"firstName"} control={control} label={"First Name"} />
-        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} />
+        <ControlledTextField name={"username"} control={control} label={"Username"} required />
+        <ControlledTextField name={"firstName"} control={control} label={"First Name"} required />
+        <ControlledTextField name={"lastName"} control={control} label={"Last Name"} required />
         <ControlledDatePicker
           name={"dateOfBirth"}
           control={control}
@@ -136,10 +178,12 @@ export const GeneralInfo = () => {
           startMonth={new Date(1940, 1)}
           endMonth={new Date()}
         />
+        {formState.errors.dateOfBirth && <p style={{ color: "red" }}>{formState.errors.dateOfBirth.message}</p>}
         <div className={s.countryCitySelect}>
           <ControlledSelect
             control={control}
             items={countries}
+            placeholder={"Country"}
             label={"Select your country"}
             name={"country"}
             defaultValue={countries[0]?.value}
@@ -148,6 +192,7 @@ export const GeneralInfo = () => {
           <ControlledSelect
             control={control}
             items={cities || []}
+            placeholder={"City"}
             label={"Select your city"}
             name={"city"}
             disabled={!selectedCountry}
@@ -160,6 +205,14 @@ export const GeneralInfo = () => {
           Save Changes
         </Button>
       </form>
+
+      <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
+
+      {alertMessage && (
+        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+          {alertMessage}
+        </Alert>
+      )}
     </div>
   );
 };

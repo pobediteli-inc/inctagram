@@ -1,9 +1,8 @@
-import React from "react";
+import React, { ChangeEvent, RefObject } from "react";
 import s from "./uploadStep.module.css";
 import { Button, Typography } from "common/components";
 import { Close } from "assets/icons";
 import { ImagePreview } from "../imagePreview/imagePreview";
-import { ImageSelector } from "../imageSelector/ImageSelector";
 
 type UploadStepProps = {
   previewUrls: string[];
@@ -11,8 +10,8 @@ type UploadStepProps = {
   setMainImageIndex: (index: number) => void;
   handleRemoveImage: (index: number) => void;
   onCloseHandler: () => void;
-  fileInputRef: React.RefObject<HTMLInputElement | null>;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  fileInputRef: RefObject<HTMLInputElement | null>;
+  handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setShowForm: (value: boolean) => void;
 };
 
@@ -28,6 +27,74 @@ export const UploadStep = ({
 }: UploadStepProps) => {
   const hasImages = previewUrls.length > 0;
 
+  const onSelectClickHandler = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onNextClickHandler = () => {
+    setShowForm(true);
+  };
+
+  const renderButtons = () => {
+    if (hasImages) {
+      return (
+        <Button type="button" variant="link" onClick={onNextClickHandler} style={{ display: "contents" }}>
+          Next
+        </Button>
+      );
+    }
+    return (
+      <Button
+        type={"button"}
+        variant={"link"}
+        onClick={onCloseHandler}
+        style={{ color: "var(--light-100)", display: "contents" }}
+      >
+        <Close width={24} height={24} />
+      </Button>
+    );
+  };
+
+  const renderImagePreview = () => (
+    <ImagePreview
+      previewUrls={previewUrls}
+      mainImageIndex={mainImageIndex}
+      setMainImageIndex={setMainImageIndex}
+      handleRemoveImage={handleRemoveImage}
+      onSelectClickHandler={onSelectClickHandler}
+    />
+  );
+
+  const renderFileInput = () => (
+    <div className={s.fileInputWrapper}>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImageChange}
+        id="photo-upload"
+        ref={fileInputRef}
+        className={s.fileUpload}
+        style={{ display: "none" }}
+      />
+    </div>
+  );
+
+  const renderAdditionalButtons = () => {
+    if (!hasImages) {
+      return (
+        <div className={s.btnGroup}>
+          <Button type="button" variant={"primary"} onClick={onSelectClickHandler}>
+            Select from Computer
+          </Button>
+          <Button type="button" variant="outlined">
+            Open draft
+          </Button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className={s.modalWrapper}>
       <div className={s.headerDataButtons}>
@@ -35,32 +102,13 @@ export const UploadStep = ({
           <Typography variant="h2" color="light">
             {hasImages ? "Edit Photos" : "Add Photos"}
           </Typography>
-          <Button className={s.closeBtn} onClick={onCloseHandler}>
-            <Close width={24} height={24} />
-          </Button>
+          {renderButtons()}
         </div>
 
-        <ImagePreview
-          previewUrls={previewUrls}
-          mainImageIndex={mainImageIndex}
-          setMainImageIndex={setMainImageIndex}
-          handleRemoveImage={handleRemoveImage}
-        />
+        {renderImagePreview()}
 
-        <ImageSelector fileInputRef={fileInputRef as React.RefObject<HTMLInputElement>} setShowForm={setShowForm} />
-      </div>
-
-      <div className={s.fileInputWrapper}>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          id="photo-upload"
-          ref={fileInputRef}
-          className={s.fileUpload}
-          style={{ display: "none" }}
-        />
+        {renderAdditionalButtons()}
+        {renderFileInput()}
       </div>
     </div>
   );

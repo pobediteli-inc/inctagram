@@ -40,8 +40,19 @@ export const profileApi = baseApi.injectEndpoints({
       },
       invalidatesTags: () => ["Profile"],
     }),
+    deleteProfileAvatar: build.mutation<void, void>({
+      query: () => ({
+        method: "DELETE",
+        url: `users/profile/avatar`,
+      }),
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useGetProfileByUserNameQuery, useUpdateProfileMutation, useUploadAvatarMutation } =
-  profileApi;
+export const {
+  useGetProfileQuery,
+  useGetProfileByUserNameQuery,
+  useUpdateProfileMutation,
+  useUploadAvatarMutation,
+  useDeleteProfileAvatarMutation,
+} = profileApi;
