@@ -23,7 +23,6 @@ import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 const generalInfoSchema = z.object({
   username: z
