@@ -11,6 +11,7 @@ import {
   ControlledTextarea,
   ControlledTextField,
   Separator,
+  Typography,
 } from "common/components";
 import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
@@ -21,6 +22,8 @@ import Image from "next/image";
 import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const generalInfoSchema = z.object({
   username: z
@@ -51,7 +54,7 @@ const generalInfoSchema = z.object({
       message: "Last Name may only include letters",
     }),
   dateOfBirth: z.date().max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
-    message: "A user under 13 cannot create a profile. Privacy Policy",
+    message: "",
   }),
   country: z.string().optional(),
   city: z.string().optional(),
@@ -70,6 +73,7 @@ export const GeneralInfo = () => {
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
+  const router = useRouter();
   const avatar = profile?.avatars[0];
 
   const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
@@ -141,14 +145,12 @@ export const GeneralInfo = () => {
   const openDeleteAvatarModalHandler = () => {
     setIsDeleteAvatarModalOpen(true);
   };
-
   const closeDeleteAvatarModalHandler = () => {
     setIsDeleteAvatarModalOpen(false);
   };
-
-  const onCloseAlertHandle = () => setAlertMessage(null);
-
-  const onCloseAlertHandler = () => setAlertMessage(null);
+  const onCloseAlertHandler = () => {
+    setAlertMessage(null);
+  };
 
   return (
     <div className={s.container}>
@@ -171,20 +173,30 @@ export const GeneralInfo = () => {
           <Link href={"/settings/uploadAvatar"}>Add a Profile Photo</Link>
         </Button>
       </div>
+
       <form onSubmit={onSubmit} className={s.form}>
         <ControlledTextField name={"username"} control={control} label={"Username"} required />
         <ControlledTextField name={"firstName"} control={control} label={"First Name"} required />
         <ControlledTextField name={"lastName"} control={control} label={"Last Name"} required />
-        <ControlledDatePicker
-          name={"dateOfBirth"}
-          control={control}
-          label={"Date of birth"}
-          captionLayout={"dropdown"}
-          defaultMonth={new Date()}
-          startMonth={new Date(1940, 1)}
-          endMonth={new Date()}
-        />
-        {formState.errors.dateOfBirth && <p style={{ color: "red" }}>{formState.errors.dateOfBirth.message}</p>}
+        <div className={s.datePickerWrapper}>
+          <ControlledDatePicker
+            name={"dateOfBirth"}
+            control={control}
+            label={"Date of birth"}
+            captionLayout={"dropdown"}
+            defaultMonth={new Date()}
+            startMonth={new Date(1940, 1)}
+            endMonth={new Date()}
+          />
+          {formState.errors.dateOfBirth && (
+            <Typography variant="small" className={s.dateError}>
+              A user under 13 cannot create a profile.&nbsp;
+              <Link href={"/auth/terms/policy"} className={s.link}>
+                Privacy Policy
+              </Link>
+            </Typography>
+          )}
+        </div>
         <div className={s.countryCitySelect}>
           <ControlledSelect
             control={control}
@@ -215,7 +227,7 @@ export const GeneralInfo = () => {
       <DeleteAvatarModal open={isDeleteAvatarModalOpen} close={closeDeleteAvatarModalHandler} />
 
       {alertMessage && (
-        <Alert variant={alertVariant} onClose={onCloseAlertHandle}>
+        <Alert variant={alertVariant} onClose={onCloseAlertHandler}>
           {alertMessage}
         </Alert>
       )}
