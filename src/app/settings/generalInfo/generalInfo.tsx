@@ -150,9 +150,6 @@ export const GeneralInfo = () => {
   const onCloseAlertHandler = () => {
     setAlertMessage(null);
   };
-  const onPrivacyPolicyHandler = () => {
-    router.push("/auth/terms/policy");
-  };
 
   return (
     <div className={s.container}>
@@ -187,9 +184,9 @@ export const GeneralInfo = () => {
           {formState.errors.dateOfBirth && (
             <Typography variant="small" className={s.dateError}>
               A user under 13 cannot create a profile.&nbsp;
-              <Button asChild variant="link" onClick={onPrivacyPolicyHandler} className={s.link}>
-                <Link href={"/auth/terms/policy"}>Privacy Policy</Link>
-              </Button>
+              <Link href={"/auth/terms/policy"} className={s.link}>
+                Privacy Policy
+              </Link>
             </Typography>
           )}
         </div>
