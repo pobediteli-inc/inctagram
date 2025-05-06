@@ -88,7 +88,7 @@ export default function MyProfile() {
           <Avatar src={data?.avatars[0]?.url} size={"large"} className={s.avatar} />
         </div>
 
-        <div>
+        <div className={s.profileHeader}>
           <div className={s.top}>
             <Typography variant={"h1"}>{data?.userName}</Typography>
             <div className={s.actionButtons}>

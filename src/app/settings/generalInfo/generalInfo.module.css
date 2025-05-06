@@ -40,6 +40,7 @@
   margin-top: 24px;
   max-width: 192px;
   max-height: 192px;
+  margin-bottom: 24px;
 }
 
 .avatar {
@@ -57,7 +58,6 @@
 }
 
 .addPhotoButton {
-  margin-top: 24px;
 }
 
 .deletePhotoButton {
@@ -70,7 +70,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  padding: 4px 4px 0 4px;
+  padding: 4px 4px 0;
   border-radius: 50%;
   background-color: var(--dark-700);
 }

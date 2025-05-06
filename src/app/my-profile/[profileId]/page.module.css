@@ -37,6 +37,8 @@
   display: flex;
   gap: 2rem;
   margin-top: 0.5rem;
+  justify-content: space-between;
+  max-width: 420px;
 }
 
 .bio {
@@ -87,4 +89,5 @@
 .profileInfo {
   max-width: 740px;
   width: 100%;
+  min-width: 740px;
 }
