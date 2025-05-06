@@ -11,7 +11,7 @@ import defaultAvatar from "public/icons/svg/person.svg";
 import defaultImage from "public/icons/svg/image.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
 import { ArrowIosBackOutline, ArrowIosForwardOutline } from "assets/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatPostDate, formatRelativeTime } from "common/utils/dateUtils";
 import { CommentsResponse, PostItemsResponse } from "store/services/api/publicPosts";
 
@@ -29,18 +29,15 @@ export default function ModalPost({ post, comments }: ModalPostProps) {
     setCurrentImage((prev) => (prev - 1 + post.images.length) % post.images.length);
   };
 
+  const handleClosePost = () => {
+    router.push(window.location.pathname);
+  };
+
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(true);
   const [currentImage, setCurrentImage] = useState(0);
 
-  useEffect(() => {
-    if (!isOpen) {
-      router.push(window.location.pathname);
-    }
-  }, [isOpen, router]);
-
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root open={true} onOpenChange={handleClosePost}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
         <Dialog.Content className={s.content}>
@@ -205,7 +202,7 @@ export default function ModalPost({ post, comments }: ModalPostProps) {
             </div>
           </div>
           <Dialog.Close asChild>
-            <button className={s.iconButton} onClick={() => setIsOpen(false)}>
+            <button className={s.iconButton} onClick={handleClosePost}>
               <SvgClose width={"24px"} height={"24px"} />
             </button>
           </Dialog.Close>
