@@ -154,7 +154,13 @@ export const GeneralInfo = () => {
     <div className={s.container}>
       <div>
         <div className={s.avatarWrapper}>
-          <Image src={avatar?.url || defaultImage} alt="Avatar" className={avatar ? s.avatar : s.defaultAvatar} />
+          <Image
+            src={avatar?.url || defaultImage}
+            alt="Avatar"
+            className={avatar ? s.avatar : s.defaultAvatar}
+            width={192}
+            height={192}
+          />
           {avatar && (
             <div className={s.deletePhotoWrapper}>
               <CloseOutline className={s.deletePhotoButton} onClick={openDeleteAvatarModalHandler} />
