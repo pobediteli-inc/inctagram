@@ -1,0 +1,26 @@
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 500px;
+  height: 370px;
+  overflow: hidden;
+}
+
+.mainImage {
+  max-width: 332px;
+  max-height: 340px;
+  width: 100%;
+  object-fit: cover;
+  mask-image: radial-gradient(circle, black 70%, rgb(0 0 0 / 20%) 70%);
+}
+
+.imageEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  background-color: var(--dark-500);
+}

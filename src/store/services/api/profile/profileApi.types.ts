@@ -47,3 +47,7 @@ export type UpdateProfileArgs = {
   dateOfBirth: Date | null;
   aboutMe: string | null;
 };
+
+export type UploadAvatarResponse = {
+  avatars: UserAvatar[];
+};

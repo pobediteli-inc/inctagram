@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
+import Link from "next/link";
 import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
 import Image from "next/image";
 import defaultImage from "public/icons/svg/image-outline-white.svg";
@@ -160,8 +161,8 @@ export const GeneralInfo = () => {
             </div>
           )}
         </div>
-        <Button variant={"outlined"} className={s.addPhotoButton}>
-          Add a Profile Photo
+        <Button variant={"outlined"} className={s.addPhotoButton} asChild>
+          <Link href={"/settings/uploadAvatar"}>Add a Profile Photo</Link>
         </Button>
       </div>
       <form onSubmit={onSubmit} className={s.form}>

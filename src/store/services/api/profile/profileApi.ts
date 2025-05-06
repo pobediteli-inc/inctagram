@@ -1,5 +1,10 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
-import { UpdateProfileArgs, User, UserByUserName } from "store/services/api/profile/profileApi.types";
+import {
+  UpdateProfileArgs,
+  UploadAvatarResponse,
+  User,
+  UserByUserName,
+} from "store/services/api/profile/profileApi.types";
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -14,6 +19,7 @@ export const profileApi = baseApi.injectEndpoints({
         url: `users/${userName}`,
         method: "GET",
       }),
+      providesTags: () => ["Profile"],
     }),
     updateProfile: build.mutation<void, UpdateProfileArgs>({
       query: (args) => ({
@@ -21,6 +27,18 @@ export const profileApi = baseApi.injectEndpoints({
         method: "PUT",
         url: `users/profile`,
       }),
+    }),
+    uploadAvatar: build.mutation<UploadAvatarResponse, File>({
+      query: (avatar) => {
+        const formData = new FormData();
+        formData.append("file", avatar);
+        return {
+          url: "users/profile/avatar",
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: () => ["Profile"],
     }),
     deleteProfileAvatar: build.mutation<void, void>({
       query: () => ({
@@ -35,5 +53,6 @@ export const {
   useGetProfileQuery,
   useGetProfileByUserNameQuery,
   useUpdateProfileMutation,
+  useUploadAvatarMutation,
   useDeleteProfileAvatarMutation,
 } = profileApi;
