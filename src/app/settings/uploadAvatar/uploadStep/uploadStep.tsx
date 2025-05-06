@@ -29,7 +29,12 @@ export const UploadStep = ({
           <Typography variant="h2" color="light">
             Add a Profile Photo
           </Typography>
-          <Button className={s.closeBtn} onClick={onCloseHandler}>
+          <Button
+            type={"button"}
+            variant={"link"}
+            onClick={onCloseHandler}
+            style={{ color: "var(--light-100)", display: "contents" }}
+          >
             <Close width={24} height={24} />
           </Button>
         </div>

@@ -34,7 +34,12 @@ export const CloseNotificationPopUp = ({ close }: Props) => {
           <Typography variant={"h1"} color={"light"}>
             Close
           </Typography>
-          <Button className={s.closeBtn} onClick={close}>
+          <Button
+            type={"button"}
+            variant={"link"}
+            onClick={close}
+            style={{ color: "var(--light-100)", display: "contents" }}
+          >
             <Close width={24} height={24} />
           </Button>
         </div>
