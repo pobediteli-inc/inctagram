@@ -6,10 +6,10 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import { tokenExpiration } from "common/utils/decoder";
 import process from "process";
 import { AccessResponse } from "store/services/api/auth";
-import { setStatus } from "store/services/slices";
+import { setLoggedIn, setStatus } from "store/services/slices";
+import { handleErrors } from "common/utils";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -33,10 +33,11 @@ export const baseQueryUpdateToken: BaseQueryFn<string | FetchArgs, unknown, Fetc
 
   if (typeof args === "object" && (args.url === "auth/update-tokens" || args.url === "auth/logout"))
     return baseQuery(args, api, extraOptions);
-
   if (!accessToken) return baseQuery(args, api, extraOptions);
 
-  if (tokenExpiration(accessToken)) {
+  let response = await baseQuery(args, api, extraOptions);
+
+  if (response.error?.status === 401) {
     const refreshToken = await baseQuery(
       {
         url: "auth/update-tokens",
@@ -46,15 +47,19 @@ export const baseQueryUpdateToken: BaseQueryFn<string | FetchArgs, unknown, Fetc
       extraOptions
     );
     if (refreshToken.data && (refreshToken.data as AccessResponse).accessToken) {
+      response = await baseQuery(args, api, extraOptions);
       localStorage.setItem("accessToken", (refreshToken.data as AccessResponse).accessToken);
+      api.dispatch(setLoggedIn({ isLoggedIn: true }));
+      api.dispatch(setStatus({ status: "success", message: "Successfully refreshed token." }));
     } else {
-      api.dispatch(setStatus({ status: "error", message: "Failed to refresh token." }));
-      const { authApi } = await import("store/services/api/auth/authApi");
-      await api.dispatch(authApi.endpoints.logOut.initiate());
+      response = await baseQuery(args, api, extraOptions);
+      localStorage.removeItem("accessToken");
+      handleErrors(response.error, api.dispatch);
+      api.dispatch(setLoggedIn({ isLoggedIn: false }));
     }
-  }
+  } else handleErrors(response.error, api.dispatch);
 
-  return baseQuery(args, api, extraOptions);
+  return response;
 };
 
 export const baseApi = createApi({
