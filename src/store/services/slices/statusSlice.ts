@@ -27,17 +27,22 @@ export const statusSlice = createSlice({
         state.status = "loading";
         state.message = null;
       })
-      .addMatcher(isFulfilled, (state) => {
+      .addMatcher(isFulfilled, (state, action) => {
         state.status = "success";
-        state.message = null;
+        const payload = (action.payload as StatusProps) || null;
+
+        if (payload) state.message = payload.message || null;
       })
       .addMatcher(isRejected, (state, action) => {
         state.status = "error";
         const payload = (action.payload as BaseServerError) || null;
+
         if (payload?.data) {
           const { messages, error } = payload.data;
-          if (authApi.endpoints.me.matchRejected(action)) return; // ignore unauthorized me request
-          state.message = messages[0].message || error;
+
+          if (authApi.endpoints.me.matchRejected(action) && authApi.endpoints.updateTokens.matchRejected(action))
+            state.message = messages[0].message || error;
+          if (authApi.endpoints.logOut.matchRejected(action)) state.message = messages[0].message || error;
         } else state.message = action.error as string;
       });
   },
