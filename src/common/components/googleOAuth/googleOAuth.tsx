@@ -2,9 +2,9 @@
 
 import { FC, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAuthViaGoogleMutation, useMeQuery } from "store/services/api/auth";
-import { selectStatus, setLoggedIn, setStatus } from "store/services/slices";
-import { useAppDispatch, useAppSelector } from "common/hooks";
+import { authApi, useAuthViaGoogleMutation, useMeQuery } from "store/services/api/auth";
+import { setLoggedIn, setStatus } from "store/services/slices";
+import { useAppDispatch } from "common/hooks";
 import { handleErrors } from "common/utils";
 
 export const GoogleOAuth: FC<Props> = ({ redirect }) => {
@@ -13,21 +13,21 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
   const params = useSearchParams();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const status = useAppSelector(selectStatus);
+
+  const code = params.get("code");
 
   useEffect(() => {
-    const code = params.get("code");
     if (code) {
       const googleOAuth = async () => {
         try {
           const response = await authViaGoogle({ code }).unwrap();
           if (response.accessToken) {
             localStorage.setItem("accessToken", response.accessToken);
-            dispatch(setLoggedIn({ isLoggedIn: true }));
-            if (status.status === "success")
-              dispatch(setStatus({ status: "success", message: "Successfully logged in via google account." }));
+            dispatch(authApi.util.resetApiState());
             await refetch();
             router.push(redirect);
+            dispatch(setLoggedIn({ isLoggedIn: true }));
+            dispatch(setStatus({ status: "success", message: "Successfully logged in via google account." }));
           }
         } catch (error) {
           handleErrors(error, dispatch);
@@ -37,7 +37,7 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
 
       googleOAuth();
     }
-  }, [authViaGoogle, dispatch, params, redirect, refetch, router, status.status]);
+  }, [authViaGoogle, code, dispatch, params, redirect, refetch, router]);
 
   return null;
 };
