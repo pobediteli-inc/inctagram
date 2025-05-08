@@ -8,6 +8,7 @@
 .descriptionWrapper {
   display: inline;
   overflow-wrap: break-word;
+  white-space: pre-line;
 }
 
 .showMore,
