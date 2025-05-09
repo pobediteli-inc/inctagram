@@ -14,13 +14,14 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { selectIsLoggedIn, setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Header: FC = () => {
   const { data, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { email } = data ?? {};
 
@@ -66,6 +67,8 @@ export const Header: FC = () => {
               </>
             ) : isLoggedIn ? (
               <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
+            ) : !isLoggedIn && (pathname === "/login" || pathname === "/auth") ? (
+              <></>
             ) : (
               <>
                 <Button variant={"link"} asChild>
