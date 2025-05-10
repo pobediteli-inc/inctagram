@@ -22,11 +22,11 @@ export const Description: FC<Props> = ({ description = "", onClickShowMore }) =>
         {isOverflowing && (
           <>
             {isExpanded ? (
-              <Typography variant={"regular_link"} onClick={handleExpand} className={s.hide}>
+              <Typography onClick={handleExpand} className={s.hide}>
                 hide
               </Typography>
             ) : (
-              <Typography variant={"regular_link"} onClick={handleExpand} className={s.showMore}>
+              <Typography onClick={handleExpand} className={s.showMore}>
                 show more
               </Typography>
             )}
