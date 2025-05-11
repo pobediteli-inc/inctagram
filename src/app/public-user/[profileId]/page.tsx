@@ -59,7 +59,19 @@ async function getPostComments(postId: string) {
 export default async function UserProfilePage({ params, searchParams }: ProfileRequest) {
   const paramsValue = await params;
   const searchParamsValue = await searchParams;
-  const profile = await getProfile(paramsValue.profileId);
+
+  const profilePromise = getProfile(paramsValue.profileId);
+  const postsPromise = getPosts(paramsValue.profileId);
+
+  const postPromise = searchParamsValue.postId ? getPost(searchParamsValue.postId) : Promise.resolve(null);
+  const commentsPromise = searchParamsValue.postId ? getPostComments(searchParamsValue.postId) : Promise.resolve(null);
+
+  const [profile, posts, post, comments] = await Promise.all([
+    profilePromise,
+    postsPromise,
+    postPromise,
+    commentsPromise,
+  ]);
 
   if (!profile)
     return (
@@ -69,9 +81,6 @@ export default async function UserProfilePage({ params, searchParams }: ProfileR
     );
 
   const { userName, userMetadata, avatars, aboutMe } = profile;
-  const posts = await getPosts(paramsValue.profileId);
-  const post = searchParamsValue.postId ? await getPost(searchParamsValue.postId) : null;
-  const comments = searchParamsValue.postId ? await getPostComments(searchParamsValue.postId) : null;
 
   return (
     <div className={s.container}>
