@@ -149,7 +149,7 @@ export default function MyProfile() {
             </div>
           ))
         ) : (
-          <Typography variant={"regular_16"}>Loading photos...</Typography>
+          <Typography variant={"regular_16"}>You don&#39;t have publications.</Typography>
         )}
         {hasMore && <div ref={observerRef} style={{ height: "1px" }} />}
       </section>
