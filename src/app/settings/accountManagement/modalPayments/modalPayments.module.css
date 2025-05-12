@@ -1,0 +1,33 @@
+.modalSuccess {
+  max-width: 366px;
+  width: 100%;
+}
+
+.modalError {
+  max-width: 376px;
+  width: 100%;
+}
+
+.modalCreate {
+  max-width: 378px;
+  width: 100%;
+}
+
+.modalContainer {
+  padding: 18px 24px 36px;
+}
+
+.modalContainerCreate {
+  padding: 30px 24px 36px;
+}
+
+.button {
+  margin-top: 54px;
+  width: 100%;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
