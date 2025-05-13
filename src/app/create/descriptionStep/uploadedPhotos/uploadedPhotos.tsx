@@ -28,6 +28,10 @@ export const UploadedPhotos = ({ previewUrls }: UploadedPhotosProps) => {
       {hasPhotos ? (
         <div className={s.carouselWrapper}>
           <div className={s.imageWrapper}>
+            <div className={s.blurredBackground}>
+              <Image src={previewUrls[currentIndex]} alt="Blurred preview" fill className={s.blurredImage} />
+            </div>
+
             {canGoPrev && (
               <Button
                 type={"button"}
