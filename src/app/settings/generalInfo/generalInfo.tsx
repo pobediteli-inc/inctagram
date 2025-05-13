@@ -73,9 +73,10 @@ export const GeneralInfo = () => {
   const [alertVariant, setAlertVariant] = useState<"success" | "danger">("success");
   const [isDeleteAvatarModalOpen, setIsDeleteAvatarModalOpen] = useState(false);
   const router = useRouter();
+  const [showAgeError, setShowAgeError] = useState(false);
   const avatar = profile?.avatars[0];
 
-  const { control, handleSubmit, formState, reset, watch } = useForm<GeneralInfoFormValues>({
+  const { control, handleSubmit, formState, reset, watch, getValues } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onChange",
     defaultValues: {
@@ -90,7 +91,19 @@ export const GeneralInfo = () => {
   });
 
   useEffect(() => {
-    if (profile) {
+    const savedData = localStorage.getItem("draftGeneralInfo");
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      parsed.dateOfBirth = parsed.dateOfBirth ? new Date(parsed.dateOfBirth) : undefined;
+      reset(parsed);
+
+      if (
+        parsed.dateOfBirth &&
+        new Date(parsed.dateOfBirth) > new Date(new Date().setFullYear(new Date().getFullYear() - 13))
+      ) {
+        setShowAgeError(true);
+      }
+    } else if (profile) {
       reset({
         username: profile.userName || "",
         firstName: profile.firstName || "",
@@ -102,6 +115,19 @@ export const GeneralInfo = () => {
       });
     }
   }, [profile, reset]);
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name === "dateOfBirth" && value.dateOfBirth) {
+        const userAge = new Date().getFullYear() - new Date(value.dateOfBirth).getFullYear();
+        if (userAge >= 13) {
+          setShowAgeError(false);
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const selectedCountry = watch("country");
 
@@ -135,7 +161,8 @@ export const GeneralInfo = () => {
       await updateProfile(payload).unwrap();
       setAlertMessage("Your settings are saved!");
       setAlertVariant("success");
-    } catch (error) {
+      localStorage.removeItem("draftGeneralInfo");
+    } catch {
       setAlertMessage("Error! Server is not available!");
       setAlertVariant("danger");
     }
@@ -149,6 +176,13 @@ export const GeneralInfo = () => {
   };
   const onCloseAlertHandler = () => {
     setAlertMessage(null);
+  };
+
+  const handlePolicyClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const values = getValues();
+    localStorage.setItem("draftGeneralInfo", JSON.stringify(values));
+    router.push("/auth/terms/policy");
   };
 
   return (
@@ -187,10 +221,10 @@ export const GeneralInfo = () => {
             startMonth={new Date(1940, 1)}
             endMonth={new Date()}
           />
-          {formState.errors.dateOfBirth && (
+          {(formState.errors.dateOfBirth || showAgeError) && (
             <Typography variant="small" className={s.dateError}>
               A user under 13 cannot create a profile.&nbsp;
-              <Link href={"/auth/terms/policy"} className={s.link}>
+              <Link href={"/auth/terms/policy"} className={s.link} onClick={handlePolicyClick}>
                 Privacy Policy
               </Link>
             </Typography>
