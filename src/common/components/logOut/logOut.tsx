@@ -11,8 +11,9 @@ import { useRouter } from "next/navigation";
 import { Button } from "common/components/button/button";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { clsx } from "clsx";
 
-export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
+export const LogOut: FC<LogOutProps> = ({ className, isLogout, onLogOutAction, email }) => {
   const [showModal, setShowModal] = useState(false);
   const [logOut] = useLogOutMutation();
   const router = useRouter();
@@ -36,11 +37,13 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
 
   return (
     <div>
-      <Button className={s.container} onClick={toggleModal}>
-        <LogOutOutline width={24} height={24} color={"var(--light-100)"} className={s.icon} />
-        <Typography variant={"medium_14"} color={"light"}>
-          Log Out
-        </Typography>
+      <Button
+        variant={isLogout ? "link" : "primary"}
+        className={clsx(isLogout && className, s.container)}
+        onClick={toggleModal}
+      >
+        <LogOutOutline width={24} height={24} />
+        <Typography variant={"medium_14"}>Log Out</Typography>
       </Button>
 
       {showModal && <LogOutModal isOpen={showModal} onClose={toggleModal} email={email} onLogout={handleLogout} />}
@@ -49,6 +52,8 @@ export const LogOut: FC<LogOutProps> = ({ onLogOutAction, email }) => {
 };
 
 type LogOutProps = {
+  className?: string;
+  isLogout?: boolean;
   onLogOutAction: () => void;
   email: NullableProps<string>;
 };

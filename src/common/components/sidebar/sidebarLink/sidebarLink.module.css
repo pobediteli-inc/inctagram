@@ -4,6 +4,7 @@
   gap: 12px;
   color: var(--light-100);
   max-width: fit-content;
+  padding: 0;
 }
 
 .navbarLink:hover {
