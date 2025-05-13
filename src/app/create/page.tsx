@@ -32,6 +32,7 @@ export default function CreatePage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const toastRef = useRef<HTMLDivElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -100,10 +101,16 @@ export default function CreatePage() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+
+      const clickedOutsideModal = modalRef.current && !modalRef.current.contains(target);
+      const clickedOutsideToast = toastRef.current && !toastRef.current.contains(target);
+
+      if (clickedOutsideModal && clickedOutsideToast) {
         handleClose();
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [handleClose]);
@@ -134,7 +141,11 @@ export default function CreatePage() {
         )}
       </Card>
 
-      {toast && <Toast type={toast.type} message={toast.message} />}
+      {toast && (
+        <div ref={toastRef}>
+          <Toast type={toast.type} message={toast.message} />
+        </div>
+      )}
 
       {showCloseNotification && (
         <CloseNotificationPopUp
