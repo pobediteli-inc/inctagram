@@ -24,10 +24,10 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
           if (response.accessToken) {
             localStorage.setItem("accessToken", response.accessToken);
             dispatch(authApi.util.resetApiState());
-            await refetch();
-            router.push(redirect);
+            const me = await refetch();
+            router.push(redirect + `my-profile/${me?.data?.userId}`);
             dispatch(setLoggedIn({ isLoggedIn: true }));
-            dispatch(setStatus({ status: "success", message: "Successfully logged in via google account." }));
+            dispatch(setStatus({ status: "success", message: "Successfully logged in via Google account." }));
           }
         } catch (error) {
           handleErrors(error, dispatch);
@@ -36,6 +36,16 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
       };
 
       googleOAuth();
+    } else if (params.get("error")) {
+      dispatch(setLoggedIn({ isLoggedIn: false }));
+      router.push(redirect);
+      dispatch(
+        setStatus({
+          status: "error",
+          message:
+            "Google authentication was not completed or was cancelled. Please try again or choose another sign-in method.",
+        })
+      );
     }
   }, [authViaGoogle, code, dispatch, params, redirect, refetch, router]);
 
