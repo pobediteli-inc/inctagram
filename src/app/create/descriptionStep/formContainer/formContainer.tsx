@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
-import { Avatar, Textarea, Typography } from "../../../../common/components";
+import { Avatar, Textarea, Typography } from "common/components";
 import s from "./formContainer.module.css";
-import { useGetProfileQuery } from "../../../../store/services/api/profile";
+import { useGetProfileQuery } from "store/services/api/profile";
 
 type FormContainerProps = {
   description: string;
