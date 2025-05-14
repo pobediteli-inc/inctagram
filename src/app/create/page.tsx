@@ -75,11 +75,6 @@ export default function CreatePage() {
         return;
       }
 
-      if (!description.trim()) {
-        showToast("warning", "Please enter a description.");
-        return;
-      }
-
       const childrenMetadata = validImages.map((img: Image, idx: number) => ({
         uploadId: img.uploadId,
         isMain: idx === mainImageIndex,
