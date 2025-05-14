@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { PaymentSuccessModal } from "../accountManagement/modalPayments/paymentSuccess";
 import { PaymentErrorModal } from "../accountManagement/modalPayments/paymentError";
