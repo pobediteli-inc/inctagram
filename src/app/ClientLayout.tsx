@@ -5,7 +5,7 @@ import { GithubOAuth, GoogleOAuth, Header, ProgressBar, Sidebar } from "common/c
 import s from "./page.module.css";
 import { Toast } from "common/components/toast/toast";
 import { useAppSelector } from "common/hooks/useAppSelector";
-import { selectStatus, setStatus } from "store/services/slices/statusSlice";
+import { clearStatus, selectStatus } from "store/services/slices/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { selectIsLoggedIn } from "store/services/slices";
 
@@ -14,7 +14,7 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
-  const handleClose = () => dispatch(setStatus({ status: null, message: null }));
+  const handleClose = () => dispatch(clearStatus({ status: null, message: null }));
 
   return (
     <>
