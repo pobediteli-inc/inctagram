@@ -49,6 +49,10 @@ export const ImagePreview = ({
 
   const renderMainImage = () => (
     <div className={s.mainImageWrapper}>
+      <div className={s.blurredBackground}>
+        <Image src={mainImageUrl} alt="blurred bg" fill className={s.blurredImage} />
+      </div>
+
       {canGoPrev && (
         <Button
           type={"button"}

@@ -38,11 +38,26 @@
   right: 8px;
 }
 
+.blurredBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.blurredImage {
+  object-fit: cover;
+  filter: blur(20px);
+  transform: scale(1.1);
+}
+
 .previewImage {
   border-radius: 2px;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .carouselDotsWrapper {
