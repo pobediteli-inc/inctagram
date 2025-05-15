@@ -27,11 +27,9 @@ export const statusSlice = createSlice({
         state.status = "loading";
         state.message = null;
       })
-      .addMatcher(isFulfilled, (state, action) => {
+      .addMatcher(isFulfilled, (state) => {
         state.status = "success";
-        const payload = (action.payload as StatusProps) || null;
-
-        if (payload) state.message = payload.message || null;
+        state.message = null;
       })
       .addMatcher(isRejected, (state, action) => {
         state.status = "error";
