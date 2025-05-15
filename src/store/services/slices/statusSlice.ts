@@ -20,6 +20,10 @@ export const statusSlice = createSlice({
       state.status = action.payload.status;
       state.message = action.payload.message;
     }),
+    clearStatus: create.reducer<StatusProps>((state) => {
+      state.status = null;
+      state.message = null;
+    }),
   }),
   extraReducers: (builder) => {
     builder
@@ -49,6 +53,6 @@ export const statusSlice = createSlice({
   },
 });
 
-export const { setStatus } = statusSlice.actions;
+export const { setStatus, clearStatus } = statusSlice.actions;
 export const statusSliceReducer = statusSlice.reducer;
 export const { selectStatus } = statusSlice.selectors;
