@@ -22,7 +22,7 @@ export default function CreatePage() {
     reset: resetImages,
   } = useImageManager();
 
-  const { toast, showToast } = useToastManager();
+  const { toast, showToast, closeToast } = useToastManager();
   const [description, setDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [showCloseNotification, setShowCloseNotification] = useState(false);
@@ -49,6 +49,12 @@ export default function CreatePage() {
     setShowForm(false);
     setShowCloseNotification(false);
     router.push("/");
+  };
+
+  const handleToastClose = (value: boolean) => {
+    if (!value) {
+      closeToast();
+    }
   };
 
   const isValidUploadId = (id: string) =>
@@ -138,7 +144,7 @@ export default function CreatePage() {
 
       {toast && (
         <div ref={toastRef}>
-          <Toast type={toast.type} message={toast.message} />
+          <Toast type={toast.type} message={toast.message} open={toast.open} setOpen={handleToastClose} />
         </div>
       )}
 
