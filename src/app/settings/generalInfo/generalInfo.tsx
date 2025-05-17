@@ -40,7 +40,7 @@ const generalInfoSchema = z.object({
     })
     .min(1)
     .max(50)
-    .regex(/^[A-Za-zА-Яа-я]+$/, {
+    .regex(/^[A-Za-zА-Яа-яёЁ]+$/, {
       message: "First Name may only include letters",
     }),
   lastName: z
@@ -49,7 +49,7 @@ const generalInfoSchema = z.object({
     })
     .min(1)
     .max(50)
-    .regex(/^[A-Za-zА-Яа-я]+$/, {
+    .regex(/^[A-Za-zА-Яа-яёЁ]+$/, {
       message: "Last Name may only include letters",
     }),
   dateOfBirth: z.date().max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
@@ -60,7 +60,7 @@ const generalInfoSchema = z.object({
   aboutMe: z
     .string()
     .max(200)
-    .regex(/^[0-9A-Za-zА-Яа-я\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
+    .regex(/^[0-9A-Za-zА-Яа-яёЁ\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]*$/)
     .optional(),
 });
 
