@@ -51,3 +51,14 @@ export type UpdateProfileArgs = {
 export type UploadAvatarResponse = {
   avatars: UserAvatar[];
 };
+
+export type ErrorMessage = {
+  message: string;
+  field: string;
+};
+
+export type UpdateProfileErrorResponse = {
+  statusCode: number;
+  messages?: ErrorMessage[];
+  error?: string;
+};

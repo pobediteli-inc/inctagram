@@ -23,6 +23,7 @@ import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 import { useRouter } from "next/navigation";
+import { UpdateProfileErrorResponse } from "store/services/api/profile";
 
 const generalInfoSchema = z.object({
   username: z
@@ -165,9 +166,24 @@ export const GeneralInfo = () => {
       setAlertMessage("Your settings are saved!");
       setAlertVariant("success");
       localStorage.removeItem("draftGeneralInfo");
-    } catch {
-      setAlertMessage("Error! Server is not available!");
-      setAlertVariant("danger");
+    } catch (err) {
+      const error = err as { status?: number; data?: UpdateProfileErrorResponse };
+
+      if (error.status === 401) {
+        setAlertMessage("Your session has expired. Please log in again.");
+        setAlertVariant("danger");
+        router.push("/login");
+      } else if (error.status === 400) {
+        if (error.data?.messages?.length) {
+          setAlertMessage(error.data.messages[0].message);
+        } else {
+          setAlertMessage(error.data?.error || "Invalid data. Please check your inputs.");
+        }
+        setAlertVariant("danger");
+      } else {
+        setAlertMessage("Error! Server is not available!");
+        setAlertVariant("danger");
+      }
     }
   });
 
