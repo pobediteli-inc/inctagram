@@ -3,14 +3,17 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 1148px;
-  height: 767px;
+  max-width: 536px;
+  height: 24px;
   background-color: var(--dark-700);
 }
 
 .basicButton {
   width: 24px;
   height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 2px;
   border: none;
   color: var(--light-100);
