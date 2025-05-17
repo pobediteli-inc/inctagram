@@ -52,9 +52,12 @@ const generalInfoSchema = z.object({
     .regex(/^[A-Za-zА-Яа-яёЁ]+$/, {
       message: "Last Name may only include letters",
     }),
-  dateOfBirth: z.date().max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
-    message: "",
-  }),
+  dateOfBirth: z
+    .date()
+    .max(new Date(new Date().setFullYear(new Date().getFullYear() - 13)), {
+      message: "",
+    })
+    .optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   aboutMe: z
