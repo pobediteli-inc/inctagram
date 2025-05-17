@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { UploadStep } from "./uploadStep";
 
 const meta: Meta<typeof UploadStep> = {
-  title: "Create page/UploadStep",
+  title: "Create/UploadStep",
   component: UploadStep,
   tags: ["autodocs"],
   argTypes: {
