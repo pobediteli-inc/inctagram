@@ -28,6 +28,7 @@ export const profileApi = baseApi.injectEndpoints({
         method: "PUT",
         url: `users/profile`,
       }),
+      invalidatesTags: () => ["Profile"],
     }),
     uploadAvatar: build.mutation<UploadAvatarResponse, File>({
       query: (avatar) => {

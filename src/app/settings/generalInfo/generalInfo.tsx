@@ -155,7 +155,7 @@ export const GeneralInfo = () => {
         dateOfBirth: data.dateOfBirth || null,
         country: selectedCountryLabel || null,
         city: selectedCityLabel || null,
-        aboutMe: data.aboutMe || null,
+        aboutMe: data.aboutMe || "",
       };
 
       await updateProfile(payload).unwrap();
