@@ -6,7 +6,7 @@ import { clsx } from "clsx";
 import { Typography } from "common/components/typography/typography";
 import { RadioOptionProps } from "common/types/RadioOptionProps/RadioOptionProps";
 
-export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, Props>(
+export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
   (
     {
       className,
@@ -66,7 +66,7 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
   }
 );
 
-type Props = {
+export type RadioGroupProps = {
   labelClassName?: string;
   label?: NullableProps<string>;
   labelPosition?: PositionProps;
