@@ -1,20 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { PaymentSuccessModal } from "../accountManagement/modalPayments/paymentSuccess";
-import { PaymentErrorModal } from "../accountManagement/modalPayments/paymentError";
-import { CreatePaymentModal } from "../accountManagement/modalPayments/createPayment";
+import { AccountType } from "./accoutType/accountType";
 
 export const AccountManagement = () => {
-  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
-  const [isPaymentErrorModalOpen, setIsPaymentErrorModalOpen] = useState(false);
-  const [isCreatePaymentModalOpen, setIsCreatePaymentModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState<ModalPayment>(null);
 
   return (
     <div>
-      <PaymentSuccessModal open={isPaymentSuccessModalOpen} close={() => setIsPaymentSuccessModalOpen(false)} />
-      <PaymentErrorModal open={isPaymentErrorModalOpen} close={() => setIsPaymentErrorModalOpen(false)} />
-      <CreatePaymentModal open={isCreatePaymentModalOpen} close={() => setIsCreatePaymentModalOpen(false)} />
+      <AccountType />
     </div>
   );
 };
+
+type ModalPayment = "success" | "error" | "create" | null;
