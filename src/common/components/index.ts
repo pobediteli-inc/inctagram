@@ -3,6 +3,7 @@ export { Button } from "./button/button";
 export { Card } from "./card/card";
 export { Checkbox } from "./checkbox/checkbox";
 export { ControlledCheckbox } from "./controlled/controlledCheckbox";
+export { ControlledRadioGroup } from "./controlled/controlledRadioGroup";
 export { ControlledTextField } from "./controlled/controlledTextField";
 export { ControlledTextarea } from "./controlled/controlledTextarea";
 export { DatePickerRange } from "./datePicker/range/datePickerRange";
