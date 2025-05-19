@@ -1,6 +1,7 @@
 import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit";
 import { MessageStatusProps, NullableProps } from "common/types";
-import { authApi, BaseServerError } from "store/services/api/auth";
+import { authApi } from "store/services/api/auth";
+import { BaseServerError } from "store/services/api/baseApi/baseApi.types";
 
 export type StatusProps = {
   status: NullableProps<MessageStatusProps>;
