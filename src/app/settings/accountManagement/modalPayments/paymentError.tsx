@@ -1,5 +1,3 @@
-"use client";
-
 import { BaseModal, Button, Typography } from "common/components";
 import s from "./modalPayments.module.css";
 
