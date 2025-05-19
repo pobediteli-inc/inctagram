@@ -1,5 +1,5 @@
 import { UpdateProfileErrorResponse } from "store/services/api/profile";
-import { NextRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type SetAlert = (message: string | null) => void;
 type SetVariant = (variant: "success" | "danger") => void;
@@ -8,7 +8,7 @@ type HandleErrorParams = {
   err: unknown;
   setAlertMessage: SetAlert;
   setAlertVariant: SetVariant;
-  router: NextRouter;
+  router: ReturnType<typeof useRouter>;
 };
 
 const isUpdateProfileError = (error: unknown): error is { status: number; data?: UpdateProfileErrorResponse } => {
