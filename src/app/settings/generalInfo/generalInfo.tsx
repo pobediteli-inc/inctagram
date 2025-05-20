@@ -23,6 +23,7 @@ import defaultImage from "public/icons/svg/image-outline-white.svg";
 import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 import { useRouter } from "next/navigation";
+import { handleProfileError } from "common/utils/handleProfileUpdateError";
 
 const generalInfoSchema = z.object({
   username: z
@@ -165,9 +166,8 @@ export const GeneralInfo = () => {
       setAlertMessage("Your settings are saved!");
       setAlertVariant("success");
       localStorage.removeItem("draftGeneralInfo");
-    } catch {
-      setAlertMessage("Error! Server is not available!");
-      setAlertVariant("danger");
+    } catch (err) {
+      handleProfileError({ err, setAlertMessage, setAlertVariant, router });
     }
   });
 

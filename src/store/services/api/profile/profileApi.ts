@@ -1,6 +1,7 @@
 import { baseApi } from "store/services/api/baseApi/baseApi";
 import {
   UpdateProfileArgs,
+  UpdateProfileErrorResponse,
   UploadAvatarResponse,
   User,
   UserByUserName,
@@ -29,6 +30,16 @@ export const profileApi = baseApi.injectEndpoints({
         url: `users/profile`,
       }),
       invalidatesTags: () => ["Profile"],
+      transformErrorResponse: (response: {
+        status: number;
+        data?: UpdateProfileErrorResponse;
+      }): UpdateProfileErrorResponse => {
+        return {
+          statusCode: response.status,
+          error: response.data?.error || "Error",
+          messages: response.data?.messages || [],
+        };
+      },
     }),
     uploadAvatar: build.mutation<UploadAvatarResponse, File>({
       query: (avatar) => {
