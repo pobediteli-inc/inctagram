@@ -6,11 +6,12 @@ import { RadioOptionProps } from "common/types";
 import { Card, ControlledRadioGroup, Typography } from "common/components";
 import s from "./accountType.module.css";
 import { BusinessAccount } from "./businessAccount/businessAccount";
+import { AccountPlanProps } from "common/types/PaymentProps/PaymentProps";
 
 export const AccountType = () => {
   const { control } = useForm({
     defaultValues: {
-      accountType: "Personal" as Props,
+      accountType: "Personal" as AccountPlanProps,
     },
   });
   const accountType = useWatch({
@@ -42,5 +43,3 @@ export const AccountType = () => {
     </div>
   );
 };
-
-type Props = "Personal" | "Business";
