@@ -3,7 +3,7 @@ import { ImagePreview } from "./imagePreview";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ImagePreview> = {
-  title: "Create page/ImagePreview",
+  title: "Create/ImagePreview",
   component: ImagePreview,
   tags: ["autodocs"],
   args: {
