@@ -28,3 +28,10 @@
   gap: 54px;
   margin-top: 24px;
 }
+
+.paypal, .stripe {
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background-color: var(--dark-500);
+  cursor: pointer;
+}
