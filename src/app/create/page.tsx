@@ -106,8 +106,9 @@ export default function CreatePage() {
 
       const clickedOutsideModal = modalRef.current && !modalRef.current.contains(target);
       const clickedOutsideToast = toastRef.current && !toastRef.current.contains(target);
+      const isToastVisible = !!toastRef.current;
 
-      if (clickedOutsideModal && clickedOutsideToast) {
+      if (clickedOutsideModal && (!isToastVisible || clickedOutsideToast)) {
         handleClose();
       }
     };
