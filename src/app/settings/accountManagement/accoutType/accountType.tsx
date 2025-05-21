@@ -1,29 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { RadioOptionProps } from "common/types";
 import { Card, ControlledRadioGroup, Typography } from "common/components";
 import s from "./accountType.module.css";
 import { BusinessAccount } from "./businessAccount/businessAccount";
-import { AccountPlanProps } from "common/types/PaymentProps/PaymentProps";
+import { accountPlan } from "common/constants/paymentConstants";
+import { AccountPlanProps } from "common/types";
 
-export const AccountType = () => {
+export const AccountType: FC<Props> = ({ hasActiveSubscription }) => {
+  const defaultAccountType = hasActiveSubscription ? "Business" : "Personal";
+
   const { control } = useForm({
     defaultValues: {
-      accountType: "Personal" as AccountPlanProps,
+      accountType: defaultAccountType as AccountPlanProps,
     },
   });
   const accountType = useWatch({
     control,
     name: "accountType",
-    defaultValue: "Personal",
+    defaultValue: defaultAccountType,
   });
-
-  const account: RadioOptionProps[] = [
-    { value: "Personal", label: "Personal" },
-    { value: "Business", label: "Business" },
-  ];
 
   return (
     <div className={s.accountTypeWrapper}>
@@ -36,10 +33,15 @@ export const AccountType = () => {
           labelClassName={s.label}
           control={control}
           name={"accountType"}
-          options={account}
+          options={accountPlan}
+          disabled={hasActiveSubscription}
         />
       </Card>
       {accountType === "Business" && <BusinessAccount />}
     </div>
   );
+};
+
+type Props = {
+  hasActiveSubscription: boolean;
 };
