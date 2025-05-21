@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { BusinessAccountProps, ModalPaymentProps, RadioOptionProps } from "common/types";
+import { BusinessAccountProps, ModalPaymentProps } from "common/types";
 import { Card, ControlledRadioGroup, Typography } from "common/components";
 import { useForm, useWatch } from "react-hook-form";
 import s from "./businessAccount.module.css";
@@ -11,12 +11,14 @@ import { usePayment } from "./hooks/usePayment";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "common/hooks";
 import { handleErrors } from "common/utils";
+import { typeSubscriptions } from "common/constants/paymentConstants";
 
 export const BusinessAccount = () => {
   const [activeModal, setActiveModal] = useState<ModalPaymentProps>(null);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { handlePayment } = usePayment();
+
   const { control } = useForm({
     defaultValues: {
       businessAccount: "DAY" as BusinessAccountProps,
@@ -51,7 +53,7 @@ export const BusinessAccount = () => {
           labelClassName={s.label}
           control={control}
           name={"businessAccount"}
-          options={subscriptions}
+          options={typeSubscriptions}
         />
       </Card>
       <div className={s.paymentSystems}>
@@ -69,9 +71,3 @@ export const BusinessAccount = () => {
     </div>
   );
 };
-
-const subscriptions: RadioOptionProps[] = [
-  { value: "DAY", label: "$10 per 1 day" },
-  { value: "WEEKLY", label: "$50 per week" },
-  { value: "MONTHLY", label: "$100 per month" },
-] as const;
