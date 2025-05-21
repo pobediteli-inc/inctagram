@@ -6,14 +6,24 @@ import { useEffect, useState } from "react";
 import { ModalPaymentProps } from "common/types";
 import { PaymentSuccessModal } from "./modalPayments/paymentSuccess";
 import { PaymentErrorModal } from "./modalPayments/paymentError";
+import { CurrentSubscription } from "./accoutType/currentSubscription/currentSubscription";
+import { useCurrentPaymentSubscriptionQuery } from "store/services/api/payments";
 
 export const AccountManagement = () => {
   const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState<ModalPaymentProps>(null);
   const router = useRouter();
+  const { data, isLoading } = useCurrentPaymentSubscriptionQuery();
+
+  const hasActiveSubscription =
+    !!data?.data?.[0].endDateOfSubscription && new Date(data.data[0].endDateOfSubscription) > new Date();
+
   useEffect(() => {
-    if (searchParams.get("success") || searchParams.get("error")) {
-      setIsModalOpen(searchParams.get("success") ? "success" : "error");
+    const isSuccess = searchParams.get("success");
+    const isError = searchParams.get("error");
+
+    if (isSuccess || isError) {
+      setIsModalOpen(isSuccess ? "success" : "error");
 
       router.replace("/settings");
     }
@@ -21,11 +31,14 @@ export const AccountManagement = () => {
 
   const handleClose = () => setIsModalOpen(null);
 
+  if (isLoading) return null;
+
   return (
     <>
-      <AccountType />
       {isModalOpen === "success" && <PaymentSuccessModal onCloseAction={handleClose} open />}
       {isModalOpen === "error" && <PaymentErrorModal onCloseAction={handleClose} open />}
+      {hasActiveSubscription && <CurrentSubscription />}
+      <AccountType hasActiveSubscription={hasActiveSubscription} />
     </>
   );
 };
