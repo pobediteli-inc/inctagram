@@ -8,3 +8,15 @@ export type PaymentRequest = {
 export type PaymentResponse = {
   url: string;
 };
+
+export type PaymentSubscriptionResponse = {
+  data: PaymentSubscriptionArgs[];
+};
+
+type PaymentSubscriptionArgs = {
+  userId: number;
+  subscriptionId: string;
+  dateOfPayment: string;
+  endDateOfSubscription: string;
+  autoRenewal: boolean;
+};
