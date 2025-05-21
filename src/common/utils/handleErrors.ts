@@ -1,5 +1,6 @@
 import { AppDispatch } from "store/store";
-import { BaseServerError, LoginRequest } from "store/services/api/auth";
+import { LoginRequest } from "store/services/api/auth";
+import { BaseServerError } from "store/services/api/baseApi/baseApi.types";
 import { UseFormSetError } from "react-hook-form";
 import { setStatus } from "store/services/slices/statusSlice";
 

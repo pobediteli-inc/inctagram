@@ -1,6 +1,7 @@
 import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit";
 import { MessageStatusProps, NullableProps } from "common/types";
-import { authApi, BaseServerError } from "store/services/api/auth";
+import { authApi } from "store/services/api/auth";
+import { BaseServerError } from "store/services/api/baseApi/baseApi.types";
 
 export type StatusProps = {
   status: NullableProps<MessageStatusProps>;
@@ -20,6 +21,10 @@ export const statusSlice = createSlice({
       state.status = action.payload.status;
       state.message = action.payload.message;
     }),
+    clearStatus: create.reducer<StatusProps>((state) => {
+      state.status = null;
+      state.message = null;
+    }),
   }),
   extraReducers: (builder) => {
     builder
@@ -27,11 +32,9 @@ export const statusSlice = createSlice({
         state.status = "loading";
         state.message = null;
       })
-      .addMatcher(isFulfilled, (state, action) => {
+      .addMatcher(isFulfilled, (state) => {
         state.status = "success";
-        const payload = (action.payload as StatusProps) || null;
-
-        if (payload) state.message = payload.message || null;
+        state.message = null;
       })
       .addMatcher(isRejected, (state, action) => {
         state.status = "error";
@@ -51,6 +54,6 @@ export const statusSlice = createSlice({
   },
 });
 
-export const { setStatus } = statusSlice.actions;
+export const { setStatus, clearStatus } = statusSlice.actions;
 export const statusSliceReducer = statusSlice.reducer;
 export const { selectStatus } = statusSlice.selectors;

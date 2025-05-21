@@ -9,10 +9,6 @@ const meta: Meta<typeof RadioGroup> = {
     options: {
       control: { type: "object" },
     },
-    labelPosition: {
-      control: { type: "select" },
-      options: ["top", "right", "bottom", "left", "center"],
-    },
     disabled: { control: "boolean" },
   },
   parameters: {
@@ -25,18 +21,14 @@ type Story = StoryObj<typeof RadioGroup>;
 
 export const RadioGroupOptions: Story = {
   args: {
-    label: "radio group label",
-    options: [{ value: "option1", optionLabel: "option1" }],
-    labelPosition: "top",
+    options: [{ value: "value1", label: "option1" }],
     disabled: false,
   },
 };
 
 export const RadioGroupDisabled: Story = {
   args: {
-    label: "radio group label",
-    options: [{ value: "option1", optionLabel: "option1" }],
-    labelPosition: "bottom",
+    options: [{ value: "value", label: "option1" }],
     disabled: true,
   },
 };

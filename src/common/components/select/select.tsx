@@ -30,7 +30,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
           onValueChange={rest.onValueChange}
           disabled={disabled}
         >
-          <RadixSelect.Trigger id={id} className={clsx(s.trigger, className)} ref={ref} {...rest}>
+          <RadixSelect.Trigger id={id} className={clsx(s.trigger, className)} ref={ref}>
             <RadixSelect.Value placeholder={placeholder} />
             <RadixSelect.Icon>
               <ChevronDownIcon className={s.iconDown} />
@@ -59,7 +59,7 @@ export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, Selec
                   ))}
                 </RadixSelect.Group>
               </RadixSelect.Viewport>
-              <RadixSelect.ScrollDownButton>
+              <RadixSelect.ScrollDownButton className={s.ScrollButton}>
                 <ChevronDownIcon />
               </RadixSelect.ScrollDownButton>
             </RadixSelect.Content>

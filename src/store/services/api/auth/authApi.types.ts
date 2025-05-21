@@ -1,3 +1,5 @@
+import { MessageField } from "../baseApi/baseApi.types";
+
 export type RegistrationArgs = {
   userName: string;
   email: string;
@@ -17,12 +19,6 @@ export type RegistrationServerError = {
 export type ResendRegistrationEmailArgs = {
   email: string;
   baseUrl?: string;
-};
-
-export type ConfirmRegistrationResponse = {
-  statusCode: number;
-  messages: MessageField[];
-  error: string;
 };
 
 export type PasswordRecoveryArgs = {
@@ -63,19 +59,6 @@ export type MeResponse = {
   userName: string;
   email: string;
   isBlocked: boolean;
-};
-
-export type BaseServerError = {
-  data: {
-    statusCode: number;
-    messages: MessageField[];
-    error: string;
-  };
-};
-
-export type MessageField = {
-  message: string;
-  field: string;
 };
 
 export type SocialAuthRequest = {

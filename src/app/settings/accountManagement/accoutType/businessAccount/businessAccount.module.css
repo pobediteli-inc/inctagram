@@ -1,0 +1,37 @@
+.businessAccountWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 40px;
+}
+
+.businessCard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 144px;
+  height: 100%;
+}
+
+.label {
+  margin-left: 145px;
+}
+
+.radioGroup {
+  margin-left: 12px;
+}
+
+.paymentSystems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 54px;
+  margin-top: 24px;
+}
+
+.paypal, .stripe {
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background-color: var(--dark-500);
+  cursor: pointer;
+}

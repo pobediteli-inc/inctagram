@@ -1,32 +1,17 @@
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import s from "./radioGroup.module.css";
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef, useId } from "react";
-import { NullableProps, PositionProps } from "common/types";
 import { clsx } from "clsx";
 import { Typography } from "common/components/typography/typography";
 import { RadioOptionProps } from "common/types/RadioOptionProps/RadioOptionProps";
 
-export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, Props>(
-  (
-    {
-      className,
-      labelClassName,
-      label,
-      labelPosition = "bottom",
-      defaultValue,
-      value,
-      onValueChange,
-      options,
-      disabled = false,
-      ...rest
-    },
-    ref
-  ) => {
+export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
+  ({ className, labelClassName, defaultValue, value, onValueChange, options, disabled = false, ...rest }, ref) => {
     const generateId = useId();
     const id = rest.id || generateId;
 
     return (
-      <div className={clsx(s.radioGroupWrapper, s[`label-${labelPosition}`], className)}>
+      <div className={clsx(s.radioGroupWrapper, className)}>
         <RadixRadioGroup.Root
           key={id}
           className={s.radioBaseStyles}
@@ -45,31 +30,26 @@ export const RadioGroup = forwardRef<ComponentRef<typeof RadixRadioGroup.Root>, 
                 disabled={disabled}
               >
                 <RadixRadioGroup.Indicator className={clsx(s.Indicator)} aria-disabled={disabled} />
-                <Typography variant={"regular_14"} color={"light"} textAlign={"right"} asChild>
-                  <label htmlFor={`${id}-${index}`} className={s.optionLabel} aria-disabled={disabled}>
-                    {option.optionLabel}
+                <Typography variant={"regular_14"} color={"light"} asChild>
+                  <label
+                    htmlFor={`${id}-${index}`}
+                    className={clsx(s.optionLabel, labelClassName)}
+                    aria-disabled={disabled}
+                  >
+                    {option.label}
                   </label>
                 </Typography>
               </RadixRadioGroup.Item>
             </div>
           ))}
         </RadixRadioGroup.Root>
-        {label && (
-          <Typography variant={"regular_14"} color={"light"} asChild>
-            <label htmlFor={id} className={labelClassName} aria-disabled={disabled}>
-              {label}
-            </label>
-          </Typography>
-        )}
       </div>
     );
   }
 );
 
-type Props = {
+export type RadioGroupProps = {
   labelClassName?: string;
-  label?: NullableProps<string>;
-  labelPosition?: PositionProps;
   options: RadioOptionProps[];
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>;
 

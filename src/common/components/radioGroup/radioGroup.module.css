@@ -113,27 +113,3 @@
     color: var(--light-900);
   }
 }
-
-/* label position */
-.label-top {
-  flex-direction: column;
-}
-
-.label-bottom {
-  flex-direction: column-reverse;
-}
-
-.label-left {
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.label-right {
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.label-center {
-  flex-direction: row;
-  justify-content: center;
-}

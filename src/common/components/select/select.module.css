@@ -64,6 +64,8 @@
   border: 1px solid var(--dark-100);
   color: var(--light-100);
   cursor: pointer;
+  max-height: 250px;
+  overflow-y: auto;
   margin-top: 20px;
   position: absolute;
   top: -20px;
@@ -71,7 +73,11 @@
 }
 
 .Viewport {
+  width: 100%;
   padding: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .selectItems {
@@ -98,7 +104,7 @@
   justify-content: center;
   min-height: 25px;
   height: 100%;
-  border: solid 1px var(--dark-100);
+  width: 100%;
   background-color: var(--dark-500);
   color: var(--light-100);
   cursor: pointer;

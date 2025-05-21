@@ -13,7 +13,7 @@ const SvgStripeSvgrepoCom4 = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEle
     <g clipPath="url(#stripe-svgrepo-com-4_svg__a)">
       <path
         fill="currentColor"
-        stroke="#F3F3F3"
+        stroke="currentColor"
         d="M1.913.5h20.174c.79 0 1.413.625 1.413 1.372v12.256c0 .748-.622 1.372-1.413 1.372H1.913C1.123 15.5.5 14.876.5 14.128V1.872C.5 1.125 1.122.5 1.913.5Z"
       />
       <path

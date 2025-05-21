@@ -1,20 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import { PaymentSuccessModal } from "../accountManagement/modalPayments/paymentSuccess";
-import { PaymentErrorModal } from "../accountManagement/modalPayments/paymentError";
-import { CreatePaymentModal } from "../accountManagement/modalPayments/createPayment";
+import { AccountType } from "./accoutType/accountType";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ModalPaymentProps } from "common/types";
+import { PaymentSuccessModal } from "./modalPayments/paymentSuccess";
+import { PaymentErrorModal } from "./modalPayments/paymentError";
+import { CurrentSubscription } from "./accoutType/currentSubscription/currentSubscription";
+import { useCurrentPaymentSubscriptionQuery } from "store/services/api/payments";
 
 export const AccountManagement = () => {
-  const [isPaymentSuccessModalOpen, setIsPaymentSuccessModalOpen] = useState(false);
-  const [isPaymentErrorModalOpen, setIsPaymentErrorModalOpen] = useState(false);
-  const [isCreatePaymentModalOpen, setIsCreatePaymentModalOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const [isModalOpen, setIsModalOpen] = useState<ModalPaymentProps>(null);
+  const router = useRouter();
+  const { data, isLoading } = useCurrentPaymentSubscriptionQuery();
+
+  const hasActiveSubscription =
+    !!data?.data?.[0].endDateOfSubscription && new Date(data.data[0].endDateOfSubscription) > new Date();
+
+  useEffect(() => {
+    const isSuccess = searchParams.get("success");
+    const isError = searchParams.get("error");
+
+    if (isSuccess || isError) {
+      setIsModalOpen(isSuccess ? "success" : "error");
+
+      router.replace("/settings");
+    }
+  }, [router, searchParams]);
+
+  const handleClose = () => setIsModalOpen(null);
+
+  if (isLoading) return null;
 
   return (
-    <div>
-      <PaymentSuccessModal open={isPaymentSuccessModalOpen} close={() => setIsPaymentSuccessModalOpen(false)} />
-      <PaymentErrorModal open={isPaymentErrorModalOpen} close={() => setIsPaymentErrorModalOpen(false)} />
-      <CreatePaymentModal open={isCreatePaymentModalOpen} close={() => setIsCreatePaymentModalOpen(false)} />
-    </div>
+    <>
+      {isModalOpen === "success" && <PaymentSuccessModal onCloseAction={handleClose} open />}
+      {isModalOpen === "error" && <PaymentErrorModal onCloseAction={handleClose} open />}
+      {hasActiveSubscription && <CurrentSubscription />}
+      <AccountType hasActiveSubscription={hasActiveSubscription} />
+    </>
   );
 };
