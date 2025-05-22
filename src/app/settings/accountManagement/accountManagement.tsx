@@ -16,7 +16,7 @@ export const AccountManagement = () => {
   const { data, isLoading } = useCurrentPaymentSubscriptionQuery();
 
   const hasActiveSubscription =
-    !!data?.data?.[0].endDateOfSubscription && new Date(data.data[0].endDateOfSubscription) > new Date();
+    !!data?.data?.[0]?.endDateOfSubscription && new Date(data.data[0].endDateOfSubscription) > new Date();
 
   useEffect(() => {
     const isSuccess = searchParams.get("success");
