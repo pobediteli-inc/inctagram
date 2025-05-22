@@ -178,6 +178,7 @@
   opacity: 0;
   appearance: none;
   cursor: pointer;
+  width: 100%;
 }
 
 .rdpDropdown_root {
