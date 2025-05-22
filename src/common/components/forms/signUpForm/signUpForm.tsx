@@ -73,7 +73,15 @@ export const SignUpForm = ({ onSubmit, apiError }: Props) => {
   });
 
   const submitHandler = handleSubmit((data) => {
-    onSubmit({ userName: data.userName, email: data.email, password: data.password }, reset);
+    onSubmit(
+      {
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+        baseUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URI}/auth/registration-confirmation`,
+      },
+      reset
+    );
   });
 
   useEffect(() => {
