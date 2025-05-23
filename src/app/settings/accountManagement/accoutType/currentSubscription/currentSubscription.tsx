@@ -1,11 +1,11 @@
 import React from "react";
 import s from "./currentSubscription.module.css";
 import { Card, ControlledCheckbox, Typography } from "common/components";
-import { useCurrentPaymentSubscriptionQuery } from "store/services/api/payments";
+import { useCurrentPaymentSubscriptionsQuery } from "store/services/api/payments";
 import { useForm } from "react-hook-form";
 
 export const CurrentSubscription = () => {
-  const { data } = useCurrentPaymentSubscriptionQuery();
+  const { data } = useCurrentPaymentSubscriptionsQuery();
   const { control } = useForm({
     defaultValues: {
       autoRenewal: true,

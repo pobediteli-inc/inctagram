@@ -7,13 +7,13 @@ import { ModalPaymentProps } from "common/types";
 import { PaymentSuccessModal } from "./modalPayments/paymentSuccess";
 import { PaymentErrorModal } from "./modalPayments/paymentError";
 import { CurrentSubscription } from "./accoutType/currentSubscription/currentSubscription";
-import { useCurrentPaymentSubscriptionQuery } from "store/services/api/payments";
+import { useCurrentPaymentSubscriptionsQuery } from "store/services/api/payments";
 
 export const AccountManagement = () => {
   const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState<ModalPaymentProps>(null);
   const router = useRouter();
-  const { data, isLoading } = useCurrentPaymentSubscriptionQuery();
+  const { data, isLoading } = useCurrentPaymentSubscriptionsQuery();
 
   const hasActiveSubscription =
     !!data?.data?.[0]?.endDateOfSubscription && new Date(data.data[0].endDateOfSubscription) > new Date();
