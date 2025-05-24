@@ -10,7 +10,7 @@ export const paymentsApi = baseApi.injectEndpoints({
         url: "subscriptions",
       }),
     }),
-    currentPaymentSubscription: build.query<PaymentSubscriptionResponse, void>({
+    currentPaymentSubscriptions: build.query<PaymentSubscriptionResponse, void>({
       query: () => ({
         method: "GET",
         url: "subscriptions/current-payment-subscriptions",
@@ -19,4 +19,4 @@ export const paymentsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionQuery } = paymentsApi;
+export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery } = paymentsApi;
