@@ -12,8 +12,7 @@ export const CurrentSubscription = () => {
     },
   });
 
-  const expiredAt = data?.data?.[0].dateOfPayment.slice(0, 10).replaceAll("-", ".");
-  const nextPayment = data?.data?.[0].endDateOfSubscription.slice(0, 10).replaceAll("-", ".");
+  const nextPayment = data?.data?.[data?.data.length - 1].endDateOfSubscription.slice(0, 10).replaceAll("-", ".");
 
   return (
     <div className={s.mainCurrentSubscriptionWrapper}>
@@ -25,9 +24,11 @@ export const CurrentSubscription = () => {
           <Typography variant={"regular_14"} color={"dark"}>
             Expire at
           </Typography>
-          <Typography variant={"medium_14"} color={"light"}>
-            {expiredAt}
-          </Typography>
+          {data?.data?.map((item, i) => (
+            <Typography key={i} variant={"medium_14"} color={"light"}>
+              {item.dateOfPayment.slice(0, 10).replaceAll("-", ".")}
+            </Typography>
+          ))}
         </div>
         <div className={s.nextPayment}>
           <Typography variant={"regular_14"} color={"dark"}>
@@ -38,6 +39,7 @@ export const CurrentSubscription = () => {
           </Typography>
         </div>
       </Card>
+
       <ControlledCheckbox control={control} name={"autoRenewal"} label={"Auto-renewal"} />
     </div>
   );
