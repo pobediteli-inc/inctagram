@@ -25,6 +25,11 @@
     background-color: var(--dark-100);
     outline: unset;
   }
+
+  &.disabled {
+    cursor: default;
+    background-color: unset;
+  }
 }
 
 .checkboxBaseStyles {
@@ -56,6 +61,8 @@
 
   &:disabled {
     border: 1px solid var(--light-900);
+    background-color: unset;
+    cursor: default;
   }
 
   &[data-state="checked"] {
@@ -80,6 +87,7 @@
 
 .labelDisabled {
   color: var(--light-900) !important;
+  cursor: default;
 }
 
 /* label position */
