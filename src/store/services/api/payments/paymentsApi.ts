@@ -1,5 +1,6 @@
 import { baseApi } from "../baseApi/baseApi";
 import { PaymentRequest, PaymentResponse, PaymentSubscriptionResponse } from "./paymentsApi.types";
+import { GetPaymentsResponse } from "store/services/api/subscriptions";
 
 export const paymentsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -16,7 +17,14 @@ export const paymentsApi = baseApi.injectEndpoints({
         url: "subscriptions/current-payment-subscriptions",
       }),
     }),
+    getPayments: build.query<GetPaymentsResponse, void>({
+      query: () => ({
+        url: "subscriptions/my-payments",
+        method: "GET",
+      }),
+      providesTags: [{ type: "Payments", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery } = paymentsApi;
+export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery, useGetPaymentsQuery } = paymentsApi;

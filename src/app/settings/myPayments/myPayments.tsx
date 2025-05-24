@@ -1,38 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PaymentsViewModel, useGetPaymentsQuery } from "store/services/api/subscriptions";
 import { Pagination, Toast } from "common/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import s from "./myPayments.module.css";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { PaymentsViewModel, useGetPaymentsQuery } from "store/services/api/payments";
 
 const ITEMS_PER_PAGE = 10;
-
-/**
- * Temporary mock data for development and testing purposes
- * Remove when real subscription/payments API is fully implemented and tested
- */
-const testPayments: PaymentsViewModel[] = [
-  {
-    userId: 9991,
-    subscriptionId: "test-sub-001",
-    dateOfPayment: "2023-05-15T00:00:00.000Z",
-    endDateOfSubscription: "2023-06-15T00:00:00.000Z",
-    price: 9.99,
-    subscriptionType: "MONTHLY",
-    paymentType: "STRIPE",
-  },
-  {
-    userId: 9992,
-    subscriptionId: "test-sub-002",
-    dateOfPayment: "2023-05-20T00:00:00.000Z",
-    endDateOfSubscription: "2024-05-20T00:00:00.000Z",
-    price: 99.99,
-    subscriptionType: "YEARLY",
-    paymentType: "PAYPAL",
-  },
-];
 
 export const MyPayments = () => {
   const router = useRouter();
@@ -74,16 +49,10 @@ export const MyPayments = () => {
     }
   }, [data, error, isError, router]);
 
-  /**
-   * Temporary mock data for development and testing purposes
-   * Remove when real subscription/payments API is fully implemented and tested
-   */
-  const combinedData = [...(data || []), ...testPayments];
-
-  const totalItems = combinedData.length;
+  const totalItems = data?.length || 0;
   const totalPages = Math.ceil(totalItems / pageSize);
 
-  const paginatedData = combinedData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedData = data?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
 
   return (
     <div className={s.wrapper}>
@@ -98,7 +67,7 @@ export const MyPayments = () => {
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((payment) => (
+          {paginatedData.map((payment: PaymentsViewModel) => (
             <tr key={payment.subscriptionId}>
               <td className={s.cell}>{new Date(payment.dateOfPayment).toLocaleDateString()}</td>
               <td className={s.cell}>{new Date(payment.endDateOfSubscription).toLocaleDateString()}</td>
