@@ -15,6 +15,16 @@ export const paymentsApi = baseApi.injectEndpoints({
         method: "GET",
         url: "subscriptions/current-payment-subscriptions",
       }),
+      providesTags: ["PaymentSubscriptions"],
+    }),
+    cancelAutoRenewal: build.mutation<void, void>({
+      query: () => {
+        return {
+          url: "subscriptions/canceled-auto-renewal",
+          method: "POST",
+        };
+      },
+      invalidatesTags: ["PaymentSubscriptions"],
     }),
     getPayments: build.query<GetPaymentsResponse, void>({
       query: () => ({
@@ -26,4 +36,5 @@ export const paymentsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery, useGetPaymentsQuery } = paymentsApi;
+export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery, useCancelAutoRenewalMutation, useGetPaymentsQuery } =
+  paymentsApi;

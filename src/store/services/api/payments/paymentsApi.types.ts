@@ -13,6 +13,7 @@ export type PaymentResponse = {
 
 export type PaymentSubscriptionResponse = {
   data: PaymentSubscriptionArgs[];
+  hasAutoRenewal: boolean;
 };
 
 type PaymentSubscriptionArgs = {

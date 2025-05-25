@@ -1,0 +1,18 @@
+.modal {
+  max-width: 486px;
+}
+
+.content {
+  padding: 30px 24px 36px;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 24px;
+  justify-content: right;
+  margin-top: 30px;
+}
+
+.button {
+  width: 96px;
+}

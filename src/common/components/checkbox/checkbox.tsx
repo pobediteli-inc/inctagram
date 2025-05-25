@@ -13,7 +13,7 @@ export const Checkbox = forwardRef<ComponentRef<typeof RadixCheckbox.Root>, Chec
 
     return (
       <div className={clsx(s.checkboxContainer, labelPosition && s[`label-${labelPosition}`], className)}>
-        <div className={s.circle}>
+        <div className={clsx(s.circle, { [s.disabled]: disabled })}>
           <RadixCheckbox.Root
             id={id}
             ref={ref}
