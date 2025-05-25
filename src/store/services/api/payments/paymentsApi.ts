@@ -1,6 +1,5 @@
 import { baseApi } from "../baseApi/baseApi";
-import { PaymentRequest, PaymentResponse, PaymentSubscriptionResponse } from "./paymentsApi.types";
-import { GetPaymentsResponse } from "store/services/api/subscriptions";
+import { GetPaymentsResponse, PaymentRequest, PaymentResponse, PaymentSubscriptionResponse } from "./paymentsApi.types";
 
 export const paymentsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

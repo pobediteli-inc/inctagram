@@ -1,3 +1,5 @@
+import { BusinessAccountProps, ProviderProps } from "common/types";
+
 export type PaymentRequest = {
   typeSubscription: string;
   paymentType: string;
@@ -21,18 +23,14 @@ type PaymentSubscriptionArgs = {
   autoRenewal: boolean;
 };
 
-export type SubscriptionType = "MONTHLY" | "YEARLY" | "WEEKLY";
-
-export type PaymentType = "STRIPE" | "PAYPAL" | "CREDIT_CARD";
-
 export type PaymentsViewModel = {
   userId: number;
   subscriptionId: string;
   dateOfPayment: string;
   endDateOfSubscription: string;
   price: number;
-  subscriptionType: SubscriptionType;
-  paymentType: PaymentType;
+  subscriptionType: BusinessAccountProps;
+  paymentType: ProviderProps;
 };
 
 export type GetPaymentsResponse = PaymentsViewModel[];
