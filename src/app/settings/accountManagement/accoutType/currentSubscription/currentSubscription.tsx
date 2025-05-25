@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./currentSubscription.module.css";
-import { Card, ControlledCheckbox, Typography } from "common/components";
+import { Card, Checkbox, Typography } from "common/components";
 import { useCurrentPaymentSubscriptionsQuery } from "store/services/api/payments";
-import { useForm } from "react-hook-form";
+import { CancelAutoRenewalModal } from "../../modalPayments/cancelAutoRenewal";
 
 export const CurrentSubscription = () => {
   const { data } = useCurrentPaymentSubscriptionsQuery();
-  const { control } = useForm({
-    defaultValues: {
-      autoRenewal: true,
-    },
-  });
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const nextPayment = data?.data?.[data?.data.length - 1].endDateOfSubscription.slice(0, 10).replaceAll("-", ".");
 
@@ -26,7 +23,7 @@ export const CurrentSubscription = () => {
           </Typography>
           {data?.data?.map((item, i) => (
             <Typography key={i} variant={"medium_14"} color={"light"}>
-              {item.dateOfPayment.slice(0, 10).replaceAll("-", ".")}
+              {item.endDateOfSubscription.slice(0, 10).replaceAll("-", ".")}
             </Typography>
           ))}
         </div>
@@ -35,12 +32,18 @@ export const CurrentSubscription = () => {
             Next payment
           </Typography>
           <Typography variant={"medium_14"} color={"light"}>
-            {nextPayment}
+            {data?.hasAutoRenewal && nextPayment}
           </Typography>
         </div>
       </Card>
 
-      <ControlledCheckbox control={control} name={"autoRenewal"} label={"Auto-renewal"} />
+      <Checkbox
+        checked={data?.hasAutoRenewal}
+        label={"Auto-Renewal"}
+        onClick={() => setModalIsOpen(true)}
+        disabled={!data?.hasAutoRenewal}
+      />
+      <CancelAutoRenewalModal isOpen={modalIsOpen} handleClose={() => setModalIsOpen(false)} />
     </div>
   );
 };
