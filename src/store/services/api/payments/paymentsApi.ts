@@ -1,5 +1,5 @@
 import { baseApi } from "../baseApi/baseApi";
-import { PaymentRequest, PaymentResponse, PaymentSubscriptionResponse } from "./paymentsApi.types";
+import { GetPaymentsResponse, PaymentRequest, PaymentResponse, PaymentSubscriptionResponse } from "./paymentsApi.types";
 
 export const paymentsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -26,8 +26,15 @@ export const paymentsApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["PaymentSubscriptions"],
     }),
+    getPayments: build.query<GetPaymentsResponse, void>({
+      query: () => ({
+        url: "subscriptions/my-payments",
+        method: "GET",
+      }),
+      providesTags: [{ type: "Payments", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery, useCancelAutoRenewalMutation } =
+export const { useCreatePaymentMutation, useCurrentPaymentSubscriptionsQuery, useCancelAutoRenewalMutation, useGetPaymentsQuery } =
   paymentsApi;
