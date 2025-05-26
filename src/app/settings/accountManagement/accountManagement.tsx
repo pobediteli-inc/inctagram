@@ -22,12 +22,12 @@ export const AccountManagement = () => {
     const isSuccess = searchParams.get("success");
     const isError = searchParams.get("error");
 
-    if (isSuccess || isError) {
+    if ((isSuccess && hasActiveSubscription) || isError) {
       setIsModalOpen(isSuccess ? "success" : "error");
 
       router.replace("/settings");
     }
-  }, [router, searchParams]);
+  }, [hasActiveSubscription, router, searchParams]);
 
   const handleClose = () => setIsModalOpen(null);
 

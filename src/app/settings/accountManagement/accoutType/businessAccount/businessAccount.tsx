@@ -8,14 +8,12 @@ import s from "./businessAccount.module.css";
 import { Paypal, Stripe } from "assets/icons";
 import { CreatePaymentModal } from "../../modalPayments/createPayment";
 import { usePayment } from "./hooks/usePayment";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "common/hooks";
 import { handleErrors } from "common/utils";
 import { typeSubscriptions } from "common/constants/paymentConstants";
 
 export const BusinessAccount = () => {
   const [activeModal, setActiveModal] = useState<ModalPaymentProps>(null);
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { handlePayment } = usePayment();
 
@@ -35,9 +33,7 @@ export const BusinessAccount = () => {
     setActiveModal(null);
     try {
       await handlePayment(subscriptionType, "STRIPE");
-      router.replace("?success=true");
     } catch (error: unknown) {
-      router.replace("?error=true");
       handleErrors(error, dispatch);
     }
   };
