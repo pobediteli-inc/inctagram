@@ -5,9 +5,8 @@ import { useCurrentPaymentSubscriptionsQuery } from "store/services/api/payments
 import { CancelAutoRenewalModal } from "../../modalPayments/cancelAutoRenewal";
 
 export const CurrentSubscription = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useCurrentPaymentSubscriptionsQuery();
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const nextPayment = data?.data?.[data?.data.length - 1].endDateOfSubscription.slice(0, 10).replaceAll("-", ".");
 
@@ -40,10 +39,10 @@ export const CurrentSubscription = () => {
       <Checkbox
         checked={data?.hasAutoRenewal}
         label={"Auto-Renewal"}
-        onClick={() => setModalIsOpen(true)}
+        onClick={() => setIsModalOpen(true)}
         disabled={!data?.hasAutoRenewal}
       />
-      <CancelAutoRenewalModal isOpen={modalIsOpen} handleClose={() => setModalIsOpen(false)} />
+      <CancelAutoRenewalModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
