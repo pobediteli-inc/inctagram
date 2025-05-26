@@ -1,26 +1,20 @@
 "use client";
 
-import React, { FC } from "react";
-import { useForm, useWatch } from "react-hook-form";
-import { Card, ControlledRadioGroup, Typography } from "common/components";
+import React from "react";
+import { Card, RadioGroup, Typography } from "common/components";
 import s from "./accountType.module.css";
 import { BusinessAccount } from "./businessAccount/businessAccount";
 import { accountPlan } from "common/constants/paymentConstants";
 import { AccountPlanProps } from "common/types";
 
-export const AccountType: FC<Props> = ({ hasActiveSubscription }) => {
-  const defaultAccountType = hasActiveSubscription ? "Business" : "Personal";
+export const AccountType = ({ hasActiveSubscription }: Props) => {
+  const defaultAccountType: AccountPlanProps = hasActiveSubscription ? "Business" : "Personal";
 
-  const { control } = useForm({
-    defaultValues: {
-      accountType: defaultAccountType as AccountPlanProps,
-    },
-  });
-  const accountType = useWatch({
-    control,
-    name: "accountType",
-    defaultValue: defaultAccountType,
-  });
+  const [accountType, setAccountType] = React.useState<AccountPlanProps>(defaultAccountType);
+
+  const handleAccount = (value: string) => {
+    if (value === "Business" || value === "Personal") setAccountType(value);
+  };
 
   return (
     <div className={s.accountTypeWrapper}>
@@ -28,16 +22,16 @@ export const AccountType: FC<Props> = ({ hasActiveSubscription }) => {
         Account type:
       </Typography>
       <Card className={s.accountCard}>
-        <ControlledRadioGroup
+        <RadioGroup
           className={s.radioGroup}
           labelClassName={s.label}
-          control={control}
-          name={"accountType"}
+          value={accountType}
+          onValueChange={handleAccount}
           options={accountPlan}
           disabled={hasActiveSubscription}
         />
       </Card>
-      {accountType === "Business" && <BusinessAccount />}
+      {defaultAccountType === "Business" && <BusinessAccount />}
     </div>
   );
 };
