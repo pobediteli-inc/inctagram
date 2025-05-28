@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import { BusinessAccountProps, ModalPaymentProps } from "common/types";
-import { Card, ControlledRadioGroup, Typography } from "common/components";
-import { useForm, useWatch } from "react-hook-form";
+import { Card, RadioGroup, Typography } from "common/components";
 import s from "./businessAccount.module.css";
 import { Paypal, Stripe } from "assets/icons";
 import { CreatePaymentModal } from "../../modalPayments/createPayment";
@@ -14,19 +13,9 @@ import { typeSubscriptions } from "common/constants/paymentConstants";
 
 export const BusinessAccount = () => {
   const [activeModal, setActiveModal] = useState<ModalPaymentProps>(null);
+  const [subscriptionType, setSubscriptionType] = useState<BusinessAccountProps>("DAY");
   const dispatch = useAppDispatch();
   const { handlePayment } = usePayment();
-
-  const { control } = useForm({
-    defaultValues: {
-      businessAccount: "DAY" as BusinessAccountProps,
-    },
-  });
-  const subscriptionType = useWatch({
-    control,
-    name: "businessAccount",
-    defaultValue: "DAY",
-  });
 
   const handleStripe = () => setActiveModal("create");
   const confirmPayment = async () => {
@@ -37,6 +26,9 @@ export const BusinessAccount = () => {
       handleErrors(error, dispatch);
     }
   };
+  const handleSubscription = (value: string) => {
+    if (value === "DAY" || value === "WEEKLY" || value === "MONTHLY") setSubscriptionType(value);
+  };
 
   return (
     <div className={s.businessAccountWrapper}>
@@ -44,11 +36,11 @@ export const BusinessAccount = () => {
         Your subscription costs:
       </Typography>
       <Card className={s.businessCard}>
-        <ControlledRadioGroup
+        <RadioGroup
           className={s.radioGroup}
           labelClassName={s.label}
-          control={control}
-          name={"businessAccount"}
+          value={subscriptionType}
+          onValueChange={handleSubscription}
           options={typeSubscriptions}
         />
       </Card>
