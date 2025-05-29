@@ -3,51 +3,11 @@ import s from "./login.module.css";
 import Link from "next/link";
 import { Github, Google } from "assets/icons";
 import { Button, TextField, Typography } from "common/components";
-import { z } from "zod";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginRequest, useLoginMutation, useMeQuery } from "store/services/api/auth";
-import { useRouter } from "next/navigation";
-import { setLoggedIn } from "store/services/slices/authSlice";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { handleErrors } from "common/utils/handleErrors";
-import { setStatus } from "store/services/slices";
+import { Controller } from "react-hook-form";
+import { useLogin } from "./hooks/useLogin";
 
 export default function Login() {
-  const [login] = useLoginMutation();
-  const { refetch } = useMeQuery();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    setError,
-  } = useForm<Props>({
-    resolver: zodResolver(LoginScheme),
-    mode: "onTouched",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const handleFormSubmit = async (data: LoginRequest) => {
-    try {
-      const response = await login(data).unwrap();
-      if (response.accessToken) {
-        localStorage.setItem("accessToken", response.accessToken);
-        const me = await refetch().unwrap();
-        dispatch(setLoggedIn({ isLoggedIn: true }));
-        router.push(`/my-profile/${me.userId}`);
-        dispatch(setStatus({ status: "success", message: "Successfully logged in." }));
-      }
-    } catch (error: unknown) {
-      handleErrors(error, dispatch, setError);
-      dispatch(setLoggedIn({ isLoggedIn: false }));
-    }
-  };
+  const { handleSubmit, control, errors, handleFormSubmit } = useLogin();
 
   const handleAuthViaGoogle = () =>
     window.location.assign(
@@ -111,7 +71,7 @@ export default function Login() {
               Don&#39;t have an account?
             </Typography>
             <Button variant={"link"} asChild>
-              <Link href={"/"}>Sign Up</Link>
+              <Link href={"/auth"}>Sign Up</Link>
             </Button>
           </div>
         </form>
@@ -119,13 +79,3 @@ export default function Login() {
     </div>
   );
 }
-
-const LoginScheme = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email({ message: "Please enter a valid email address, like example@example.com." }),
-  password: z.string().min(1, { message: "Password is required" }),
-});
-
-type Props = z.infer<typeof LoginScheme>;

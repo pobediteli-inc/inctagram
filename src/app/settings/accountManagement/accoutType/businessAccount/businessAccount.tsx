@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { BusinessAccountProps, ModalPaymentProps } from "common/types";
 import { Card, RadioGroup, Typography } from "common/components";
 import s from "./businessAccount.module.css";
@@ -26,9 +26,7 @@ export const BusinessAccount = () => {
       handleErrors(error, dispatch);
     }
   };
-  const handleSubscription = (value: string) => {
-    if (value === "DAY" || value === "WEEKLY" || value === "MONTHLY") setSubscriptionType(value);
-  };
+  const handleSubscription = (value: BusinessAccountProps) => setSubscriptionType(value);
 
   return (
     <div className={s.businessAccountWrapper}>

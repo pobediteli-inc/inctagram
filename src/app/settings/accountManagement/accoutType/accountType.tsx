@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import { Card, RadioGroup, Typography } from "common/components";
 import s from "./accountType.module.css";
 import { BusinessAccount } from "./businessAccount/businessAccount";
@@ -10,11 +10,9 @@ import { AccountPlanProps } from "common/types";
 export const AccountType = ({ hasActiveSubscription }: Props) => {
   const defaultAccountType: AccountPlanProps = hasActiveSubscription ? "Business" : "Personal";
 
-  const [accountType, setAccountType] = React.useState<AccountPlanProps>(defaultAccountType);
+  const [accountType, setAccountType] = useState<AccountPlanProps>(defaultAccountType);
 
-  const handleAccount = (value: string) => {
-    if (value === "Business" || value === "Personal") setAccountType(value);
-  };
+  const handleAccount = (value: AccountPlanProps) => setAccountType(value);
 
   return (
     <div className={s.accountTypeWrapper}>
@@ -31,7 +29,7 @@ export const AccountType = ({ hasActiveSubscription }: Props) => {
           disabled={hasActiveSubscription}
         />
       </Card>
-      {defaultAccountType === "Business" && <BusinessAccount />}
+      {accountType === "Business" && <BusinessAccount />}
     </div>
   );
 };
