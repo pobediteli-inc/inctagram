@@ -32,10 +32,10 @@ export const handleErrors = (error: unknown, dispatch: AppDispatch, setError?: U
     dispatch(setStatus({ status: "error", message: error.message }));
     return;
   }
-  if (error as BaseServerError) {
+  if ((error as BaseServerError)?.data) {
     const { statusCode, messages } = (error as BaseServerError).data;
     if (statusCode && !Array.isArray(messages)) setError?.("password", { message: messages });
     if (statusCode && messages?.length) dispatch(setStatus({ status: "error", message: messages[0].message }));
     else dispatch(setStatus({ status: "error", message: "An unknown error occurred." }));
-  }
+  } else dispatch(setStatus({ status: "error", message: "An unknown server occurred from server." }));
 };
