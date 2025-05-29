@@ -11,14 +11,14 @@ export const profileApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getProfile: build.query<User, void>({
       query: () => ({
-        url: "users/profile",
+        url: "/v1/users/profile",
         method: "GET",
       }),
       providesTags: () => ["Profile"],
     }),
     getProfileByUserName: build.query<UserByUserName, { userName: string }>({
       query: ({ userName }) => ({
-        url: `users/${userName}`,
+        url: `/v1/users/${userName}`,
         method: "GET",
       }),
       providesTags: () => ["Profile"],
@@ -27,7 +27,7 @@ export const profileApi = baseApi.injectEndpoints({
       query: (args) => ({
         body: args,
         method: "PUT",
-        url: `users/profile`,
+        url: `/v1/users/profile`,
       }),
       invalidatesTags: () => ["Profile"],
       transformErrorResponse: (response: {
@@ -46,7 +46,7 @@ export const profileApi = baseApi.injectEndpoints({
         const formData = new FormData();
         formData.append("file", avatar);
         return {
-          url: "users/profile/avatar",
+          url: "/v1/users/profile/avatar",
           method: "POST",
           body: formData,
         };
@@ -56,7 +56,7 @@ export const profileApi = baseApi.injectEndpoints({
     deleteProfileAvatar: build.mutation<void, void>({
       query: () => ({
         method: "DELETE",
-        url: `users/profile/avatar`,
+        url: `/v1/users/profile/avatar`,
       }),
       invalidatesTags: () => ["Profile"],
     }),

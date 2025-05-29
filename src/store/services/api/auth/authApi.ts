@@ -1,14 +1,14 @@
 import {
-  MeResponse,
   AccessResponse,
+  CheckRecoveryCodeArgs,
   ConfirmRegistrationArgs,
   LoginRequest,
-  RegistrationArgs,
-  ResendRegistrationEmailArgs,
-  CheckRecoveryCodeArgs,
+  MeResponse,
   NewPasswordArgs,
   PasswordRecoveryArgs,
+  RegistrationArgs,
   ResendPasswordRecoveryArgs,
+  ResendRegistrationEmailArgs,
   SocialAuthRequest,
   SocialAuthResponse,
 } from "store/services/api/auth/authApi.types";
@@ -20,86 +20,86 @@ export const authApi = baseApi.injectEndpoints({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/registration`,
+        url: `/v1/auth/registration`,
       }),
     }),
     resendRegistrationEmail: build.mutation<void, ResendRegistrationEmailArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/registration-email-resending`,
+        url: `/v1/auth/registration-email-resending`,
       }),
     }),
     confirmRegistration: build.mutation<void, ConfirmRegistrationArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/registration-confirmation`,
+        url: `/v1/auth/registration-confirmation`,
       }),
     }),
     passwordRecovery: build.mutation<void, PasswordRecoveryArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/password-recovery`,
+        url: `/v1/auth/password-recovery`,
       }),
     }),
     resendPasswordRecovery: build.mutation<void, ResendPasswordRecoveryArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/password-recovery-resending`,
+        url: `/v1/auth/password-recovery-resending`,
       }),
     }),
     newPassword: build.mutation<void, NewPasswordArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/new-password`,
+        url: `/v1/auth/new-password`,
       }),
     }),
     checkRecoveryCode: build.mutation<void, CheckRecoveryCodeArgs>({
       query: (args) => ({
         body: args,
         method: "POST",
-        url: `auth/check-recovery-code`,
+        url: `/v1/auth/check-recovery-code`,
       }),
     }),
     login: build.mutation<AccessResponse, LoginRequest>({
       query: (args) => ({
-        url: "auth/login",
+        url: "/v1/auth/login",
         method: "POST",
         body: args,
       }),
     }),
     me: build.query<MeResponse, void>({
       query: () => ({
-        url: "auth/me",
+        url: "/v1/auth/me",
         method: "GET",
       }),
     }),
     updateTokens: build.mutation<AccessResponse, void>({
       query: () => ({
-        url: "auth/update-tokens",
+        url: "/v1/auth/update-tokens",
         method: "POST",
       }),
     }),
     logOut: build.mutation<void, void>({
       query: () => ({
-        url: "auth/logout",
+        url: "/v1/auth/logout",
         method: "POST",
       }),
     }),
     authViaGoogle: build.mutation<SocialAuthResponse, SocialAuthRequest>({
       query: (args) => ({
-        url: "auth/google/login",
+        url: "/v1/auth/google/login",
         method: "POST",
         body: args,
       }),
     }),
     authViaGithub: build.query<SocialAuthResponse, void>({
       query: () => ({
-        url: "auth/github/login",
+        url: "/v1/auth/github/login",
         method: "GET",
       }),
     }),

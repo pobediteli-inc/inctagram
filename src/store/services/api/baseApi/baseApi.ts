@@ -31,7 +31,7 @@ export const baseQueryUpdateToken: BaseQueryFn<string | FetchArgs, unknown, Fetc
 ) => {
   const accessToken = localStorage.getItem("accessToken");
 
-  if (typeof args === "object" && (args.url === "auth/update-tokens" || args.url === "auth/logout"))
+  if (typeof args === "object" && (args.url === "/v1/auth/update-tokens" || args.url === "/v1/auth/logout"))
     return baseQuery(args, api, extraOptions);
   if (!accessToken) return baseQuery(args, api, extraOptions);
 
@@ -40,7 +40,7 @@ export const baseQueryUpdateToken: BaseQueryFn<string | FetchArgs, unknown, Fetc
   if (response.error?.status === 401) {
     const refreshToken = await baseQuery(
       {
-        url: "auth/update-tokens",
+        url: "/v1/auth/update-tokens",
         method: "POST",
       },
       api,
