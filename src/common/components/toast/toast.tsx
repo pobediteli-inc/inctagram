@@ -22,7 +22,13 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
           return 6000;
       }
     };
-
+    const checkMessageType = (message: unknown): string => {
+      if (!message) return "No message provided";
+      if (typeof message === "string") return message;
+      if (typeof message === "object" && "message" in message && typeof message.message === "string")
+        return message.message;
+      return "Unknown message type";
+    };
     const handleClose = () => setOpen?.(false);
 
     return (
@@ -52,7 +58,7 @@ export const Toast = forwardRef<ComponentRef<typeof RadixToast.Root>, Props>(
           </RadixToast.Title>
           <RadixToast.Description className={clsx(s.description)} asChild>
             <Typography variant={"regular_14"} color={"dark"}>
-              {message}
+              {checkMessageType(message)}
             </Typography>
           </RadixToast.Description>
         </RadixToast.Root>
