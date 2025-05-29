@@ -9,13 +9,13 @@ export const publicUserApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getPublicUsersCount: build.query<TotalCountRequest, void>({
       query: () => ({
-        url: "public-user",
+        url: "/v1/public-user",
         method: "GET",
       }),
     }),
     getPublicUserProfile: build.query<PublicUserProfileResponse, ProfileIdRequest>({
       query: ({ profileId }) => ({
-        url: `public-user/profile/${profileId}`,
+        url: `/v1/public-user/profile/${profileId}`,
         method: "GET",
       }),
     }),

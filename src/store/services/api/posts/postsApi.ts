@@ -14,7 +14,7 @@ export const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     updatePost: build.mutation<void, UpdatePostArgs>({
       query: ({ postId, description }) => ({
-        url: `posts/${postId}`,
+        url: `/v1/posts/${postId}`,
         method: "PUT",
         body: { description },
       }),
@@ -25,7 +25,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
     deletePost: build.mutation<void, DeletePostArgs>({
       query: ({ postId }) => ({
-        url: `posts/${postId}`,
+        url: `/v1/posts/${postId}`,
         method: "DELETE",
       }),
       invalidatesTags: (result, error, postId) => [
@@ -36,7 +36,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
     createPost: build.mutation<{ postId: string }, CreatePostArgs>({
       query: ({ description, childrenMetadata }) => ({
-        url: `posts`,
+        url: `/v1/posts`,
         method: "POST",
         body: { description, childrenMetadata },
       }),
@@ -47,7 +47,7 @@ export const postsApi = baseApi.injectEndpoints({
         const formData = new FormData();
         files.forEach((file) => formData.append("file", file));
         return {
-          url: `posts/image`,
+          url: `/v1/posts/image`,
           method: "POST",
           body: formData,
         };
@@ -55,12 +55,12 @@ export const postsApi = baseApi.injectEndpoints({
     }),
     getPostById: build.query<Post, GetPostByIdArgs>({
       query: ({ postId }) => ({
-        url: `posts/id/${postId}`,
+        url: `/v1/posts/id/${postId}`,
       }),
     }),
     getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number; pageNumber: number }>({
       query: ({ userName, pageSize, pageNumber }) => ({
-        url: `/posts/${userName}`,
+        url: `/v1/posts/${userName}`,
         params: { pageSize, pageNumber },
       }),
       providesTags: (result) =>
