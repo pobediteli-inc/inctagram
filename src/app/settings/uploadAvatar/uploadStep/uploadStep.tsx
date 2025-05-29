@@ -3,7 +3,7 @@ import s from "./uploadStep.module.css";
 import { Button, Typography } from "common/components";
 import { Close } from "assets/icons";
 import { ImagePreview } from "../imagePreview/imagePreview";
-import { ImageSelector } from "../imageSelector/ImageSelector";
+import { ImageSelector } from "app/settings/uploadAvatar/imageSelector/imageSelector";
 
 type UploadStepProps = {
   previewUrl: string;

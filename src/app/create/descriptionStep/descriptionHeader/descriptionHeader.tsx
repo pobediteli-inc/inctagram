@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Typography } from "../../../../common/components";
+import { Button, Typography } from "common/components";
 import s from "./descriptionHeader.module.css";
-import { ArrowIosBack } from "../../../../assets/icons";
+import { ArrowIosBack } from "assets/icons";
 
 type DescriptionHeaderProps = {
   onBack: () => void;

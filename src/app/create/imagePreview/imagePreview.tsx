@@ -3,7 +3,7 @@ import Image from "next/image";
 import s from "./imagePreview.module.css";
 import { ArrowIosBack, ArrowIosForward, CloseOutline, ImageOutline, PlusCircleOutline } from "assets/icons";
 import useEmblaCarousel from "embla-carousel-react";
-import { Button } from "../../../common/components";
+import { Button } from "common/components";
 
 type ImagePreviewProps = {
   previewUrls: string[];

@@ -1,12 +1,12 @@
 "use client";
 
-import { Button, TextField, Typography } from "common/components";
+import { Button, Card, TextField, Typography } from "common/components";
 import s from "./page.module.css";
-import { Card } from "common/components/card/card";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCheckRecoveryCodeMutation, useNewPasswordMutation } from "store/services/api/auth";
 import { useEffect } from "react";
+import { ROUTES } from "common/constants/routes";
 
 type Inputs = {
   password: string;
@@ -35,7 +35,7 @@ export default function NewPassword() {
           newPassword: data.confirmPassword,
           recoveryCode,
         }).unwrap();
-        router.push("/login");
+        router.push(ROUTES.login);
       } catch {
         /* empty */
       }
@@ -48,10 +48,10 @@ export default function NewPassword() {
         try {
           await checkRecoveryCode({ recoveryCode }).unwrap();
         } catch {
-          router.push("/login/verification-link-expired");
+          router.push(ROUTES.verificationLinkExpired);
         }
       } else {
-        router.push("/login/verification-link-expired");
+        router.push(ROUTES.verificationLinkExpired);
       }
     };
     isRecoveryCodeValid();

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ControlledTextField, Typography, ProgressBar } from "common/components";
+import { Button, ControlledTextField, ProgressBar, Typography } from "common/components";
 import rafiki from "assets/img/rafiki.svg";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { EmailSentPopup } from "../emailSentPopup/emailSentPopup";
 import { redirect } from "next/navigation";
 import { useResendRegistrationEmailMutation } from "store/services/api/auth/authApi";
+import { ROUTES } from "common/constants/routes";
 
 const resendLinkSchema = z.object({
   email: z
@@ -69,7 +70,7 @@ export default function EmailExpired() {
 
       <Image src={rafiki} alt={""} />
 
-      {popUpIsOpen && <EmailSentPopup close={() => redirect("/auth")} email={email} />}
+      {popUpIsOpen && <EmailSentPopup close={() => redirect(ROUTES.auth)} email={email} />}
     </>
   );
 }

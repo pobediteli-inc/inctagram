@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ImageSelector } from "./ImageSelector";
+import { ImageSelector } from "app/settings/uploadAvatar/imageSelector/imageSelector";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ImageSelector> = {

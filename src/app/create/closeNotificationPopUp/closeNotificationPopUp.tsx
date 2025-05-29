@@ -1,8 +1,7 @@
 import { useState } from "react";
 import s from "./closeNotificationPopUp.module.css";
-import { Button, Card, Typography } from "common/components";
+import { Button, Card, Toast, Typography } from "common/components";
 import { Close } from "assets/icons";
-import { Toast } from "common/components/toast/toast";
 
 type Props = {
   resetCreateForm: () => void;

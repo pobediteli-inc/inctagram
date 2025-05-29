@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { setLoggedIn, setStatus } from "store/services/slices";
 import { handleErrors } from "common/utils";
+import { ROUTES } from "common/constants/routes";
 
 export const useLogin = () => {
   const [login] = useLoginMutation();
@@ -34,7 +35,7 @@ export const useLogin = () => {
         localStorage.setItem("accessToken", response.accessToken);
         const me = await refetch().unwrap();
         dispatch(setLoggedIn({ isLoggedIn: true }));
-        router.push(`/my-profile/${me.userId}`);
+        router.push(ROUTES.myProfile(me.userId));
         dispatch(setStatus({ status: "success", message: "Successfully logged in." }));
       }
     } catch (error: unknown) {

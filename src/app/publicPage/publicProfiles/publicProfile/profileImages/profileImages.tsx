@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./ProfileImages.module.css";
+import s from "./profileImages.module.css";
 import { ImagesArgs } from "store/services/api/publicPosts";
 import { FC, useState } from "react";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import ArrowIosForwardOutline from "assets/icons/ArrowIosForwardOutline";
 import { Typography } from "common/components";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import { ROUTES } from "common/constants/routes";
 
 export const ProfileImages: FC<Props> = ({ images, isCollapsed, ownerId, postId }) => {
   const [imageIndex, setImageIndex] = useState<number>(0);
@@ -51,7 +52,7 @@ export const ProfileImages: FC<Props> = ({ images, isCollapsed, ownerId, postId 
     setImageIndex(currentIndex);
     updatePagination(currentIndex);
   };
-  const handleUserProfile = () => router.push(`public-user/${ownerId}?postId=${postId}`);
+  const handleUserProfile = () => router.push(ROUTES.publicUserPost({ userId: ownerId, postId }));
 
   const visibleButtons = images.slice(visibleButtonIndex, visibleButtonIndex + MAX_BUTTONS);
 

@@ -5,6 +5,7 @@ import { Github, Google } from "assets/icons";
 import { Button, TextField, Typography } from "common/components";
 import { Controller } from "react-hook-form";
 import { useLogin } from "./hooks/useLogin";
+import { ROUTES } from "common/constants/routes";
 
 export default function Login() {
   const { handleSubmit, control, errors, handleFormSubmit } = useLogin();
@@ -60,7 +61,7 @@ export default function Login() {
           </div>
           <div className={s.buttonsWrapper}>
             <Typography variant={"regular_14"} textAlign={"right"} style={{ marginBottom: 25 }}>
-              <Link href={"/login/password-restore"} className={s.forgotLink}>
+              <Link href={ROUTES.passwordRestore} className={s.forgotLink}>
                 Forgot password?
               </Link>
             </Typography>
@@ -71,7 +72,7 @@ export default function Login() {
               Don&#39;t have an account?
             </Typography>
             <Button variant={"link"} asChild>
-              <Link href={"/auth"}>Sign Up</Link>
+              <Link href={ROUTES.auth}>Sign Up</Link>
             </Button>
           </div>
         </form>

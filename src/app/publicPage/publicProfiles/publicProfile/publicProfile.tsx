@@ -1,16 +1,15 @@
 "use client";
 
 import s from "./publicProfile.module.css";
-import { FC, Fragment, useState } from "react";
+import { FC, useState } from "react";
 import { AllPublicPostsResponse } from "store/services/api/publicPosts";
 import { Button, Typography } from "common/components";
-import { ProfileImages } from "app/publicPage/publicProfiles/publicProfile/profileImages/profileImages";
-import { CreatedDate } from "app/publicPage/publicProfiles/publicProfile/createdDate/createdDate";
+import { ProfileImages } from "../publicProfile/profileImages/profileImages";
+import { CreatedDate } from "../publicProfile/createdDate/createdDate";
 import Image from "next/image";
 import { Description } from "./description/description";
 import { useRouter } from "next/navigation";
-
-// TODO: change naming of folders, and components
+import { ROUTES } from "common/constants/routes";
 
 export const PublicProfile: FC<Props> = ({ publicPosts }) => {
   const { items } = publicPosts ?? {};
@@ -23,7 +22,7 @@ export const PublicProfile: FC<Props> = ({ publicPosts }) => {
       ...prevState,
       [id]: isExpanded,
     }));
-  const handleUserProfile = (ownerId: number) => router.push(`public-user/${ownerId}`);
+  const handleUserProfile = (ownerId: number) => router.push(ROUTES.publicUser(ownerId));
 
   const getItems = items?.map((item, index) => (
     <div key={`${index}-${item.id}`} className={s.mainWrapper}>
@@ -59,7 +58,7 @@ export const PublicProfile: FC<Props> = ({ publicPosts }) => {
     </div>
   ));
 
-  return <Fragment>{getItems}</Fragment>;
+  return <>{getItems}</>;
 };
 
 type Props = {
