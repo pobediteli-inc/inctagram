@@ -8,6 +8,7 @@ import { PaymentSuccessModal } from "./modalPayments/paymentSuccess";
 import { PaymentErrorModal } from "./modalPayments/paymentError";
 import { CurrentSubscription } from "./accoutType/currentSubscription/currentSubscription";
 import { useCurrentPaymentSubscriptionsQuery } from "store/services/api/payments";
+import { ROUTES } from "common/constants/routes";
 
 export const AccountManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState<ModalPaymentProps>(null);
@@ -23,7 +24,7 @@ export const AccountManagement = () => {
   useEffect(() => {
     if ((isSuccess && hasActiveSubscription) || isError) {
       setIsModalOpen(isSuccess ? "success" : "error");
-      router.replace("/settings");
+      router.replace(ROUTES.settings);
     }
   }, [hasActiveSubscription, isError, isSuccess, router]);
 

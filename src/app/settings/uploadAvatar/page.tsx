@@ -2,12 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import s from "./uploadAvatar.module.css";
-import { Card } from "common/components";
-import { Toast } from "common/components";
+import { Card, Toast } from "common/components";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
 import { useRouter } from "next/navigation";
 import { UploadStep } from "./uploadStep/uploadStep";
 import { useUploadAvatarMutation } from "store/services/api/profile";
+import { ROUTES } from "common/constants/routes";
 
 export default function UploadAvatar() {
   const [image, setImage] = useState<File>();
@@ -48,7 +48,7 @@ export default function UploadAvatar() {
     }
     setShowCloseNotification(false);
     router.push("/settings");
-  }; 
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -89,7 +89,7 @@ export default function UploadAvatar() {
       setToast({ type: "success", message: "Avatar added successfully!", open: true });
       setImage(undefined);
       setPreviewUrl("");
-      router.push("/settings");
+      router.push(ROUTES.settings);
     } catch {
       setToast({ type: "error", message: "Something went wrong. Try again.", open: true });
     }

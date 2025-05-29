@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./imageSelector.module.css";
-import { Button } from "common/components/button/button";
+import { Button } from "common/components";
 
 type ImageSelectorProps = {
   fileInputRef: React.RefObject<HTMLInputElement | null>;

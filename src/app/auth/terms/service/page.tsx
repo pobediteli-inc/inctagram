@@ -1,16 +1,15 @@
-import React from "react";
 import stl from "../terms.module.css";
-import { Typography } from "common/components/typography/typography";
-import { Button } from "common/components/button/button";
+import { Button, Typography } from "common/components";
 import ArrowBackOutline from "assets/icons/ArrowBackOutline";
 import Link from "next/link";
+import { ROUTES } from "common/constants/routes";
 
 export default function Service() {
   return (
     <div className={stl.termsWrapper}>
       <div className={stl.buttonWrapper}>
         <Button variant={"link"} className={stl.backButton} asChild>
-          <Link href={"/auth"}>
+          <Link href={ROUTES.auth}>
             <ArrowBackOutline width={24} height={24} color={"var(--light-100)"} />
             <Typography variant={"regular_14"} color={"light"}>
               Back to Sign Up

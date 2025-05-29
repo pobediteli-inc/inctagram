@@ -2,8 +2,7 @@
 
 import React from "react";
 import stl from "../terms.module.css";
-import { Typography } from "common/components/typography/typography";
-import { Button } from "common/components/button/button";
+import { Button, Typography } from "common/components";
 import ArrowBackOutline from "assets/icons/ArrowBackOutline";
 import { useRouter } from "next/navigation";
 

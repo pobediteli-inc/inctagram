@@ -1,8 +1,9 @@
 import { Button, Typography } from "common/components";
 import Link from "next/link";
 import Image from "next/image";
-import bro from "../../../assets/bro.png";
+import bro from "assets/bro.png";
 import s from "./success.module.css";
+import { ROUTES } from "common/constants/routes";
 
 export default function Success() {
   return (
@@ -14,7 +15,7 @@ export default function Success() {
         Your email has been confirmed
       </Typography>
       <Button asChild variant={"primary"} className={s.button}>
-        <Link href={"../../login"}>Sign In</Link>
+        <Link href={ROUTES.login}>Sign In</Link>
       </Button>
       <Image src={bro} width={432} height={300} alt="Picture of the user" />
     </div>

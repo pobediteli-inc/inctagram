@@ -10,6 +10,7 @@ import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificati
 import { Image, useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
 import { useImageManager } from "./hooks/useImageManager";
 import { useToastManager } from "./hooks/useToastManager";
+import { ROUTES } from "common/constants/routes";
 
 export default function CreatePage() {
   const {
@@ -48,7 +49,7 @@ export default function CreatePage() {
     setDescription("");
     setShowForm(false);
     setShowCloseNotification(false);
-    router.push("/");
+    router.push(ROUTES.home);
   };
 
   const handleToastClose = (value: boolean) => {
@@ -57,8 +58,7 @@ export default function CreatePage() {
     }
   };
 
-  const isValidUploadId = (id: string) =>
-    typeof id === "string" && id.trim() !== "" && id !== "string" && id.length >= 24;
+  const isValidUploadId = (id: string) => id.trim() !== "" && id !== "string" && id.length >= 24;
 
   const handleSubmit = async () => {
     if (images.length === 0) {

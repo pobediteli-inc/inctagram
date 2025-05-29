@@ -7,9 +7,10 @@ import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
 import { useEffect, useRef, useState } from "react";
 import { Avatar, Button, Typography } from "common/components";
 import { useMeQuery } from "store/services/api/auth";
-import { MyPost } from "app/my-profile/myPost/myPost";
+import { MyPost } from "../myPost/myPost";
 import Link from "next/link";
 import { Post } from "store/services/api/posts";
+import { ROUTES } from "common/constants/routes";
 
 export default function MyProfile() {
   const [page, setPage] = useState(1);
@@ -93,7 +94,7 @@ export default function MyProfile() {
             <Typography variant={"h1"}>{data?.userName}</Typography>
             <div className={s.actionButtons}>
               <Button variant={"secondary"} asChild>
-                <Link href={"/settings"}>Profile Settings</Link>
+                <Link href={ROUTES.settings}>Profile Settings</Link>
               </Button>
             </div>
           </div>

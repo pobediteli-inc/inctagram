@@ -2,7 +2,6 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import SvgClose from "assets/icons/Close";
 import { useRouter } from "next/navigation";
 import s from "./modalPost.module.css";
 import { Typography } from "common/components";
@@ -10,7 +9,7 @@ import Image from "next/image";
 import defaultAvatar from "public/icons/svg/person.svg";
 import defaultImage from "public/icons/svg/image.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
-import { ArrowIosBackOutline, ArrowIosForwardOutline } from "assets/icons";
+import { ArrowIosBackOutline, ArrowIosForwardOutline, Close } from "assets/icons";
 import { useState } from "react";
 import { formatPostDate, formatRelativeTime } from "common/utils/dateUtils";
 import { CommentsResponse, PostItemsResponse } from "store/services/api/publicPosts";
@@ -203,7 +202,7 @@ export default function ModalPost({ post, comments }: ModalPostProps) {
           </div>
           <Dialog.Close asChild>
             <button className={s.iconButton} onClick={handleClosePost}>
-              <SvgClose width={"24px"} height={"24px"} />
+              <Close width={"24px"} height={"24px"} />
             </button>
           </Dialog.Close>
         </Dialog.Content>

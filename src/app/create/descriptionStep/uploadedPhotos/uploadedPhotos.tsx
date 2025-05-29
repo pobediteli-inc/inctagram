@@ -1,8 +1,8 @@
 import s from "./uploadedPhotos.module.css";
 import Image from "next/image";
-import { Button, Typography } from "../../../../common/components";
+import { Button, Typography } from "common/components";
 import React, { useState } from "react";
-import { ArrowIosBack, ArrowIosForward } from "../../../../assets/icons";
+import { ArrowIosBack, ArrowIosForward } from "assets/icons";
 
 type UploadedPhotosProps = {
   previewUrls: string[];

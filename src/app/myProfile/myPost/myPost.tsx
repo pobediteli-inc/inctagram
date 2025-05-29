@@ -1,11 +1,10 @@
 import { Post } from "store/services/api/posts/postsApi.types";
-import { Avatar, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
+import { Avatar, Carousel, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
 import s from "./myPost.module.css";
 import { useState } from "react";
 import { UpdatePostForm } from "./updatePostForm/updatePostForm";
 import { Edit2Outline, TrashOutline } from "assets/icons";
 import { DeletePostModal } from "./deletePostModal/deletePostModal";
-import { Carousel } from "common/components/carousel/carousel";
 
 type Props = {
   post: Post;

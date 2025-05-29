@@ -9,6 +9,7 @@ import { RegistrationArgs, RegistrationServerError, useRegisterUserMutation } fr
 import { EmailSentPopup } from "./emailSentPopup/emailSentPopup";
 import { NullableProps } from "common/types";
 import { Github, Google } from "assets/icons";
+import { ROUTES } from "common/constants/routes";
 
 export type SignUpApiError = {
   message: string;
@@ -59,7 +60,7 @@ export default function Auth() {
         Do you have an account?
       </Typography>
       <Button asChild variant={"link"}>
-        <Link href={"../login"}>Sign In</Link>
+        <Link href={ROUTES.login}>Sign In</Link>
       </Button>
       {isOpen && <EmailSentPopup close={() => setIsOpen(false)} email={email} />}
     </Card>

@@ -24,6 +24,7 @@ import { CloseOutline } from "assets/icons";
 import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 import { useRouter } from "next/navigation";
 import { handleProfileError } from "common/utils/handleProfileUpdateError";
+import { ROUTES } from "common/constants/routes";
 
 const generalInfoSchema = z.object({
   username: z
@@ -185,7 +186,7 @@ export const GeneralInfo = () => {
     e.preventDefault();
     const values = getValues();
     localStorage.setItem("draftGeneralInfo", JSON.stringify(values));
-    router.push("/auth/terms/policy");
+    router.push(ROUTES.policy);
   };
 
   return (
@@ -206,7 +207,7 @@ export const GeneralInfo = () => {
           )}
         </div>
         <Button variant={"outlined"} className={s.addPhotoButton} asChild>
-          <Link href={"/settings/uploadAvatar"}>Add a Profile Photo</Link>
+          <Link href={ROUTES.uploadAvatar}>Add a Profile Photo</Link>
         </Button>
       </div>
 
@@ -227,7 +228,7 @@ export const GeneralInfo = () => {
           {(formState.errors.dateOfBirth || showAgeError) && (
             <Typography variant="small" className={s.dateError}>
               A user under 13 cannot create a profile.&nbsp;
-              <Link href={"/auth/terms/policy"} className={s.link} onClick={handlePolicyClick}>
+              <Link href={ROUTES.policy} className={s.link} onClick={handlePolicyClick}>
                 Privacy Policy
               </Link>
             </Typography>
