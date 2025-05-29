@@ -111,7 +111,7 @@ export default function Login() {
               Don&#39;t have an account?
             </Typography>
             <Button variant={"link"} asChild>
-              <Link href={"/"}>Sign Up</Link>
+              <Link href={"/auth"}>Sign Up</Link>
             </Button>
           </div>
         </form>
