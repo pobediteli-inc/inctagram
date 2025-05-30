@@ -7,7 +7,7 @@ import PublicProfilePostsGrid from "./postsGrid/postsGrid";
 
 async function getProfile(profileId: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-user/profile/${profileId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-user/profile/${profileId}`, {
       cache: "no-store",
     });
     if (!response.ok) return null;
@@ -20,7 +20,7 @@ async function getProfile(profileId: string) {
 async function getPosts(profileId: string, endCursorPostId?: number) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/user/${profileId}/${endCursorPostId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-posts/user/${profileId}/${endCursorPostId}`,
       {
         cache: "no-store",
       }
@@ -34,7 +34,7 @@ async function getPosts(profileId: string, endCursorPostId?: number) {
 
 async function getPost(postId: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/${postId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-posts/${postId}`, {
       cache: "no-store",
     });
     if (!response.ok) return null;
@@ -46,7 +46,7 @@ async function getPost(postId: string) {
 
 async function getPostComments(postId: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/${postId}/comments`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-posts/${postId}/comments`, {
       cache: "no-store",
     });
     if (!response.ok) return null;
