@@ -8,6 +8,7 @@ import { useAppSelector } from "common/hooks/useAppSelector";
 import { clearStatus, selectStatus } from "store/services/slices/statusSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { selectIsLoggedIn } from "store/services/slices";
+import { ROUTES } from "../common/constants/routes";
 
 export default function ClientLayout({ children }: Readonly<{ children: ReactNode }>) {
   const { status, message } = useAppSelector(selectStatus);
@@ -18,8 +19,8 @@ export default function ClientLayout({ children }: Readonly<{ children: ReactNod
 
   return (
     <>
-      <GoogleOAuth redirect={"/"} />
-      <GithubOAuth redirect={"/"} />
+      <GoogleOAuth redirect={ROUTES.home} />
+      <GithubOAuth redirect={ROUTES.home} />
       <Header />
       {status === "loading" && (
         <div className={s.progressBar}>

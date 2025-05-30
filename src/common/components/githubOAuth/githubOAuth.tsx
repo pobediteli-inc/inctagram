@@ -6,6 +6,7 @@ import { setLoggedIn, setStatus } from "store/services/slices";
 import { authApi, useMeQuery } from "store/services/api/auth";
 import { handleErrors } from "common/utils";
 import { useAppDispatch } from "common/hooks";
+import { ROUTES } from "../../constants/routes";
 
 export const GithubOAuth: FC<Props> = ({ redirect }) => {
   const { refetch } = useMeQuery();
@@ -22,7 +23,7 @@ export const GithubOAuth: FC<Props> = ({ redirect }) => {
           localStorage.setItem("accessToken", accessToken);
           dispatch(authApi.util.resetApiState());
           const me = await refetch();
-          router.push(redirect + `my-profile/${me?.data?.userId}`);
+          if (me.data) router.push(ROUTES.myProfile(me.data.userId));
           dispatch(setLoggedIn({ isLoggedIn: true }));
           dispatch(setStatus({ status: "success", message: "Successfully logged in via GitHub account." }));
         } catch (error) {
