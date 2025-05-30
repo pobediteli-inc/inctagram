@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, BaseModal, Button, Typography, ControlledTextarea } from "common/components";
 import s from "./updatePostForm.module.css";
 import { LIMITS } from "common/constants/limits";
@@ -18,8 +20,8 @@ type Props = {
   description: string;
   photoPreview: string;
   postId: number;
-  handleClose: () => void;
-  handleUpdate: (postId: number, description: string) => void;
+  handleCloseAction: () => void;
+  handleUpdateAction: (postId: number, description: string) => void;
 };
 
 const updateDescriptionSchema = z.object({
@@ -34,8 +36,8 @@ export const UpdatePostForm = ({
   userName,
   description,
   postId,
-  handleClose,
-  handleUpdate,
+  handleCloseAction,
+  handleUpdateAction,
   photoPreview,
 }: Props) => {
   const [updatePost] = useUpdatePostMutation();
@@ -46,11 +48,11 @@ export const UpdatePostForm = ({
     defaultValues: { description },
   });
   const onSubmit = handleSubmit(async (data) => {
-    handleClose();
+    handleCloseAction();
     try {
       await updatePost({ description: data.description || "", postId });
-      handleUpdate(postId, data.description);
-      handleClose();
+      handleUpdateAction(postId, data.description);
+      handleCloseAction();
     } catch (e) {
       handleErrors(e, dispatch);
     }
@@ -59,14 +61,14 @@ export const UpdatePostForm = ({
   const handleCloseWithReset = () => {
     reset();
     setCloseModalIsOpen(false);
-    handleClose();
+    handleCloseAction();
   };
 
   const handleFormModalCLose = () => {
     if (formState.isDirty) {
       setCloseModalIsOpen(true);
     } else {
-      handleClose();
+      handleCloseAction();
     }
   };
 
