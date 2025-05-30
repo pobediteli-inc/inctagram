@@ -5,6 +5,7 @@ export const ROUTES = {
   friendProfile: "/friendProfile",
   home: "/",
   login: "/login",
+  logout: "logout",
   messenger: "/messenger",
   myProfile: (id: number) => `/myProfile/${id}`,
   publicUser: (id: number) => `/publicUser/${id}`,
