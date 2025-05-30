@@ -134,9 +134,9 @@ export default function MyProfile() {
               <MyPost
                 post={post}
                 isOpen={openPostId === post.id}
-                handleClose={() => setOpenPostId(null)}
-                handleDelete={handleDelete}
-                handleUpdate={handleUpdate}
+                handleCloseAction={() => setOpenPostId(null)}
+                handleDeleteAction={handleDelete}
+                handleUpdateAction={handleUpdate}
               />
               <Image
                 src={post.images[0]?.url ?? "/icons/svg/person.svg"}

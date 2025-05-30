@@ -36,7 +36,7 @@ export const TotalUsersCount = async () => {
 
 const getTotalUsersCount = async (): Promise<AllPublicPostsResponse | undefined> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}public-user`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-user`, {
       method: "GET",
       cache: "no-cache",
     });

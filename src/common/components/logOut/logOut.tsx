@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOutOutline } from "../../../assets/icons";
+import { LogOutOutline } from "assets/icons";
 import { FC, useState } from "react";
 import { LogOutModal } from "../modal/logOutModal/logOutModal";
 import s from "./logOut.module.scss";
@@ -12,6 +12,7 @@ import { Button } from "common/components/button/button";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { clsx } from "clsx";
+import { ROUTES } from "../../constants/routes";
 
 export const LogOut: FC<LogOutProps> = ({ className, isLogout, onLogOutAction, email }) => {
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +30,7 @@ export const LogOut: FC<LogOutProps> = ({ className, isLogout, onLogOutAction, e
       onLogOutAction();
       setShowModal(false);
       toggleModal();
-      router.push("/");
+      router.push(ROUTES.home);
     } catch (error: unknown) {
       handleErrors(error, dispatch);
     }

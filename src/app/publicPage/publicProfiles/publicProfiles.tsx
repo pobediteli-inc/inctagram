@@ -24,7 +24,7 @@ const getPublicPosts = async (pageSize: number): Promise<AllPublicPostsResponse 
   try {
     const sortDirection = "desc";
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}public-posts/all?pageSize=${pageSize}&sortDirection=${sortDirection}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-posts/all?pageSize=${pageSize}&sortDirection=${sortDirection}`,
       {
         method: "GET",
         cache: "no-cache",

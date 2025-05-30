@@ -10,6 +10,7 @@ import { setLoggedIn } from "store/services/slices";
 import { Typography } from "../../typography/typography";
 import { useAppDispatch } from "common/hooks";
 import { LogOut } from "../../logOut/logOut";
+import { ROUTES } from "../../../constants/routes";
 
 type SidebarLinkProps = {
   item: SidebarItem;
@@ -21,10 +22,10 @@ export const SidebarLink = ({ item }: SidebarLinkProps) => {
   const dispatch = useAppDispatch();
 
   const isActive = () => {
-    if (item.href === "/") return currentPath === "/";
+    if (item.href === ROUTES.home) return currentPath === ROUTES.home;
     return currentPath.startsWith(item.href);
   };
-  if (item.href === "/logout") {
+  if (item.href === ROUTES.logout) {
     const handleLogOut = () => {
       localStorage.removeItem("accessToken");
       dispatch(authApi.util.resetApiState());

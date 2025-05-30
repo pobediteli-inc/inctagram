@@ -13,45 +13,46 @@ import {
 } from "assets/icons";
 import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
 import { useMeQuery } from "store/services/api/auth";
+import { ROUTES } from "../../constants/routes";
 
 const sidebarItems: SidebarItem[] = [
   {
-    href: "/",
+    href: ROUTES.home,
     icon: <Home width={24} height={24} />,
     title: "Home",
   },
   {
-    href: "/create",
+    href: ROUTES.create,
     icon: <PlusSquareOutline width={24} height={24} />,
     title: "Create",
   },
   {
-    href: "/my-profile",
+    href: "/myProfile",
     icon: <Person width={24} height={24} />,
     title: "My Profile",
   },
   {
-    href: "/messenger",
+    href: ROUTES.messenger,
     icon: <MessageCircleOutline width={24} height={24} />,
     title: "Messenger",
   },
   {
-    href: "/search",
+    href: ROUTES.search,
     icon: <SearchOutline width={24} height={24} />,
     title: "Search",
   },
   {
-    href: "/statistic",
+    href: ROUTES.statistic,
     icon: <TrendingUpOutline width={24} height={24} />,
     title: "Statistic",
   },
   {
-    href: "/favorites",
+    href: ROUTES.favorites,
     icon: <BookmarkOutline width={24} height={24} />,
     title: "Favorites",
   },
   {
-    href: "/logout",
+    href: ROUTES.logout,
     icon: <LogOutOutline width={24} height={24} />,
     title: "Log Out",
   },
@@ -63,7 +64,7 @@ export const Sidebar = () => {
   if (!data?.userId) return null;
 
   const dynamicSidebarItems = sidebarItems.map((item) =>
-    item.title === "My Profile" ? { ...item, href: `/my-profile/${data?.userId}` } : item
+    item.title === "My Profile" ? { ...item, href: ROUTES.myProfile(data?.userId) } : item
   );
 
   return (

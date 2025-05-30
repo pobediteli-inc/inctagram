@@ -14,7 +14,8 @@ export default function Login() {
     window.location.assign(
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&response_type=code&scope=email+profile`
     );
-  const handleAuthViaGithub = () => window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/github/login`);
+  const handleAuthViaGithub = () =>
+    window.location.assign(`${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/auth/github/login`);
 
   return (
     <div className={s.loginWrapper}>

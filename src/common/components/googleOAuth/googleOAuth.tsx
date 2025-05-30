@@ -6,6 +6,7 @@ import { authApi, useAuthViaGoogleMutation, useMeQuery } from "store/services/ap
 import { setLoggedIn, setStatus } from "store/services/slices";
 import { useAppDispatch } from "common/hooks";
 import { handleErrors } from "common/utils";
+import { ROUTES } from "../../constants/routes";
 
 export const GoogleOAuth: FC<Props> = ({ redirect }) => {
   const [authViaGoogle] = useAuthViaGoogleMutation();
@@ -25,7 +26,7 @@ export const GoogleOAuth: FC<Props> = ({ redirect }) => {
             localStorage.setItem("accessToken", response.accessToken);
             dispatch(authApi.util.resetApiState());
             const me = await refetch();
-            router.push(redirect + `my-profile/${me?.data?.userId}`);
+            if (me.data) router.push(ROUTES.myProfile(me.data.userId));
             dispatch(setLoggedIn({ isLoggedIn: true }));
             dispatch(setStatus({ status: "success", message: "Successfully logged in via Google account." }));
           }

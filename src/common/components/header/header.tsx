@@ -15,6 +15,7 @@ import { selectIsLoggedIn, setLoggedIn } from "store/services/slices/authSlice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 import { usePathname, useRouter } from "next/navigation";
+import { ROUTES } from "../../constants/routes";
 
 export const Header: FC = () => {
   const { data, isLoading } = useMeQuery();
@@ -35,7 +36,7 @@ export const Header: FC = () => {
     dispatch(authApi.util.resetApiState());
     dispatch(setLoggedIn({ isLoggedIn: false }));
   };
-  const handleOnMainPage = () => router.push("/");
+  const handleOnMainPage = () => router.push(ROUTES.home);
 
   useEffect(() => {
     try {
@@ -67,15 +68,15 @@ export const Header: FC = () => {
               </>
             ) : isLoggedIn ? (
               <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
-            ) : !isLoggedIn && (pathname === "/login" || pathname === "/auth") ? (
+            ) : !isLoggedIn && (pathname === ROUTES.login || pathname === ROUTES.auth) ? (
               <></>
             ) : (
               <>
                 <Button variant={"link"} asChild>
-                  <Link href={"/login"}>Log in</Link>
+                  <Link href={ROUTES.login}>Log in</Link>
                 </Button>
                 <Button variant={"primary"} asChild>
-                  <Link href={"/auth"}>Sign up</Link>
+                  <Link href={ROUTES.auth}>Sign up</Link>
                 </Button>
               </>
             )}
