@@ -1,0 +1,18 @@
+.notification {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--dark-100);
+  font-size: 14px;
+}
+
+.notification:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.timeAgo {
+  color: var(--light-900);
+}
+
+.newLabel {
+  color: var(--primary-500);
+}

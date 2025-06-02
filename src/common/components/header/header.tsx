@@ -16,6 +16,9 @@ import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 import { usePathname, useRouter } from "next/navigation";
 import { ROUTES } from "../../constants/routes";
+import { useGetNotificationsByProfileQuery } from "store/services/api/notifications";
+import { useSocketNotifications } from "common/hooks/useSocketNotifications";
+import { NotificationDropdown } from "common/components";
 
 export const Header: FC = () => {
   const { data, isLoading } = useMeQuery();
@@ -23,6 +26,11 @@ export const Header: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
+
+  const { data: notificationsData } = useGetNotificationsByProfileQuery(
+    { pageSize: 50, sortDirection: "desc" },
+    { skip: !isLoggedIn }
+  );
 
   const { email } = data ?? {};
 
@@ -36,6 +44,7 @@ export const Header: FC = () => {
     dispatch(authApi.util.resetApiState());
     dispatch(setLoggedIn({ isLoggedIn: false }));
   };
+
   const handleOnMainPage = () => router.push(ROUTES.home);
 
   useEffect(() => {
@@ -46,6 +55,8 @@ export const Header: FC = () => {
       dispatch(setLoggedIn({ isLoggedIn: false }));
     }
   }, [data, isLoggedIn, dispatch]);
+
+  useSocketNotifications();
 
   return (
     <header className={s.headerWrapper}>
@@ -59,27 +70,32 @@ export const Header: FC = () => {
         >
           Inctagram
         </Typography>
-        <div className={s.selectButtonsWrapper}>
-          <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
-          <div className={s.buttonsWrapper}>
-            {isLoading ? (
-              <>
-                <Typography variant={"regular_14"}>Loading...</Typography>
-              </>
-            ) : isLoggedIn ? (
-              <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
-            ) : !isLoggedIn && (pathname === ROUTES.login || pathname === ROUTES.auth) ? (
-              <></>
-            ) : (
-              <>
-                <Button variant={"link"} asChild>
-                  <Link href={ROUTES.login}>Log in</Link>
-                </Button>
-                <Button variant={"primary"} asChild>
-                  <Link href={ROUTES.auth}>Sign up</Link>
-                </Button>
-              </>
-            )}
+
+        <div className={s.bellAndButtonsWrapper}>
+          {isLoggedIn && <NotificationDropdown initialNotifications={notificationsData?.items || []} />}
+
+          <div className={s.selectButtonsWrapper}>
+            <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
+            <div className={s.buttonsWrapper}>
+              {isLoading ? (
+                <>
+                  <Typography variant={"regular_14"}>Loading...</Typography>
+                </>
+              ) : isLoggedIn ? (
+                <LogOut onLogOutAction={handleLogOut} email={email ?? null} />
+              ) : !isLoggedIn && (pathname === ROUTES.login || pathname === ROUTES.auth) ? (
+                <></>
+              ) : (
+                <>
+                  <Button variant={"link"} asChild>
+                    <Link href={ROUTES.login}>Log in</Link>
+                  </Button>
+                  <Button variant={"primary"} asChild>
+                    <Link href={ROUTES.auth}>Sign up</Link>
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

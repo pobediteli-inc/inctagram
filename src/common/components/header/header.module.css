@@ -20,6 +20,30 @@
   width: 100%;
 }
 
+.bellAndButtonsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 44px;
+}
+
+.bellWrapper {
+  position: relative;
+  margin-left: 1rem;
+}
+
+.bellCount {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--danger-500);
+  color: var(--light-100);
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 5px;
+}
+
 .selectButtonsWrapper {
   display: flex;
   justify-content: center;
