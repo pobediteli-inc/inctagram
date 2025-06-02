@@ -36,6 +36,7 @@ type TypographyVariant =
   | "h2"
   | "h3"
   | "regular_16"
+  | "medium_16"
   | "bold_16"
   | "regular_14"
   | "medium_14"

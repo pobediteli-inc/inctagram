@@ -1,76 +1,42 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, KeyboardEvent } from "react";
 import { Bell } from "assets/icons";
 import s from "./notificationDropdown.module.css";
-import { useAppSelector } from "common/hooks/useAppSelector";
-import { selectIsLoggedIn } from "store/services/slices/authSlice";
-import { io, Socket } from "socket.io-client";
-
-type Notification = {
-  id: number;
-  message: string;
-  isRead: boolean;
-  notifyAt: string;
-};
+import { NotificationType } from "common/types";
+import { useMarkAsReadMutation } from "store/services/api/notifications";
+import { useAppDispatch, useAppSelector } from "common/hooks";
+import { markAllAsRead, selectNotifications, setNotifications } from "store/services/slices/notificationSlice";
+import { NotificationItem, Typography } from "common/components";
+import { filterNotificationsLastMonth } from "common/utils/filteredNotifications";
 
 type Props = {
-  unreadCount: number;
-  setUnreadCount: (count: number) => void;
+  initialNotifications: NotificationType[];
 };
 
-export const NotificationDropdown: FC<Props> = ({ unreadCount, setUnreadCount }) => {
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const socketRef = useRef<Socket | null>(null);
+
+  const notifications = useAppSelector(selectNotifications);
+  const [markAsRead] = useMarkAsReadMutation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!isLoggedIn) return;
-
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) return;
-
-    const socket = io("https://inctagram.work", {
-      query: { accessToken },
-    });
-
-    socketRef.current = socket;
-
-    socket.on("notifications", (newNotification: Notification) => {
-      setNotifications((prev) => [newNotification, ...prev]);
-      setUnreadCount((prev) => prev + 1);
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Ошибка WebSocket:", err);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoggedIn, setUnreadCount]);
-
-  const toggleDropdown = () => {
-    setIsOpen((prev) => !prev);
-    if (!isOpen) {
-      setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-      setUnreadCount(0);
+    if (initialNotifications.length > 0 && notifications.length === 0) {
+      dispatch(setNotifications(initialNotifications));
     }
-  };
-
-  const handleClickOutside = (e: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-      setIsOpen(false);
-    }
-  };
+  }, [initialNotifications, dispatch, notifications.length]);
 
   useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
@@ -78,27 +44,64 @@ export const NotificationDropdown: FC<Props> = ({ unreadCount, setUnreadCount })
     };
   }, [isOpen]);
 
-  if (!isLoggedIn) return null;
+  const unreadCount = useMemo(() => {
+    return notifications.filter((n) => !n.isRead).length;
+  }, [notifications]);
+
+  const filteredNotifications = useMemo(() => {
+    return filterNotificationsLastMonth(notifications);
+  }, [notifications]);
+
+  const toggleDropdown = async () => {
+    if (!isOpen && unreadCount > 0) {
+      try {
+        const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);
+        if (unreadIds.length > 0) {
+          await markAsRead({ ids: unreadIds });
+          dispatch(markAllAsRead());
+        }
+      } catch (error) {
+        console.error("Failed to mark notifications as read:", error);
+        return;
+      }
+    }
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleDropdown();
+    }
+  };
 
   return (
     <div className={s.wrapper} ref={dropdownRef}>
-      <div className={s.icon} onClick={toggleDropdown}>
+      <div
+        className={s.icon}
+        onClick={toggleDropdown}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-label="Toggle notifications dropdown"
+      >
         <Bell />
         {unreadCount > 0 && <span className={s.badge}>{unreadCount}</span>}
       </div>
 
       {isOpen && (
-        <div className={s.dropdown}>
-          <h4>Уведомления</h4>
+        <div className={s.dropdown} role="menu" aria-label="Notifications">
+          <Typography variant="medium_16" className={s.notificationHeader}>
+            Уведомления
+          </Typography>
           <div className={s.list}>
-            {notifications.length === 0 ? (
-              <div className={s.empty}>Нет уведомлений</div>
+            {filteredNotifications.length === 0 ? (
+              <div className={s.empty}>Нет уведомлений за последний месяц</div>
             ) : (
-              notifications.map((n) => (
-                <div key={n.id} className={s.notification}>
-                  <div>{n.message}</div>
-                  <span className={s.date}>{new Date(n.notifyAt).toLocaleString()}</span>
-                </div>
+              filteredNotifications.map((notification) => (
+                <NotificationItem key={notification.id} notification={notification} />
               ))
             )}
           </div>

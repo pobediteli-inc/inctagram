@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
@@ -16,7 +16,9 @@ import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";
 import { usePathname, useRouter } from "next/navigation";
 import { ROUTES } from "../../constants/routes";
-import { NotificationDropdown } from "common/components/notificationDropdown/notificationDropdown";
+import { useGetNotificationsByProfileQuery } from "store/services/api/notifications";
+import { useSocketNotifications } from "common/hooks/useSocketNotifications";
+import { NotificationDropdown } from "common/components";
 
 export const Header: FC = () => {
   const { data, isLoading } = useMeQuery();
@@ -24,7 +26,11 @@ export const Header: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
-  const [unreadCount, setUnreadCount] = useState(0);
+
+  const { data: notificationsData } = useGetNotificationsByProfileQuery(
+    { pageSize: 50, sortDirection: "desc" },
+    { skip: !isLoggedIn }
+  );
 
   const { email } = data ?? {};
 
@@ -50,6 +56,8 @@ export const Header: FC = () => {
     }
   }, [data, isLoggedIn, dispatch]);
 
+  useSocketNotifications();
+
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
@@ -64,7 +72,7 @@ export const Header: FC = () => {
         </Typography>
 
         <div className={s.bellAndButtonsWrapper}>
-          {isLoggedIn && <NotificationDropdown unreadCount={unreadCount} setUnreadCount={setUnreadCount} />}
+          {isLoggedIn && <NotificationDropdown initialNotifications={notificationsData?.items || []} />}
 
           <div className={s.selectButtonsWrapper}>
             <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />

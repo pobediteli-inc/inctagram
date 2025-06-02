@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type Notification = {
-  id: number;
-  message: string;
-  isRead: boolean;
-  notifyAt: string;
-};
+import { NotificationType } from "common/types";
+import { RootState } from "store/store";
 
 type NotificationState = {
-  items: Notification[];
+  items: NotificationType[];
   unreadCount: number;
 };
 
@@ -17,20 +12,40 @@ const initialState: NotificationState = {
   unreadCount: 0,
 };
 
-const notificationSlice = createSlice({
+export const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
-    addNotification: (state, action: PayloadAction<Notification>) => {
+    addNotification: (state, action: PayloadAction<NotificationType>) => {
       state.items.unshift(action.payload);
-      if (!action.payload.isRead) state.unreadCount++;
+      if (!action.payload.isRead) {
+        state.unreadCount++;
+      }
     },
     markAllAsRead: (state) => {
       state.items = state.items.map((n) => ({ ...n, isRead: true }));
       state.unreadCount = 0;
     },
+    setNotifications: (state, action: PayloadAction<NotificationType[]>) => {
+      state.items = action.payload;
+      state.unreadCount = action.payload.filter((n) => !n.isRead).length;
+    },
+    clearNotifications: (state) => {
+      state.items = [];
+      state.unreadCount = 0;
+    },
+  },
+  selectors: {
+    selectNotifications: (state) => state.items,
+    selectUnreadCount: (state) => state.unreadCount,
+    selectTotalCount: (state) => state.items.length,
   },
 });
 
-export const { addNotification, markAllAsRead } = notificationSlice.actions;
-export default notificationSlice.reducer;
+export const { addNotification, markAllAsRead, setNotifications, clearNotifications } = notificationSlice.actions;
+
+export const { selectNotifications, selectUnreadCount, selectTotalCount } = notificationSlice.getSelectors(
+  (state: RootState) => state.notification
+);
+
+export const notificationReducer = notificationSlice.reducer;

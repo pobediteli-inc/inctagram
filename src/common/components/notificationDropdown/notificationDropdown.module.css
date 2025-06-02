@@ -12,8 +12,8 @@
   position: absolute;
   top: -6px;
   right: -6px;
-  background: red;
-  color: white;
+  background: var(--danger-500);
+  color: var(--light-100);
   font-size: 10px;
   font-weight: bold;
   border-radius: 50%;
@@ -23,44 +23,81 @@
 
 .dropdown {
   position: absolute;
-  top: 120%;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 320px;
-  max-height: 400px;
-  overflow: hidden;
-  box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+  top: 100%;
+  right: -20px;
+  width: 354px;
+  max-height: 424px;
+  padding: 12px;
+  background-color: var(--dark-500);
+  border: 1px solid var(--dark-100);
+  border-radius: 4px;
   z-index: 10;
+  overflow: hidden;
+  animation: fade-in 0.2s ease-in-out;
 }
 
-.dropdown h4 {
-  margin: 0;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+.dropdown::before { /* Corner */
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--dark-500);
+  border-left: 1px solid var(--dark-100);
+  border-top: 1px solid var(--dark-100);
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.notificationHeader {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--dark-100);
+  padding-right: 12px;
+  color: var(--light-100);
 }
 
 .list {
   max-height: 340px;
   overflow-y: auto;
+  padding-right: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-100) var(--dark-300);
 }
 
-.notification {
-  padding: 10px 12px;
-  border-bottom: 1px solid #f2f2f2;
-  font-size: 14px;
+/* Webkit-styles */
+.list::-webkit-scrollbar {
+  width: 4px;
+  background-color: var(--dark-300); /* track */
+  border: 1px solid var(--dark-700);
 }
 
-.date {
-  display: block;
-  font-size: 11px;
-  color: #888;
-  margin-top: 4px;
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--dark-100); /* thumb */
+  border-radius: 4px;
+}
+
+.list::-webkit-scrollbar-button {
+  display: none; /* Delete arrows (WebKit) */
+  height: 0;
+  width: 0;
 }
 
 .empty {
   padding: 20px;
   text-align: center;
-  color: #999;
+  color: var(--light-900);
+  font-size: 14px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
