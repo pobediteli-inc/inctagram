@@ -9,11 +9,38 @@ export const notificationsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     markAsRead: build.mutation<void, MarkAsReadRequest>({
       query: (args) => ({
-        body: args,
+        body: { ids: args.ids }, // Отправляем на сервер только id
         method: "PUT",
         url: "/v1/notifications/mark-as-read",
       }),
       invalidatesTags: ["Notifications"],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        const { ids, notifyAt, sortBy, isRead, pageSize, sortDirection, cursor } = args;
+
+        // Оптимистичное обновление кэша
+        const patchResult = dispatch(
+          notificationsApi.util.updateQueryData(
+            "getNotificationsByProfile",
+            { notifyAt, sortBy, isRead, pageSize, sortDirection, cursor },
+            (draft) => {
+              draft.items.forEach((notification) => {
+                if (ids.includes(notification.id)) {
+                  notification.isRead = true;
+                }
+              });
+
+              // Обновляем счётчик непрочитанных
+              draft.notReadCount = draft.items.filter((n) => !n.isRead).length;
+            }
+          )
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     getNotificationsByProfile: build.query<GetNotificationsByProfileResponse, GetNotificationsByProfileRequest>({
       query: ({ cursor, sortBy, notifyAt, isRead, pageSize, sortDirection }) => {

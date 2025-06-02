@@ -2,9 +2,7 @@ import { useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { useAppSelector } from "common/hooks/useAppSelector";
-import { addNotification } from "store/services/slices/notificationSlice";
 import { selectIsLoggedIn } from "store/services/slices/authSlice";
-import { NotificationType } from "common/types";
 import { handleSocketError } from "common/utils/handleSocketError";
 
 export const useSocketNotifications = () => {
@@ -32,15 +30,9 @@ export const useSocketNotifications = () => {
 
     socketRef.current = socket;
 
-    const handleNotification = (notification: NotificationType) => {
-      dispatch(addNotification(notification));
-    };
-
     socket.on("connect", () => {
       console.log("🔌 WebSocket connected");
     });
-
-    socket.on("notifications", handleNotification);
 
     socket.on("connect_error", (err) => {
       handleSocketError(err);
@@ -51,7 +43,6 @@ export const useSocketNotifications = () => {
     });
 
     return () => {
-      socket.off("notifications", handleNotification);
       socket.disconnect();
       socketRef.current = null;
     };

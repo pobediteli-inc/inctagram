@@ -2,6 +2,12 @@ import { NotificationType } from "common/types";
 
 export type MarkAsReadRequest = {
   ids: number[];
+  notifyAt?: string;
+  sortBy?: string;
+  isRead?: boolean;
+  pageSize?: number;
+  sortDirection?: "asc" | "desc";
+  cursor?: number;
 };
 
 export type GetNotificationsByProfileRequest = {

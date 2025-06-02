@@ -3,14 +3,12 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { authSlice, authSliceReducer } from "store/services/slices/authSlice";
 import { statusSlice, statusSliceReducer } from "store/services/slices/statusSlice";
 import { baseApi } from "store/services/api/baseApi/baseApi";
-import { notificationReducer, notificationSlice } from "store/services/slices/notificationSlice";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     [authSlice.name]: authSliceReducer,
     [statusSlice.name]: statusSliceReducer,
-    [notificationSlice.name]: notificationReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });

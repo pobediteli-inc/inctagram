@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo, KeyboardEvent } from "react";
+import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Bell } from "assets/icons";
 import s from "./notificationDropdown.module.css";
 import { NotificationType } from "common/types";
 import { useMarkAsReadMutation } from "store/services/api/notifications";
-import { useAppDispatch, useAppSelector } from "common/hooks";
-import { markAllAsRead, selectNotifications, setNotifications } from "store/services/slices/notificationSlice";
 import { NotificationItem, Typography } from "common/components";
 import { filterNotificationsLastMonth } from "common/utils/filteredNotifications";
 
@@ -18,15 +16,15 @@ export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const notifications = useAppSelector(selectNotifications);
   const [markAsRead] = useMarkAsReadMutation();
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (initialNotifications.length > 0 && notifications.length === 0) {
-      dispatch(setNotifications(initialNotifications));
-    }
-  }, [initialNotifications, dispatch, notifications.length]);
+  const filteredNotifications = useMemo(() => {
+    return filterNotificationsLastMonth(initialNotifications);
+  }, [initialNotifications]);
+
+  const unreadNotifications = useMemo(() => filteredNotifications.filter((n) => !n.isRead), [filteredNotifications]);
+
+  const unreadCount = unreadNotifications.length;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -44,27 +42,21 @@ export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
     };
   }, [isOpen]);
 
-  const unreadCount = useMemo(() => {
-    return notifications.filter((n) => !n.isRead).length;
-  }, [notifications]);
-
-  const filteredNotifications = useMemo(() => {
-    return filterNotificationsLastMonth(notifications);
-  }, [notifications]);
-
   const toggleDropdown = async () => {
     if (!isOpen && unreadCount > 0) {
       try {
-        const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);
-        if (unreadIds.length > 0) {
-          await markAsRead({ ids: unreadIds });
-          dispatch(markAllAsRead());
-        }
+        const unreadIds = unreadNotifications.map((n) => n.id);
+        await markAsRead({
+          ids: unreadIds,
+          notifyAt: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString(), // например, фильтр по последнему месяцу
+          sortDirection: "desc",
+        });
       } catch (error) {
         console.error("Failed to mark notifications as read:", error);
         return;
       }
     }
+
     setIsOpen((prev) => !prev);
   };
 
