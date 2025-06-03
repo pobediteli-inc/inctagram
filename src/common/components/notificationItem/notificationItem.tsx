@@ -11,10 +11,10 @@ export const NotificationItem = ({ notification }: Props) => {
   return (
     <div className={`${s.notification} ${!notification.isRead ? s.unread : ""}`} role="menuitem" tabIndex={-1}>
       <Typography variant={"bold_14"}>
-        Новое уведомление!
+        New notification!
         {!notification.isRead && (
           <Typography variant={"small"} className={s.newLabel}>
-            Новое
+            New
           </Typography>
         )}
       </Typography>

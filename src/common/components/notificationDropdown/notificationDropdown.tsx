@@ -86,11 +86,11 @@ export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
       {isOpen && (
         <div className={s.dropdown} role="menu" aria-label="Notifications">
           <Typography variant="medium_16" className={s.notificationHeader}>
-            Уведомления
+            Notifications
           </Typography>
           <div className={s.list}>
             {filteredNotifications.length === 0 ? (
-              <div className={s.empty}>Нет уведомлений за последний месяц</div>
+              <div className={s.empty}>No notifications for the last month</div>
             ) : (
               filteredNotifications.map((notification) => (
                 <NotificationItem key={notification.id} notification={notification} />
