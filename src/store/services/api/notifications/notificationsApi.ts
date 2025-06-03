@@ -9,36 +9,41 @@ export const notificationsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     markAsRead: build.mutation<void, MarkAsReadRequest>({
       query: (args) => ({
-        body: { ids: args.ids }, // Отправляем на сервер только id
+        body: { ids: args.ids },
         method: "PUT",
         url: "/v1/notifications/mark-as-read",
       }),
       invalidatesTags: ["Notifications"],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        const { ids, notifyAt, sortBy, isRead, pageSize, sortDirection, cursor } = args;
+        const { ids, ...queryParams } = args;
 
-        // Оптимистичное обновление кэша
+        // Оптимистичное обновление
         const patchResult = dispatch(
-          notificationsApi.util.updateQueryData(
-            "getNotificationsByProfile",
-            { notifyAt, sortBy, isRead, pageSize, sortDirection, cursor },
-            (draft) => {
-              draft.items.forEach((notification) => {
-                if (ids.includes(notification.id)) {
-                  notification.isRead = true;
-                }
-              });
+          notificationsApi.util.updateQueryData("getNotificationsByProfile", queryParams, (draft) => {
+            if (!draft) return;
 
-              // Обновляем счётчик непрочитанных
-              draft.notReadCount = draft.items.filter((n) => !n.isRead).length;
+            let updatedCount = 0;
+
+            draft.items.forEach((notification) => {
+              if (ids.includes(notification.id) && !notification.isRead) {
+                notification.isRead = true;
+                updatedCount++;
+              }
+            });
+
+            // Обновляем счетчик непрочитанных
+            if (draft.notReadCount !== undefined) {
+              draft.notReadCount = Math.max(0, draft.notReadCount - updatedCount);
             }
-          )
+          })
         );
 
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
+          // Дополнительно инвалидируем кэш при ошибке
+          dispatch(notificationsApi.util.invalidateTags(["Notifications"]));
         }
       },
     }),
@@ -60,14 +65,20 @@ export const notificationsApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["Notifications"],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map(({ id }) => ({ type: "Notifications" as const, id })),
+              { type: "Notifications", id: "LIST" },
+            ]
+          : [{ type: "Notifications", id: "LIST" }],
     }),
     deleteNotificationById: build.mutation<void, number>({
       query: (id) => ({
         url: `/v1/notifications/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Notifications"],
+      invalidatesTags: (result, error, id) => [{ type: "Notifications", id }],
     }),
   }),
 });

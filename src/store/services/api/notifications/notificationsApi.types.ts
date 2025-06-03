@@ -1,4 +1,11 @@
-import { NotificationType } from "common/types";
+export type NotificationType = {
+  id: number;
+  clientId?: string;
+  message: string;
+  isRead: boolean;
+  notifyAt: string;
+  createdAt?: string;
+};
 
 export type MarkAsReadRequest = {
   ids: number[];
@@ -24,15 +31,4 @@ export type GetNotificationsByProfileResponse = {
   totalCount: number;
   notReadCount: number;
   items: NotificationType[];
-};
-
-export type ErrorMessage = {
-  message: string;
-  field: string;
-};
-
-export type ErrorResponse = {
-  statusCode: number;
-  messages: ErrorMessage[];
-  error: string;
 };

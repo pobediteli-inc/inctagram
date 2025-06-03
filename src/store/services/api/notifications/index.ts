@@ -1,10 +1,8 @@
 export * from "./notificationsApi";
 
 export type {
+  NotificationType,
   MarkAsReadRequest,
-  ErrorResponse,
-  ErrorMessage,
   GetNotificationsByProfileRequest,
-  NotificationItem,
   GetNotificationsByProfileResponse,
 } from "./notificationsApi.types";

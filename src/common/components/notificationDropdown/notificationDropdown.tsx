@@ -6,25 +6,35 @@ import s from "./notificationDropdown.module.css";
 import { NotificationType } from "common/types";
 import { useMarkAsReadMutation } from "store/services/api/notifications";
 import { NotificationItem, Typography } from "common/components";
-import { filterNotificationsLastMonth } from "common/utils/filteredNotifications";
 
 type Props = {
-  initialNotifications: NotificationType[];
+  notifications: NotificationType[];
 };
 
-export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
+export const NotificationDropdown = ({ notifications }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const [markAsRead] = useMarkAsReadMutation();
 
-  const filteredNotifications = useMemo(() => {
-    return filterNotificationsLastMonth(initialNotifications);
-  }, [initialNotifications]);
+  const unreadCount = useMemo(() => notifications.filter((n) => !n.isRead).length, [notifications]);
 
-  const unreadNotifications = useMemo(() => filteredNotifications.filter((n) => !n.isRead), [filteredNotifications]);
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const unreadCount = unreadNotifications.length;
+  // При открытии дропдауна помечаем все непрочитанные уведомления как прочитанные
+  useEffect(() => {
+    if (isOpen) {
+      const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);
+      if (unreadIds.length > 0) {
+        markAsRead({ ids: unreadIds });
+      }
+    }
+  }, [isOpen, notifications, markAsRead]);
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleDropdown();
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -41,31 +51,6 @@ export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
-
-  const toggleDropdown = async () => {
-    if (!isOpen && unreadCount > 0) {
-      try {
-        const unreadIds = unreadNotifications.map((n) => n.id);
-        await markAsRead({
-          ids: unreadIds,
-          notifyAt: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString(), // например, фильтр по последнему месяцу
-          sortDirection: "desc",
-        });
-      } catch (error) {
-        console.error("Failed to mark notifications as read:", error);
-        return;
-      }
-    }
-
-    setIsOpen((prev) => !prev);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleDropdown();
-    }
-  };
 
   return (
     <div className={s.wrapper} ref={dropdownRef}>
@@ -89,10 +74,10 @@ export const NotificationDropdown = ({ initialNotifications = [] }: Props) => {
             Notifications
           </Typography>
           <div className={s.list}>
-            {filteredNotifications.length === 0 ? (
-              <div className={s.empty}>No notifications for the last month</div>
+            {notifications.length === 0 ? (
+              <div className={s.empty}>No notifications</div>
             ) : (
-              filteredNotifications.map((notification) => (
+              notifications.map((notification) => (
                 <NotificationItem key={notification.id} notification={notification} />
               ))
             )}
