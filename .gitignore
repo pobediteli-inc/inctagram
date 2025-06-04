@@ -45,3 +45,7 @@ next-env.d.ts
 *storybook.log
 workspace.xml
 pnpm-lock.yaml
+
+# Java HotSpot error files
+hs_err_pid*.log
+replay_pid*.log
