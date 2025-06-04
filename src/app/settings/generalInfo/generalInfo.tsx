@@ -124,8 +124,8 @@ export const GeneralInfo = () => {
         firstName: profile.firstName || "",
         lastName: profile.lastName || "",
         dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth) : undefined,
-        country: undefined,
-        city: undefined,
+        country: profile.country ? { label: profile.country, value: profile.country } : undefined,
+        city: profile.city ? { label: profile.city, value: profile.city } : undefined,
         aboutMe: profile.aboutMe || "",
       });
     }
@@ -247,7 +247,7 @@ export const GeneralInfo = () => {
             placeholder="City"
             loadOptions={loadCities(selectedCountry?.value)}
             className={s.select}
-            disabled={!selectedCountry}
+            isDisabled={!selectedCountry}
           />
         </div>
         <ControlledTextarea control={control} name={"aboutMe"} title={"About me"} autoFocus={false} />

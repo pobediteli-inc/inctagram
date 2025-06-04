@@ -72,9 +72,9 @@ export const AsyncSelect = ({
             ...base,
             color: "var(--light-100)",
           }),
-          placeholder: (base) => ({
+          placeholder: (base, state) => ({
             ...base,
-            color: "var(--light-100)",
+            color: state.isDisabled ? "var(--dark-100)" : "var(--light-100)",
           }),
           option: (base, state) => ({
             ...base,
