@@ -5,7 +5,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import { clsx } from "clsx";
 import { SelectItem } from "common/components/select/selectItems/selectItems";
 import { Typography } from "common/components/typography/typography";
-import { NullableProps, SelectItemsProps } from "common/types";
+import { NullableProps, SelectItems } from "common/types";
 
 export const Select = forwardRef<ComponentRef<typeof RadixSelect.Trigger>, SelectProps>(
   (
@@ -78,7 +78,5 @@ export type SelectProps = {
   label?: string;
   groupLabel?: NullableProps<string>;
   withSeparator?: boolean;
-  items: SelectItemsProps[];
+  items: SelectItems[];
 } & ComponentPropsWithoutRef<typeof RadixSelect.Root>;
-
-Select.displayName = "Select";
