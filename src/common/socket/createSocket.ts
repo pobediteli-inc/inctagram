@@ -1,5 +1,6 @@
 import { io, Socket } from "socket.io-client";
 import { handleSocketError } from "common/utils/handleSocketError";
+import { WS_EVENT_PATH } from "common/enums/enums";
 
 let socket: Socket | null = null;
 
@@ -15,7 +16,7 @@ export const createSocket = (accessToken: string): Socket => {
 
   socket.on("connect_error", handleSocketError);
 
-  socket.on("error", handleSocketError);
+  socket.on(WS_EVENT_PATH.ERROR, handleSocketError);
 
   socket.on("disconnect", (reason) => {
     handleSocketError(reason);

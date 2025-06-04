@@ -3,6 +3,7 @@ import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { NotificationType } from "common/types";
 import { createSocket, disconnectSocket } from "common/socket/createSocket";
 import { notificationsApi } from "store/services/api/notifications";
+import { WS_EVENT_PATH } from "common/enums/enums";
 
 export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | null }) => {
   const dispatch = useAppDispatch();
@@ -33,10 +34,10 @@ export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | nu
       );
     };
 
-    socket.on("notifications", handleNotification);
+    socket.on(WS_EVENT_PATH.NOTIFICATIONS, handleNotification);
 
     return () => {
-      socket.off("notifications", handleNotification);
+      socket.off(WS_EVENT_PATH.NOTIFICATIONS, handleNotification);
       disconnectSocket();
     };
   }, [isLoggedIn, dispatch]);
