@@ -10,14 +10,20 @@ type Props = {
 export const NotificationItem = ({ notification }: Props) => {
   return (
     <div className={`${s.notification} ${!notification.isRead ? s.unread : ""}`} role="menuitem" tabIndex={-1}>
-      <Typography variant={"bold_14"}>
-        New notification!
-        {!notification.isRead && (
-          <Typography variant={"small"} className={s.newLabel}>
-            New
+      <div className={s.newNotificationAndLabel}>
+        <div className={s.newNotificationAndLabel}>
+          <Typography variant="bold_14" asChild>
+            <span>
+              New notification!
+              {!notification.isRead && (
+                <Typography variant="small" className={s.newLabel} asChild>
+                  <span>&nbsp;New</span>
+                </Typography>
+              )}
+            </span>
           </Typography>
-        )}
-      </Typography>
+        </div>
+      </div>
       <Typography variant={"regular_14"}>{notification.message}</Typography>
       <Typography variant={"small"} className={s.timeAgo}>
         {notification.createdAt ? timeAgo(notification.createdAt) : ""}

@@ -4,6 +4,8 @@ import {
   GetNotificationsByProfileResponse,
   MarkAsReadRequest,
 } from "store/services/api/notifications";
+import { handleErrors } from "common/utils/handleErrors";
+import { AppDispatch } from "store/store";
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -17,7 +19,6 @@ export const notificationsApi = baseApi.injectEndpoints({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         const { ids, ...queryParams } = args;
 
-        // Оптимистичное обновление
         const patchResult = dispatch(
           notificationsApi.util.updateQueryData("getNotificationsByProfile", queryParams, (draft) => {
             if (!draft) return;
@@ -31,7 +32,6 @@ export const notificationsApi = baseApi.injectEndpoints({
               }
             });
 
-            // Обновляем счетчик непрочитанных
             if (draft.notReadCount !== undefined) {
               draft.notReadCount = Math.max(0, draft.notReadCount - updatedCount);
             }
@@ -40,13 +40,14 @@ export const notificationsApi = baseApi.injectEndpoints({
 
         try {
           await queryFulfilled;
-        } catch {
+        } catch (error) {
           patchResult.undo();
-          // Дополнительно инвалидируем кэш при ошибке
           dispatch(notificationsApi.util.invalidateTags(["Notifications"]));
+          handleErrors(error, dispatch as AppDispatch);
         }
       },
     }),
+
     getNotificationsByProfile: build.query<GetNotificationsByProfileResponse, GetNotificationsByProfileRequest>({
       query: ({ cursor, sortBy, notifyAt, isRead, pageSize, sortDirection }) => {
         const queryParams = new URLSearchParams();
@@ -73,12 +74,20 @@ export const notificationsApi = baseApi.injectEndpoints({
             ]
           : [{ type: "Notifications", id: "LIST" }],
     }),
+
     deleteNotificationById: build.mutation<void, number>({
       query: (id) => ({
         url: `/v1/notifications/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result, error, id) => [{ type: "Notifications", id }],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          handleErrors(error, dispatch as AppDispatch);
+        }
+      },
     }),
   }),
 });

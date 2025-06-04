@@ -20,7 +20,6 @@ export const NotificationDropdown = ({ notifications }: Props) => {
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  // При открытии дропдауна помечаем все непрочитанные уведомления как прочитанные
   useEffect(() => {
     if (isOpen) {
       const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);

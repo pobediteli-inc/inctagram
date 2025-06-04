@@ -36,20 +36,6 @@
   animation: fade-in 0.2s ease-in-out;
 }
 
-.dropdown::before { /* Corner */
-  content: "";
-  position: absolute;
-  top: -8px;
-  right: 28px;
-  width: 16px;
-  height: 16px;
-  background-color: var(--dark-500);
-  border-left: 1px solid var(--dark-100);
-  border-top: 1px solid var(--dark-100);
-  transform: rotate(45deg);
-  z-index: -1;
-}
-
 .notificationHeader {
   padding-bottom: 12px;
   border-bottom: 1px solid var(--dark-100);
@@ -65,20 +51,19 @@
   scrollbar-color: var(--dark-100) var(--dark-300);
 }
 
-/* Webkit-styles */
 .list::-webkit-scrollbar {
   width: 4px;
-  background-color: var(--dark-300); /* track */
+  background-color: var(--dark-300);
   border: 1px solid var(--dark-700);
 }
 
 .list::-webkit-scrollbar-thumb {
-  background-color: var(--dark-100); /* thumb */
+  background-color: var(--dark-100);
   border-radius: 4px;
 }
 
 .list::-webkit-scrollbar-button {
-  display: none; /* Delete arrows (WebKit) */
+  display: none;
   height: 0;
   width: 0;
 }

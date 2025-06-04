@@ -9,6 +9,11 @@
   padding-bottom: 0;
 }
 
+.newNotificationAndLabel {
+  display: flex;
+  flex-direction: row !important;
+}
+
 .timeAgo {
   color: var(--light-900);
 }

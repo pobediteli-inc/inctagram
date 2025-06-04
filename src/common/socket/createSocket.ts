@@ -11,16 +11,14 @@ export const createSocket = (accessToken: string): Socket => {
     autoConnect: true,
   });
 
-  socket.on("connect", () => {
-    console.log("🔌 WebSocket connected");
-  });
+  socket.on("connect", () => {});
 
-  socket.on("connect_error", (err) => {
-    handleSocketError(err);
-  });
+  socket.on("connect_error", handleSocketError);
+
+  socket.on("error", handleSocketError);
 
   socket.on("disconnect", (reason) => {
-    console.warn("⚠️ WebSocket disconnected:", reason);
+    handleSocketError(reason);
     socket = null;
   });
 
