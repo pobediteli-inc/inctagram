@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, SyntheticEvent, useEffect, useState } from "react";
+import { CSSProperties, useEffect } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import { DotButton, useDotButton } from "./carouselDotButton";
 import { NextButton, PrevButton, usePrevNextButtons } from "./carouselArrowButtons";
@@ -56,22 +56,6 @@ export const Carousel = ({
     emblaApi.scrollTo(scrollToIndex);
   }, [emblaApi, scrollToIndex]);
 
-  const [showBlurArray, setShowBlurArray] = useState<boolean[]>(() => Array(slides.length).fill(false));
-
-  const handleImageLoad = (e: SyntheticEvent<HTMLImageElement>, index: number) => {
-    const img = e.currentTarget;
-    const imageRatio = img.naturalWidth / img.naturalHeight;
-    const containerRatio = width / height;
-
-    if (Math.abs(imageRatio - containerRatio) > 0.01) {
-      setShowBlurArray((prev) => {
-        const updated = [...prev];
-        updated[index] = true;
-        return updated;
-      });
-    }
-  };
-
   return (
     <section
       className={s.embla}
@@ -87,21 +71,13 @@ export const Carousel = ({
           <div className={s.container}>
             {slides.map((slideUrl, index) => (
               <div className={s.slide} key={index}>
-                <div className={s.blurredWrapper}>
-                  {showBlurArray[index] && (
-                    <div className={s.blurredBackground}>
-                      <Image src={slideUrl} alt="Blurred background" fill className={s.blurredImage} priority />
-                    </div>
-                  )}
-                  <Image
-                    src={slideUrl}
-                    alt="Photo preview"
-                    width={width}
-                    height={height}
-                    style={{ objectFit: "contain", zIndex: 1 }}
-                    onLoad={(e) => handleImageLoad(e, index)}
-                  />
-                </div>
+                <Image
+                  src={slideUrl}
+                  alt="Photo preview"
+                  width={width}
+                  height={height}
+                  style={{ objectFit: "cover", zIndex: 1 }}
+                />
               </div>
             ))}
           </div>
