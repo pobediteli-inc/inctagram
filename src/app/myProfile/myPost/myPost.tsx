@@ -19,9 +19,10 @@ type Props = {
 export const MyPost = ({ post, isOpen, handleCloseAction, handleDeleteAction, handleUpdateAction }: Props) => {
   const [postIsUpdating, setPostIsUpdating] = useState(false);
   const [postIsDeleting, setPostIsDeleting] = useState(false);
+  const imageUrls = post.images.map((img) => img.url);
   return (
     <PostModal className={s.container} open={isOpen} onClose={handleCloseAction}>
-      <Carousel slides={post.images} options={{ active: post.images.length > 1 }} />
+      <Carousel slides={imageUrls} options={{ active: post.images.length > 1 }} />
       <div className={s.photoActionsContainer}>
         <div className={s.ownerInfo}>
           <Avatar src={post.avatarOwner} className={s.avatar} />
