@@ -7,14 +7,12 @@ import {
   Alert,
   Button,
   ControlledDatePicker,
-  ControlledSelect,
   ControlledTextarea,
   ControlledTextField,
   Separator,
   Typography,
 } from "common/components";
 import { useEffect, useState } from "react";
-import { City, Country } from "country-state-city";
 import s from "./generalInfo.module.css";
 import Link from "next/link";
 import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
@@ -25,6 +23,8 @@ import { DeleteAvatarModal } from "./deleteAvatarModal/deleteAvatarModal";
 import { useRouter } from "next/navigation";
 import { handleProfileError } from "common/utils/handleProfileUpdateError";
 import { ROUTES } from "common/constants/routes";
+import { ControlledAsyncSelect } from "common/components/controlled/controlledAsyncSelect";
+import { loadCities, loadCountries } from "common/utils/loadOptions";
 
 const generalInfoSchema = z.object({
   username: z
@@ -60,8 +60,18 @@ const generalInfoSchema = z.object({
       message: "",
     })
     .optional(),
-  country: z.string().optional(),
-  city: z.string().optional(),
+  country: z
+    .object({
+      value: z.string(),
+      label: z.string(),
+    })
+    .optional(),
+  city: z
+    .object({
+      value: z.string(),
+      label: z.string(),
+    })
+    .optional(),
   aboutMe: z
     .string()
     .max(200)
@@ -89,8 +99,8 @@ export const GeneralInfo = () => {
       firstName: "",
       lastName: "",
       dateOfBirth: undefined,
-      country: "",
-      city: "",
+      country: undefined,
+      city: undefined,
       aboutMe: "",
     },
   });
@@ -114,8 +124,8 @@ export const GeneralInfo = () => {
         firstName: profile.firstName || "",
         lastName: profile.lastName || "",
         dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth) : undefined,
-        country: profile.country || "",
-        city: profile.city || "",
+        country: profile.country ? { label: profile.country, value: profile.country } : undefined,
+        city: profile.city ? { label: profile.city, value: profile.city } : undefined,
         aboutMe: profile.aboutMe || "",
       });
     }
@@ -136,30 +146,15 @@ export const GeneralInfo = () => {
 
   const selectedCountry = watch("country");
 
-  const countries = Country.getAllCountries().map((country) => ({
-    value: country.isoCode,
-    label: country.name,
-  }));
-
-  const cities = selectedCountry
-    ? City.getCitiesOfCountry(selectedCountry)?.map((city) => ({
-        value: `${city.name}-${city.stateCode}`,
-        label: city.name,
-      }))
-    : [];
-
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const selectedCountryLabel = countries.find((country) => country.value === data.country)?.label;
-      const selectedCityLabel = cities?.find((city) => city.value === data.city)?.label;
-
       const payload = {
         userName: data.username,
         firstName: data.firstName || null,
         lastName: data.lastName || null,
         dateOfBirth: data.dateOfBirth || null,
-        country: selectedCountryLabel || null,
-        city: selectedCityLabel || null,
+        country: data.country?.label || null,
+        city: data.city?.label || null,
         aboutMe: data.aboutMe || "",
       };
 
@@ -235,23 +230,24 @@ export const GeneralInfo = () => {
           )}
         </div>
         <div className={s.countryCitySelect}>
-          <ControlledSelect
+          <ControlledAsyncSelect
             control={control}
-            items={countries}
-            placeholder={"Country"}
-            label={"Select your country"}
-            name={"country"}
-            defaultValue={countries[0]?.value}
+            name="country"
+            label="Select your country"
+            placeholder="Country"
+            loadOptions={loadCountries()}
             className={s.select}
           />
-          <ControlledSelect
+
+          <ControlledAsyncSelect
+            key={selectedCountry?.value ?? "no-country"}
             control={control}
-            items={cities || []}
-            placeholder={"City"}
-            label={"Select your city"}
-            name={"city"}
-            disabled={!selectedCountry}
+            name="city"
+            label="Select your city"
+            placeholder="City"
+            loadOptions={loadCities(selectedCountry?.value)}
             className={s.select}
+            isDisabled={!selectedCountry}
           />
         </div>
         <ControlledTextarea control={control} name={"aboutMe"} title={"About me"} autoFocus={false} />

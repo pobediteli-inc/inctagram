@@ -1,0 +1,20 @@
+.custom-async-select__menu-list {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--dark-100) var(--dark-500);
+}
+
+/* Chrome, Edge, Safari */
+.custom-async-select__menu-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-async-select__menu-list::-webkit-scrollbar-track {
+  background: var(--dark-500);
+  border-radius: 2px;
+}
+
+.custom-async-select__menu-list::-webkit-scrollbar-thumb {
+  background-color: var(--dark-100);
+  border-radius: 2px;
+  border: 1px solid var(--dark-500);
+}

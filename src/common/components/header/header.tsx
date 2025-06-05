@@ -7,7 +7,7 @@ import { Typography } from "common/components/typography/typography";
 import { Button } from "common/components/button/button";
 import Link from "next/link";
 import { FlagRussia, FlagUnitedKingdom } from "assets/icons";
-import { SelectItemsProps } from "common/types/SelectItemsProps/SelectItemsProps";
+import { SelectItems } from "common/types/SelectItemsProps/SelectItems";
 import { LogOut } from "common/components/logOut/logOut";
 import { authApi, useMeQuery } from "store/services/api/auth";
 import { useAppSelector } from "common/hooks/useAppSelector";
@@ -26,7 +26,7 @@ export const Header: FC = () => {
 
   const { email } = data ?? {};
 
-  const selectLanguages: SelectItemsProps[] = [
+  const selectLanguages: SelectItems[] = [
     { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
     { value: "ru", label: "Russian", icon: <FlagRussia width={20} height={20} /> },
   ];
