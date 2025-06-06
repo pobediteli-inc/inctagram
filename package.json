@@ -49,6 +49,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
+    "react-select": "^5.10.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "swiper": "^11.2.6",
