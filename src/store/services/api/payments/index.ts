@@ -4,7 +4,5 @@ export type {
   PaymentRequest,
   PaymentSubscriptionResponse,
   PaymentsViewModel,
-  SubscriptionType,
   GetPaymentsResponse,
-  PaymentType,
 } from "./paymentsApi.types";

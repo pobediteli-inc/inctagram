@@ -6,6 +6,7 @@ export { default as ArrowIosDownOutline } from "./ArrowIosDownOutline";
 export { default as ArrowIosForward } from "./ArrowIosForward";
 export { default as ArrowIosForwardOutline } from "./ArrowIosForwardOutline";
 export { default as ArrowIosUp } from "./ArrowIosUp";
+export { default as Bell } from "./Bell";
 export { default as Block } from "./Block";
 export { default as Bookmark } from "./Bookmark";
 export { default as BookmarkOutline } from "./BookmarkOutline";
