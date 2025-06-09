@@ -20,14 +20,9 @@ export const NotificationDropdown = ({ notifications }: Props) => {
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  useEffect(() => {
-    if (isOpen) {
-      const unreadIds = notifications.filter((n) => !n.isRead).map((n) => n.id);
-      if (unreadIds.length > 0) {
-        markAsRead({ ids: unreadIds });
-      }
-    }
-  }, [isOpen, notifications, markAsRead]);
+  const handleMarkAsRead = (id: number) => {
+    markAsRead({ ids: [id] });
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -77,7 +72,7 @@ export const NotificationDropdown = ({ notifications }: Props) => {
               <div className={s.empty}>No notifications</div>
             ) : (
               notifications.map((notification) => (
-                <NotificationItem key={notification.id} notification={notification} />
+                <NotificationItem key={notification.id} notification={notification} onMarkAsRead={handleMarkAsRead} />
               ))
             )}
           </div>

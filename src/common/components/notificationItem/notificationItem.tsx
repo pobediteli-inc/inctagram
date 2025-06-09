@@ -1,3 +1,6 @@
+"use client";
+
+import { MouseEvent } from "react";
 import { NotificationType } from "common/types";
 import s from "./notificationItem.module.css";
 import { timeAgo } from "common/utils/timeAgo";
@@ -5,11 +8,32 @@ import { Typography } from "common/components/typography/typography";
 
 type Props = {
   notification: NotificationType;
+  onMarkAsRead?: (id: number) => void;
 };
 
-export const NotificationItem = ({ notification }: Props) => {
+export const NotificationItem = ({ notification, onMarkAsRead }: Props) => {
+  const handleInteraction = (e: MouseEvent) => {
+    e.stopPropagation();
+    if (!notification.isRead && onMarkAsRead) {
+      onMarkAsRead(notification.id);
+    }
+  };
+
+  const handleMouseEnter = (e: MouseEvent) => {
+    if (!notification.isRead && onMarkAsRead) {
+      onMarkAsRead(notification.id);
+    }
+  };
+
   return (
-    <div className={`${s.notification} ${!notification.isRead ? s.unread : ""}`} role="menuitem" tabIndex={-1}>
+    <div
+      className={`${s.notification} ${!notification.isRead ? s.unread : ""}`}
+      role="menuitem"
+      tabIndex={-1}
+      onClick={handleInteraction}
+      onMouseEnter={handleMouseEnter}
+      style={{ cursor: "pointer" }}
+    >
       <div className={s.newNotificationAndLabel}>
         <div className={s.newNotificationAndLabel}>
           <Typography variant="bold_14" asChild>
