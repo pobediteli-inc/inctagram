@@ -12,7 +12,7 @@ import {
   Separator,
   Typography,
 } from "common/components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import s from "./generalInfo.module.css";
 import Link from "next/link";
 import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
@@ -90,6 +90,7 @@ export const GeneralInfo = () => {
   const router = useRouter();
   const [showAgeError, setShowAgeError] = useState(false);
   const avatar = profile?.avatars[0];
+  const initialValues = useRef<GeneralInfoFormValues | null>(null);
 
   const { control, handleSubmit, formState, reset, watch, getValues } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
@@ -105,12 +106,15 @@ export const GeneralInfo = () => {
     },
   });
 
+  const [hasChanges, setHasChanges] = useState(false);
+
   useEffect(() => {
     const savedData = localStorage.getItem("draftGeneralInfo");
     if (savedData) {
       const parsed = JSON.parse(savedData);
       parsed.dateOfBirth = parsed.dateOfBirth ? new Date(parsed.dateOfBirth) : undefined;
       reset(parsed);
+      initialValues.current = parsed;
 
       if (
         parsed.dateOfBirth &&
@@ -119,7 +123,7 @@ export const GeneralInfo = () => {
         setShowAgeError(true);
       }
     } else if (profile) {
-      reset({
+      const defaultValues = {
         username: profile.userName || "",
         firstName: profile.firstName || "",
         lastName: profile.lastName || "",
@@ -127,7 +131,9 @@ export const GeneralInfo = () => {
         country: profile.country ? { label: profile.country, value: profile.country } : undefined,
         city: profile.city ? { label: profile.city, value: profile.city } : undefined,
         aboutMe: profile.aboutMe || "",
-      });
+      };
+      reset(defaultValues);
+      initialValues.current = defaultValues;
     }
   }, [profile, reset]);
 
@@ -139,10 +145,22 @@ export const GeneralInfo = () => {
           setShowAgeError(false);
         }
       }
+
+      const currentValues = getValues();
+      if (initialValues.current) {
+        const textFields: (keyof GeneralInfoFormValues)[] = ["username", "firstName", "lastName", "aboutMe"];
+        const hasTextChanges = textFields.some((field) => {
+          const currentValue = currentValues[field];
+          const initialValue = initialValues.current![field];
+          return currentValue !== initialValue;
+        });
+
+        setHasChanges(hasTextChanges);
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, getValues]);
 
   const selectedCountry = watch("country");
 
@@ -162,6 +180,8 @@ export const GeneralInfo = () => {
       setAlertMessage("Your settings are saved!");
       setAlertVariant("success");
       localStorage.removeItem("draftGeneralInfo");
+      initialValues.current = data;
+      setHasChanges(false);
     } catch (err) {
       handleProfileError({ err, setAlertMessage, setAlertVariant, router });
     }
@@ -252,7 +272,7 @@ export const GeneralInfo = () => {
         </div>
         <ControlledTextarea control={control} name={"aboutMe"} title={"About me"} autoFocus={false} />
         <Separator className={s.separator} />
-        <Button className={s.submit} disabled={!formState.isDirty || !formState.isValid} type={"submit"}>
+        <Button className={s.submit} disabled={!hasChanges || !formState.isValid} type={"submit"}>
           Save Changes
         </Button>
       </form>
