@@ -52,6 +52,12 @@ export const MyPayments = () => {
   const totalItems = data?.length || 0;
   const totalPages = Math.ceil(totalItems / pageSize);
 
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      router.push(`?page=${totalPages}&size=${pageSize}`);
+    }
+  }, [currentPage, totalPages, pageSize, router]);
+
   const paginatedData = data?.slice((currentPage - 1) * pageSize, currentPage * pageSize) || [];
 
   return (
@@ -79,7 +85,7 @@ export const MyPayments = () => {
         </tbody>
       </table>
 
-      <Pagination totalPages={totalPages} />
+      <Pagination totalItems={totalItems} pageSize={pageSize} />
 
       <Toast type={toastType} message={toastMessage} open={toastOpen} setOpen={setToastOpen} />
     </div>
