@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useMemo } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
@@ -21,16 +21,24 @@ import { NotificationDropdown } from "common/components";
 import { useNotificationSocket } from "common/hooks/useNotificationSocket";
 
 export const Header: FC = () => {
-  const { data, isLoading } = useMeQuery();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  useNotificationSocket({ isLoggedIn });
+
+  const { data, isLoading } = useMeQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
 
   const { data: notificationsData } = useGetNotificationsByProfileQuery(
     { pageSize: 50, sortDirection: "desc" },
-    { skip: !isLoggedIn }
+    {
+      skip: !isLoggedIn,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
   );
+
+  const notifications = useMemo(() => notificationsData?.items ?? [], [notificationsData?.items]);
 
   const { email } = data ?? {};
 
@@ -56,8 +64,6 @@ export const Header: FC = () => {
     }
   }, [data, isLoggedIn, dispatch]);
 
-  useNotificationSocket({ isLoggedIn });
-
   return (
     <header className={s.headerWrapper}>
       <div className={s.mainWrapper}>
@@ -72,7 +78,7 @@ export const Header: FC = () => {
         </Typography>
 
         <div className={s.bellAndButtonsWrapper}>
-          <NotificationDropdown notifications={notificationsData?.items || []} />
+          <NotificationDropdown notifications={notifications || []} />
 
           <div className={s.selectButtonsWrapper}>
             <Select defaultValue={"en"} items={selectLanguages} groupLabel={"Languages"} />
