@@ -21,8 +21,8 @@ export default function LinkExpired() {
         await resendPasswordRecovery({ email }).unwrap();
         setIsModalOpen(true);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (_error) {
+      // empty
     }
   };
 
