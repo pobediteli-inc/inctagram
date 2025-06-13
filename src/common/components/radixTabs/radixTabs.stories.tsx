@@ -6,12 +6,9 @@ const meta: Meta<typeof RadixTabs> = {
   title: "Components/RadixTabs",
   component: RadixTabs,
   argTypes: {
-    variant: {
-      control: { type: "radio" },
-      options: ["primary", "secondary"],
-    },
     value: { control: "text" },
     title: { control: "text" },
+    disabled: { control: "boolean" },
   },
   tags: ["autodocs"],
 };
@@ -24,34 +21,26 @@ const Template = (args: Props) => (
   <Tabs.Root defaultValue={args.value}>
     <Tabs.List>
       <RadixTabs {...args} />
+      <RadixTabs value="tab2" title="Second tab" />
     </Tabs.List>
+    <Tabs.Content value={args.value}>Content for {args.title}</Tabs.Content>
+    <Tabs.Content value="tab2">Content for Second tab</Tabs.Content>
   </Tabs.Root>
 );
 
 export const Primary: Story = {
   render: Template,
   args: {
-    variant: "secondary",
     value: "tab1",
-    title: "Tabs",
-  },
-};
-
-export const Secondary: Story = {
-  render: Template,
-  args: {
-    variant: "secondary",
-    value: "tab2",
-    title: "Tabs",
+    title: "First tab",
   },
 };
 
 export const Disabled: Story = {
   render: Template,
   args: {
-    variant: "secondary",
-    value: "tab2",
-    title: "Tabs",
+    value: "tab1",
+    title: "First tab",
     disabled: true,
   },
 };
