@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { NotificationType } from "common/types";
 import { createSocket, disconnectSocket } from "common/socket/createSocket";
-import { notificationsApi } from "store/services/api/notifications";
+import { notificationsApi, NotificationType } from "store/services/api/notifications";
 import { WS_EVENT_PATH } from "common/enums/enums";
 import { debounce } from "lodash";
 export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | null }) => {
