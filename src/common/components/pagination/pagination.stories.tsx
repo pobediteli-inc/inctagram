@@ -1,41 +1,45 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Pagination } from "./pagination";
 
-const meta = {
-  title: "Components/pagination",
+jest.mock("next/navigation", () => {
+  const actual = jest.requireActual("next/navigation");
+  return {
+    ...actual,
+    useRouter: () => ({
+      push: (url: string) => {
+        console.log("router.push:", url);
+      },
+    }),
+    useSearchParams: () =>
+      new URLSearchParams({
+        page: "2",
+        size: "10",
+      }),
+  };
+});
+
+const meta: Meta<typeof Pagination> = {
+  title: "Components/Pagination",
   component: Pagination,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   args: {
-    totalPages: 10,
+    totalItems: 200,
+    pageSize: 10,
   },
   argTypes: {
-    totalPages: { control: "number" }, // Включаем контроль для totalPages
+    totalItems: {
+      control: "number",
+    },
+    pageSize: {
+      control: "number",
+    },
   },
-  decorators: [
-    (Story) => (
-      <div>
-        <Story />
-      </div>
-    ),
-  ],
-} satisfies Meta<typeof Pagination>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  parameters: {
-    nextjs: {
-      appDirectory: true,
-      navigation: {
-        query: {
-          page: 2, // Мы устанавливаем query параметр для страницы на 2
-        },
-      },
-    },
-  },
-};
+export const Default: Story = {};
