@@ -1,10 +1,10 @@
 "use client";
 
 import { MouseEvent } from "react";
-import { NotificationType } from "common/types";
 import s from "./notificationItem.module.css";
 import { timeAgo } from "common/utils/timeAgo";
 import { Typography } from "common/components/typography/typography";
+import { NotificationType } from "../../../store/services/api/notifications";
 
 type Props = {
   notification: NotificationType;
