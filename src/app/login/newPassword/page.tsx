@@ -13,7 +13,7 @@ type Inputs = {
   confirmPassword: string;
 };
 
-const NewPasswordForm = () => {
+const NewPasswordContent = () => {
   const [newPassword, { isLoading }] = useNewPasswordMutation();
   const [checkRecoveryCode] = useCheckRecoveryCodeMutation();
   const searchParams = useSearchParams();
@@ -29,7 +29,10 @@ const NewPasswordForm = () => {
 
   const onSubmit = async (data: Inputs) => {
     if (data.password !== data.confirmPassword) {
-      setError("confirmPassword", { type: "manual", message: "The passwords must match" });
+      setError("confirmPassword", {
+        type: "manual",
+        message: "The passwords must match",
+      });
     } else if (recoveryCode) {
       try {
         await newPassword({
@@ -44,56 +47,55 @@ const NewPasswordForm = () => {
   };
 
   useEffect(() => {
-    const validateCode = async () => {
-      if (!recoveryCode) {
-        router.push(ROUTES.verificationLinkExpired);
-        return;
-      }
-
-      try {
-        await checkRecoveryCode({ recoveryCode }).unwrap();
-      } catch {
+    const isRecoveryCodeValid = async () => {
+      if (recoveryCode) {
+        try {
+          await checkRecoveryCode({ recoveryCode }).unwrap();
+        } catch {
+          router.push(ROUTES.verificationLinkExpired);
+        }
+      } else {
         router.push(ROUTES.verificationLinkExpired);
       }
     };
 
-    validateCode();
+    isRecoveryCodeValid();
   }, [recoveryCode, checkRecoveryCode, router]);
 
   return (
     <Card className={s.card}>
-      <Typography variant="h1" color="light" textAlign="center">
+      <Typography variant={"h1"} color={"light"} textAlign={"center"}>
         Create New Password
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.inputWrapper}>
           <TextField
             textFieldClassName={errors.password ? s.errorPassword : s.password}
-            variant="standard"
-            type="password"
-            label="New password"
+            variant={"standard"}
+            type={"password"}
+            label={"New password"}
             {...register("password", { required: true, minLength: 6, maxLength: 20 })}
           />
           <div>
             <TextField
               textFieldClassName={errors.confirmPassword ? s.errorPassword : s.password}
-              variant="standard"
-              type="password"
-              label="Password confirmation"
+              variant={"standard"}
+              type={"password"}
+              label={"Password confirmation"}
               {...register("confirmPassword", { required: true })}
             />
             {isSubmitted && errors.confirmPassword && (
-              <Typography variant="regular_14" color="error">
+              <Typography variant={"regular_14"} color={"error"}>
                 {errors.confirmPassword.message}
               </Typography>
             )}
           </div>
         </div>
-        <Typography variant="regular_14" color="dark" className={s.text}>
+        <Typography variant={"regular_14"} color={"dark"} className={s.text}>
           Your password must be between 6 and 20 characters
         </Typography>
         <div className={s.buttonsWrapper}>
-          <Button variant="primary" className={s.button} disabled={isLoading}>
+          <Button variant={"primary"} className={s.button} disabled={isLoading}>
             Create new password
           </Button>
         </div>
@@ -102,10 +104,10 @@ const NewPasswordForm = () => {
   );
 };
 
-export default function NewPasswordPage() {
+export default function NewPassword() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <NewPasswordForm />
+      <NewPasswordContent />
     </Suspense>
   );
 }
