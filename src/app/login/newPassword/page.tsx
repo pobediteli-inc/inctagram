@@ -5,7 +5,7 @@ import s from "./page.module.css";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCheckRecoveryCodeMutation, useNewPasswordMutation } from "store/services/api/auth";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { ROUTES } from "common/constants/routes";
 
 type Inputs = {
@@ -13,12 +13,13 @@ type Inputs = {
   confirmPassword: string;
 };
 
-export default function NewPassword() {
+const NewPasswordForm = () => {
   const [newPassword, { isLoading }] = useNewPasswordMutation();
   const [checkRecoveryCode] = useCheckRecoveryCodeMutation();
   const searchParams = useSearchParams();
   const recoveryCode = searchParams.get("code");
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -37,64 +38,74 @@ export default function NewPassword() {
         }).unwrap();
         router.push(ROUTES.login);
       } catch {
-        /* empty */
+        // empty
       }
     }
   };
 
   useEffect(() => {
-    const isRecoveryCodeValid = async () => {
-      if (recoveryCode) {
-        try {
-          await checkRecoveryCode({ recoveryCode }).unwrap();
-        } catch {
-          router.push(ROUTES.verificationLinkExpired);
-        }
-      } else {
+    const validateCode = async () => {
+      if (!recoveryCode) {
+        router.push(ROUTES.verificationLinkExpired);
+        return;
+      }
+
+      try {
+        await checkRecoveryCode({ recoveryCode }).unwrap();
+      } catch {
         router.push(ROUTES.verificationLinkExpired);
       }
     };
-    isRecoveryCodeValid();
+
+    validateCode();
   }, [recoveryCode, checkRecoveryCode, router]);
 
   return (
     <Card className={s.card}>
-      <Typography variant={"h1"} color={"light"} textAlign={"center"}>
+      <Typography variant="h1" color="light" textAlign="center">
         Create New Password
       </Typography>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.inputWrapper}>
           <TextField
             textFieldClassName={errors.password ? s.errorPassword : s.password}
-            variant={"standard"}
-            type={"password"}
-            label={"New password"}
+            variant="standard"
+            type="password"
+            label="New password"
             {...register("password", { required: true, minLength: 6, maxLength: 20 })}
           />
           <div>
             <TextField
               textFieldClassName={errors.confirmPassword ? s.errorPassword : s.password}
-              variant={"standard"}
-              type={"password"}
-              label={"Password confirmation"}
+              variant="standard"
+              type="password"
+              label="Password confirmation"
               {...register("confirmPassword", { required: true })}
             />
             {isSubmitted && errors.confirmPassword && (
-              <Typography variant={"regular_14"} color={"error"}>
+              <Typography variant="regular_14" color="error">
                 {errors.confirmPassword.message}
               </Typography>
             )}
           </div>
         </div>
-        <Typography variant={"regular_14"} color={"dark"} className={s.text}>
+        <Typography variant="regular_14" color="dark" className={s.text}>
           Your password must be between 6 and 20 characters
         </Typography>
         <div className={s.buttonsWrapper}>
-          <Button variant={"primary"} className={s.button} disabled={isLoading}>
+          <Button variant="primary" className={s.button} disabled={isLoading}>
             Create new password
           </Button>
         </div>
       </form>
     </Card>
+  );
+};
+
+export default function NewPasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewPasswordForm />
+    </Suspense>
   );
 }
