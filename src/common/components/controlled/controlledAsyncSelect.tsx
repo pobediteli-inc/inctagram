@@ -29,5 +29,5 @@ export const ControlledAsyncSelect = <T extends FieldValues>({
     rules,
   });
 
-  return <AsyncSelect {...rest} value={value} onChange={onChange} disabled={disabled} {...field} />;
+  return <AsyncSelect {...rest} value={value ?? null} onChange={onChange} disabled={disabled} {...field} />;
 };

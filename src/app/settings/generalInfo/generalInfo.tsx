@@ -12,7 +12,7 @@ import {
   Separator,
   Typography,
 } from "common/components";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import s from "./generalInfo.module.css";
 import Link from "next/link";
 import { useGetProfileQuery, useUpdateProfileMutation } from "store/services/api/profile/profileApi";
@@ -71,6 +71,7 @@ const generalInfoSchema = z.object({
       value: z.string(),
       label: z.string(),
     })
+    .nullable()
     .optional(),
   aboutMe: z
     .string()
@@ -92,7 +93,7 @@ export const GeneralInfo = () => {
   const avatar = profile?.avatars[0];
   const initialValues = useRef<GeneralInfoFormValues | null>(null);
 
-  const { control, handleSubmit, formState, reset, watch, getValues } = useForm<GeneralInfoFormValues>({
+  const { control, handleSubmit, formState, reset, watch, getValues, resetField } = useForm<GeneralInfoFormValues>({
     resolver: zodResolver(generalInfoSchema),
     mode: "onChange",
     defaultValues: {
@@ -139,6 +140,10 @@ export const GeneralInfo = () => {
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
+      if (name === "country") {
+        resetField("city", { defaultValue: null });
+      }
+
       if (name === "dateOfBirth" && value.dateOfBirth) {
         const userAge = new Date().getFullYear() - new Date(value.dateOfBirth).getFullYear();
         if (userAge >= 13) {
@@ -148,7 +153,14 @@ export const GeneralInfo = () => {
 
       const currentValues = getValues();
       if (initialValues.current) {
-        const textFields: (keyof GeneralInfoFormValues)[] = ["username", "firstName", "lastName", "aboutMe"];
+        const textFields: (keyof GeneralInfoFormValues)[] = [
+          "username",
+          "firstName",
+          "lastName",
+          "aboutMe",
+          "country",
+          "city",
+        ];
         const hasTextChanges = textFields.some((field) => {
           const currentValue = currentValues[field];
           const initialValue = initialValues.current![field];
@@ -160,7 +172,7 @@ export const GeneralInfo = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, getValues]);
+  }, [watch, getValues, resetField]);
 
   const selectedCountry = watch("country");
 
