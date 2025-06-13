@@ -3,8 +3,6 @@ export type { PositionProps } from "./PositionProps/PositionProps";
 export type { RadioOptionProps } from "./RadioOptionProps/RadioOptionProps";
 export type { SelectItems } from "common/types/SelectItemsProps/SelectItems";
 export type { MessageStatusProps } from "./MessageStatusProps/MessageStatusProps";
-export type { NotificationType } from "./Websocket/Websocket";
-export { WS_EVENT_PATH } from "./Websocket/Websocket";
 export type {
   AccountPlanProps,
   BusinessAccountProps,
