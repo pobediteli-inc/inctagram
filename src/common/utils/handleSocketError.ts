@@ -3,12 +3,12 @@
  */
 export const handleSocketError = (error: unknown) => {
   if (!navigator.onLine) {
-    console.error("❌ Нет подключения к интернету. Проверьте соединение.");
+    // Нет подключения к интернету
     return;
   }
 
   if (!error) {
-    console.error("❌ Произошла ошибка подключения к WebSocket.");
+    // Общая ошибка WebSocket
     return;
   }
 
@@ -16,18 +16,18 @@ export const handleSocketError = (error: unknown) => {
     const message = error.message.toLowerCase();
 
     if (message.includes("401") || message.includes("unauthorized")) {
-      console.error("❌ Ошибка авторизации WebSocket (401). Повторите вход в систему.");
+      // Ошибка авторизации WebSocket
       return;
     }
 
     if (message.includes("400") || message.includes("bad request")) {
-      console.error("❌ Ошибка WebSocket (400). Неверный запрос или параметры.");
+      // Ошибка запроса WebSocket
       return;
     }
 
-    console.error("❌ WebSocket ошибка:", error.message);
+    // Общая ошибка с сообщением
     return;
   }
 
-  console.error("❌ Неизвестная ошибка WebSocket:", error);
+  // Неизвестная ошибка
 };

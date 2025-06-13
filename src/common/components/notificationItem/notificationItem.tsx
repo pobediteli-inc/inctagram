@@ -19,7 +19,7 @@ export const NotificationItem = ({ notification, onMarkAsRead }: Props) => {
     }
   };
 
-  const handleMouseEnter = (e: MouseEvent) => {
+  const handleMouseEnter = (_e: MouseEvent) => {
     if (!notification.isRead && onMarkAsRead) {
       onMarkAsRead(notification.id);
     }

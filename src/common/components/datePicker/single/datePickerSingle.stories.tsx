@@ -1,6 +1,7 @@
 import "react-day-picker/style.css";
 import "app/globals.css";
 import { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import { DatePickerSingle } from "./datePickerSingle";
 
 const meta = {
@@ -15,6 +16,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: "Pick a date",
-    onDateChange: (date) => console.log("Selected single date:", date),
+    onDateChange: action("selected single date"),
   },
 };
