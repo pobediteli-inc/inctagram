@@ -1,8 +1,7 @@
-import { NotificationType } from "common/types";
-
 /**
  * Фильтрует уведомления, оставляя только те, что были созданы за последний месяц
  */
+import { NotificationType } from "../../store/services/api/notifications";
 
 export const filterNotificationsLastMonth = (notifications: NotificationType[]): NotificationType[] => {
   const now = new Date();
