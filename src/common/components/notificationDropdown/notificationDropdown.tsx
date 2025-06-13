@@ -3,8 +3,7 @@
 import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Bell } from "assets/icons";
 import s from "./notificationDropdown.module.css";
-import { NotificationType } from "common/types";
-import { useMarkAsReadMutation } from "store/services/api/notifications";
+import { NotificationType, useMarkAsReadMutation } from "store/services/api/notifications";
 import { NotificationItem, Typography } from "common/components";
 
 type Props = {
