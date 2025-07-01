@@ -64,6 +64,10 @@ export default function UploadAvatar() {
         setErrorMessage(" Photo size must be less than 10 MB");
         return;
       }
+      if (file.size === 0) {
+        setErrorMessage(" Your photo is zero-byte file (containing no data)");
+        return;
+      }
 
       setErrorMessage("");
       setImage(file);
