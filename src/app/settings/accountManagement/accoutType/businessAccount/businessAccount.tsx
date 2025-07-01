@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BusinessAccountProps, ModalPaymentProps } from "common/types";
 import { Card, RadioGroup, Typography } from "common/components";
 import s from "./businessAccount.module.css";
-import { Paypal, Stripe } from "assets/icons";
+import { Stripe } from "assets/icons";
 import { CreatePaymentModal } from "../../modalPayments/createPayment";
 import { usePayment } from "./hooks/usePayment";
 import { useAppDispatch } from "common/hooks";
@@ -43,10 +43,10 @@ export const BusinessAccount = () => {
         />
       </Card>
       <div className={s.paymentSystems}>
-        <Paypal className={s.paypal} width={96} height={64} color={"var(--dark-500)"} />
+        {/*<Paypal className={s.paypal} width={96} height={64} color={"var(--dark-500)"} />
         <Typography variant={"regular_14"} color={"light"}>
           Or
-        </Typography>
+        </Typography> For future feature development */}
         <Stripe className={s.stripe} width={96} height={64} color={"var(--dark-500)"} onClick={handleStripe} />
       </div>
       <CreatePaymentModal
