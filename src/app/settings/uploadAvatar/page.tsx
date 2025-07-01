@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import s from "./uploadAvatar.module.css";
 import { Card, Toast } from "common/components";
-import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
 import { useRouter } from "next/navigation";
 import { UploadStep } from "./uploadStep/uploadStep";
 import { useUploadAvatarMutation } from "store/services/api/profile";
@@ -12,7 +11,6 @@ import { ROUTES } from "common/constants/routes";
 export default function UploadAvatar() {
   const [image, setImage] = useState<File>();
   const [previewUrl, setPreviewUrl] = useState<string>("");
-  const [showCloseNotification, setShowCloseNotification] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [toast, setToast] = useState<{
     type: "success" | "error" | "warning";
@@ -39,14 +37,9 @@ export default function UploadAvatar() {
 
   const [uploadAvatar] = useUploadAvatarMutation();
 
-  const onCloseHandler = () => setShowCloseNotification(true);
-
-  const handleCloseNotification = (action: "discard" | "save") => {
-    if (action === "discard") {
-      setImage(undefined);
-      setPreviewUrl("");
-    }
-    setShowCloseNotification(false);
+  const onCloseHandler = () => {
+    setImage(undefined);
+    setPreviewUrl("");
     router.push("/settings");
   };
 
@@ -120,8 +113,6 @@ export default function UploadAvatar() {
           setOpen={(open) => setToast((prev) => (prev ? { ...prev, open } : null))}
         />
       )}
-
-      {showCloseNotification && <CloseNotificationPopUp close={() => handleCloseNotification("discard")} />}
     </div>
   );
 }
