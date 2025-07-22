@@ -3,7 +3,7 @@ import { ChangeEvent, ComponentPropsWithRef, forwardRef, memo, useId, useState }
 import { clsx } from "clsx";
 import { NullableProps } from "common/types/NullableProps/NullableProps";
 import s from "./textField.module.css";
-import { EyeOffOutline, EyeOutline } from "assets/icons";
+import { EyeOffOutline, EyeOutline, SearchOutline } from "assets/icons";
 import { Typography } from "common/components/typography/typography";
 import { Slot } from "@radix-ui/react-slot";
 
@@ -52,7 +52,15 @@ export const TextField = memo(
           )}
           <Component
             id={id}
-            className={clsx(s.textFieldBaseStyles, s[variant], { [s.errorTextField]: isError }, textFieldClassName)}
+            className={clsx(
+              s.textFieldBaseStyles,
+              s[variant],
+              {
+                [s.errorTextField]: isError,
+                [s.search]: type === "search",
+              },
+              textFieldClassName
+            )}
             disabled={disabled}
             type={type === "password" && passwordVisible ? "text" : type}
             onChange={changeHandler}
@@ -79,6 +87,8 @@ export const TextField = memo(
                 color={"white"}
               />
             ))}
+
+          {type === "search" && <SearchOutline className={s.searchIcon} width={15} height={15} />}
 
           {isError && (
             <Typography variant={"regular_14"} asChild>
