@@ -102,6 +102,10 @@
   }
 }
 
+.search {
+  padding-left: 40px;
+}
+
 /* label styles */
 
 .label {
@@ -135,4 +139,10 @@
   left: 295px;
   top: 33px;
   cursor: pointer;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 10px;
+  left: 14px;
 }
