@@ -3,7 +3,7 @@ import clsx from "clsx";
 import s from "./avatar.module.scss";
 
 type Props = {
-  size?: "large" | "small";
+  size?: "large" | "small" | "medium";
 } & Omit<ComponentPropsWithoutRef<"img">, "alt">;
 
 export const Avatar = ({ className, size = "small", src, ...rest }: Props) => {
