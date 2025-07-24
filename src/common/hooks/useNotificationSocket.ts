@@ -4,6 +4,7 @@ import { createSocket, disconnectSocket } from "common/socket/createSocket";
 import { notificationsApi, NotificationType } from "store/services/api/notifications";
 import { WS_EVENT_PATH } from "common/enums/enums";
 import { debounce } from "lodash";
+
 export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | null }) => {
   const dispatch = useAppDispatch();
   const hasFetchedRef = useRef(false);

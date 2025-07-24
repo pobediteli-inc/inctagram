@@ -18,7 +18,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ROUTES } from "../../constants/routes";
 import { useGetNotificationsByProfileQuery } from "store/services/api/notifications";
 import { NotificationDropdown } from "common/components";
-import { useNotificationSocket } from "common/hooks/useNotificationSocket";
+import { useNotificationSocket } from "common/hooks";
 
 export const Header: FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
