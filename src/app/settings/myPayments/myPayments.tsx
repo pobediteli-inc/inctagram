@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Pagination, Toast } from "common/components";
-import { useRouter, useSearchParams } from "next/navigation";
-import s from "./myPayments.module.css";
+import { useEffect, useState } from "react";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Pagination, Toast } from "common/components";
+import { capitalizeFirstLetter } from "common/utils";
 import { PaymentsViewModel, useGetPaymentsQuery } from "store/services/api/payments";
+import s from "./myPayments.module.css";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -33,16 +34,6 @@ export const MyPayments = () => {
         setTimeout(() => router.push("/login"), 3000);
       } else {
         setToastMessage("Error loading payments. Please try again later.");
-        setToastType("error");
-        setToastOpen(true);
-      }
-    }
-
-    if (data) {
-      try {
-        /* empty */
-      } catch {
-        setToastMessage("Error processing payments data.");
         setToastType("error");
         setToastOpen(true);
       }
@@ -78,8 +69,8 @@ export const MyPayments = () => {
               <td className={s.cell}>{new Date(payment.dateOfPayment).toLocaleDateString()}</td>
               <td className={s.cell}>{new Date(payment.endDateOfSubscription).toLocaleDateString()}</td>
               <td className={s.cell}>${payment.price.toFixed(2)}</td>
-              <td className={s.cell}>{payment.subscriptionType}</td>
-              <td className={s.cell}>{payment.paymentType}</td>
+              <td className={s.cell}>{capitalizeFirstLetter(payment.subscriptionType)}</td>
+              <td className={s.cell}>{capitalizeFirstLetter(payment.paymentType)}</td>
             </tr>
           ))}
         </tbody>
