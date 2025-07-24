@@ -7,6 +7,7 @@ import { useState } from "react";
 import { UpdatePostForm } from "./updatePostForm/updatePostForm";
 import { Edit2Outline, TrashOutline } from "assets/icons";
 import { DeletePostModal } from "./deletePostModal/deletePostModal";
+import { PostComments } from "./postComments/postComments";
 
 type Props = {
   post: Post;
@@ -20,6 +21,7 @@ export const MyPost = ({ post, isOpen, handleCloseAction, handleDeleteAction, ha
   const [postIsUpdating, setPostIsUpdating] = useState(false);
   const [postIsDeleting, setPostIsDeleting] = useState(false);
   const imageUrls = post.images.map((img) => img.url);
+
   return (
     <PostModal className={s.container} open={isOpen} onClose={handleCloseAction}>
       <Carousel slides={imageUrls} options={{ active: post.images.length > 1 }} />
@@ -39,7 +41,7 @@ export const MyPost = ({ post, isOpen, handleCloseAction, handleDeleteAction, ha
           </DropdownMenu>
         </div>
         <Separator />
-        <div className={s.comments}>{post.description}</div>
+        <PostComments post={post} />
         <Separator />
         <div className={s.interactions}>interactions</div>
         <Separator />

@@ -68,6 +68,52 @@ export const postsApi = baseApi.injectEndpoints({
           ? [...result.items.map(({ id }) => ({ type: "Posts" as const, id })), { type: "Posts", id: "LIST" }]
           : [{ type: "Posts", id: "LIST" }],
     }),
+    getPostComments: build.query({
+      query: ({ postId }) => ({
+        url: `/v1/posts/${postId}/comments`,
+      }),
+      providesTags: (result, error, { postId }) =>
+        result ? [{ type: "Comments", id: postId }] : [{ type: "Comments", id: "LIST" }],
+    }),
+    getCommentAnswers: build.query({
+      query: ({ postId, commentId }) => ({
+        url: `/v1/posts/${postId}/comments/${commentId}/answers`,
+      }),
+      providesTags: (result, error, { commentId }) =>
+        result ? [{ type: "Answers", id: commentId }] : [{ type: "Answers", id: "LIST" }],
+    }),
+    createComment: build.mutation({
+      query: ({ postId, content }) => ({
+        url: `/v1/posts/${postId}/comments`,
+        method: "POST",
+        body: { content },
+      }),
+      invalidatesTags: (result, error, { postId }) => [{ type: "Comments", id: postId }],
+    }),
+    createAnswerComment: build.mutation({
+      query: ({ postId, commentId, content }) => ({
+        url: `/v1/posts/${postId}/comments/${commentId}/answers`,
+        method: "POST",
+        body: { content },
+      }),
+      invalidatesTags: (result, error, { commentId }) => [{ type: "Answers", id: commentId }],
+    }),
+    updateLikeStatusComment: build.mutation({
+      query: ({ postId, commentId, likeStatus }) => ({
+        url: `/v1/posts/${postId}/comments/${commentId}/like-status`,
+        method: "PUT",
+        body: { likeStatus },
+      }),
+      invalidatesTags: (result, error, { postId }) => [{ type: "Comments", id: postId }],
+    }),
+    updateLikeStatusAnswer: build.mutation({
+      query: ({ postId, commentId, answerId, likeStatus }) => ({
+        url: `/v1/posts/${postId}/comments/${commentId}/answers/${answerId}/like-status`,
+        method: "PUT",
+        body: { likeStatus },
+      }),
+      invalidatesTags: (result, error, { commentId }) => [{ type: "Answers", id: commentId }],
+    }),
   }),
   overrideExisting: true,
 });
@@ -79,4 +125,10 @@ export const {
   useCreatePostMutation,
   useUploadImagePostMutation,
   useGetPostByIdQuery,
+  useGetPostCommentsQuery,
+  useGetCommentAnswersQuery,
+  useCreateCommentMutation,
+  useCreateAnswerCommentMutation,
+  useUpdateLikeStatusCommentMutation,
+  useUpdateLikeStatusAnswerMutation,
 } = postsApi;
