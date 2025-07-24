@@ -1,5 +1,12 @@
 import { baseApi } from "../baseApi/baseApi";
-import { GetUsersArgs, GetUsersResponse } from "./usersApi.types";
+import {
+  FollowUserArgs,
+  GetUserArgs,
+  GetUsersArgs,
+  GetUsersResponse,
+  UnfollowUserArgs,
+  UserProfile,
+} from "./usersApi.types";
 
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -17,7 +24,32 @@ export const usersApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getUser: build.query<UserProfile, GetUserArgs>({
+      query: ({ userName }) => {
+        return {
+          url: `/v1/users/${userName}`,
+          method: "GET",
+        };
+      },
+    }),
+    followUser: build.mutation<void, FollowUserArgs>({
+      query: (body) => {
+        return {
+          url: `/v1/users/following`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    unfollowUser: build.mutation<void, UnfollowUserArgs>({
+      query: ({ userId }) => {
+        return {
+          url: `/v1/users/follower/${userId}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
-export const { useLazyGetUsersQuery } = usersApi;
+export const { useLazyGetUsersQuery, useGetUserQuery, useFollowUserMutation, useUnfollowUserMutation } = usersApi;
