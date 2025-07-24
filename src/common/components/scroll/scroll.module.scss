@@ -10,6 +10,12 @@
   border-radius: inherit;
 }
 
+.scrollViewport > div {
+  display: inherit !important;
+  flex-direction: inherit;
+  gap: inherit;
+}
+
 .scrollbar {
   display: flex;
   user-select: none;
