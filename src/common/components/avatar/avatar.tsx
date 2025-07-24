@@ -11,5 +11,12 @@ export const Avatar = ({ className, size = "small", src, ...rest }: Props) => {
     avatar: clsx(s.avatar, s[size], className),
   };
 
-  return <img alt={"avatar"} className={classNames.avatar} src={src ?? "/icons/svg/person.svg"} {...rest} />;
+  return (
+    <img
+      alt={"avatar"}
+      className={src ? classNames.avatar : s.defaultAvatar}
+      src={src ?? "/icons/svg/person.svg"}
+      {...rest}
+    />
+  );
 };

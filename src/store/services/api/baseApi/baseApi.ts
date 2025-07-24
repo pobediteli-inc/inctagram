@@ -65,6 +65,6 @@ export const baseQueryUpdateToken: BaseQueryFn<string | FetchArgs, unknown, Fetc
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryUpdateToken,
-  tagTypes: ["Posts", "Profile", "Payments", "PaymentSubscriptions", "Notifications"],
+  tagTypes: ["Posts", "Profile", "Payments", "PaymentSubscriptions", "Notifications", "Comments", "Answers"],
   endpoints: () => ({}),
 });

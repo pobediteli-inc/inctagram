@@ -1,0 +1,158 @@
+.commentsWrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 338px;
+  height: 100%;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.avatarWithComment {
+  display: flex;
+  gap: 12px;
+}
+
+.avatar {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.defaultAvatar {
+  min-width: 36px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--light-900);
+}
+
+.commentWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 344px;
+}
+
+.answerWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 294px;
+}
+
+.commentText {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.timeLikeAnswerText {
+  margin-top: 4px;
+}
+
+.avatarWithComment {
+  display: flex;
+  gap: 12px;
+}
+
+.commentAvatarWrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  top: 4px;
+}
+
+.answersWrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.answerLine {
+  position: relative;
+  top: 8px;
+}
+
+.timeLikeAnswerWrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.answersList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.commentsWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.commentsWrapper::-webkit-scrollbar-thumb {
+  background-color: var(--dark-300);
+  border-radius: 4px;
+  min-height: 46px;
+}
+
+.commentsWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--light-900);
+}
+
+.commentsWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.answerBtn,
+.viewAnswersBtn {
+  cursor: pointer;
+}
+
+.textareaWithButton {
+  display: flex;
+  margin-top: 8px;
+}
+
+.textarea {
+  min-width: 234px;
+  width: 100%;
+}
+
+.commentWithLike {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerWithLike {
+  display: flex;
+  position: relative;
+}
+
+.like {
+  margin-top: 16px;
+  margin-left: 24px;
+}
+
+.liked {
+  margin-top: 16px;
+  margin-left: 24px;
+  color: var(--danger-500);
+}
+
+.answerLike {
+  position: absolute;
+  left: 364px;
+  top: 16px;
+}
+
+.answerLiked {
+  position: absolute;
+  left: 364px;
+  top: 16px;
+  color: var(--danger-500);
+}

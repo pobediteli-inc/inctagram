@@ -114,7 +114,7 @@ export default function MyProfile() {
                 <Typography variant={"regular_14"}>Publications</Typography>
               </div>
             </div>
-            <Typography variant={"regular_16"} color={"light"}>
+            <Typography variant={"regular_16"} color={"light"} className={s.description}>
               {data?.aboutMe ??
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
                   "dolore magna aliqua."}

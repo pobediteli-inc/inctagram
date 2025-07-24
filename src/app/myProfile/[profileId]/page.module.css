@@ -20,7 +20,7 @@
 
 .profileSection {
   display: flex;
-  gap: 1.5rem;
+  gap: 38px;
   align-items: center;
   margin-left: 24px;
   max-width: 972px;
@@ -36,7 +36,7 @@
 .stats {
   display: flex;
   gap: 2rem;
-  margin-top: 0.5rem;
+  margin-top: 20px;
   justify-content: space-between;
   max-width: 420px;
 }
@@ -59,7 +59,7 @@
   display: grid;
   grid-template-columns: repeat(4, 234px);
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 48px;
   margin-left: 24px;
 }
 
@@ -90,4 +90,8 @@
   max-width: 740px;
   width: 100%;
   min-width: 740px;
+}
+
+.description {
+  margin-top: 24px;
 }

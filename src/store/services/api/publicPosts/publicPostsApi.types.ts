@@ -77,4 +77,14 @@ export type CommentAuthor = {
   avatars: AvatarArgs[];
 };
 
+export type AnswerItems = {
+  id: number;
+  commentId: number;
+  from: CommentAuthor;
+  content: string;
+  createdAt: string;
+  likeCount: number;
+  isLiked: boolean;
+};
+
 export type AvatarArgs = Record<string, unknown>;
