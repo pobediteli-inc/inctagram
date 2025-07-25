@@ -39,13 +39,11 @@ export default function Search() {
           setCursor(nextCursor);
           setHasMore(Boolean(nextCursor));
         }
-      } catch (error) {
-        console.error("Error loading users:", error);
       } finally {
         setIsLoading(false);
       }
     },
-    [trigger]
+    [trigger, isLoading]
   );
 
   const handleScroll = useCallback(() => {
