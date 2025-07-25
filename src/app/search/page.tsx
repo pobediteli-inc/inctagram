@@ -1,4 +1,107 @@
-import styles from "./page.module.css";
+"use client";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Avatar, Scroll, TextField, Typography } from "common/components";
+import { useDebounce } from "common/hooks/useDebounce";
+import { useLazyGetUsersQuery, UserItem } from "store/services/api/users";
+import s from "./page.module.css";
+
 export default function Search() {
-  return <div className={styles.search}>Search</div>;
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearch = useDebounce(searchValue, 500);
+
+  const [trigger, { isFetching }] = useLazyGetUsersQuery();
+  const [users, setUsers] = useState<UserItem[]>([]);
+
+  const [cursor, setCursor] = useState<number | null>(0);
+  const [hasMore, setHasMore] = useState(true);
+
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const loadUsers = useCallback(
+    async (search: string, cursorToUse?: number) => {
+      if (isLoading) return;
+      setIsLoading(true);
+
+      try {
+        const result = await trigger({
+          search,
+          pageSize: 12,
+          cursor: cursorToUse ?? 0,
+        });
+
+        if ("data" in result) {
+          const newUsers = result?.data?.items ?? [];
+          const nextCursor = result?.data?.nextCursor ?? null;
+
+          setUsers((prev) => (cursorToUse ? [...prev, ...newUsers] : newUsers));
+
+          setCursor(nextCursor);
+          setHasMore(Boolean(nextCursor));
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [trigger, isLoading]
+  );
+
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isLoading || !hasMore) return;
+
+    const threshold = 150;
+    const bottomReached = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+
+    if (bottomReached && cursor !== null) {
+      loadUsers(debouncedSearch, cursor);
+    }
+  }, [cursor, debouncedSearch, hasMore, loadUsers, isLoading]);
+
+  useEffect(() => {
+    const trimmed = debouncedSearch.trim();
+    if (trimmed) {
+      loadUsers(trimmed, 0);
+    } else {
+      setUsers([]);
+      setHasMore(false);
+      setCursor(null);
+    }
+  }, [debouncedSearch, loadUsers]);
+
+  return (
+    <section className={s.search}>
+      <Typography variant="h1" className={s.header}>
+        Search
+      </Typography>
+
+      <TextField
+        type="search"
+        className={s.searchInput}
+        inputChangeHandler={setSearchValue}
+        value={searchValue}
+        placeholder="Search users..."
+      />
+
+      <Scroll onScroll={handleScroll} ref={scrollContainerRef} className={s.results} viewportClassName={s.results}>
+        {users?.map((user) => (
+          <div key={user.id} className={s.userCard}>
+            <Avatar size="medium" src={user?.avatars?.[0]?.url} />
+            <div className={s.userInfo}>
+              <Typography variant="bold_14" className={s.userName}>
+                {user.userName}
+              </Typography>
+              <Typography variant="regular_14" color="dark">
+                {user.firstName} {user.lastName}
+              </Typography>
+            </div>
+          </div>
+        ))}
+
+        {isFetching && <Typography>Loading...</Typography>}
+
+        {!isFetching && users?.length === 0 && <Typography>No users found.</Typography>}
+      </Scroll>
+    </section>
+  );
 }

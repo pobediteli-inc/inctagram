@@ -1,9 +1,27 @@
 .search {
-  width: 1060px;
-  min-height: 100%;
+  width: 100%;
+  padding: 35px 24px 0;
+  overflow-y: hidden;
+}
+
+.searchInput {
+  margin: 13px 0 24px;
+}
+
+.results {
+  max-height: 490px;
+  overflow-y: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--dark-300);
-  color: var(--light-100);
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.userCard {
+  display: flex;
+  gap: 12px;
+}
+
+.userName {
+  text-decoration: underline;
 }
