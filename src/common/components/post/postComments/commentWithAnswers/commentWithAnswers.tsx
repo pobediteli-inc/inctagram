@@ -1,4 +1,4 @@
-import { Button, Textarea, Typography } from "common/components";
+import { Button, Textarea, Typography } from "common/components/index";
 import { formatRelativeTime } from "common/utils/dateUtils";
 import Image from "next/image";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import {
 import { AnswerItems, CommentItems } from "store/services/api/publicPosts";
 import defaultAvatar from "public/icons/svg/person.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
-import s from "../postComments.module.css";
+import s from "common/components/post/postComments/postComments.module.css";
 import { Heart, HeartOutline } from "assets/icons";
 
 type Props = {

@@ -11,7 +11,7 @@ export type UpdatePostArgs = {
   postId: number;
 };
 
-export type Post = {
+export type PostData = {
   id: number;
   userName: string;
   description: string;
@@ -65,5 +65,5 @@ export type PostsWithMeta = {
   pageSize: number;
   totalCount: number;
   notReadCount: number;
-  items: Post[];
+  items: PostData[];
 };

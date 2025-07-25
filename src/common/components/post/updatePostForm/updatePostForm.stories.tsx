@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { UpdatePostForm } from "./updatePostForm";
+import { UpdatePostForm } from "common/components/post/updatePostForm/updatePostForm";
 import "app/globals.css";
-import { Post } from "store/services/api/posts/postsApi.types";
+import { PostData } from "store/services/api/posts/postsApi.types";
 
 const meta: Meta<typeof UpdatePostForm> = {
   title: "Components/UpdatePostForm",
@@ -16,7 +16,7 @@ const meta: Meta<typeof UpdatePostForm> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const post: Post = {
+const post: PostData = {
   id: 1,
   userName: "Alex",
   description: "description",
