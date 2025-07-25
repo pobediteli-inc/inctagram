@@ -11,26 +11,13 @@
     width: 204px;
     height: 204px;
   }
-}
-
-.defaultAvatar {
-  object-fit: cover;
-  border-radius: 50%;
-  background-color: var(--light-900);
-
-  &.small {
-    width: 36px;
-    height: 36px;
-  }
-
-  &.large {
-    width: 204px;
-    height: 204px;
-  }
 
   &.medium {
     width: 48px;
     height: 48px;
   }
+}
 
+.defaultAvatar {
+  background-color: var(--light-900);
 }

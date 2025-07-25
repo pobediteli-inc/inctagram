@@ -11,13 +11,12 @@ import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
 import { Post } from "common/components/post/post";
 import { UserByUserName } from "store/services/api/profile";
 
-interface ProfileProps {
-  userName: string;
+type Props = {
   isCurrentUser?: boolean;
   profileData: UserByUserName;
-}
+};
 
-export default function Profile({ userName, isCurrentUser = false, profileData }: ProfileProps) {
+export default function Profile({ isCurrentUser = false, profileData }: Props) {
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<PostData[]>([]);
@@ -36,7 +35,7 @@ export default function Profile({ userName, isCurrentUser = false, profileData }
   };
 
   const { data: postsWithMeta, isFetching } = useGetPostsByUserNameQuery({
-    userName,
+    userName: profileData.userName,
     pageSize,
     pageNumber: page,
   });

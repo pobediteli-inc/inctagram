@@ -8,15 +8,8 @@ type Props = {
 
 export const Avatar = ({ className, size = "small", src, ...rest }: Props) => {
   const classNames = {
-    avatar: clsx(s.avatar, s[size], className),
+    avatar: clsx(s.avatar, s[size], className, { [s.defaultAvatar]: !src }),
   };
 
-  return (
-    <img
-      alt={"avatar"}
-      className={src ? classNames.avatar : s.defaultAvatar}
-      src={src ?? "/icons/svg/person.svg"}
-      {...rest}
-    />
-  );
+  return <img alt={"avatar"} className={classNames.avatar} src={src ?? "/icons/svg/person.svg"} {...rest} />;
 };

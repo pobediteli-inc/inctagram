@@ -43,21 +43,3 @@ export type GetUsersResponse = {
   nextCursor: number;
   items: UserItem[];
 };
-
-export type UserProfile = {
-  id: number;
-  userName: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  country: string;
-  region: string;
-  dateOfBirth: Date;
-  aboutMe: string;
-  avatars: Avatar[];
-  isFollowing: boolean;
-  isFollowedBy: boolean;
-  followingCount: number;
-  followersCount: number;
-  publicationsCount: number;
-};
