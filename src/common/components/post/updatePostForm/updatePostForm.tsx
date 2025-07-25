@@ -1,7 +1,7 @@
 "use client";
 
-import { Avatar, BaseModal, Button, Typography, ControlledTextarea } from "common/components";
-import s from "./updatePostForm.module.css";
+import { Avatar, BaseModal, Button, ControlledTextarea, Typography } from "common/components/index";
+import s from "common/components/post/updatePostForm/updatePostForm.module.css";
 import { LIMITS } from "common/constants/limits";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { useUpdatePostMutation } from "store/services/api/posts/postsApi";
 import { handleErrors } from "common/utils/handleErrors";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import React, { useState } from "react";
-import { CloseModal } from "./closeModal";
+import { CloseModal } from "common/components/post/updatePostForm/closeModal";
 import Image from "next/image";
 
 type Props = {

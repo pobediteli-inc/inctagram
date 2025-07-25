@@ -1,7 +1,7 @@
 "use client";
 
-import { BaseModal, Button, Typography } from "common/components";
-import s from "./deletePostModal.module.css";
+import { BaseModal, Button, Typography } from "common/components/index";
+import s from "common/components/post/deletePostModal/deletePostModal.module.css";
 import { useDeletePostMutation } from "store/services/api/posts/postsApi";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { handleErrors } from "common/utils/handleErrors";

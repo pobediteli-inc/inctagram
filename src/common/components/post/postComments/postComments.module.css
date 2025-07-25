@@ -53,11 +53,6 @@
   margin-top: 4px;
 }
 
-.avatarWithComment {
-  display: flex;
-  gap: 12px;
-}
-
 .commentAvatarWrapper {
   position: relative;
   width: 36px;
