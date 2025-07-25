@@ -3,7 +3,7 @@ import {
   CreatePostArgs,
   DeletePostArgs,
   GetPostByIdArgs,
-  Post,
+  PostData,
   PostsWithMeta,
   UpdatePostArgs,
   UploadImageArgs,
@@ -53,7 +53,7 @@ export const postsApi = baseApi.injectEndpoints({
         };
       },
     }),
-    getPostById: build.query<Post, GetPostByIdArgs>({
+    getPostById: build.query<PostData, GetPostByIdArgs>({
       query: ({ postId }) => ({
         url: `/v1/posts/id/${postId}`,
       }),

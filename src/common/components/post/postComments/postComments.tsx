@@ -1,16 +1,16 @@
 "use client";
 
-import { Typography } from "common/components";
+import { Typography } from "common/components/index";
 import { formatRelativeTime } from "common/utils/dateUtils";
 import Image from "next/image";
-import { Post, useGetPostCommentsQuery } from "store/services/api/posts";
+import { PostData, useGetPostCommentsQuery } from "store/services/api/posts";
 import { CommentItems } from "store/services/api/publicPosts";
 import defaultAvatar from "public/icons/svg/person.svg";
-import s from "./postComments.module.css";
-import { CommentWithAnswers } from "./commentWithAnswers/commentWithAnswers";
+import s from "common/components/post/postComments/postComments.module.css";
+import { CommentWithAnswers } from "common/components/post/postComments/commentWithAnswers/commentWithAnswers";
 
 type Props = {
-  post: Post;
+  post: PostData;
 };
 
 export const PostComments = ({ post }: Props) => {

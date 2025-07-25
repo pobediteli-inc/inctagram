@@ -1,5 +1,5 @@
-import { BaseModal, Button, Typography } from "common/components";
-import s from "./updatePostForm.module.css";
+import { BaseModal, Button, Typography } from "common/components/index";
+import s from "common/components/post/updatePostForm/updatePostForm.module.css";
 
 type Props = {
   isOpen: boolean;
