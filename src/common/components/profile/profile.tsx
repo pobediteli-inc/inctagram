@@ -14,9 +14,11 @@ import { UserByUserName } from "store/services/api/profile";
 type Props = {
   isCurrentUser?: boolean;
   profileData: UserByUserName;
+  follow?: () => void;
+  unfollow?: () => void;
 };
 
-export default function Profile({ isCurrentUser = false, profileData }: Props) {
+export default function Profile({ isCurrentUser = false, profileData, follow, unfollow }: Props) {
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<PostData[]>([]);
@@ -93,10 +95,22 @@ export default function Profile({ isCurrentUser = false, profileData }: Props) {
         <div>
           <div className={s.top}>
             <Typography variant={"h1"}>{profileData?.userName}</Typography>
-            {isCurrentUser && (
+            {isCurrentUser ? (
               <div className={s.actionButtons}>
                 <Button variant={"secondary"} asChild>
                   <Link href={ROUTES.settings}>Profile Settings</Link>
+                </Button>
+              </div>
+            ) : !profileData.isFollowing ? (
+              <div className={s.actionButtons}>
+                <Button variant={"primary"} onClick={follow}>
+                  Follow
+                </Button>
+              </div>
+            ) : (
+              <div className={s.actionButtons}>
+                <Button variant={"outlined"} onClick={unfollow}>
+                  Unfollow
                 </Button>
               </div>
             )}

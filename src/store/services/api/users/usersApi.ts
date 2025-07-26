@@ -27,6 +27,7 @@ export const usersApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["User"],
     }),
     followUser: build.mutation<void, FollowUserArgs>({
       query: (body) => {
@@ -36,6 +37,7 @@ export const usersApi = baseApi.injectEndpoints({
           body,
         };
       },
+      invalidatesTags: ["User", "Profile"],
     }),
     unfollowUser: build.mutation<void, UnfollowUserArgs>({
       query: ({ userId }) => {
@@ -44,6 +46,7 @@ export const usersApi = baseApi.injectEndpoints({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["User", "Profile"],
     }),
   }),
 });
