@@ -1,4 +1,4 @@
-import { SortDirectionProps } from "common/types/SortDirectionProps/SortDirectionProps";
+import { SORT_DIRECTIONS } from "common/enums/enums";
 
 export type PostIdRequest = {
   postId: number;
@@ -13,7 +13,7 @@ export type AllPublicPostsRequest = {
   pageSize?: number;
   pageNumber?: number;
   sortBy?: string;
-  sortDirection?: SortDirectionProps;
+  sortDirection?: SORT_DIRECTIONS;
 };
 
 export type AllPublicPostsResponse = {

@@ -4,6 +4,7 @@ import { Avatar, Scroll, TextField, Typography } from "common/components";
 import { useDebounce } from "common/hooks/useDebounce";
 import { useLazyGetUsersQuery, UserItem } from "store/services/api/users";
 import s from "./page.module.css";
+import { DEFAULT_CURSOR_ID, DEFAULT_PAGE_SIZE } from "common/constants/pagination";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -26,8 +27,8 @@ export default function Search() {
       try {
         const result = await trigger({
           search,
-          pageSize: 12,
-          cursor: cursorToUse ?? 0,
+          pageSize: DEFAULT_PAGE_SIZE,
+          cursor: cursorToUse ?? DEFAULT_CURSOR_ID,
         });
 
         if ("data" in result) {

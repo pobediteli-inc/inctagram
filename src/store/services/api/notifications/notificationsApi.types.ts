@@ -1,3 +1,5 @@
+import { SORT_DIRECTIONS } from "common/enums/enums";
+
 export type NotificationType = {
   id: number;
   clientId?: string;
@@ -13,7 +15,7 @@ export type MarkAsReadRequest = {
   sortBy?: string;
   isRead?: boolean;
   pageSize?: number;
-  sortDirection?: "asc" | "desc";
+  sortDirection?: SORT_DIRECTIONS;
   cursor?: number;
 };
 
@@ -23,7 +25,7 @@ export type GetNotificationsByProfileRequest = {
   notifyAt?: string;
   isRead?: boolean;
   pageSize?: number;
-  sortDirection?: "asc" | "desc";
+  sortDirection?: SORT_DIRECTIONS;
 };
 
 export type GetNotificationsByProfileResponse = {

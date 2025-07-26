@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import s from "./header.module.css";
 import { Select } from "common/components/select/select";
 import { Typography } from "common/components/typography/typography";
@@ -19,8 +19,10 @@ import { ROUTES } from "../../constants/routes";
 import { useGetNotificationsByProfileQuery } from "store/services/api/notifications";
 import { NotificationDropdown } from "common/components";
 import { useNotificationSocket } from "common/hooks/useNotificationSocket";
+import { DEFAULT_NOTIFICATIONS_PAGE_SIZE } from "common/constants/pagination";
+import { SORT_DIRECTIONS } from "common/enums/enums";
 
-export const Header: FC = () => {
+export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   useNotificationSocket({ isLoggedIn });
 
@@ -30,7 +32,7 @@ export const Header: FC = () => {
   const pathname = usePathname();
 
   const { data: notificationsData } = useGetNotificationsByProfileQuery(
-    { pageSize: 50, sortDirection: "desc" },
+    { pageSize: DEFAULT_NOTIFICATIONS_PAGE_SIZE, sortDirection: SORT_DIRECTIONS.desc },
     {
       skip: !isLoggedIn,
       refetchOnFocus: true,

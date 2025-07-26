@@ -3,6 +3,8 @@ import { PublicProfile } from "app/publicPage/publicProfiles/publicProfile/publi
 import { AllPublicPostsResponse } from "store/services/api/publicPosts";
 import { Typography } from "common/components";
 
+import { SORT_DIRECTIONS } from "common/enums/enums";
+
 export const PublicProfiles = async () => {
   const publicPostsResponse = await getPublicPosts(4);
 
@@ -22,7 +24,7 @@ export const PublicProfiles = async () => {
 
 const getPublicPosts = async (pageSize: number): Promise<AllPublicPostsResponse | undefined> => {
   try {
-    const sortDirection = "desc";
+    const sortDirection = SORT_DIRECTIONS.desc;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/public-posts/all?pageSize=${pageSize}&sortDirection=${sortDirection}`,
       {

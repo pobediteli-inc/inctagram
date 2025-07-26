@@ -2,8 +2,10 @@ import { useEffect, useRef } from "react";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { createSocket, disconnectSocket } from "common/socket/createSocket";
 import { notificationsApi, NotificationType } from "store/services/api/notifications";
-import { WS_EVENT_PATH } from "common/enums/enums";
+import { SORT_DIRECTIONS, WS_EVENT_PATH } from "common/enums/enums";
 import { debounce } from "lodash";
+import { DEFAULT_NOTIFICATIONS_PAGE_SIZE } from "common/constants/pagination";
+
 export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | null }) => {
   const dispatch = useAppDispatch();
   const hasFetchedRef = useRef(false);
@@ -21,7 +23,7 @@ export const useNotificationSocket = ({ isLoggedIn }: { isLoggedIn: boolean | nu
       dispatch(
         notificationsApi.util.updateQueryData(
           "getNotificationsByProfile",
-          { pageSize: 50, sortDirection: "desc" },
+          { pageSize: DEFAULT_NOTIFICATIONS_PAGE_SIZE, sortDirection: SORT_DIRECTIONS.desc },
           (draft) => {
             const alreadyExists = draft.items.some((item) => item.id === notification.id);
             if (!alreadyExists) {
