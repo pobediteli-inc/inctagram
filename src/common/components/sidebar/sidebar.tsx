@@ -2,14 +2,14 @@
 
 import s from "./sidebar.module.css";
 import {
+  BookmarkOutline,
   Home,
-  PlusSquareOutline,
-  Person,
+  LogOutOutline,
   MessageCircleOutline,
+  Person,
+  PlusSquareOutline,
   SearchOutline,
   TrendingUpOutline,
-  BookmarkOutline,
-  LogOutOutline,
 } from "assets/icons";
 import { SidebarItem, SidebarLink } from "./sidebarLink/sidebarLink";
 import { useMeQuery } from "store/services/api/auth";
@@ -17,9 +17,9 @@ import { ROUTES } from "../../constants/routes";
 
 const sidebarItems: SidebarItem[] = [
   {
-    href: ROUTES.home,
+    href: ROUTES.feed,
     icon: <Home width={24} height={24} />,
-    title: "Home",
+    title: "Feed",
   },
   {
     href: ROUTES.create,

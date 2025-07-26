@@ -10,7 +10,7 @@ import { setLoggedIn } from "store/services/slices";
 import { Typography } from "../../typography/typography";
 import { useAppDispatch } from "common/hooks";
 import { LogOut } from "../../logOut/logOut";
-import { ROUTES } from "../../../constants/routes";
+import { ROUTES } from "common/constants/routes";
 
 type SidebarLinkProps = {
   item: SidebarItem;
