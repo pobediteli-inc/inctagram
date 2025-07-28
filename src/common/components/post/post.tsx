@@ -17,7 +17,6 @@ import { UpdatePostForm } from "common/components/post/updatePostForm/updatePost
 import { DeletePostModal } from "common/components/post/deletePostModal/deletePostModal";
 import { PostComments } from "common/components/post/postComments/postComments";
 import { useHandleAddComment } from "common/hooks";
-
 import s from "./post.module.css";
 
 type Props = {
@@ -50,16 +49,16 @@ export const Post = ({
       <div className={s.photoActionsContainer}>
         <div className={s.ownerInfo}>
           <Avatar src={post.avatarOwner} className={s.avatar} />
-          <Typography variant="h3">{post.userName}</Typography>
+          <Typography variant={"h3"}>{post.userName}</Typography>
           {isEditable && (
             <DropdownMenu className={s.menu}>
               <DropdownItem className={s.menuItem} onClick={() => setPostIsUpdating(true)}>
                 <Edit2Outline width={24} height={24} />
-                <Typography variant="regular_14">Edit Post</Typography>
+                <Typography variant={"regular_14"}>Edit Post</Typography>
               </DropdownItem>
               <DropdownItem className={s.menuItem} onClick={() => setPostIsDeleting(true)}>
                 <TrashOutline width={24} height={24} />
-                <Typography variant="regular_14">Delete Post</Typography>
+                <Typography variant={"regular_14"}>Delete Post</Typography>
               </DropdownItem>
             </DropdownMenu>
           )}
