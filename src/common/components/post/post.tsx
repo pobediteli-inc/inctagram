@@ -1,13 +1,24 @@
 "use client";
 
-import { PostData as PostType } from "store/services/api/posts/postsApi.types";
-import { Avatar, Carousel, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
-import s from "./post.module.css";
 import { useState } from "react";
-import { PostComments } from "common/components/post/postComments/postComments";
+import {
+  Avatar,
+  Carousel,
+  CommentForm,
+  DropdownItem,
+  DropdownMenu,
+  PostModal,
+  Separator,
+  Typography,
+} from "common/components";
+import { Edit2Outline, TrashOutline } from "assets/icons";
+import { PostData as PostType } from "store/services/api/posts/postsApi.types";
 import { UpdatePostForm } from "common/components/post/updatePostForm/updatePostForm";
 import { DeletePostModal } from "common/components/post/deletePostModal/deletePostModal";
-import { Edit2Outline, TrashOutline } from "assets/icons";
+import { PostComments } from "common/components/post/postComments/postComments";
+import { useHandleAddComment } from "common/hooks";
+
+import s from "./post.module.css";
 
 type Props = {
   post: PostType;
@@ -30,6 +41,7 @@ export const Post = ({
   const [postIsDeleting, setPostIsDeleting] = useState(false);
 
   const imageUrls = post.images.map((img) => img.url);
+  const handleAddCommentAction = useHandleAddComment();
 
   return (
     <PostModal className={s.container} open={isOpen} onClose={handleCloseAction}>
@@ -38,16 +50,16 @@ export const Post = ({
       <div className={s.photoActionsContainer}>
         <div className={s.ownerInfo}>
           <Avatar src={post.avatarOwner} className={s.avatar} />
-          <Typography variant={"h3"}>{post.userName}</Typography>
+          <Typography variant="h3">{post.userName}</Typography>
           {isEditable && (
             <DropdownMenu className={s.menu}>
               <DropdownItem className={s.menuItem} onClick={() => setPostIsUpdating(true)}>
                 <Edit2Outline width={24} height={24} />
-                <Typography variant={"regular_14"}>Edit Post</Typography>
+                <Typography variant="regular_14">Edit Post</Typography>
               </DropdownItem>
               <DropdownItem className={s.menuItem} onClick={() => setPostIsDeleting(true)}>
                 <TrashOutline width={24} height={24} />
-                <Typography variant={"regular_14"}>Delete Post</Typography>
+                <Typography variant="regular_14">Delete Post</Typography>
               </DropdownItem>
             </DropdownMenu>
           )}
@@ -63,7 +75,7 @@ export const Post = ({
 
         <Separator />
 
-        <div className={s.leaveComment}>leave a comment</div>
+        <CommentForm postId={post.id} onCommentSubmitAction={handleAddCommentAction} />
       </div>
 
       {isEditable && handleUpdateAction && (

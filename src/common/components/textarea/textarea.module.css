@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .label {
@@ -15,14 +16,18 @@
 
 .textarea {
   background-color: var(--dark-500);
-  min-width: 284px;
-  width: auto;
-  min-height: 84px;
+  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-height: 36px;
+  height: auto;
   border-radius: 2px;
   border: 1px solid var(--dark-100);
   padding: 6px 12px;
   color: var(--light-900);
   resize: none;
+  transition: height 0.2s ease;
+  box-sizing: border-box;
 
   &:active {
     border: 1px solid var(--light-100);
