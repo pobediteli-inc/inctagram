@@ -5,6 +5,7 @@ export { Button } from "./button/button";
 export { Card } from "./card/card";
 export { Carousel } from "./carousel/carousel";
 export { Checkbox } from "./checkbox/checkbox";
+export { CommentForm } from "./post/сommentForm/commentForm";
 export { ControlledCheckbox } from "./controlled/controlledCheckbox";
 export { ControlledDatePicker } from "./controlled/controlledDatePicker";
 export { ControlledRadioGroup } from "./controlled/controlledRadioGroup";

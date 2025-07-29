@@ -10,10 +10,12 @@ export type TextareaProps = {
   error?: string;
   disabled?: boolean;
   maxLength?: number;
+  height?: number | string;
+  hideCounter?: boolean;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ title, error, disabled, maxLength, className, value = "", onChange, ...props }, ref) => {
+  ({ title, error, disabled, maxLength, className, value = "", onChange, height, hideCounter, ...props }, ref) => {
     const [text, setText] = useState(value.toString());
 
     useEffect(() => {
@@ -38,10 +40,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className={clsx(s.textarea, error && s.error, className)}
             value={text}
             onChange={handleChange}
+            style={{ height }}
             {...props}
           />
         </Typography>
-        {maxLength && (
+        {maxLength && !hideCounter && (
           <Typography variant={"small"} color={text.length > maxLength ? "error" : "dark"} className={s.charCounter}>
             {text.length}/{maxLength}
           </Typography>

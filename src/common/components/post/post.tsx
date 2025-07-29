@@ -1,13 +1,23 @@
 "use client";
 
-import { PostData as PostType } from "store/services/api/posts/postsApi.types";
-import { Avatar, Carousel, DropdownItem, DropdownMenu, PostModal, Separator, Typography } from "common/components";
-import s from "./post.module.css";
 import { useState } from "react";
-import { PostComments } from "common/components/post/postComments/postComments";
+import {
+  Avatar,
+  Carousel,
+  CommentForm,
+  DropdownItem,
+  DropdownMenu,
+  PostModal,
+  Separator,
+  Typography,
+} from "common/components";
+import { Edit2Outline, TrashOutline } from "assets/icons";
+import { PostData as PostType } from "store/services/api/posts/postsApi.types";
 import { UpdatePostForm } from "common/components/post/updatePostForm/updatePostForm";
 import { DeletePostModal } from "common/components/post/deletePostModal/deletePostModal";
-import { Edit2Outline, TrashOutline } from "assets/icons";
+import { PostComments } from "common/components/post/postComments/postComments";
+import { useHandleAddComment } from "common/hooks";
+import s from "./post.module.css";
 
 type Props = {
   post: PostType;
@@ -30,6 +40,7 @@ export const Post = ({
   const [postIsDeleting, setPostIsDeleting] = useState(false);
 
   const imageUrls = post.images.map((img) => img.url);
+  const handleAddCommentAction = useHandleAddComment();
 
   return (
     <PostModal className={s.container} open={isOpen} onClose={handleCloseAction}>
@@ -63,7 +74,7 @@ export const Post = ({
 
         <Separator />
 
-        <div className={s.leaveComment}>leave a comment</div>
+        <CommentForm postId={post.id} onCommentSubmitAction={handleAddCommentAction} />
       </div>
 
       {isEditable && handleUpdateAction && (
