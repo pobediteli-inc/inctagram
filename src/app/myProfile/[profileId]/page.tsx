@@ -13,5 +13,5 @@ export default function MyProfile() {
 
   if (!profileData) return null;
 
-  return <Profile userName={meData.userName} isCurrentUser={true} profileData={profileData} />;
+  return <Profile isCurrentUser={true} profileData={profileData} />;
 }
