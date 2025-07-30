@@ -1,94 +1,10 @@
 .uploadedPhotos {
-  min-width: 500px;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carouselWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 .imageWrapper {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.arrowOverlay {
-  display: flex;
-  padding: 8px;
-  position: absolute;
-  top: 50%;
-  z-index: 3;
-}
-
-.arrowOverlayLeft {
-  left: 8px;
-}
-
-.arrowOverlayRight {
-  right: 8px;
-}
-
-.blurredBackground {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  border-radius: 2px;
-}
-
-.blurredImage {
-  object-fit: cover;
-  filter: blur(20px);
-  transform: scale(1.1);
-}
-
-.previewImage {
-  border-radius: 2px;
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.carouselDotsWrapper {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  padding: 8px;
-  background-color: rgb(30 30 30 / 80%);
-  z-index: 1;
-  border-radius: 2px;
-  width: auto;
-}
-
-.carouselDots {
-  display: flex;
-  gap: 8px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--light-100);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.activeDot {
-  background-color: var(--primary-500);
+  width: 492px;
+  height: 504px;
 }
