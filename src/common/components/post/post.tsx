@@ -18,6 +18,7 @@ import { DeletePostModal } from "common/components/post/deletePostModal/deletePo
 import { PostComments } from "common/components/post/postComments/postComments";
 import { useHandleAddComment } from "common/hooks";
 import s from "./post.module.css";
+import { PostInteractions } from "app/publicUser/[profileId]/postInteractions/postInteractions";
 
 type Props = {
   post: PostType;
@@ -70,7 +71,7 @@ export const Post = ({
 
         <Separator />
 
-        <div className={s.interactions}>interactions</div>
+        <PostInteractions posts={post} />
 
         <Separator />
 
