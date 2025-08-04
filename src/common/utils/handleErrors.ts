@@ -37,5 +37,5 @@ export const handleErrors = (error: unknown, dispatch: AppDispatch, setError?: U
     if (statusCode && !Array.isArray(messages)) setError?.("password", { message: messages });
     if (statusCode && messages?.length) dispatch(setStatus({ status: "error", message: messages[0].message }));
     else dispatch(setStatus({ status: "error", message: "An unknown error occurred." }));
-  } else dispatch(setStatus({ status: "error", message: "An unknown server occurred from server." }));
+  } else dispatch(setStatus({ status: "error", message: "An unknown error occurred from server." }));
 };

@@ -9,6 +9,7 @@ import {
   UploadImageArgs,
   UploadImageResponse,
 } from "store/services/api/posts/postsApi.types";
+import { LikedPostResponse, LikeStatusRequest, PostIdRequest } from "../publicPosts";
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -57,6 +58,7 @@ export const postsApi = baseApi.injectEndpoints({
       query: ({ postId }) => ({
         url: `/v1/posts/id/${postId}`,
       }),
+      providesTags: (result, error, { postId }) => (result ? [{ type: "Posts", id: postId }] : []),
     }),
     getPostsByUserName: build.query<PostsWithMeta, { userName: string; pageSize: number; pageNumber: number }>({
       query: ({ userName, pageSize, pageNumber }) => ({
@@ -114,6 +116,24 @@ export const postsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (result, error, { commentId }) => [{ type: "Answers", id: commentId }],
     }),
+    updateLikeStatusPost: build.mutation<void, LikeStatusRequest>({
+      query: ({ postId, likeStatus }) => ({
+        url: `/v1/posts/${postId}/like-status`,
+        method: "PUT",
+        body: { likeStatus },
+      }),
+      invalidatesTags: (result, error, { postId }) => [{ type: "Posts", id: postId }],
+    }),
+    getLikedPostUsers: build.query<LikedPostResponse, PostIdRequest>({
+      query: ({ postId }) => ({
+        url: `/v1/posts/${postId}/likes`,
+        params: {
+          pageSize: 3,
+          pageNumber: 1,
+        },
+      }),
+      providesTags: (result, error, { postId }) => [{ type: "Posts", id: postId }],
+    }),
   }),
   overrideExisting: true,
 });
@@ -131,4 +151,6 @@ export const {
   useCreateAnswerCommentMutation,
   useUpdateLikeStatusCommentMutation,
   useUpdateLikeStatusAnswerMutation,
+  useUpdateLikeStatusPostMutation,
+  useGetLikedPostUsersQuery,
 } = postsApi;

@@ -74,7 +74,7 @@ export type CommentItems = {
 export type CommentAuthor = {
   id: number;
   username: string;
-  avatars: AvatarArgs[];
+  avatars: ImagesArgs[];
 };
 
 export type AnswerItems = {
@@ -87,4 +87,25 @@ export type AnswerItems = {
   isLiked: boolean;
 };
 
-export type AvatarArgs = Record<string, unknown>;
+export type LikedPostResponse = {
+  pageSize?: number;
+  totalCount?: number;
+  notReadCount?: number;
+  items?: LikedUserArgs[];
+};
+
+export type LikedUserArgs = {
+  id: number;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  avatars: ImagesArgs[];
+  isFollowing: boolean;
+  isFollowedBy: boolean;
+};
+
+export type LikeStatusRequest = PostIdRequest & {
+  likeStatus: LikeStatusArgs;
+};
+
+export type LikeStatusArgs = "NONE" | "LIKE" | "DISLIKE";
