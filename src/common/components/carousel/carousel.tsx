@@ -22,8 +22,8 @@ type Props = {
 export const Carousel = ({
   slides,
   options,
-  width = 490,
-  height = 562,
+  width = 492,
+  height = 564,
   initialIndex,
   onImageSelect,
   scrollToIndex,
