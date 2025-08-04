@@ -9,6 +9,7 @@ export const ROUTES = {
   logout: "logout",
   messenger: "/messenger",
   myProfile: (id: number) => `/myProfile/${id}`,
+  userProfile: (userName: string) => `/user/${userName}`,
   publicUser: (id: number) => `/publicUser/${id}`,
   publicUserPost: ({ userId, postId }: PublicUserPostRouteArgs) => `/publicUser/${userId}?postId=${postId}`,
   publicPage: "/publicPage",

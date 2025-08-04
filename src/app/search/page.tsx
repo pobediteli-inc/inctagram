@@ -5,6 +5,8 @@ import { useDebounce } from "common/hooks/useDebounce";
 import { useLazyGetUsersQuery, UserItem } from "store/services/api/users";
 import s from "./page.module.css";
 import { DEFAULT_CURSOR_ID, DEFAULT_PAGE_SIZE } from "common/constants/pagination";
+import Link from "next/link";
+import { ROUTES } from "common/constants/routes";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -44,7 +46,7 @@ export default function Search() {
         setIsLoading(false);
       }
     },
-    [trigger, isLoading]
+    [trigger]
   );
 
   const handleScroll = useCallback(() => {
@@ -89,9 +91,11 @@ export default function Search() {
           <div key={user.id} className={s.userCard}>
             <Avatar size="medium" src={user?.avatars?.[0]?.url} />
             <div className={s.userInfo}>
-              <Typography variant="bold_14" className={s.userName}>
-                {user.userName}
-              </Typography>
+              <Link href={ROUTES.userProfile(user.userName)} className={s.userLink}>
+                <Typography variant="bold_14" className={s.userName}>
+                  {user.userName}
+                </Typography>
+              </Link>
               <Typography variant="regular_14" color="dark">
                 {user.firstName} {user.lastName}
               </Typography>

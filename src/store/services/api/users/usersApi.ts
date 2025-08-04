@@ -1,12 +1,8 @@
+"use client";
+
 import { baseApi } from "../baseApi/baseApi";
-import {
-  FollowUserArgs,
-  GetUserArgs,
-  GetUsersArgs,
-  GetUsersResponse,
-  UnfollowUserArgs,
-  UserProfile,
-} from "./usersApi.types";
+import { FollowUserArgs, GetUserArgs, GetUsersArgs, GetUsersResponse, UnfollowUserArgs } from "./usersApi.types";
+import { UserByUserName } from "store/services/api/profile";
 
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -24,13 +20,14 @@ export const usersApi = baseApi.injectEndpoints({
         };
       },
     }),
-    getUser: build.query<UserProfile, GetUserArgs>({
+    getUser: build.query<UserByUserName, GetUserArgs>({
       query: ({ userName }) => {
         return {
           url: `/v1/users/${userName}`,
           method: "GET",
         };
       },
+      providesTags: ["User"],
     }),
     followUser: build.mutation<void, FollowUserArgs>({
       query: (body) => {
@@ -40,6 +37,7 @@ export const usersApi = baseApi.injectEndpoints({
           body,
         };
       },
+      invalidatesTags: ["User", "Profile"],
     }),
     unfollowUser: build.mutation<void, UnfollowUserArgs>({
       query: ({ userId }) => {
@@ -48,6 +46,7 @@ export const usersApi = baseApi.injectEndpoints({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["User", "Profile"],
     }),
   }),
 });
