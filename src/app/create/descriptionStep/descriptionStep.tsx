@@ -1,8 +1,7 @@
-import React from "react";
-import s from "./descriptionStep.module.css";
 import { DescriptionHeader } from "./descriptionHeader/descriptionHeader";
 import { FormContainer } from "./formContainer/formContainer";
 import { UploadedPhotos } from "./uploadedPhotos/uploadedPhotos";
+import s from "./descriptionStep.module.css";
 
 type DescriptionStepProps = {
   description: string;

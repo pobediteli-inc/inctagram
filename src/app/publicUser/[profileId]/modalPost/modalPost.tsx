@@ -11,8 +11,9 @@ import defaultImage from "public/icons/svg/image.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
 import { ArrowIosBackOutline, ArrowIosForwardOutline, Close } from "assets/icons";
 import { useState } from "react";
-import { formatPostDate, formatRelativeTime } from "common/utils/dateUtils";
+import { formatRelativeTime } from "common/utils/dateUtils";
 import { CommentsResponse, PostItemsResponse } from "store/services/api/publicPosts";
+import { PostInteractions } from "../postInteractions/postInteractions";
 
 type ModalPostProps = {
   post: PostItemsResponse;
@@ -152,52 +153,7 @@ export default function ModalPost({ post, comments }: ModalPostProps) {
                     ))
                   : null}
               </div>
-              <div className={s.likesWrapper}>
-                <div className={s.likesWithDate}>
-                  <div className={s.avatarsWithLikes}>
-                    {post.likesCount > 0 && (
-                      <div
-                        className={s.likeAvatarsWrapper}
-                        style={{ width: `${post.likesCount === 1 ? 24 : post.likesCount === 2 ? 40 : 56}px` }}
-                      >
-                        {post.likesCount >= 1 && (
-                          <Image
-                            src={defaultAvatar}
-                            alt="User Avatar"
-                            width={24}
-                            height={24}
-                            className={s.defaultFirstLikeAvatar}
-                          />
-                        )}
-                        {post.likesCount >= 2 && (
-                          <Image
-                            src={defaultAvatar}
-                            alt="User Avatar"
-                            width={24}
-                            height={24}
-                            className={s.defaultSecondLikeAvatar}
-                          />
-                        )}
-                        {post.likesCount >= 3 && (
-                          <Image
-                            src={defaultAvatar}
-                            alt="User Avatar"
-                            width={24}
-                            height={24}
-                            className={s.defaultThirdLikeAvatar}
-                          />
-                        )}
-                      </div>
-                    )}
-                    <Typography variant={"regular_14"}>
-                      {post.likesCount} &quot;<span className={s.likeText}>Like</span>&quot;
-                    </Typography>
-                  </div>
-                  <Typography variant={"small"} color={"dark"}>
-                    {formatPostDate(post.createdAt)}
-                  </Typography>
-                </div>
-              </div>
+              <PostInteractions posts={post} />
             </div>
           </div>
           <Dialog.Close asChild>

@@ -8,9 +8,8 @@ import { UploadStep } from "./uploadStep/uploadStep";
 import { DescriptionStep } from "./descriptionStep/descriptionStep";
 import { CloseNotificationPopUp } from "./closeNotificationPopUp/closeNotificationPopUp";
 import { Image, useCreatePostMutation, useUploadImagePostMutation } from "store/services/api/posts";
-import { useImageManager } from "./hooks/useImageManager";
-import { useToastManager } from "./hooks/useToastManager";
 import { ROUTES } from "common/constants/routes";
+import { useImageManager, useToastManager } from "common/hooks";
 
 export default function CreatePage() {
   const {

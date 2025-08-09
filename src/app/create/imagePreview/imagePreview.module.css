@@ -13,7 +13,7 @@
 
 .previewContainer {
   width: 100%;
-  max-width: 490px;
+  min-width: 492px;
   max-height: 504px;
   height: 100%;
   position: relative;
