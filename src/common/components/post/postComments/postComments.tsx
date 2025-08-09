@@ -12,6 +12,10 @@ type Props = {
 export const PostComments = ({ post }: Props) => {
   const { data: comments } = useGetPostCommentsQuery({ postId: post.id });
 
+  if (!comments?.items?.length) {
+    return null;
+  }
+
   return (
     <div className={s.commentsWrapper}>
       {comments?.items?.length &&

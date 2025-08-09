@@ -1,0 +1,36 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.postWrapper {
+  max-width: 490px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.postData {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  margin-right: 12px;
+}
+
+.userName {
+}
+
+.userName::after {
+  content: "•";
+  margin: 0 8px 0 18px;
+  color: var(--light-700);
+}
+
+.commentForm {
+  margin-bottom: 4px;
+}

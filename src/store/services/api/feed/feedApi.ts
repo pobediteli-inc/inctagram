@@ -11,7 +11,7 @@ const feedApi = baseApi.injectEndpoints({
         if (endCursorPostId) params.append("endCursorPostId", String(endCursorPostId));
 
         return {
-          url: `/v1/home/publications-followers${params.toString()}`,
+          url: `/v1/home/publications-followers?${params.toString()}`,
           method: "GET",
         };
       },

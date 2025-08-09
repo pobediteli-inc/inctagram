@@ -4,17 +4,19 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button, Textarea } from "common/components";
 import s from "./commentForm.module.css";
+import clsx from "clsx";
 
 type Props = {
   postId: number;
   onCommentSubmitAction: (postId: number, commentText: string) => Promise<void>;
+  className?: string;
 };
 
 type FormValues = {
   comment: string;
 };
 
-export const CommentForm = ({ postId, onCommentSubmitAction }: Props) => {
+export const CommentForm = ({ postId, onCommentSubmitAction, className }: Props) => {
   const {
     register,
     handleSubmit,
@@ -58,7 +60,7 @@ export const CommentForm = ({ postId, onCommentSubmitAction }: Props) => {
   const handleOnBlur = () => setIsFocused(false);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={clsx(s.form, className)}>
       <div className={s.inputContainer}>
         <Textarea
           {...register("comment", {
@@ -75,6 +77,7 @@ export const CommentForm = ({ postId, onCommentSubmitAction }: Props) => {
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           value={commentValue}
+          variant={"outlined"}
         />
         {submitError && <p className={s.errorMessage}>{submitError}</p>}
       </div>
