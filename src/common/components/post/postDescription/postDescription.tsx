@@ -4,14 +4,16 @@ import { Avatar, Typography } from "common/components/index";
 import { formatRelativeTime } from "common/utils/dateUtils";
 import { PostData } from "store/services/api/posts";
 import s from "./postDescription.module.css";
+import clsx from "clsx";
 
 type Props = {
   post: PostData;
+  className?: string;
 };
 
-export const PostDescription = ({ post }: Props) => {
+export const PostDescription = ({ post, className }: Props) => {
   return (
-    <div className={s.avatarWithComment}>
+    <div className={clsx(className, s.avatarWithComment)}>
       <Avatar src={post.avatarOwner} />
       <div className={s.commentWrapper}>
         <Typography variant={"bold_14"}>

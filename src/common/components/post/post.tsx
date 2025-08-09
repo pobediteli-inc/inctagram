@@ -8,6 +8,7 @@ import {
   DropdownItem,
   DropdownMenu,
   PostModal,
+  Scroll,
   Separator,
   Typography,
 } from "common/components";
@@ -19,6 +20,7 @@ import { PostComments } from "common/components/post/postComments/postComments";
 import { useHandleAddComment } from "common/hooks";
 import s from "./post.module.css";
 import { PostInteractions } from "app/publicUser/[profileId]/postInteractions/postInteractions";
+import { PostDescription } from "common/components/post/postDescription/postDescription";
 
 type Props = {
   post: PostType;
@@ -66,8 +68,10 @@ export const Post = ({
         </div>
 
         <Separator />
-
-        <PostComments post={post} />
+        <Scroll viewportClassName={s.commentsWrapper}>
+          {post.description && <PostDescription post={post} className={s.description} />}
+          <PostComments post={post} />
+        </Scroll>
 
         <Separator />
 
