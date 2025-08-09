@@ -1,4 +1,4 @@
-import { Button, Textarea, Typography } from "common/components/index";
+import { Avatar, Button, Textarea, Typography } from "common/components/index";
 import { formatRelativeTime } from "common/utils/dateUtils";
 import Image from "next/image";
 import { useState } from "react";
@@ -9,7 +9,6 @@ import {
   useUpdateLikeStatusCommentMutation,
 } from "store/services/api/posts";
 import { AnswerItems, CommentItems } from "store/services/api/publicPosts";
-import defaultAvatar from "public/icons/svg/person.svg";
 import answerLine from "public/icons/svg/answer-line.svg";
 import s from "common/components/post/postComments/postComments.module.css";
 import { Heart, HeartOutline } from "assets/icons";
@@ -74,13 +73,7 @@ export const CommentWithAnswers = ({ comment, postId }: Props) => {
     <div className={s.commentWithLike}>
       <div className={s.avatarWithComment}>
         <div className={s.commentAvatarWrapper}>
-          <Image
-            src={comment.from.avatars[0]?.url || defaultAvatar}
-            alt="User Comment Avatar"
-            fill
-            sizes="36px"
-            className={comment.from.avatars[0] ? s.avatar : s.defaultAvatar}
-          />
+          <Avatar src={comment.from.avatars[0]?.url} />
         </div>
         <div className={s.commentWrapper}>
           <Typography variant={"bold_14"}>
@@ -140,13 +133,7 @@ export const CommentWithAnswers = ({ comment, postId }: Props) => {
                 <div key={answer.id} className={s.answerWithLike}>
                   <div className={s.avatarWithComment}>
                     <div className={s.commentAvatarWrapper}>
-                      <Image
-                        src={answer.from.avatars[0]?.url || defaultAvatar}
-                        alt="Answer Avatar"
-                        fill
-                        sizes="36px"
-                        className={answer.from.avatars[0] ? s.avatar : s.defaultAvatar}
-                      />
+                      <Avatar src={answer.from.avatars[0]?.url} />
                     </div>
                     <div className={s.answerWrapper}>
                       <Typography variant={"bold_14"}>

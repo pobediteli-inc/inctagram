@@ -1,13 +1,10 @@
 "use client";
 
-import { Typography } from "common/components/index";
-import { formatRelativeTime } from "common/utils/dateUtils";
-import Image from "next/image";
 import { PostData, useGetPostCommentsQuery } from "store/services/api/posts";
 import { CommentItems } from "store/services/api/publicPosts";
-import defaultAvatar from "public/icons/svg/person.svg";
 import s from "common/components/post/postComments/postComments.module.css";
 import { CommentWithAnswers } from "common/components/post/postComments/commentWithAnswers/commentWithAnswers";
+import { PostDescription } from "common/components/post/postDescription/postDescription";
 
 type Props = {
   post: PostData;
@@ -18,27 +15,7 @@ export const PostComments = ({ post }: Props) => {
 
   return (
     <div className={s.commentsWrapper}>
-      {post.description && (
-        <div className={s.avatarWithComment}>
-          <div className={s.commentAvatarWrapper}>
-            <Image
-              src={post.avatarOwner || defaultAvatar}
-              alt="Post Description Avatar"
-              fill
-              sizes="36px"
-              className={post.avatarOwner ? s.avatar : s.defaultAvatar}
-            />
-          </div>
-          <div className={s.commentWrapper}>
-            <Typography variant={"bold_14"}>
-              {post.userName} <span className={s.commentText}>{post.description}</span>
-            </Typography>
-            <Typography variant={"small"} color={"dark"} className={s.timeLikeAnswerText}>
-              {formatRelativeTime(post.createdAt)}
-            </Typography>
-          </div>
-        </div>
-      )}
+      {post.description && <PostDescription post={post} />}
 
       {comments?.items?.length &&
         comments.items.map((comment: CommentItems) => (
