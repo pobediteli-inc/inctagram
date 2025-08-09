@@ -30,8 +30,6 @@ export const CommentForm = ({ postId, onCommentSubmitAction, className }: Props)
       comment: "",
     },
   });
-
-  const [isFocused, setIsFocused] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const commentValue = watch("comment");
@@ -53,11 +51,8 @@ export const CommentForm = ({ postId, onCommentSubmitAction, className }: Props)
   };
 
   const handleOnFocus = () => {
-    setIsFocused(true);
     setSubmitError(null);
   };
-
-  const handleOnBlur = () => setIsFocused(false);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={clsx(s.form, className)}>
@@ -75,7 +70,6 @@ export const CommentForm = ({ postId, onCommentSubmitAction, className }: Props)
           tabIndex={-1}
           hideCounter
           onFocus={handleOnFocus}
-          onBlur={handleOnBlur}
           value={commentValue}
           variant={"outlined"}
         />

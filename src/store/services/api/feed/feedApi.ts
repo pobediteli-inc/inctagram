@@ -19,4 +19,4 @@ const feedApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetFollowedPublicationsQuery } = feedApi;
+export const { useLazyGetFollowedPublicationsQuery } = feedApi;

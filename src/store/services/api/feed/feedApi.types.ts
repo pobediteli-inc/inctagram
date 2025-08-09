@@ -1,9 +1,9 @@
 import { PostData } from "store/services/api/posts";
 
 export type GetPublicationsArgs = {
-  pageSize: number;
-  pageNumber: number;
-  endCursorPostId: number;
+  pageSize?: number;
+  pageNumber?: number;
+  endCursorPostId?: number;
 };
 
 export type GetPublicationsResponse = {

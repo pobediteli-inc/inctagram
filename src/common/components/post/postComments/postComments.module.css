@@ -26,11 +26,13 @@
 }
 
 .commentText {
+  display: inline-block;
   max-width: 100%;
-  overflow-wrap: anywhere;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .timeLikeAnswerText {
