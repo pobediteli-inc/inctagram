@@ -38,7 +38,7 @@ export default function Feed() {
             <Carousel slides={imageUrls} />
             <PostInteractions posts={p} />
             {p.description && <PostDescription post={p} />}
-            <PostComments post={p} />
+            <PostComments post={p} isHidden />
             <CommentForm postId={p.id} onCommentSubmitAction={handleAddCommentAction} className={s.commentForm} />
             <Separator />
           </div>

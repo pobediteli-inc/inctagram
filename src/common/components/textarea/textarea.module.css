@@ -47,14 +47,13 @@
 
 .outlined {
   background-color: transparent;
+  border: none;
 
   &:active {
-    border: none;
     color: var(--light-100);
   }
 
   &:focus {
-    border: none;
     color: var(--light-100);
   }
 }

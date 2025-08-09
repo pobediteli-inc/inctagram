@@ -73,7 +73,7 @@ export const CommentForm = ({ postId, onCommentSubmitAction, className }: Props)
           disabled={isSubmitting}
           maxLength={300}
           tabIndex={-1}
-          hideCounter={!isFocused}
+          hideCounter
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           value={commentValue}
