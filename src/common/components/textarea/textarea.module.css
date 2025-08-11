@@ -45,6 +45,19 @@
   }
 }
 
+.outlined {
+  background-color: transparent;
+  border: none;
+
+  &:active {
+    color: var(--light-100);
+  }
+
+  &:focus {
+    color: var(--light-100);
+  }
+}
+
 .error {
   border: 1px solid var(--danger-500);
   color: var(--light-100);

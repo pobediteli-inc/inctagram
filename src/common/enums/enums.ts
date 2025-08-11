@@ -6,3 +6,8 @@ export enum WS_EVENT_PATH {
   MESSAGE_SEND = "message-send",
   ERROR = "error",
 }
+
+export enum SORT_DIRECTIONS {
+  "asc" = "asc",
+  "desc" = "desc",
+}

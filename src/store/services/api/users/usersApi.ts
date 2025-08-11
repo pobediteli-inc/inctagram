@@ -7,7 +7,7 @@ import { UserByUserName } from "store/services/api/profile";
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query<GetUsersResponse, GetUsersArgs>({
-      query: ({ search, pageSize = 12, pageNumber = 1, cursor }) => {
+      query: ({ search, pageSize, pageNumber, cursor }) => {
         const params = new URLSearchParams();
         if (search) params.append("search", search);
         if (pageSize) params.append("pageSize", String(pageSize));

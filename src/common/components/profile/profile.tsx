@@ -10,6 +10,7 @@ import { ROUTES } from "common/constants/routes";
 import { useGetPostsByUserNameQuery } from "store/services/api/posts/postsApi";
 import { Post } from "common/components/post/post";
 import { UserByUserName } from "store/services/api/profile";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from "common/constants/pagination";
 
 type Props = {
   isCurrentUser?: boolean;
@@ -22,10 +23,10 @@ export default function Profile({ isCurrentUser = false, profileData, follow, un
   const [page, setPage] = useState(1);
   const observerRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<PostData[]>([]);
-  const pageSize = 8;
+  const pageSize = DEFAULT_PAGE_SIZE;
 
   useEffect(() => {
-    if (page === 1) {
+    if (page === DEFAULT_PAGE_NUMBER) {
       setPosts([]);
     }
   }, [page]);

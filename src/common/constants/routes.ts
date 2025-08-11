@@ -2,6 +2,7 @@ export const ROUTES = {
   auth: "/auth",
   create: "/create",
   favorites: "/favorites",
+  feed: "/feed",
   friendProfile: "/friendProfile",
   home: "/",
   login: "/login",

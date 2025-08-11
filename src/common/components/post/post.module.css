@@ -34,8 +34,13 @@
   align-items: center;
 }
 
-.comments {
-  overflow-wrap: break-word;
-  max-width: 480px;
-  padding: 12px;
+.commentsWrapper {
+  min-height: 338px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 24px 8px;
+}
+
+.description {
+  margin-bottom: 15px;
 }

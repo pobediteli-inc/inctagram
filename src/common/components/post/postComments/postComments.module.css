@@ -1,32 +1,16 @@
+.showComments {
+  cursor: pointer;
+}
+
 .commentsWrapper {
   display: flex;
-  flex: 1;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  gap: 16px;
-  min-height: 338px;
-  height: 100%;
-  padding: 20px 24px;
-  overflow-y: auto;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .avatarWithComment {
   display: flex;
   gap: 12px;
-}
-
-.avatar {
-  object-fit: cover;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.defaultAvatar {
-  min-width: 36px;
-  object-fit: cover;
-  overflow: hidden;
-  border-radius: 50%;
-  background-color: var(--light-900);
 }
 
 .commentWrapper {
@@ -42,11 +26,13 @@
 }
 
 .commentText {
+  display: inline-block;
   max-width: 100%;
-  overflow-wrap: anywhere;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .timeLikeAnswerText {
@@ -84,24 +70,6 @@
   margin-top: 16px;
 }
 
-.commentsWrapper::-webkit-scrollbar {
-  width: 4px;
-}
-
-.commentsWrapper::-webkit-scrollbar-thumb {
-  background-color: var(--dark-300);
-  border-radius: 4px;
-  min-height: 46px;
-}
-
-.commentsWrapper::-webkit-scrollbar-thumb:hover {
-  background-color: var(--light-900);
-}
-
-.commentsWrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .answerBtn,
 .viewAnswersBtn {
   cursor: pointer;
@@ -131,18 +99,21 @@
 .like {
   margin-top: 16px;
   margin-left: 24px;
+  cursor: pointer;
 }
 
 .liked {
   margin-top: 16px;
   margin-left: 24px;
   color: var(--danger-500);
+  cursor: pointer;
 }
 
 .answerLike {
   position: absolute;
   left: 364px;
   top: 16px;
+  cursor: pointer;
 }
 
 .answerLiked {
@@ -150,4 +121,5 @@
   left: 364px;
   top: 16px;
   color: var(--danger-500);
+  cursor: pointer;
 }

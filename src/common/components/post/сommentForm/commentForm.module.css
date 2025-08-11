@@ -22,7 +22,6 @@
   padding: 12px !important;
   box-sizing: border-box;
   font-family: inherit;
-  background-color: var(--dark-300) !important;
   border: none !important;
   resize: none;
   overflow-y: auto;
@@ -32,7 +31,6 @@
 }
 
 .commentTextarea:focus {
-  outline: 2px solid var(--light-100);
   border-radius: 4px;
   background-color: var(--dark-500) !important;
 }
