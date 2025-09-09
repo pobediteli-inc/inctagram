@@ -7,6 +7,7 @@ import s from "./page.module.css";
 import { DEFAULT_CURSOR_ID, DEFAULT_PAGE_SIZE } from "common/constants/pagination";
 import Link from "next/link";
 import { ROUTES } from "common/constants/routes";
+import { useMeQuery } from "store/services/api/auth";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -72,6 +73,8 @@ export default function Search() {
     }
   }, [debouncedSearch, loadUsers]);
 
+  const ownerId = useMeQuery().data?.userId;
+
   return (
     <section className={s.search}>
       <Typography variant="h1" className={s.header}>
@@ -87,21 +90,26 @@ export default function Search() {
       />
 
       <Scroll onScroll={handleScroll} ref={scrollContainerRef} className={s.results} viewportClassName={s.results}>
-        {users?.map((user) => (
-          <div key={user.id} className={s.userCard}>
-            <Avatar size="medium" src={user?.avatars?.[0]?.url} />
-            <div className={s.userInfo}>
-              <Link href={ROUTES.userProfile(user.userName)} className={s.userLink}>
-                <Typography variant="bold_14" className={s.userName}>
-                  {user.userName}
+        {users?.map((user) => {
+          const isMe = ownerId === user.id;
+          const href = isMe ? ROUTES.myProfile(ownerId) : ROUTES.userProfile(user.userName);
+
+          return (
+            <div key={user.id} className={s.userCard}>
+              <Avatar size="medium" src={user?.avatars?.[0]?.url} />
+              <div className={s.userInfo}>
+                <Link href={href} className={s.userLink}>
+                  <Typography variant="bold_14" className={s.userName}>
+                    {user.userName}
+                  </Typography>
+                </Link>
+                <Typography variant="regular_14" color="dark">
+                  {user.firstName} {user.lastName}
                 </Typography>
-              </Link>
-              <Typography variant="regular_14" color="dark">
-                {user.firstName} {user.lastName}
-              </Typography>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {isFetching && <Typography>Loading...</Typography>}
 
