@@ -1,10 +1,10 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Avatar, Scroll, TextField, Typography } from "common/components";
 import { useDebounce } from "common/hooks/useDebounce";
 import { useLazyGetUsersQuery, UserItem } from "store/services/api/users";
 import s from "./page.module.css";
-import { DEFAULT_CURSOR_ID, DEFAULT_PAGE_SIZE } from "common/constants/pagination";
+import { DEFAULT_PAGE_SIZE } from "common/constants/pagination";
 import Link from "next/link";
 import { ROUTES } from "common/constants/routes";
 
@@ -14,15 +14,14 @@ export default function Search() {
 
   const [trigger, { isFetching }] = useLazyGetUsersQuery();
   const [users, setUsers] = useState<UserItem[]>([]);
-
-  const [cursor, setCursor] = useState<number | null>(0);
-  const [hasMore, setHasMore] = useState(true);
-
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [cursor, setCursor] = useState<number | null>(null);
+  const [hasMore, setHasMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
   const loadUsers = useCallback(
-    async (search: string, cursorToUse?: number) => {
+    async (search: string, cursorToUse: number | null) => {
       if (isLoading) return;
       setIsLoading(true);
 
@@ -30,17 +29,20 @@ export default function Search() {
         const result = await trigger({
           search,
           pageSize: DEFAULT_PAGE_SIZE,
-          cursor: cursorToUse ?? DEFAULT_CURSOR_ID,
+          ...(cursorToUse != null ? { cursor: cursorToUse } : {}),
         });
 
         if ("data" in result) {
           const newUsers = result?.data?.items ?? [];
           const nextCursor = result?.data?.nextCursor ?? null;
 
-          setUsers((prev) => (cursorToUse ? [...prev, ...newUsers] : newUsers));
+          setUsers((prev) => {
+            const merged = cursorToUse != null ? [...prev, ...newUsers] : newUsers;
+            return Array.from(new Map(merged.map((u) => [u.id, u])).values());
+          });
 
           setCursor(nextCursor);
-          setHasMore(Boolean(nextCursor));
+          setHasMore(nextCursor != null);
         }
       } finally {
         setIsLoading(false);
@@ -49,28 +51,41 @@ export default function Search() {
     [trigger]
   );
 
-  const handleScroll = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container || isLoading || !hasMore) return;
-
-    const threshold = 150;
-    const bottomReached = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
-
-    if (bottomReached && cursor !== null) {
-      loadUsers(debouncedSearch, cursor);
-    }
-  }, [cursor, debouncedSearch, hasMore, loadUsers, isLoading]);
-
+  // новый поиск
   useEffect(() => {
     const trimmed = debouncedSearch.trim();
     if (trimmed) {
-      loadUsers(trimmed, 0);
+      setCursor(null);
+      setHasMore(true);
+      setUsers([]);
+      loadUsers(trimmed, null);
     } else {
       setUsers([]);
       setHasMore(false);
       setCursor(null);
     }
   }, [debouncedSearch, loadUsers]);
+
+  // IntersectionObserver для sentinel
+  useEffect(() => {
+    if (!sentinelRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && hasMore && !isLoading && cursor != null) {
+          loadUsers(debouncedSearch, cursor);
+        }
+      },
+      { root: document.querySelector(`.${s.results}`), rootMargin: "0px", threshold: 1.0 }
+    );
+
+    observer.observe(sentinelRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [cursor, debouncedSearch, hasMore, isLoading, loadUsers]);
 
   return (
     <section className={s.search}>
@@ -86,7 +101,7 @@ export default function Search() {
         placeholder="Search users..."
       />
 
-      <Scroll onScroll={handleScroll} ref={scrollContainerRef} className={s.results} viewportClassName={s.results}>
+      <Scroll className={s.results} viewportClassName={s.results}>
         {users?.map((user) => (
           <div key={user.id} className={s.userCard}>
             <Avatar size="medium" src={user?.avatars?.[0]?.url} />
@@ -103,9 +118,11 @@ export default function Search() {
           </div>
         ))}
 
-        {isFetching && <Typography>Loading...</Typography>}
+        {(isFetching || isLoading) && <Typography>Loading...</Typography>}
+        {!isFetching && !isLoading && users?.length === 0 && <Typography>No users found.</Typography>}
 
-        {!isFetching && users?.length === 0 && <Typography>No users found.</Typography>}
+        {/* sentinel внизу списка */}
+        <div ref={sentinelRef} style={{ height: 1 }} />
       </Scroll>
     </section>
   );
