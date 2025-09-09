@@ -51,7 +51,6 @@ export default function Search() {
     [trigger]
   );
 
-  // новый поиск
   useEffect(() => {
     const trimmed = debouncedSearch.trim();
     if (trimmed) {
@@ -66,7 +65,6 @@ export default function Search() {
     }
   }, [debouncedSearch, loadUsers]);
 
-  // IntersectionObserver для sentinel
   useEffect(() => {
     if (!sentinelRef.current) return;
 
@@ -121,7 +119,6 @@ export default function Search() {
         {(isFetching || isLoading) && <Typography>Loading...</Typography>}
         {!isFetching && !isLoading && users?.length === 0 && <Typography>No users found.</Typography>}
 
-        {/* sentinel внизу списка */}
         <div ref={sentinelRef} style={{ height: 1 }} />
       </Scroll>
     </section>
