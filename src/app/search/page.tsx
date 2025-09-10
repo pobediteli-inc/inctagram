@@ -84,8 +84,8 @@ export default function Search() {
     return () => {
       observer.disconnect();
     };
+  }, [cursor, debouncedSearch, hasMore, loadUsers, isLoading, sentinelRef]);
 
-    
   const ownerId = useMeQuery().data?.userId;
 
   return (
@@ -102,20 +102,20 @@ export default function Search() {
         placeholder="Search users..."
       />
 
-
       <Scroll className={s.results} viewportClassName={s.results}>
         {users?.map((user) => {
           const isMe = ownerId === user.id;
           const href = isMe ? ROUTES.myProfile(ownerId) : ROUTES.userProfile(user.userName);
 
           return (
-          <div key={user.id} className={s.userCard}>
-            <Avatar size="medium" src={user?.avatars?.[0]?.url} />
-            <div className={s.userInfo}>
-              <Link href={ROUTES.userProfile(user.userName)} className={s.userLink}>
-                <Typography variant="bold_14" className={s.userName}>
-                  {user.userName}
-                </Typography>
+            <div key={user.id} className={s.userCard}>
+              <Avatar size="medium" src={user?.avatars?.[0]?.url} />
+              <div className={s.userInfo}>
+                <Link href={href} className={s.userLink}>
+                  <Typography variant="bold_14" className={s.userName}>
+                    {user.userName}
+                  </Typography>
+                </Link>
               </div>
             </div>
           );
