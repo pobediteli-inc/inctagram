@@ -12,7 +12,7 @@ export const usersApi = baseApi.injectEndpoints({
         if (search) params.append("search", search);
         if (pageSize) params.append("pageSize", String(pageSize));
         if (pageNumber) params.append("pageNumber", String(pageNumber));
-        if (cursor) params.append("cursor", String(cursor));
+        if (cursor != null) params.append("cursor", String(cursor));
 
         return {
           url: `/v1/users?${params.toString()}`,
