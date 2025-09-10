@@ -7,6 +7,7 @@ import s from "./page.module.css";
 import { DEFAULT_PAGE_SIZE } from "common/constants/pagination";
 import Link from "next/link";
 import { ROUTES } from "common/constants/routes";
+import { useMeQuery } from "store/services/api/auth";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -83,7 +84,9 @@ export default function Search() {
     return () => {
       observer.disconnect();
     };
-  }, [cursor, debouncedSearch, hasMore, isLoading, loadUsers]);
+
+    
+  const ownerId = useMeQuery().data?.userId;
 
   return (
     <section className={s.search}>
@@ -99,8 +102,13 @@ export default function Search() {
         placeholder="Search users..."
       />
 
+
       <Scroll className={s.results} viewportClassName={s.results}>
-        {users?.map((user) => (
+        {users?.map((user) => {
+          const isMe = ownerId === user.id;
+          const href = isMe ? ROUTES.myProfile(ownerId) : ROUTES.userProfile(user.userName);
+
+          return (
           <div key={user.id} className={s.userCard}>
             <Avatar size="medium" src={user?.avatars?.[0]?.url} />
             <div className={s.userInfo}>
@@ -108,13 +116,10 @@ export default function Search() {
                 <Typography variant="bold_14" className={s.userName}>
                   {user.userName}
                 </Typography>
-              </Link>
-              <Typography variant="regular_14" color="dark">
-                {user.firstName} {user.lastName}
-              </Typography>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {(isFetching || isLoading) && <Typography>Loading...</Typography>}
         {!isFetching && !isLoading && users?.length === 0 && <Typography>No users found.</Typography>}
