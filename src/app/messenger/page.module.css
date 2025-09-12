@@ -1,9 +1,242 @@
-.messenger {
-  width: 1060px;
+.wrapper {
+  max-width: 1060px;
+  width: 100%;
   min-height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 24px;
   border: 1px solid var(--dark-300);
+}
+
+.friendsListAndChat {
+  width: 100%;
+  max-width: 972px;
+  height: 768px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 14px;
+  border: 1px solid var(--dark-300);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.friendsList {
+  width: 100%;
+  max-width: 270px;
+  height: 100%;
+  background-color: var(--dark-500);
+  border-right: 1px solid var(--dark-300);
+  display: flex;
+  flex-direction: column;
+}
+
+.inputSearchWrapper {
+  width: 100%;
+  height: 72px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-500);
+  border-bottom: 1px solid var(--dark-300);
+}
+
+.inputSearch {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  min-height: 36px !important;
+}
+
+.inputSearch input {
+  background-color: var(--dark-500);
+  border: 1px solid var(--dark-100);
   color: var(--light-100);
+  text-align: start;
+  padding: 12px 12px 12px 40px;
+  height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-700);
+}
+
+.friendName {
+  width: 100%;
+  height: 72px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-500);
+  border-bottom: 1px solid var(--dark-300);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.chatField {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: var(--dark-700);
+  border-bottom: 1px solid var(--dark-300);
+}
+
+.typeMessage {
+  width: 100%;
+  height: 72px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-500);
+}
+
+/* Стили для скроллбара */
+.chatField::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatField::-webkit-scrollbar-track {
+  background: var(--dark-300);
+  border-radius: 3px;
+}
+
+.chatField::-webkit-scrollbar-thumb {
+  background: var(--dark-100);
+  border-radius: 3px;
+}
+
+.chatField::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-100);
+}
+
+.friendsContainer {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.friendItem {
+  height: 72px; /* Фиксированная высота */
+  min-height: 72px; /* Минимальная высота */
+  border-bottom: 1px solid var(--dark-300);
+  display: flex;
+  align-items: center; /* Выравниваем по центру по вертикали */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 12px;
+  box-sizing: border-box; /* Чтобы padding не увеличивал высоту */
+}
+
+.friendItem:hover {
+  background-color: var(--dark-100);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--dark-100);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.friendInfo {
+  flex: 1;
+  margin-right: 12px;
+  min-width: 0;
+  max-width: 150px; /* Ограничиваем ширину контейнера */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.friendInfo p:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.friendInfo p:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--light-900);
+  width: 100%;
+  margin: 0;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.lastMessage {
+  height: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+}
+
+/* Стили для сообщений */
+.myMessage {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.friendMessage {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.messageContent {
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.myMessage .messageContent {
+  background-color: var(--primary-900);
+  margin-left: auto;
+}
+
+.friendMessage .messageContent {
+  background-color: var(--dark-300);
+}
+
+.messageContent p:last-child {
+  font-size: 11px;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.noMessages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.messageContent time {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+  opacity: 0.7;
+  text-align: right;
+  width: 100%;
 }
