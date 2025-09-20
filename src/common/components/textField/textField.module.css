@@ -76,8 +76,9 @@
   border: 2px solid var(--dark-300);
   background-color: transparent;
   border-radius: 6px;
-  transition: border-color 0.2s ease,
-  box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: var(--primary-300);

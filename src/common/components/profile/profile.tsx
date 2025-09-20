@@ -93,10 +93,7 @@ export default function Profile({ isCurrentUser = false, profileData, follow, un
     if (onSendMessage) {
       onSendMessage();
     } else {
-      router.push(ROUTES.messenger);
-
-      // Или если нужно передать параметры (например, ID пользователя)
-      // router.push(`${ROUTES.messenger}?userId=${profileData.id}`);
+      router.push(`${ROUTES.messenger}?userId=${profileData.id}`);
     }
   };
 

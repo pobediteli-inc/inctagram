@@ -1,151 +1,130 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Typography } from "common/components";
+import { useAppDispatch, useAppSelector } from "common/hooks";
+import { useSocket } from "common/hooks/useSocket";
+import { MessageSocket, messengerApi } from "store/services/api/messenger";
+import { authApi } from "store/services/api/auth";
+import { selectIsLoggedIn } from "store/services/slices";
+import { store } from "store/store";
+import { FriendsListAndInput } from "app/messenger/friendsListAndInput/friendsListAndInput";
+import { Chat } from "app/messenger/chat/chat";
 import s from "./page.module.css";
-import { TextField, Typography } from "common/components";
-import React, { useState } from "react";
+import { FriendType } from "store/services/api/messenger/messengerApi.types";
 
 export default function Messenger() {
-  const [selectedFriend, setSelectedFriend] = useState(null);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const searchParams = useSearchParams();
+  const userIdFromQuery = Number(searchParams?.get("userId"));
 
-  const formatTime = (date) => {
-    const now = new Date();
-    const diffTime = now - date;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const { data: meData } = authApi.useMeQuery();
+  const myUserId = meData?.userId ?? null;
 
-    if (diffDays === 0) {
-      return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-    } else if (diffDays < 7) {
-      return date.toLocaleDateString("en-US", { weekday: "short" });
-    } else {
-      return date.toLocaleDateString("en-US", { day: "numeric", month: "short" });
-    }
-  };
+  const [selectedFriend, setSelectedFriend] = useState<FriendType | null>(null);
+  const [searchText, setSearchText] = useState("");
 
-  const formatMessageTime = (date) => {
-    return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
-  };
+  const { data: dialoguesData } = messengerApi.useGetMessagesQuery({}, { skip: !isLoggedIn });
+  const { data: messagesData } = messengerApi.useGetMessagesByUserQuery(
+    { dialoguePartnerId: selectedFriend?.id ?? 0 },
+    { skip: !selectedFriend?.id }
+  );
 
-  const friends = [
-    {
-      id: 1,
-      name: "Alex",
-      lastName: "Johnson",
-      messages: [
-        { text: "Hey, how are you?", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 30) },
-        { text: "I'm good, thanks!", fromMe: true, date: new Date(Date.now() - 1000 * 60 * 25) },
-        { text: "Want to meet tomorrow?", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 20) },
-        {
-          text: "Sure, let's do it! Very long text very very long very very long very very long",
-          fromMe: true,
-          date: new Date(Date.now() - 1000 * 60 * 15),
-        },
-      ],
+  const socket = useSocket({ isLoggedIn, myUserId });
+
+  // Обновление кеша
+  const updateCacheWithMessageAction = useCallback(
+    (msg: MessageSocket) => {
+      if (!myUserId) return;
+      const friendId = msg.receiverId === myUserId ? msg.ownerId : msg.receiverId;
+
+      const cache = messengerApi.endpoints.getMessagesByUser.select({ dialoguePartnerId: friendId })(store.getState());
+      if (cache?.data) {
+        dispatch(
+          messengerApi.util.updateQueryData("getMessagesByUser", { dialoguePartnerId: friendId }, (draft) => {
+            if (!draft.items.find((m) => m.id === msg.id)) {
+              draft.items.push(msg);
+              draft.totalCount += 1;
+              draft.notReadCount += msg.ownerId !== myUserId ? 1 : 0;
+            }
+          })
+        );
+      } else {
+        dispatch(
+          messengerApi.util.upsertQueryData(
+            "getMessagesByUser",
+            { dialoguePartnerId: friendId },
+            {
+              totalCount: 1,
+              pageSize: 12,
+              notReadCount: msg.ownerId !== myUserId ? 1 : 0,
+              items: [msg],
+            }
+          )
+        );
+      }
+      dispatch(messengerApi.util.invalidateTags(["Messenger"]));
     },
-    {
-      id: 2,
-      name: "Maria",
-      lastName: "Smith",
-      messages: [
-        { text: "Can you help me with the project?", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 60 * 3) },
-        { text: "Of course, what do you need?", fromMe: true, date: new Date(Date.now() - 1000 * 60 * 60 * 2) },
-        { text: "I need help with React components", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 60 * 1) },
-        { text: "I'll send you some examples", fromMe: true, date: new Date(Date.now() - 1000 * 60 * 30) },
-      ],
-    },
-    {
-      id: 3,
-      name: "John",
-      lastName: "Wilson",
-      messages: [
-        { text: "How was your weekend?", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2) },
-        { text: "It was great! Went hiking", fromMe: true, date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1) },
-        { text: "Sounds amazing!", fromMe: false, date: new Date(Date.now() - 1000 * 60 * 60 * 20) },
-        { text: "You should join next time", fromMe: true, date: new Date(Date.now() - 1000 * 60 * 60 * 18) },
-      ],
-    },
-  ];
+    [dispatch, myUserId]
+  );
 
-  const getLastMessagePreview = (messages) => {
-    const lastMessage = messages[messages.length - 1];
-    return lastMessage.fromMe ? `You: ${lastMessage.text}` : lastMessage.text;
-  };
+  // Установка друга из URL
+  useEffect(() => {
+    if (!myUserId || !isLoggedIn || !userIdFromQuery || !dialoguesData?.items?.length) return;
 
-  const handleFriendClick = (friend) => {
+    const dialogue = dialoguesData.items.find(
+      (d) =>
+        (d.ownerId === userIdFromQuery && d.receiverId === myUserId) ||
+        (d.receiverId === userIdFromQuery && d.ownerId === myUserId)
+    );
+
+    if (!dialogue) return;
+
+    setSelectedFriend({
+      id: userIdFromQuery,
+      name: dialogue.userName || "Unknown",
+      avatarUrl: dialogue.avatars?.[0]?.url,
+    });
+  }, [myUserId, isLoggedIn, userIdFromQuery, dialoguesData]);
+
+  // Новый selectFriend, принимает объект FriendType
+  const selectFriend = (friend: FriendType) => {
+    router.push(`/messenger?userId=${friend.id}`);
     setSelectedFriend(friend);
   };
 
+  const uniqueDialogues = dialoguesData?.items?.filter(
+    (v, i, a) =>
+      a.findIndex(
+        (d) =>
+          (d.ownerId === v.ownerId && d.receiverId === v.receiverId) ||
+          (d.ownerId === v.receiverId && d.receiverId === v.ownerId)
+      ) === i
+  );
+
   return (
     <div className={s.wrapper}>
-      <Typography variant={"h1"}>Messenger</Typography>
+      <Typography variant="h1">Messenger</Typography>
       <div className={s.friendsListAndChat}>
-        <div className={s.friendsList}>
-          <div className={s.inputSearchWrapper}>
-            <TextField type="search" className={s.inputSearch} placeholder="Input search" />
-          </div>
-          <div className={s.friendsContainer}>
-            {friends.map((friend) => (
-              <div key={friend.id} className={s.friendItem} onClick={() => handleFriendClick(friend)}>
-                <div className={s.avatar}></div>
-                <div className={s.friendInfo}>
-                  <Typography variant={"regular_16"}>
-                    {friend.name} {friend.lastName}
-                  </Typography>
-                  <Typography variant={"small"} color={"light"} className={s.lastMessage}>
-                    {getLastMessagePreview(friend.messages)}
-                  </Typography>
-                </div>
-                <Typography variant={"small"} color={"light"}>
-                  {formatTime(friend.messages[friend.messages.length - 1].date)}
-                </Typography>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={s.chat}>
-          <div className={s.friendName}>
-            {selectedFriend ? (
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div className={s.avatar}></div>
-                <Typography variant={"h3"}>
-                  {selectedFriend.name} {selectedFriend.lastName}
-                </Typography>
-              </div>
-            ) : (
-              <Typography variant={"h3"}>Select a friend</Typography>
-            )}
-          </div>
-
-          <div className={s.chatField}>
-            {selectedFriend ? (
-              selectedFriend.messages.map((message, index) => (
-                <div key={index} className={message.fromMe ? s.myMessage : s.friendMessage}>
-                  <div className={s.messageContent}>
-                    <Typography variant={"regular_14"}>{message.text}</Typography>
-                    <Typography variant={"small"} color={"light"} component="time">
-                      {formatMessageTime(message.date)}
-                    </Typography>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className={s.noMessages}>
-                <Typography variant={"regular_14"} color={"light"}>
-                  Select a friend to start conversation
-                </Typography>
-              </div>
-            )}
-          </div>
-
-          <div className={s.typeMessage}>
-            <TextField
-              type="text"
-              placeholder="Type a message..."
-              className={s.messageInput}
-              disabled={!selectedFriend}
-            />
-          </div>
-        </div>
+        <FriendsListAndInput
+          dialogues={uniqueDialogues}
+          myUserId={myUserId}
+          selectedFriendId={selectedFriend?.id ?? null}
+          searchText={searchText}
+          setSearchTextAction={setSearchText}
+          onSelectFriendAction={selectFriend}
+        />
+        <Chat
+          myUserId={myUserId}
+          selectedFriend={selectedFriend}
+          messagesData={messagesData}
+          meData={meData}
+          socket={socket}
+          updateCacheWithMessageAction={updateCacheWithMessageAction}
+        />
       </div>
     </div>
   );
