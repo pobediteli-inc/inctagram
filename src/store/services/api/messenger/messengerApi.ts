@@ -1,3 +1,4 @@
+// store/services/api/messenger/messengerApi.ts
 import { baseApi } from "../baseApi/baseApi";
 import { handleErrors } from "common/utils/handleErrors";
 import { AppDispatch } from "store/store";
@@ -6,27 +7,25 @@ import {
   GetMessagesRequest,
   MessagesResponse,
   UpdateMessageStatusRequest,
+  MessageSocket,
 } from "store/services/api/messenger";
+import { sortMessages } from "common/utils/sortMessages";
 
 export const messengerApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMessages: build.query<MessagesResponse, GetMessagesRequest>({
       query: ({ cursor, pageSize, searchName }) => {
         const queryParams = new URLSearchParams();
-
         if (cursor !== undefined) queryParams.append("cursor", cursor.toString());
         if (pageSize !== undefined) queryParams.append("pageSize", pageSize.toString());
         if (searchName) queryParams.append("searchName", searchName);
-
         const queryString = queryParams.toString();
-        return {
-          url: `/v1/messenger${queryString ? `?${queryString}` : ""}`,
-          method: "GET",
-        };
+        return { url: `/v1/messenger${queryString ? `?${queryString}` : ""}`, method: "GET" };
       },
       transformResponse: (response: MessagesResponse): MessagesResponse => ({
         ...response,
-        notReadCount: response.notReadCount ?? 0, // ✅ гарантируем число
+        notReadCount: response.notReadCount ?? 0,
+        items: sortMessages(response.items ?? []),
       }),
       providesTags: (result) =>
         result
@@ -40,11 +39,9 @@ export const messengerApi = baseApi.injectEndpoints({
     getMessagesByUser: build.query<MessagesResponse, GetMessagesByUserRequest>({
       query: ({ dialoguePartnerId, cursor, pageSize, searchName }) => {
         const queryParams = new URLSearchParams();
-
         if (cursor !== undefined) queryParams.append("cursor", cursor.toString());
         if (pageSize !== undefined) queryParams.append("pageSize", pageSize.toString());
         if (searchName) queryParams.append("searchName", searchName);
-
         const queryString = queryParams.toString();
         return {
           url: `/v1/messenger/${dialoguePartnerId}${queryString ? `?${queryString}` : ""}`,
@@ -53,7 +50,8 @@ export const messengerApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: MessagesResponse): MessagesResponse => ({
         ...response,
-        notReadCount: response.notReadCount ?? 0, // ✅ всегда возвращаем число
+        notReadCount: response.notReadCount ?? 0,
+        items: sortMessages(response.items ?? []),
       }),
       providesTags: (result, error, { dialoguePartnerId }) =>
         result
@@ -68,11 +66,7 @@ export const messengerApi = baseApi.injectEndpoints({
     }),
 
     updateMessageStatus: build.mutation<void, UpdateMessageStatusRequest>({
-      query: (args) => ({
-        body: { ids: args.ids },
-        method: "PUT",
-        url: "/v1/messenger",
-      }),
+      query: (args) => ({ url: "/v1/messenger", method: "PUT", body: { ids: args.ids } }),
       invalidatesTags: ["Messenger", "MessengerMessage"],
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
@@ -84,10 +78,7 @@ export const messengerApi = baseApi.injectEndpoints({
     }),
 
     deleteMessage: build.mutation<void, number>({
-      query: (id) => ({
-        url: `/v1/messenger/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => ({ url: `/v1/messenger/${id}`, method: "DELETE" }),
       invalidatesTags: (result, error, id) => [
         { type: "MessengerMessage", id },
         { type: "Messenger", id: "LIST" },

@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { MessageSocket } from "store/services/api/messenger";
-import s from "./friendItem.module.css";
 import { useGetPublicUserProfileQuery } from "store/services/api/publicUser/publicUserApi";
+import { MessageSocket } from "store/services/api/messenger";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
+import { Typography } from "common/components";
+import s from "./friendItem.module.css";
 
 type Props = {
   dialogue: MessageSocket;
@@ -26,7 +27,6 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
     ? new Date(dialogue.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : "";
 
-  // Передаем объект FriendType
   const handleClick = () => {
     onSelectFriendAction({
       id: friendId,
@@ -37,7 +37,7 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
 
   return (
     <div className={`${s.friendItem} ${selectedFriendId === friendId ? s.selected : ""}`} onClick={handleClick}>
-      <div className={`${s.avatar} ${friendAvatar ? "online" : ""}`}>
+      <div className={s.avatar}>
         {friendAvatar && (
           <Image
             src={friendAvatar}
@@ -49,11 +49,19 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
           />
         )}
       </div>
+
       <div className={s.friendInfo}>
-        <p className={s.friendNameText}>{friendName}</p>
-        <p className={s.lastMessageText}>{lastMessage}</p>
+        <Typography variant="regular_14" className={s.friendNameText}>
+          {friendName}
+        </Typography>
+        <Typography variant="small" className={s.lastMessageText}>
+          {lastMessage}
+        </Typography>
       </div>
-      <div className={s.messageTime}>{lastMessageTime}</div>
+
+      <Typography variant="small" className={s.messageTime}>
+        {lastMessageTime}
+      </Typography>
     </div>
   );
 };

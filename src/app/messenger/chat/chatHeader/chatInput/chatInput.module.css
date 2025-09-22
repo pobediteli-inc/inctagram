@@ -1,0 +1,67 @@
+.typeMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.textareaMessage {
+  flex: 1;
+  min-height: 48px;
+  max-height: 120px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: var(--dark-700);
+  color: var(--light-100);
+  resize: none;
+  font-size: 14px;
+  line-height: 1.4;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-100) var(--dark-500);
+}
+
+.textareaMessage::-webkit-scrollbar {
+  width: 6px;
+}
+
+.textareaMessage::-webkit-scrollbar-track {
+  background: var(--dark-500);
+  border-radius: 3px;
+}
+
+.textareaMessage::-webkit-scrollbar-thumb {
+  background: var(--dark-100);
+  border-radius: 3px;
+}
+
+.textareaMessage::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-500);
+}
+
+.messageCounter {
+  text-align: right;
+  padding: 0 6px 6px 0;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.messageCounter.error {
+  color: var(--danger-500);
+}
+
+.sendButton {
+  height: 48px;
+  width: 100%;
+  max-width: 162px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}

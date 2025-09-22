@@ -4,7 +4,6 @@ import { TextField } from "common/components";
 import { FriendItem } from "app/messenger/friendItem/friendItem";
 import { MessageSocket } from "store/services/api/messenger";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
-
 import s from "./friendsListAndInput.module.css";
 
 type Props = {
@@ -24,7 +23,10 @@ export const FriendsListAndInput = ({
   setSearchTextAction,
   onSelectFriendAction,
 }: Props) => {
-  const filteredDialogues = dialogues?.filter((d) => d.userName?.toLowerCase().includes(searchText.toLowerCase()));
+  // Фильтруем по поиску и сортируем по дате последнего сообщения
+  const filteredDialogues = dialogues
+    ?.filter((d) => d.userName?.toLowerCase().includes(searchText.toLowerCase()))
+    ?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   return (
     <div className={s.friendsList}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Typography } from "common/components";
 import { useAppDispatch, useAppSelector } from "common/hooks";
@@ -11,8 +11,9 @@ import { selectIsLoggedIn } from "store/services/slices";
 import { store } from "store/store";
 import { FriendsListAndInput } from "app/messenger/friendsListAndInput/friendsListAndInput";
 import { Chat } from "app/messenger/chat/chat";
-import s from "./page.module.css";
+import { sortMessages } from "common/utils";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
+import s from "./page.module.css";
 
 export default function Messenger() {
   const dispatch = useAppDispatch();
@@ -35,18 +36,19 @@ export default function Messenger() {
 
   const socket = useSocket({ isLoggedIn, myUserId });
 
-  // Обновление кеша
   const updateCacheWithMessageAction = useCallback(
     (msg: MessageSocket) => {
       if (!myUserId) return;
-      const friendId = msg.receiverId === myUserId ? msg.ownerId : msg.receiverId;
 
+      const friendId = msg.receiverId === myUserId ? msg.ownerId : msg.receiverId;
       const cache = messengerApi.endpoints.getMessagesByUser.select({ dialoguePartnerId: friendId })(store.getState());
+
       if (cache?.data) {
         dispatch(
           messengerApi.util.updateQueryData("getMessagesByUser", { dialoguePartnerId: friendId }, (draft) => {
             if (!draft.items.find((m) => m.id === msg.id)) {
               draft.items.push(msg);
+              sortMessages(draft.items);
               draft.totalCount += 1;
               draft.notReadCount += msg.ownerId !== myUserId ? 1 : 0;
             }
@@ -66,6 +68,7 @@ export default function Messenger() {
           )
         );
       }
+
       dispatch(messengerApi.util.invalidateTags(["Messenger"]));
     },
     [dispatch, myUserId]
@@ -90,20 +93,20 @@ export default function Messenger() {
     });
   }, [myUserId, isLoggedIn, userIdFromQuery, dialoguesData]);
 
-  // Новый selectFriend, принимает объект FriendType
   const selectFriend = (friend: FriendType) => {
     router.push(`/messenger?userId=${friend.id}`);
     setSelectedFriend(friend);
   };
 
-  const uniqueDialogues = dialoguesData?.items?.filter(
-    (v, i, a) =>
-      a.findIndex(
-        (d) =>
-          (d.ownerId === v.ownerId && d.receiverId === v.receiverId) ||
-          (d.ownerId === v.receiverId && d.receiverId === v.ownerId)
-      ) === i
-  );
+  const uniqueDialogues = useMemo(() => {
+    if (!dialoguesData?.items?.length) return [];
+    const map = new Map<string, (typeof dialoguesData.items)[0]>();
+    dialoguesData.items.forEach((d) => {
+      const key = [d.ownerId, d.receiverId].sort().join("-");
+      if (!map.has(key)) map.set(key, d);
+    });
+    return Array.from(map.values());
+  }, [dialoguesData?.items]);
 
   return (
     <div className={s.wrapper}>

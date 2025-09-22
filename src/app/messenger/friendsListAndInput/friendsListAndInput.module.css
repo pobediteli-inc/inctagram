@@ -4,6 +4,8 @@
   align-items: center;
   padding: 16px 0 0;
   max-height: 72px;
+  border-bottom: 1px solid var(--dark-300);
+  box-sizing: border-box;
 }
 
 .inputSearchFriend {
