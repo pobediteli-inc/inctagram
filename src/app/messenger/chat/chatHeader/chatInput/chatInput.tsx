@@ -1,8 +1,8 @@
 "use client";
 
 import { ChangeEvent, KeyboardEvent } from "react";
-import s from "./chatInput.module.css";
 import { Button, Textarea, Typography } from "common/components";
+import s from "./chatInput.module.css";
 
 type Props = {
   messageText: string;

@@ -1,16 +1,16 @@
 .wrapper {
-  max-width: 1060px;
   width: 100%;
+  max-width: 1060px;
   display: flex;
   flex-direction: column;
   padding: 24px;
 }
 
 .friendsListAndChat {
-  display: flex;
   width: 100%;
   max-width: 972px;
   height: 648px;
+  display: flex;
   margin-top: 14px;
   border: 1px solid var(--dark-300);
   border-radius: 2px;

@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Socket } from "socket.io-client";
+import { WS_EVENT_PATH } from "common/enums/enums";
 import { MessageSocket } from "store/services/api/messenger";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
-import { WS_EVENT_PATH } from "common/enums/enums";
 import { useGetMessagesByUserQuery } from "store/services/api/messenger/messengerApi";
-import s from "./chat.module.css";
 import { ChatHeader } from "app/messenger/chat/chatHeader/chatHeader/chatHeader";
 import { ChatMessage } from "app/messenger/chat/chatHeader/chatMessage/chatMessage";
 import { ChatInput } from "app/messenger/chat/chatHeader/chatInput/chatInput";
+import s from "./chat.module.css";
 
 type Props = {
   myUserId: number | null;

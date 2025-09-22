@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { Typography } from "common/components";
 import { useGetPublicUserProfileQuery } from "store/services/api/publicUser/publicUserApi";
 import { MessageSocket } from "store/services/api/messenger";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
-import { Typography } from "common/components";
 import s from "./friendItem.module.css";
 
 type Props = {
@@ -20,9 +20,9 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
   const { data: friendProfile } = useGetPublicUserProfileQuery({ profileId: friendId });
 
   const friendName = friendProfile?.userName ?? dialogue.userName ?? "Unknown";
-  const friendAvatar = friendProfile?.avatars?.[0]?.url ?? dialogue.avatars?.[0]?.url;
+  const friendAvatar = friendProfile?.avatars?.[0]?.url ?? dialogue.avatars?.[0]?.url ?? "";
 
-  const lastMessage = dialogue.messageText;
+  const lastMessage = dialogue.messageText ?? "";
   const lastMessageTime = dialogue.createdAt
     ? new Date(dialogue.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : "";
@@ -43,8 +43,8 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
             src={friendAvatar}
             alt={`${friendName} avatar`}
             className={s.avatarImg}
-            width={50}
-            height={50}
+            width={48}
+            height={48}
             priority={false}
           />
         )}
@@ -59,9 +59,11 @@ export const FriendItem = ({ dialogue, myUserId, selectedFriendId, onSelectFrien
         </Typography>
       </div>
 
-      <Typography variant="small" className={s.messageTime}>
-        {lastMessageTime}
-      </Typography>
+      {lastMessageTime && (
+        <Typography variant="small" className={s.messageTime}>
+          {lastMessageTime}
+        </Typography>
+      )}
     </div>
   );
 };

@@ -2,16 +2,16 @@
 
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Typography } from "common/components";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { useSocket } from "common/hooks/useSocket";
-import { MessageSocket, messengerApi } from "store/services/api/messenger";
-import { authApi } from "store/services/api/auth";
-import { selectIsLoggedIn } from "store/services/slices";
-import { store } from "store/store";
+import { sortMessages } from "common/utils";
+import { Typography } from "common/components";
 import { FriendsListAndInput } from "app/messenger/friendsListAndInput/friendsListAndInput";
 import { Chat } from "app/messenger/chat/chat";
-import { sortMessages } from "common/utils";
+import { store } from "store/store";
+import { selectIsLoggedIn } from "store/services/slices";
+import { authApi } from "store/services/api/auth";
+import { messengerApi, MessageSocket } from "store/services/api/messenger";
 import { FriendType } from "store/services/api/messenger/messengerApi.types";
 import s from "./page.module.css";
 
@@ -29,10 +29,6 @@ export default function Messenger() {
   const [searchText, setSearchText] = useState("");
 
   const { data: dialoguesData } = messengerApi.useGetMessagesQuery({}, { skip: !isLoggedIn });
-  const { data: messagesData } = messengerApi.useGetMessagesByUserQuery(
-    { dialoguePartnerId: selectedFriend?.id ?? 0 },
-    { skip: !selectedFriend?.id }
-  );
 
   const socket = useSocket({ isLoggedIn, myUserId });
 
@@ -106,7 +102,7 @@ export default function Messenger() {
       if (!map.has(key)) map.set(key, d);
     });
     return Array.from(map.values());
-  }, [dialoguesData?.items]);
+  }, [dialoguesData]);
 
   return (
     <div className={s.wrapper}>
@@ -123,7 +119,6 @@ export default function Messenger() {
         <Chat
           myUserId={myUserId}
           selectedFriend={selectedFriend}
-          messagesData={messagesData}
           meData={meData}
           socket={socket}
           updateCacheWithMessageAction={updateCacheWithMessageAction}

@@ -17,11 +17,11 @@
 .avatar {
   width: 48px;
   height: 48px;
+  flex-shrink: 0;
   border-radius: 50%;
   background-color: var(--dark-300);
   margin-right: 12px;
   position: relative;
-  flex-shrink: 0;
   overflow: hidden;
 }
 
@@ -36,9 +36,9 @@
   flex: 1;
   min-width: 0;
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -55,5 +55,4 @@
 
 .messageTime {
   color: var(--light-900);
-  flex-shrink: 0;
 }

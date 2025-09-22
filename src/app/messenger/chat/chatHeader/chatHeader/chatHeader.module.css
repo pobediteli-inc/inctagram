@@ -1,14 +1,14 @@
 .friendName {
   display: flex;
   align-items: center;
-  padding: 0 24px;
   height: 72px;
+  padding: 0 24px;
   background-color: var(--dark-500);
   border-bottom: 1px solid var(--dark-300);
+  color: var(--light-100);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--light-100);
 }
 
 .friendAvatar {
