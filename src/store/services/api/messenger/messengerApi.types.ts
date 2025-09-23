@@ -38,12 +38,6 @@ export type UpdateMessageStatusRequest = {
   ids: number[];
 };
 
-export type ReceiveMessageResponse = {
-  success: boolean;
-  message?: MessageSocket;
-  error?: string;
-};
-
 export type FriendType = {
   id: number;
   name: string;

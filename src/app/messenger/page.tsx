@@ -20,8 +20,8 @@ export default function Messenger() {
   const router = useRouter();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const searchParams = useSearchParams();
-  const userIdFromQuery = Number(searchParams?.get("userId"));
 
+  const userIdFromQuery = Number(searchParams?.get("userId"));
   const { data: meData } = authApi.useMeQuery();
   const myUserId = meData?.userId ?? null;
 
@@ -29,24 +29,27 @@ export default function Messenger() {
   const [searchText, setSearchText] = useState("");
 
   const { data: dialoguesData } = messengerApi.useGetMessagesQuery({}, { skip: !isLoggedIn });
-
   const socket = useSocket({ isLoggedIn, myUserId });
 
+  /** Обновляем кэш при приходе нового сообщения */
   const updateCacheWithMessageAction = useCallback(
-    (msg: MessageSocket) => {
-      if (!myUserId) return;
+    (msg?: MessageSocket) => {
+      if (!msg || !myUserId) return;
 
-      const friendId = msg.receiverId === myUserId ? msg.ownerId : msg.receiverId;
+      const { receiverId, ownerId, id } = msg;
+      if (!receiverId || !ownerId || !id) return;
+
+      const friendId = receiverId === myUserId ? ownerId : receiverId;
       const cache = messengerApi.endpoints.getMessagesByUser.select({ dialoguePartnerId: friendId })(store.getState());
 
       if (cache?.data) {
         dispatch(
           messengerApi.util.updateQueryData("getMessagesByUser", { dialoguePartnerId: friendId }, (draft) => {
-            if (!draft.items.find((m) => m.id === msg.id)) {
+            if (!draft.items.some((m) => m.id === id)) {
               draft.items.push(msg);
               sortMessages(draft.items);
-              draft.totalCount += 1;
-              draft.notReadCount += msg.ownerId !== myUserId ? 1 : 0;
+              draft.totalCount++;
+              if (ownerId !== myUserId) draft.notReadCount++;
             }
           })
         );
@@ -58,7 +61,7 @@ export default function Messenger() {
             {
               totalCount: 1,
               pageSize: 12,
-              notReadCount: msg.ownerId !== myUserId ? 1 : 0,
+              notReadCount: ownerId !== myUserId ? 1 : 0,
               items: [msg],
             }
           )
@@ -70,39 +73,43 @@ export default function Messenger() {
     [dispatch, myUserId]
   );
 
-  // Установка друга из URL
+  /** Устанавливаем выбранного друга по userId из URL */
   useEffect(() => {
-    if (!myUserId || !isLoggedIn || !userIdFromQuery || !dialoguesData?.items?.length) return;
+    if (!myUserId || !isLoggedIn || !userIdFromQuery) return;
 
-    const dialogue = dialoguesData.items.find(
+    const dialogue = dialoguesData?.items?.find(
       (d) =>
         (d.ownerId === userIdFromQuery && d.receiverId === myUserId) ||
         (d.receiverId === userIdFromQuery && d.ownerId === myUserId)
     );
 
-    if (!dialogue) return;
-
-    setSelectedFriend({
-      id: userIdFromQuery,
-      name: dialogue.userName || "Unknown",
-      avatarUrl: dialogue.avatars?.[0]?.url,
-    });
+    if (dialogue) {
+      setSelectedFriend({
+        id: userIdFromQuery,
+        name: dialogue.userName ?? "Unknown",
+        avatarUrl: dialogue.avatars?.[0]?.url,
+      });
+    }
   }, [myUserId, isLoggedIn, userIdFromQuery, dialoguesData]);
 
-  const selectFriend = (friend: FriendType) => {
-    router.push(`/messenger?userId=${friend.id}`);
-    setSelectedFriend(friend);
-  };
-
+  /** Убираем дубликаты диалогов */
   const uniqueDialogues = useMemo(() => {
-    if (!dialoguesData?.items?.length) return [];
-    const map = new Map<string, (typeof dialoguesData.items)[0]>();
+    if (!dialoguesData?.items) return [];
+    const map = new Map<string, (typeof dialoguesData.items)[number]>();
     dialoguesData.items.forEach((d) => {
       const key = [d.ownerId, d.receiverId].sort().join("-");
       if (!map.has(key)) map.set(key, d);
     });
-    return Array.from(map.values());
+    return [...map.values()];
   }, [dialoguesData]);
+
+  const selectFriend = useCallback(
+    (friend: FriendType) => {
+      router.push(`/messenger?userId=${friend.id}`);
+      setSelectedFriend(friend);
+    },
+    [router]
+  );
 
   return (
     <div className={s.wrapper}>

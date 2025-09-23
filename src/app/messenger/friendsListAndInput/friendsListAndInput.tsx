@@ -23,7 +23,7 @@ export const FriendsListAndInput = ({
   setSearchTextAction,
   onSelectFriendAction,
 }: Props) => {
-  // Фильтруем по поиску и сортируем по дате последнего сообщения
+  /** Фильтруем по поиску и сортируем по дате последнего сообщения */
   const filteredDialogues = dialogues
     ?.filter((d) => d.userName?.toLowerCase().includes(searchText.toLowerCase()))
     ?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());

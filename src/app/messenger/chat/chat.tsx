@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Socket } from "socket.io-client";
 import { WS_EVENT_PATH } from "common/enums/enums";
 import { MessageSocket } from "store/services/api/messenger";
@@ -24,62 +24,75 @@ const MAX_MESSAGE_LENGTH = 500;
 export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWithMessageAction }: Props) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messageText, setMessageText] = useState("");
-  const prevFriendRef = useRef<number | null>(null);
+  const prevFriendId = useRef<number | null>(null);
 
-  // Получаем сообщения из RTK Query
+  /** Сообщения диалога */
   const { data: messagesData, refetch } = useGetMessagesByUserQuery(
     { dialoguePartnerId: selectedFriend?.id ?? 0 },
     { skip: !selectedFriend }
   );
 
-  // Автоскролл с учетом смены диалога
+  /** Автоскролл при загрузке / смене собеседника */
   useEffect(() => {
     if (!selectedFriend) return;
-
-    if (prevFriendRef.current !== selectedFriend.id) {
-      // Переключение на нового друга — сразу в самый низ без анимации
-      messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
-      prevFriendRef.current = selectedFriend.id;
-    } else {
-      // Новое сообщение — плавный скролл
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    messagesEndRef.current?.scrollIntoView({
+      behavior: prevFriendId.current === selectedFriend.id ? "smooth" : "auto",
+    });
+    prevFriendId.current = selectedFriend.id;
   }, [messagesData?.items, selectedFriend]);
 
-  // Подписка на сокет
+  /** Проверка релевантности сообщения / относится ли оно к текущему диалогу*/
+  const isRelevant = useCallback(
+    (msg: MessageSocket) =>
+      myUserId &&
+      selectedFriend &&
+      [msg.ownerId, msg.receiverId].includes(selectedFriend.id) &&
+      [msg.ownerId, msg.receiverId].includes(myUserId),
+    [selectedFriend, myUserId]
+  );
+
+  /** Подписка на сокет */
   useEffect(() => {
-    if (!socket || !myUserId) return;
+    if (!socket || !myUserId || !selectedFriend) return;
 
-    const handleMessageUpdate = (message: MessageSocket) => {
-      updateCacheWithMessageAction(message);
+    const handleReceive = (msg: MessageSocket) => {
+      if (!isRelevant(msg)) return;
+      updateCacheWithMessageAction(msg);
 
-      if (message.receiverId === myUserId && message.status === "SENT") {
+      if (msg.receiverId === myUserId && msg.status === "SENT") {
         socket.emit(WS_EVENT_PATH.MESSAGE_SEND, {
-          message: message.messageText,
-          receiverId: message.ownerId,
+          message: msg.messageText,
+          receiverId: msg.ownerId,
         });
       }
     };
 
-    socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, handleMessageUpdate);
-    socket.on(WS_EVENT_PATH.UPDATE_MESSAGE, handleMessageUpdate);
+    const handleAck = (data: { message: MessageSocket; receiverId: number }) =>
+      data.receiverId === myUserId && updateCacheWithMessageAction(data.message);
+
+    socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, handleReceive);
+    socket.on(WS_EVENT_PATH.MESSAGE_SEND, handleAck);
+    socket.on(WS_EVENT_PATH.UPDATE_MESSAGE, handleReceive);
 
     return () => {
-      socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, handleMessageUpdate);
-      socket.off(WS_EVENT_PATH.UPDATE_MESSAGE, handleMessageUpdate);
+      socket.off(WS_EVENT_PATH.RECEIVE_MESSAGE, handleReceive);
+      socket.off(WS_EVENT_PATH.MESSAGE_SEND, handleAck);
+      socket.off(WS_EVENT_PATH.UPDATE_MESSAGE, handleReceive);
     };
-  }, [socket, myUserId, updateCacheWithMessageAction]);
+  }, [socket, myUserId, selectedFriend, updateCacheWithMessageAction, isRelevant]);
 
-  const handleSendMessage = () => {
+  /** Отправка сообщения */
+  const handleSendMessage = useCallback(() => {
     if (!socket || !selectedFriend || !messageText.trim() || !myUserId) return;
 
-    const tempMessage: MessageSocket = {
+    const now = new Date().toISOString();
+    updateCacheWithMessageAction({
       id: Date.now(),
       ownerId: myUserId,
       receiverId: selectedFriend.id,
       messageText,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: now,
+      updatedAt: now,
       messageType: "TEXT",
       status: "SENT",
       userName: meData?.userName ?? "Me",
@@ -89,17 +102,18 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
           width: 50,
           height: 50,
           fileSize: 0,
-          createdAt: new Date().toISOString(),
+          createdAt: now,
         })) ?? [],
-    };
+    });
 
-    socket.emit("receive-message", { message: messageText, receiverId: selectedFriend.id });
-    updateCacheWithMessageAction(tempMessage);
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, {
+      message: messageText,
+      receiverId: selectedFriend.id,
+    });
+
     setMessageText("");
-
-    // Обновляем данные через RTK Query после отправки
     refetch();
-  };
+  }, [socket, selectedFriend, messageText, myUserId, meData, updateCacheWithMessageAction, refetch]);
 
   return (
     <div className={s.chat}>

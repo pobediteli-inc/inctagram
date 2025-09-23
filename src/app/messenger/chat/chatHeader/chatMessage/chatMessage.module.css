@@ -19,14 +19,12 @@
 .myMessage,
 .friendMessage {
   display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .myMessage {
-  justify-content: flex-start;
-}
-
-.friendMessage {
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .messageContent {
@@ -34,35 +32,28 @@
   padding: 10px 14px;
   border-radius: 8px;
   position: relative;
-  animation: fadeInUp 0.3s ease;
   word-break: auto-phrase;
+  animation: fadeInUp 0.3s ease;
 }
 
 .myMessage .messageContent {
   background-color: var(--primary-900);
-  margin-left: auto;
 }
 
 .friendMessage .messageContent {
   background-color: var(--dark-300);
 }
 
-.friendMessage {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+.messageAvatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
 }
 
 .messageContent time {
   display: block;
   text-align: right;
-}
-
-.messageAvatar {
-  border-radius: 50%;
-  margin-right: 8px;
-  object-fit: cover;
-  align-self: flex-start;
 }
 
 .messageMeta {
@@ -72,9 +63,4 @@
   gap: 6px;
   font-size: 0.75rem;
   color: var(--light-900);
-}
-
-.statusIcon {
-  display: inline-flex;
-  align-items: center;
 }

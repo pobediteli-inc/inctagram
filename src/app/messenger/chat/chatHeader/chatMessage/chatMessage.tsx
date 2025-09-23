@@ -20,11 +20,7 @@ export const ChatMessage = ({ message, isMine, friendAvatarUrl }: Props) => (
       <Typography variant={"regular_14"}>{message.messageText}</Typography>
       <Typography variant={"small"} className={s.messageMeta}>
         <time>{new Date(message.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</time>
-        {isMine && (
-          <span className={s.statusIcon}>
-            {message.status === "SENT" ? "🕑" : message.status === "DELIVERED" ? "✅" : "👁️"}
-          </span>
-        )}
+        {isMine && <Typography variant={"small"}>{message.status.toLowerCase()}</Typography>}
       </Typography>
     </div>
   </div>
