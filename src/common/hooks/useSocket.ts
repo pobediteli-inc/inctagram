@@ -18,6 +18,7 @@ export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | nu
   const socketRef = useRef<Socket | null>(null);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
   const fetchedNotifications = useRef(false);
+  const [updateMessageStatus] = messengerApi.useUpdateMessageStatusMutation();
 
   useEffect(() => {
     if (!isLoggedIn || !myUserId) return;
@@ -47,8 +48,16 @@ export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | nu
         })
       );
 
+      // Обновляем статус сообщения на сервере при получении
       if (msg.receiverId === myUserId && msg.status === "SENT") {
-        socketRef.current?.emit(WS_EVENT_PATH.MESSAGE_SEND, { message: msg.messageText, receiverId: msg.ownerId });
+        // Отправляем подтверждение получения через сокет
+        socketRef.current?.emit(WS_EVENT_PATH.MESSAGE_SEND, {
+          message: msg.messageText,
+          receiverId: msg.ownerId,
+        });
+
+        // Обновляем статус через API
+        updateMessageStatus({ ids: [msg.id] }).catch(console.error);
       }
     }, 50);
 
@@ -102,7 +111,7 @@ export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | nu
       updateNotifications.cancel();
       disconnectSocket();
     };
-  }, [isLoggedIn, myUserId, dispatch]);
+  }, [isLoggedIn, myUserId, dispatch, updateMessageStatus]);
 
   return socketRef.current;
 };

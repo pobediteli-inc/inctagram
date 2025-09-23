@@ -45,12 +45,17 @@ export default function Messenger() {
       if (cache?.data) {
         dispatch(
           messengerApi.util.updateQueryData("getMessagesByUser", { dialoguePartnerId: friendId }, (draft) => {
-            if (!draft.items.some((m) => m.id === id)) {
+            const existingIndex = draft.items.findIndex((m) => m.id === id);
+            if (existingIndex !== -1) {
+              // Обновляем существующее сообщение
+              draft.items[existingIndex] = msg;
+            } else {
+              // Добавляем новое сообщение
               draft.items.push(msg);
-              sortMessages(draft.items);
-              draft.totalCount++;
-              if (ownerId !== myUserId) draft.notReadCount++;
             }
+            sortMessages(draft.items);
+            draft.totalCount = draft.items.length;
+            draft.notReadCount = draft.items.filter((m) => m.ownerId !== myUserId && m.status !== "READ").length;
           })
         );
       } else {
@@ -61,7 +66,7 @@ export default function Messenger() {
             {
               totalCount: 1,
               pageSize: 12,
-              notReadCount: ownerId !== myUserId ? 1 : 0,
+              notReadCount: ownerId !== myUserId && msg.status !== "READ" ? 1 : 0,
               items: [msg],
             }
           )
