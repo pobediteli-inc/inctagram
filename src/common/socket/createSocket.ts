@@ -15,8 +15,15 @@ export const createSocket = (accessToken: string): Socket => {
   });
 
   socket.on("connect", () => console.log("Socket connected:", socket?.id));
-  socket.on("connect_error", (err) => console.error("Socket connect error:", err.message));
-  socket.on(WS_EVENT_PATH.ERROR, (err) => console.error("Socket error:", err));
+
+  socket.on("connect_error", (err: unknown) => {
+    console.error("Socket connect error:", (err as Error)?.message || err);
+  });
+
+  socket.on(WS_EVENT_PATH.ERROR, (err: unknown) => {
+    console.error("Socket error:", err);
+  });
+
   socket.on("disconnect", (reason) => console.log("Socket disconnected:", reason));
 
   return socket;
