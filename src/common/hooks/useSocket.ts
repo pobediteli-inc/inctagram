@@ -7,14 +7,17 @@ import { SORT_DIRECTIONS, WS_EVENT_PATH } from "common/enums/enums";
 import { debounce } from "lodash";
 import { DEFAULT_NOTIFICATIONS_PAGE_SIZE } from "common/constants/pagination";
 import { Socket } from "socket.io-client";
+import { useAppSelector } from "common/hooks/useAppSelector";
+import { selectIsLoggedIn } from "store/services/slices";
+import { handleErrors } from "common/utils";
 
 type UseSocketProps = {
-  isLoggedIn: boolean | null;
   myUserId: number | null;
 };
 
-export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | null => {
+export const useSocket = ({ myUserId }: UseSocketProps): Socket | null => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const socketRef = useRef<Socket | null>(null);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
   const fetchedNotifications = useRef(false);
@@ -57,7 +60,7 @@ export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | nu
         });
 
         // Обновляем статус через API
-        updateMessageStatus({ ids: [msg.id] }).catch(console.error);
+        updateMessageStatus({ ids: [msg.id] }).catch((err) => handleErrors(err, dispatch));
       }
     }, 50);
 
@@ -106,10 +109,13 @@ export const useSocket = ({ isLoggedIn, myUserId }: UseSocketProps): Socket | nu
       Object.values(WS_EVENT_PATH).forEach((evt) => socketRef.current?.off(evt));
       broadcastRef.current?.removeEventListener("message", handleBroadcast);
       broadcastRef.current?.close();
+      broadcastRef.current = null;
+
       document.removeEventListener("visibilitychange", handleVisibility);
       updateMessages.cancel();
       updateNotifications.cancel();
       disconnectSocket();
+      socketRef.current = null;
     };
   }, [isLoggedIn, myUserId, dispatch, updateMessageStatus]);
 

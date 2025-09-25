@@ -1,7 +1,7 @@
 // app/messenger/chat/chat.tsx
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Socket } from "socket.io-client";
 import { WS_EVENT_PATH } from "common/enums/enums";
 import { MessageSocket } from "store/services/api/messenger";
@@ -11,6 +11,8 @@ import { ChatHeader } from "app/messenger/chat/chatHeader/chatHeader/chatHeader"
 import { ChatMessage } from "app/messenger/chat/chatHeader/chatMessage/chatMessage";
 import { ChatInput } from "app/messenger/chat/chatHeader/chatInput/chatInput";
 import s from "./chat.module.css";
+import { useDispatch } from "react-redux";
+import { handleErrors } from "common/utils";
 
 type Props = {
   myUserId: number | null;
@@ -27,6 +29,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
   const [messageText, setMessageText] = useState("");
   const prevFriendId = useRef<number | null>(null);
   const [updateMessageStatus] = useUpdateMessageStatusMutation();
+  const dispatch = useDispatch();
 
   /** Сообщения диалога */
   const { data: messagesData, refetch } = useGetMessagesByUserQuery(
@@ -64,7 +67,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
       const unreadIds = unreadMessages.map((msg) => msg.id);
 
       // Обновляем статус через API
-      updateMessageStatus({ ids: unreadIds }).catch(console.error);
+      updateMessageStatus({ ids: unreadIds }).catch((err) => handleErrors(err, dispatch));
 
       // Обновляем статус в кэше
       unreadMessages.forEach((msg) => {
@@ -74,7 +77,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
         });
       });
     }
-  }, [selectedFriend, myUserId, messagesData, updateMessageStatus, updateCacheWithMessageAction]);
+  }, [selectedFriend, myUserId, messagesData, updateMessageStatus, updateCacheWithMessageAction, dispatch]);
 
   /** Подписка на сокет */
   useEffect(() => {
@@ -87,7 +90,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
       // Если сообщение адресовано мне и имеет статус SENT - отмечаем как прочитанное
       if (msg.receiverId === myUserId && msg.status === "SENT") {
         // Обновляем статус через API
-        updateMessageStatus({ ids: [msg.id] }).catch(console.error);
+        updateMessageStatus({ ids: [msg.id] }).catch((err) => handleErrors(err, dispatch));
 
         // Отправляем подтверждение через сокет
         socket.emit(WS_EVENT_PATH.MESSAGE_SEND, {
@@ -106,7 +109,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
     const handleAck = (data: { message: MessageSocket; receiverId: number }) => {
       if (data.receiverId === myUserId) {
         // Обновляем статус подтвержденного сообщения
-        updateMessageStatus({ ids: [data.message.id] }).catch(console.error);
+        updateMessageStatus({ ids: [data.message.id] }).catch((err) => handleErrors(err, dispatch));
         updateCacheWithMessageAction({
           ...data.message,
           status: "READ",
@@ -123,7 +126,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
       socket.off(WS_EVENT_PATH.MESSAGE_SEND, handleAck);
       socket.off(WS_EVENT_PATH.UPDATE_MESSAGE, handleReceive);
     };
-  }, [socket, myUserId, selectedFriend, updateCacheWithMessageAction, isRelevant, updateMessageStatus]);
+  }, [socket, myUserId, selectedFriend, updateCacheWithMessageAction, isRelevant, updateMessageStatus, dispatch]);
 
   /** Отправка сообщения */
   const handleSendMessage = useCallback(() => {
@@ -132,7 +135,7 @@ export const Chat = ({ myUserId, selectedFriend, socket, meData, updateCacheWith
     const now = new Date().toISOString();
     const tempMessageId = Date.now();
 
-    // Создаем временное сообщение с статусом SENT
+    // Создаем временное сообщение со статусом SENT
     const tempMessage: MessageSocket = {
       id: tempMessageId,
       ownerId: myUserId,
