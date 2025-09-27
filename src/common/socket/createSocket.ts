@@ -1,36 +1,31 @@
 import { io, Socket } from "socket.io-client";
-import { handleSocketError } from "common/utils/handleSocketError";
 import { WS_EVENT_PATH } from "common/enums/enums";
 
 let socket: Socket | null = null;
 
 export const createSocket = (accessToken: string): Socket => {
-  if (socket) return socket;
+  if (socket?.connected) return socket;
 
-  socket = io(process.env.NEXT_PUBLIC_SOCKET_HOST || "", {
+  socket?.disconnect();
+
+  socket = io(process.env.NEXT_PUBLIC_SOCKET_HOST ?? "", {
+    auth: { token: accessToken },
     query: { accessToken },
-    autoConnect: true,
+    transports: ["websocket", "polling"],
   });
 
-  socket.on("connect", () => {});
-
-  socket.on("connect_error", handleSocketError);
-
-  socket.on(WS_EVENT_PATH.ERROR, handleSocketError);
-
-  socket.on("disconnect", (reason) => {
-    handleSocketError(reason);
-    socket = null;
-  });
+  socket
+    .on("connect", () => console.log("Socket connected:", socket?.id))
+    .on("connect_error", (err) => console.error("Socket connect error:", (err as Error)?.message || err))
+    .on(WS_EVENT_PATH.ERROR, (err) => console.error("Socket error:", err))
+    .on("disconnect", (reason) => console.log("Socket disconnected:", reason));
 
   return socket;
 };
 
 export const disconnectSocket = () => {
-  if (socket) {
-    socket.disconnect();
-    socket = null;
-  }
+  socket?.disconnect();
+  socket = null;
 };
 
 export const getSocket = () => socket;

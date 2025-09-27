@@ -17,7 +17,9 @@
   gap: 24px;
 }
 
-.likeIcon, .shareIcon, .bookmarkIcon {
+.likeIcon,
+.shareIcon,
+.bookmarkIcon {
   cursor: pointer;
 }
 

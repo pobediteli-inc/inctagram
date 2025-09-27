@@ -20,13 +20,18 @@ import { useGetNotificationsByProfileQuery } from "store/services/api/notificati
 import { NotificationDropdown } from "common/components";
 import { DEFAULT_NOTIFICATIONS_PAGE_SIZE } from "common/constants/pagination";
 import { SORT_DIRECTIONS } from "common/enums/enums";
-import { useNotificationSocket } from "common/hooks";
+import { useSocket } from "common/hooks";
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  useNotificationSocket({ isLoggedIn });
 
-  const { data, isLoading } = useMeQuery();
+  const { data: userData, isLoading } = useMeQuery();
+
+  useSocket({
+    isLoggedIn,
+    myUserId: userData?.userId ?? null,
+  });
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -42,7 +47,7 @@ export const Header = () => {
 
   const notifications = useMemo(() => notificationsData?.items ?? [], [notificationsData?.items]);
 
-  const { email } = data ?? {};
+  const { email } = userData ?? {};
 
   const selectLanguages: SelectItems[] = [
     { value: "en", label: "English", icon: <FlagUnitedKingdom width={20} height={20} /> },
@@ -59,12 +64,12 @@ export const Header = () => {
 
   useEffect(() => {
     try {
-      if (data) dispatch(setLoggedIn({ isLoggedIn: true }));
+      if (userData) dispatch(setLoggedIn({ isLoggedIn: true }));
     } catch (error: unknown) {
       handleErrors(error, dispatch);
       dispatch(setLoggedIn({ isLoggedIn: false }));
     }
-  }, [data, isLoggedIn, dispatch]);
+  }, [userData, isLoggedIn, dispatch]);
 
   return (
     <header className={s.headerWrapper}>

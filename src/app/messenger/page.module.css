@@ -1,9 +1,18 @@
-.messenger {
-  width: 1060px;
-  min-height: 100%;
+.wrapper {
+  width: 100%;
+  max-width: 1060px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.friendsListAndChat {
+  width: 100%;
+  max-width: 972px;
+  height: 648px;
+  display: flex;
+  margin-top: 14px;
   border: 1px solid var(--dark-300);
-  color: var(--light-100);
+  border-radius: 2px;
+  overflow: hidden;
 }
