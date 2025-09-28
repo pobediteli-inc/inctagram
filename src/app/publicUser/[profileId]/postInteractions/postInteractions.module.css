@@ -1,0 +1,45 @@
+.interactionsWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  width: 100%;
+  height: 100%;
+}
+
+.iconsWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.icons {
+  display: flex;
+  gap: 24px;
+}
+
+.likeIcon,
+.shareIcon,
+.bookmarkIcon {
+  cursor: pointer;
+}
+
+.likeCountWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.likedUserAvatar {
+  display: flex;
+  gap: 4px;
+}
+
+.avatar {
+  color: var(--dark-900);
+  background-color: var(--dark-300);
+  border: 1px solid var(--dark-900);
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}

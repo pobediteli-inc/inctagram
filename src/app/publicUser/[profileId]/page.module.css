@@ -1,0 +1,69 @@
+.container {
+  max-width: 972px;
+  width: 100%;
+}
+
+.profileInfo {
+  display: flex;
+  margin-top: 36px;
+  gap: 38px;
+}
+
+.avatarWrapper {
+  position: relative;
+  min-width: 204px;
+  min-height: 204px;
+  overflow: hidden;
+}
+
+.avatar {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.defaultAvatar {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--light-900);
+}
+
+.followersWrapper {
+  display: flex;
+  gap: 100px;
+  margin-top: 20px;
+}
+
+.aboutMe {
+  margin-top: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 52px;
+}
+
+.post {
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.image {
+  min-width: 234px;
+  width: 100%;
+  min-height: 228px;
+  height: 100%;
+}
+
+.defaultImage {
+  padding: 48px;
+  min-width: 234px;
+  width: 100%;
+  min-height: 228px;
+  height: 100%;
+  background-color: var(--light-900);
+}

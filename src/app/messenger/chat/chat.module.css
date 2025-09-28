@@ -1,0 +1,16 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.chatField {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px;
+  gap: 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-100) var(--dark-700);
+}

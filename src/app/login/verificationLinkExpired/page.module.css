@@ -1,0 +1,50 @@
+.linkExpiredWrapper {
+  max-width: 472px;
+  height: auto;
+  user-select: none;
+  margin: 34px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  max-width: 294px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 32px;
+}
+
+.button {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.modalContainer {
+  padding: 30px 24px 36px;
+}
+
+.modalButton {
+  padding: 6px 36px;
+  display: block;
+  margin-top: 18px;
+  margin-left: auto;
+}

@@ -1,0 +1,34 @@
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 3px;
+  max-width: 170px;
+  width: 100%;
+  min-height: 25px;
+  height: 100%;
+  padding: 0 35px 0 25px;
+  position: relative;
+  user-select: none;
+  gap: 12px;
+
+  &[data-disabled] {
+    color: var(--dark-300);
+    pointer-events: none;
+  }
+
+  &[data-highlighted] {
+    outline: none;
+    background-color: var(--dark-300);
+    color: var(--primary-500);
+  }
+}
+
+.ItemIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  max-width: 25px;
+}

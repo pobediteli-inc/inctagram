@@ -1,0 +1,40 @@
+.tabs {
+  position: relative;
+  padding: 6px 24px;
+  min-width: 85px;
+  min-height: 36px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: var(--dark-100);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tabs:hover {
+  background-color: rgb(35 78 153 / 15%);
+}
+
+.tabs:active {
+  background-color: rgb(115 165 255 / 15%);
+}
+
+.tabs:focus {
+  outline: 2px solid var(--primary-700);
+  border-radius: 2px;
+}
+
+.tabs:disabled {
+  color: var(--dark-300);
+  cursor: not-allowed;
+}
+
+.tabs:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.tabs[data-state="active"] {
+  color: var(--primary-500);
+}

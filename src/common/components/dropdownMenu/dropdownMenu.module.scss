@@ -1,0 +1,26 @@
+.trigger {
+  cursor: pointer;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: var(--dark-500);
+  border: 1px solid var(--dark-100);
+  border-radius: 2px;
+}
+
+.dropdownItem {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

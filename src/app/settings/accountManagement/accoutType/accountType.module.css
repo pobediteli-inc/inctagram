@@ -1,0 +1,20 @@
+.accountTypeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.accountCard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.label {
+  margin-left: 120px;
+}
+
+.radioGroup {
+  margin-left: 12px;
+}

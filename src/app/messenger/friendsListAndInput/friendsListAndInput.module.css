@@ -1,0 +1,25 @@
+.friendsList {
+  width: 270px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-500);
+  border-right: 1px solid var(--dark-300);
+  overflow-y: auto;
+}
+
+.inputSearchWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 16px;
+  max-height: 72px;
+  border-bottom: 1px solid var(--dark-300);
+  box-sizing: border-box;
+}
+
+.inputSearchFriend {
+  width: 90%;
+  max-width: 400px;
+}
+

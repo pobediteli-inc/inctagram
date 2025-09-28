@@ -1,0 +1,12 @@
+.avatarWithComment {
+  display: flex;
+  gap: 12px;
+}
+
+.commentWrapper {
+  width: 100%;
+}
+
+.timeLikeAnswerText {
+  margin-top: 4px;
+}

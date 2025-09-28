@@ -1,42 +1,67 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+html,
+body {
+  font-family: var(--font-family), Arial, sans-serif;
+  background-color: var(--dark-700);
+  width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: var(--light-100);
+  cursor: default;
+}
+
+button {
+  all: unset;
+}
+
 a {
-  color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+:root {
+  --font-family: "Inter", "Roboto", sans-serif;
+  --primary-100: #73a5ff;
+  --primary-300: #4c8dff;
+  --primary-500: #397df6;
+  --primary-700: #2f68cc;
+  --primary-900: #234e99;
+  --danger-100: #ff8099;
+  --danger-300: #f23d61;
+  --danger-500: #cc1439;
+  --danger-700: #990f2b;
+  --danger-900: #660a1d;
+  --warning-100: #ffd073;
+  --warning-300: #e5ac39;
+  --warning-500: #d99000;
+  --warning-700: #960;
+  --warning-900: #640;
+  --success-100: #80ffbf;
+  --success-300: #22e584;
+  --success-500: #14cc70;
+  --success-700: #0f9954;
+  --success-900: #0a6638;
+  --light-100: #fff;
+  --light-300: #f7fbff;
+  --light-500: #edf3fa;
+  --light-700: #d5dae0;
+  --light-900: #8d9094;
+  --dark-100: #4c4c4c;
+  --dark-300: #333;
+  --dark-500: #171717;
+  --dark-700: #0d0d0d;
+  --dark-900: #000;
 }

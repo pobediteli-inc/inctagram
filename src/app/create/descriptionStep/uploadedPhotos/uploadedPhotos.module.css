@@ -1,0 +1,10 @@
+.uploadedPhotos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.imageWrapper {
+  width: 492px;
+  height: 504px;
+}

@@ -1,0 +1,99 @@
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 536px;
+  height: 24px;
+  background-color: var(--dark-700);
+  margin-bottom: 34px;
+}
+
+.basicButton {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  border: none;
+  color: var(--light-100);
+  background-color: var(--dark-700);
+  cursor: pointer;
+  outline: none;
+
+  &:focus {
+    background-color: var(--dark-300);
+    outline: none;
+  }
+
+  &:active {
+    background-color: var(--dark-300);
+    outline: none;
+  }
+
+  &:hover {
+    background-color: var(--dark-300);
+  }
+
+  &:focus.active {
+    background-color: var(--light-100);
+    color: var(--dark-900);
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-700);
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+  background-color: var(--dark-300);
+}
+
+.navigationButton {
+  width: 16px;
+  height: 16px;
+  background-color: var(--dark-700);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--light-100);
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: var(--light-100);
+  color: var(--dark-900);
+  outline: none;
+}
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 15px;
+  color: var(--light-100);
+}
+
+.selectBox {
+  background-color: var(--dark-500);
+  color: var(--light-100);
+  width: 52px;
+  height: 24px;
+  border-radius: 2px;
+  padding-left: 2px;
+  border: 1px solid var(--dark-300);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.spanContainer {
+  color: var(--light-100);
+}

@@ -1,0 +1,64 @@
+.loginWrapper {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-100);
+  background-color: var(--dark-500);
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  user-select: none;
+  margin: 0 auto;
+}
+
+.signInHeader {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+
+  & button {
+    min-width: 60px;
+  }
+
+  & a {
+    min-width: 60px;
+  }
+}
+
+.mainContent {
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.fieldsWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 34px;
+  margin-bottom: 24px;
+}
+
+.forgotLink {
+  color: var(--light-900);
+  text-decoration: none;
+}

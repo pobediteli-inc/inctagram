@@ -1,0 +1,115 @@
+.radioGroupWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--dark-300);
+  }
+
+  &:active {
+    background-color: var(--dark-100);
+  }
+
+  &:focus-visible {
+    border: none;
+    outline: none;
+    background-color: var(--dark-500);
+  }
+
+  &[aria-disabled="true"] {
+    cursor: default;
+    background-color: transparent;
+  }
+}
+
+.radioBaseStyles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Indicator {
+  width: 12px;
+  height: 12px;
+  background-color: var(--light-100);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+
+  &[aria-disabled="true"] {
+    cursor: default;
+    background-color: var(--dark-100);
+  }
+}
+
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--light-100);
+  background-color: var(--dark-700);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+
+  &[data-state="checked"] {
+    border-color: var(--light-100);
+    background-color: transparent;
+  }
+
+  &[data-state="checked"] .Indicator {
+    opacity: 1;
+  }
+
+  &:active {
+    background-color: var(--dark-100);
+  }
+
+  &:hover {
+    background-color: var(--dark-300);
+  }
+
+  &:focus-visible {
+    background-color: var(--dark-500);
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: default;
+    border: 2px solid var(--dark-100);
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.optionLabel {
+  margin-left: 100px;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  &[aria-disabled="true"] {
+    cursor: default;
+    color: var(--light-900);
+  }
+}

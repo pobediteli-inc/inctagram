@@ -1,0 +1,32 @@
+.termsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  max-width: 1280px;
+  width: 100%;
+  background-color: var(--dark-700);
+  margin: 110px auto;
+}
+
+.buttonWrapper {
+  display: flex;
+  max-width: 1080px;
+  width: 100%;
+  margin-right: 110px;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.backButton {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}

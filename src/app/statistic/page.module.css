@@ -1,0 +1,9 @@
+.statistic {
+  width: 1060px;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  color: var(--light-100);
+}

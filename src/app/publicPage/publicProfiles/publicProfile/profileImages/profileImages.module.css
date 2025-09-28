@@ -1,0 +1,106 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 234px;
+  max-height: 240px;
+  position: relative;
+  transition: max-height 0.3s;
+  overflow: hidden;
+  user-select: none;
+}
+
+.mainWrapper.collapsed {
+  max-height: 120px;
+}
+
+.avatars {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.mainWrapper.collapsed .avatars {
+  transform: scale(1.1);
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--dark-300);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.2;
+}
+
+.arrowLeft {
+  left: 10px;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.arrowRight {
+  right: 10px;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.pagination {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  border-radius: 2px;
+  padding: 6px 8px;
+  max-width: 78px;
+  max-height: 12px;
+  background-color: var(--dark-300);
+  opacity: 0.5;
+  transform: translateX(-50%);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.whiteDot {
+  all: unset;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--light-100);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.blueDot {
+  background-color: var(--primary-500);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,0 +1,53 @@
+.card {
+  margin-top: 60px;
+  padding: 24px 24px 36px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.button {
+  width: 100%;
+}
+
+.password {
+  border: 1px solid var(--dark-100);
+  border-radius: 2px;
+  width: 330px;
+  height: 36px;
+  padding: 0 10px;
+  background-color: var(--dark-500);
+  color: var(--light-100);
+}
+
+.errorPassword {
+  border: 1px solid var(--danger-500) !important;
+  border-radius: 2px;
+  width: 330px;
+  height: 36px;
+  padding: 0 10px;
+  background-color: var(--dark-500);
+  color: var(--light-100);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  margin-top: 36px;
+}
+
+.text {
+  margin-top: 8px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

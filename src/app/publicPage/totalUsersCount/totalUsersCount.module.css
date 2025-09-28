@@ -1,0 +1,28 @@
+.mainWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background-color: var(--dark-500);
+}
+
+.totalUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  max-width: 200px;
+  width: 100%;
+  min-height: 48px;
+  background-color: var(--dark-700);
+}
+
+.separator {
+  width: 1px;
+  height: 30px;
+  background-color: var(--dark-300);
+}

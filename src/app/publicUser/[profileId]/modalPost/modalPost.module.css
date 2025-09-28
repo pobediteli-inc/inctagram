@@ -1,0 +1,324 @@
+.overlay {
+  background-color: rgb(0 0 0 / 50%);
+  position: fixed;
+  inset: 0;
+}
+
+.content {
+  background-color: var(--dark-300);
+  border-radius: 2px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 972px;
+  max-height: 564px;
+  border: 1px solid var(--dark-100);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.iconButton {
+  all: unset;
+  font-family: inherit;
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-100);
+  position: absolute;
+  top: -32px;
+  right: -40px;
+}
+
+.iconButton:hover {
+  cursor: pointer;
+  background-color: var(--dark-300);
+  border-radius: 50%;
+}
+
+.container {
+  display: flex;
+}
+
+.imageWrapper {
+  position: relative;
+  min-height: 562px;
+  height: 100%;
+  max-width: 490px;
+  width: 100%;
+}
+
+.image {
+  min-height: 562px;
+  height: 100%;
+  max-width: 490px;
+  width: 100%;
+}
+
+.defaultImage {
+  padding: 96px;
+  background-color: var(--light-900);
+  min-height: 562px;
+  height: 100%;
+  max-width: 490px;
+  width: 100%;
+}
+
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 60px;
+  max-height: 564px;
+  height: 100%;
+  max-width: 480px;
+  width: 100%;
+}
+
+.avatarWithNameWrapper {
+  border-bottom: 1px solid var(--dark-100);
+}
+
+.avatarWithName {
+  padding: 12px 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.name {
+  margin-top: 6px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+}
+
+.commentAvatarWrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  top: 4px;
+}
+
+.avatar {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.defaultAvatar {
+  min-width: 36px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--light-900);
+}
+
+.commentsWrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 416px;
+  height: 100%;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.commentsWrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.commentsWrapper::-webkit-scrollbar-thumb {
+  background-color: var(--dark-300);
+  border-radius: 4px;
+  min-height: 46px;
+}
+
+.commentsWrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--light-900);
+}
+
+.commentsWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.avatarWithComment {
+  display: flex;
+  gap: 12px;
+}
+
+.commentWrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.likesWrapper {
+  border-top: 1px solid var(--dark-100);
+  min-height: 84px;
+  height: 100%;
+}
+
+.likesWithDate {
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.commentText {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.likeText {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.likeAvatarsWrapper {
+  position: relative;
+  height: 24px;
+}
+
+.avatarsWithLikes {
+  display: flex;
+  gap: 12px;
+}
+
+.firstLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.secondLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 2;
+  left: 16px;
+}
+
+.thirdLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 1;
+  left: 32px;
+}
+
+.defaultFirstLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--primary-100);
+  z-index: 3;
+}
+
+.defaultSecondLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--danger-100);
+  z-index: 2;
+  left: 16px;
+}
+
+.defaultThirdLikeAvatar {
+  position: absolute;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--warning-100);
+  z-index: 1;
+  left: 32px;
+}
+
+.timeAgoText {
+  margin-top: 4px;
+}
+
+.answersWrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.answerLine {
+  position: relative;
+  top: 8px;
+}
+
+.imageLeftArrow {
+  position: absolute;
+  left: 12px;
+  top: 256px;
+  background-color: rgb(51 51 51 / 40%);
+}
+
+.imageLeftArrow:hover {
+  cursor: pointer;
+  background-color: rgb(51 51 51 / 100%);
+}
+
+.imageRightArrow {
+  position: absolute;
+  left: 430px;
+  top: 256px;
+  background-color: rgb(51 51 51 / 40%);
+}
+
+.imageRightArrow:hover {
+  cursor: pointer;
+  background-color: rgb(51 51 51 / 100%);
+}
+
+.dotsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 526px;
+  background-color: rgb(51 51 51 / 50%);
+  padding: 8px;
+  gap: 12px;
+  border-radius: 2px;
+}
+
+.dotsWrapper:hover {
+  background-color: rgb(51 51 51 / 100%);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--light-100);
+  cursor: pointer;
+}
+
+.activeDot {
+  background-color: var(--primary-500);
+}

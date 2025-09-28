@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  padding-top: 36px;
+  padding-left: 24px;
+}
+
+.tabs {
+  width: 100%;
+}
+
+.tabList {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--dark-100);
+  position: relative;
+}
+
+.underline {
+  position: absolute;
+  bottom: -2px;
+  height: 2px;
+  background-color: var(--primary-500);
+  border-radius: 1px;
+}

@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 .idea
+/.idea/workspace.xml
 
 # testing
 /coverage
@@ -32,7 +33,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env.local
 
 # vercel
 .vercel
@@ -40,3 +41,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+*storybook.log
+workspace.xml
+pnpm-lock.yaml
+
+# Java HotSpot error files
+hs_err_pid*.log
+replay_pid*.log

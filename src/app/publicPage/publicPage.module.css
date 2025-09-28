@@ -1,0 +1,8 @@
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 972px;
+  width: 100%;
+  margin-bottom: 50px;
+}

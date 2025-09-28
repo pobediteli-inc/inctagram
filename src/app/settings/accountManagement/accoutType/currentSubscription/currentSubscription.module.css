@@ -1,0 +1,30 @@
+.mainCurrentSubscriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.cardWrapper {
+  display: flex;
+  justify-content: flex-start;
+  gap: 64px;
+  min-height: 84px;
+  height: 100%;
+  margin-bottom: 8px;
+}
+
+.expireAt, .nextPayment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.expireAt {
+  margin-left: 34px;
+}

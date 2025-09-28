@@ -1,0 +1,17 @@
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  margin: 24px 0;
+}
+
+.selectButton {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.saveButton {
+  max-width: 150px;
+  margin-bottom: 24px;
+}

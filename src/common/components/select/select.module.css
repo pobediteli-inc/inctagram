@@ -1,0 +1,111 @@
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.iconDown {
+  margin-left: auto;
+}
+
+.trigger {
+  all: unset;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 40px;
+  height: 100%;
+  padding: 0 15px;
+  gap: 5px;
+  background-color: var(--dark-500);
+  border-radius: 2px;
+  border: 1px solid var(--dark-100);
+  outline: 1px solid transparent;
+  cursor: pointer;
+
+  &[data-state="open"] .iconDown {
+    transform: rotate(180deg);
+  }
+
+  &[data-placeholder] {
+    background-color: var(--dark-500);
+  }
+
+  &:active {
+    outline-color: var(--dark-100);
+    background-color: var(--dark-500);
+  }
+
+  &:focus {
+    background-color: var(--dark-900);
+    outline: 2px solid var(--primary-500);
+  }
+
+  &:disabled {
+    color: var(--dark-100);
+    border: 1px solid var(--dark-100);
+  }
+
+  &:hover {
+    background-color: var(--dark-100);
+  }
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-500);
+  border-radius: 2px;
+  border: 1px solid var(--dark-100);
+  color: var(--light-100);
+  cursor: pointer;
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 20px;
+  position: absolute;
+  top: -20px;
+  z-index: 101;
+}
+
+.Viewport {
+  width: 100%;
+  padding: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.selectItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-right: 25px;
+}
+
+.Separator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 1px;
+  background-color: var(--dark-100);
+  margin: 5px;
+}
+
+.ScrollButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 25px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--dark-500);
+  color: var(--light-100);
+  cursor: pointer;
+}

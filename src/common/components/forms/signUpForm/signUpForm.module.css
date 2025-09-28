@@ -1,0 +1,28 @@
+.form {
+  width: 100%;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.terms {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.link {
+  color: var(--primary-300);
+  text-decoration: underline;
+}
+
+.submitButton {
+  display: inline-block;
+  width: 100% !important;
+}

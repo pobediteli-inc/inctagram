@@ -1,0 +1,125 @@
+.showComments {
+  cursor: pointer;
+}
+
+.commentsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.avatarWithComment {
+  display: flex;
+  gap: 12px;
+}
+
+.commentWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 344px;
+}
+
+.answerWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 294px;
+}
+
+.commentText {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.timeLikeAnswerText {
+  margin-top: 4px;
+}
+
+.commentAvatarWrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  top: 4px;
+}
+
+.answersWrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.answerLine {
+  position: relative;
+  top: 8px;
+}
+
+.timeLikeAnswerWrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.answersList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.answerBtn,
+.viewAnswersBtn {
+  cursor: pointer;
+}
+
+.textareaWithButton {
+  display: flex;
+  margin-top: 8px;
+}
+
+.textarea {
+  min-width: 234px;
+  width: 100%;
+}
+
+.commentWithLike {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerWithLike {
+  display: flex;
+  position: relative;
+}
+
+.like {
+  margin-top: 16px;
+  margin-left: 24px;
+  cursor: pointer;
+}
+
+.liked {
+  margin-top: 16px;
+  margin-left: 24px;
+  color: var(--danger-500);
+  cursor: pointer;
+}
+
+.answerLike {
+  position: absolute;
+  left: 364px;
+  top: 16px;
+  cursor: pointer;
+}
+
+.answerLiked {
+  position: absolute;
+  left: 364px;
+  top: 16px;
+  color: var(--danger-500);
+  cursor: pointer;
+}

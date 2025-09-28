@@ -1,0 +1,79 @@
+.embla {
+  max-width: var(--slide-width);
+  margin: auto;
+  position: relative;
+
+  --slide-height: var(--slide-height);
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+}
+
+.viewportWrapper {
+  position: relative;
+}
+
+.viewport {
+  overflow: hidden;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+  position: relative;
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: rgb(51 51 51 / 50%);
+  border-radius: 2px;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+
+.arrowLeft {
+  left: 12px;
+}
+
+.arrowRight {
+  right: 12px;
+}
+
+.dotsOverlay {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 12px;
+  background-color: rgb(51 51 51 / 50%);
+  border-radius: 2px;
+}
+
+.dot {
+  background-color: var(--light-100);
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot__selected {
+  background-color: var(--primary-500);
+}

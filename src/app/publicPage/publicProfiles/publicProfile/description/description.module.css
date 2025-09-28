@@ -1,0 +1,21 @@
+.descriptionContainer {
+  position: relative;
+  max-width: 234px;
+  transition: max-height 0.3s;
+  overflow: hidden;
+}
+
+.descriptionWrapper {
+  display: inline;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+
+.showMore,
+.hide {
+  display: inline;
+  color: var(--primary-500);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 10px;
+}

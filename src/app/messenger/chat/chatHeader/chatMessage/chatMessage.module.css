@@ -1,0 +1,66 @@
+.chatField::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatField::-webkit-scrollbar-track {
+  background: var(--dark-700);
+  border-radius: 3px;
+}
+
+.chatField::-webkit-scrollbar-thumb {
+  background: var(--dark-100);
+  border-radius: 3px;
+}
+
+.chatField::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-500);
+}
+
+.myMessage,
+.friendMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.myMessage {
+  justify-content: flex-end;
+}
+
+.messageContent {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  position: relative;
+  word-break: auto-phrase;
+  animation: fadeInUp 0.3s ease;
+}
+
+.myMessage .messageContent {
+  background-color: var(--primary-900);
+}
+
+.friendMessage .messageContent {
+  background-color: var(--dark-300);
+}
+
+.messageAvatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.messageContent time {
+  display: block;
+  text-align: right;
+}
+
+.messageMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--light-900);
+}

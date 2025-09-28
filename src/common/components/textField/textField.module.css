@@ -1,0 +1,149 @@
+.textFieldWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 200px;
+  width: 100%;
+  min-height: 60px;
+  user-select: none;
+}
+
+.textFieldBaseStyles {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  color: var(--light-900);
+  padding: 5px 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  transition: border-color 0.2s ease;
+}
+
+.standard {
+  background-color: var(--dark-700);
+  border-color: var(--dark-100);
+
+  &:hover {
+    border-color: var(--light-900);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-500);
+  }
+
+  &:active {
+    border-color: var(--light-100);
+    color: var(--light-100);
+  }
+
+  &:disabled {
+    border-color: var(--dark-100);
+    color: var(--dark-100);
+  }
+}
+
+.filled {
+  border: none;
+  background-color: var(--dark-300);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--dark-100);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: var(--dark-100);
+    box-shadow: 0 0 0 2px var(--primary-500);
+  }
+
+  &:active {
+    background-color: var(--dark-500);
+    color: var(--light-100);
+  }
+
+  &:disabled {
+    background-color: var(--dark-500);
+    color: var(--dark-100);
+  }
+}
+
+.outlined {
+  border: 2px solid var(--dark-300);
+  background-color: transparent;
+  border-radius: 6px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--primary-300);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 4px var(--primary-500);
+  }
+
+  &:active {
+    border-color: var(--primary-700);
+    color: var(--primary-700);
+  }
+
+  &:disabled {
+    border-color: var(--dark-300);
+    color: var(--dark-500);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.search {
+  padding-left: 40px;
+}
+
+/* label styles */
+
+.label {
+  display: block;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.labelDisabled {
+  color: var(--dark-100) !important;
+}
+
+.required {
+  color: var(--danger-500);
+}
+
+/* error styles */
+
+.errorTextField {
+  border-color: var(--danger-500);
+}
+
+.errorMessage {
+  color: var(--danger-500);
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.passwordVisible {
+  position: absolute;
+  left: 295px;
+  top: 33px;
+  cursor: pointer;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+}
